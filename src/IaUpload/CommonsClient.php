@@ -188,4 +188,14 @@ class CommonsClient extends Client {
 	public function normalizePageTitle( $title ) {
 		return str_replace( array( ' ', "\t", "\n" ), array( '_', '_', '_' ), $title );
 	}
+
+	/**
+	 * Check if the page title is valid
+	 *
+	 * @param string $title
+	 * @return bool
+	 */
+	public function isPageTitleValid( $title ) {
+		return strpos( $title, ':' ) === false && strpos( $title, '/' ) === false;
+	}
 }

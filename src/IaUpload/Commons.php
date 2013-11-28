@@ -57,12 +57,19 @@ class Commons {
 		if( $iaId === '' || $commonsName === '' ) {
 			return $this->outputsInitTemplate( $app, array(
 				'iaId' => $iaId,
-				'commonsName' => $request->get( 'commonsName', '' ),
+				'commonsName' => $commonsName,
 				'error' => 'You must set all the fields of the form !'
 			) );
 		}
 		if( preg_match('/^(.*)\.djvu$/', $commonsName, $m ) || preg_match( '/^(.*)\.pdf$/', $commonsName, $m ) ) {
 			$commonsName = $m[1];
+		}
+		if( !$this->commonsClient->isPageTitleValid( $commonsName ) ) {
+			return $this->outputsInitTemplate( $app, array(
+				'iaId' => $iaId,
+				'commonsName' => $commonsName,
+				'error' => 'The image name "' . htmlspecialchars( $commonsName ) . '" is not valid file name'
+			) );
 		}
 
 		try {
@@ -70,8 +77,8 @@ class Commons {
 		} catch( GuzzleException $e ) {
 			return $this->outputsInitTemplate( $app, array(
 				'iaId' => $iaId,
-				'commonsName' => $request->get( 'commonsName', '' ),
-				'error' => '<a href="http://archive.org/details/' . rawurlencode( $iaId ) . '">Book ' . $iaId . '</a> not found in Internet Archive !'
+				'commonsName' => $commonsName,
+				'error' => '<a href="http://archive.org/details/' . rawurlencode( $iaId ) . '">Book ' . htmlspecialchars( $iaId ) . '</a> not found in Internet Archive !'
 			) );
 		}
 		$iaId = $iaData['metadata']['identifier'][0];
@@ -79,7 +86,7 @@ class Commons {
 		if( $file === null ) {
 			return $this->outputsInitTemplate( $app, array(
 				'iaId' => $iaId,
-				'commonsName' => $request->get( 'commonsName', '' ),
+				'commonsName' => $commonsName,
 				'error' => 'No DjVu or PDF file found !'
 			) );
 		}
@@ -90,7 +97,7 @@ class Commons {
 			return $this->outputsInitTemplate( $app, array(
 				'iaId' => $iaId,
 				'commonsName' => $commonsName,
-				'error' => '<a href="http://commons.wikimedia.org/wiki/File:' . rawurlencode( $fullCommonsName ) . '">A file with the name ' . $fullCommonsName . '</a> already exist on Commons !'
+				'error' => '<a href="http://commons.wikimedia.org/wiki/File:' . rawurlencode( $fullCommonsName ) . '">A file with the name ' . htmlspecialchars( $fullCommonsName ) . '</a> already exist on Commons !'
 			) );
 		}
 		$templateParams = array(
@@ -128,7 +135,7 @@ class Commons {
 				'commonsName' => $commonsName,
 				'iaFileName' => $iaFileName,
 				'description' => $description,
-				'error' => '<a href="http://commons.wikimedia.org/wiki/File:' . rawurlencode( $commonsName ) . '">A file with the name ' . $commonsName . '</a> already exist on Commons !'
+				'error' => '<a href="http://commons.wikimedia.org/wiki/File:' . rawurlencode( $commonsName ) . '">A file with the name ' . htmlspecialchars( $commonsName ) . '</a> already exist on Commons !'
 			) );
 		}
 
