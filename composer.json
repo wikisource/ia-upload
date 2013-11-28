@@ -1,0 +1,18 @@
+{
+	"name": "tpt/iaUpload",
+	"description": "Bot to upload Internet Archive files to Wikimedia Commons",
+	"minimum-stability": "stable",
+	"require": {
+		"guzzle/http": "~3.7",
+		"guzzle/plugin-oauth": "~3.7",
+		"guzzle/plugin-cookie": "~3.7",
+		"silex/silex": "~1.1",
+		"twig/twig": "~1.14",
+		"symfony/twig-bridge": "~2.3"
+	},
+	"autoload": {
+		"psr-0": {
+			"IaUpload\\": "src/"
+		}
+	}
+}

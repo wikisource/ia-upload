@@ -1,0 +1,25 @@
+{% extends "template.twig" %}
+{% block body %}
+	<form method="GET" action="{{ path( 'commons-fill' ) }}" role="form" class="form-horizontal">
+		<fieldset>
+			<legend>Upload a file</legend>
+			<div class="form-group">
+				<label for="iaId" class="col-lg-2 control-label">Id of the file in Internet Archive: </label>
+				<div class="col-lg-10">
+					<input name="iaId" id="iaId" type="text" size="30" required="required" class="form-control" value="{{ iaId|e }}" />
+				</div>
+			</div>
+			<div class="col-lg-10">
+				<label for="commonsName" class="col-lg-2 control-label">File name on Commons: </label>
+				<div class="controls">
+					<span class="input-group"><input name="commonsName" id="commonsName" type="text" size="30" required="required" class="form-control" value="{{ commonsName|e }}" /><span class="input-group-addon">.djvu</span></span>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-lg-offset-2 col-lg-10">
+					<input class="btn btn-primary" type="submit" value="Get metadata" />
+				</div>
+			</div>
+		</fieldset>
+	</form>
+{% endblock %}

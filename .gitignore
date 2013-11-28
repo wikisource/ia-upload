@@ -1,0 +1,5 @@
+composer.lock
+config.ini
+temp/*
+vendor/*
+.idea/*

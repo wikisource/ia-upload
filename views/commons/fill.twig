@@ -1,0 +1,39 @@
+{% extends "template.twig" %}
+{% block body %}
+	<form method="POST" action="{{ path( 'commons-save' ) }}" role="form" class="form-horizontal">
+		<input name="iaFileName" id="iaFileName" type="hidden" required="required" value="{{ iaFileName|e }}" />
+		<fieldset>
+			<legend>Upload a file</legend>
+			<div class="form-group">
+				<label for="iaId" class="col-lg-2 control-label">Id of the file in Internet Archive: </label>
+				<div class="col-lg-10">
+					<input name="iaId" id="iaId" type="text" size="30" required="required" readonly="readonly" class="form-control" value="{{ iaId|e }}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="commonsName" class="col-lg-2 control-label">File name on Commons: </label>
+				<div class="col-lg-10">
+					<input name="commonsName" id="commonsName" type="text" size="30" required="required" readonly="readonly" class="form-control" value="{{ commonsName|e }}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="description" class="col-lg-2 control-label">Commons description: </label>
+				<div class="col-lg-10">
+					<textarea name="description" id="description" required="required" rows="30" cols="60" class="form-control" >{{ description|e }}</textarea>
+					<div>
+						<ul>
+						{% for note in notes %}
+        					<li>{{ note|e }}</li>
+						{% endfor %}
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-lg-offset-2 col-lg-10">
+					<input class="btn btn-primary" type="submit" value="Upload" /> <span>(Warning: the upload may take more than one minute !)</span>
+				</div>
+			</div>
+		</fieldset>
+	</form>
+{% endblock %}
