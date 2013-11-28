@@ -34,13 +34,13 @@
 				<h1>Upload books from Internet Archive.</h1>
 			</div>
 			{% if error %}
-				<div class="alert alert-error">{{ error }}</div>
+				<div class="alert alert-danger">{{ error|raw }}</div>
 			{% endif %}
 			{% if warning %}
-				<div class="alert alert-warning">{{ warning }}</div>
+				<div class="alert alert-warning">{{ warning|raw }}</div>
 			{% endif %}
 			{% if success %}
-				<div class="alert alert-success">{{ success }}</div>
+				<div class="alert alert-success">{{ success|raw }}</div>
 			{% endif %}
 			{% block body %}
 			{% endblock %}

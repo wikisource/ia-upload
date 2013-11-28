@@ -46,9 +46,14 @@ class CommonsClient extends Client {
 	protected function apiGet( $params ) {
 		$params['format'] = 'json';
 
-		return $this->get( null, null, array(
+		$result = $this->get( null, null, array(
 			'query' => $params
 		) )->send()->json();
+
+		if ( array_key_exists( 'error', $result ) ) {
+			throw new ClientErrorResponseException( $result['error']['info'] );
+		}
+		return $result;
 	}
 
 	/**
@@ -61,9 +66,14 @@ class CommonsClient extends Client {
 	protected function apiPost( $params, $postFields ) {
 		$params['format'] = 'json';
 
-		return $this->post( null, null, $postFields, array(
+		$result = $this->post( null, null, $postFields, array(
 			'query' => $params
 		) )->send()->json();
+
+		if ( array_key_exists( 'error', $result ) ) {
+			throw new ClientErrorResponseException( $result['error']['info'] );
+		}
+		return $result;
 	}
 
 	/**

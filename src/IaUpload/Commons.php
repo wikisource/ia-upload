@@ -162,7 +162,7 @@ class Commons {
 
 		unlink( $tempFile );
 		return $this->outputsInitTemplate( $app, array(
-			'success', '<a href="http://commons.wikimedia.org/wiki/File:' . rawurlencode( $commonsName ) . '">The file</a> have been successfully uploaded to Commons !'
+			'success' => '<a href="http://commons.wikimedia.org/wiki/File:' . rawurlencode( $commonsName ) . '">The file</a> have been successfully uploaded to Commons !'
 		) );
 	}
 
