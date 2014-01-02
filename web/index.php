@@ -14,8 +14,10 @@ $app->get( '/', function() use( $app ) {
 	return $app->redirect( 'commons/init' );
 } );
 
-$app->get( 'commons/init', 'IaUpload\\Commons::init' )->bind( 'commons-init' );
-$app->get( 'commons/fill', 'IaUpload\\Commons::fill' )->bind( 'commons-fill' );
-$app->post( 'commons/save', 'IaUpload\\Commons::save' )->bind( 'commons-save' );
+$app->get( 'commons/init', 'IaUpload\\EntryPoint::commonsInit' )->bind( 'commons-init' );
+$app->get( 'commons/fill', 'IaUpload\\EntryPoint::commonsFill' )->bind( 'commons-fill' );
+$app->post( 'commons/save', 'IaUpload\\EntryPoint::commonsSave' )->bind( 'commons-save' );
+$app->get( 'oauth/init', 'IaUpload\\EntryPoint::oAuthInit' )->bind( 'oauth-init' );
+$app->get( 'oauth/callback', 'IaUpload\\EntryPoint::oAuthCallback' )->bind( 'oauth-callback' );
 
 $app->run();

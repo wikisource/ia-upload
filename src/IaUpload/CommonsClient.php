@@ -7,6 +7,7 @@ use Guzzle\Http\Client;
 use Guzzle\Http\Exception\ClientErrorResponseException;
 use Guzzle\Plugin\Cookie\CookieJar\ArrayCookieJar;
 use Guzzle\Plugin\Cookie\CookiePlugin;
+use Guzzle\Plugin\Oauth\OauthPlugin;
 
 /**
  * Client for Commons API
@@ -25,14 +26,14 @@ class CommonsClient extends Client {
 
 	public static function factory( $config = array() ) {
 		$required = array(
-			//'consumer_key',
-			//'consumer_secret'
+			'consumer_key',
+			'consumer_secret'
 		);
 		$config = Collection::fromConfig( $config, array(), $required );
 
-		$client = new self( 'https://commons.wikimedia.org/w/api.php', $config);
+		$client = new self( 'https://commons.wikimedia.org/w/api.php', $config );
 		$client->addSubscriber( new CookiePlugin( new ArrayCookieJar() ) );
-		//$client->addSubscriber(new OauthPlugin($config->toArray()));
+		$client->addSubscriber( new OauthPlugin( $config->toArray() ) );
 
 		return $client;
 	}

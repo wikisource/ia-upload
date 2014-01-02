@@ -8,14 +8,19 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Controller for IA to Commons upload process
+ * Controller for the commons upload process
  *
  * @file
  * @ingroup IaUpload
  *
  * @licence GNU GPL v2+
  */
-class Commons {
+class CommonsController {
+
+	/**
+	 * @var Application
+	 */
+	protected $app;
 
 	/**
 	 * @var IaClient
@@ -37,25 +42,32 @@ class Commons {
 	 */
 	protected $config;
 
-	public function __construct() {
+	public function __construct( Application $app, array $config ) {
+		$this->app = $app;
+		$this->config = $config;
+
 		$this->iaClient = IaClient::factory();
-		$this->commonsClient = CommonsClient::factory();
+		$this->commonsClient = CommonsClient::factory( array(
+			'consumer_key' => $this->config['consumerKey'],
+			'consumer_secret' => $this->config['consumerSecret'],
+			'token'           => $this->app['session']->get( 'token_key', '' ),
+			'token_secret'    => $this->app['session']->get( 'token_secret', '' )
+		) );
 		$this->utils = new Utils();
-		$this->config = parse_ini_file( __DIR__ . '/../../config.ini' );
 	}
 
-	public function init( Request $request, Application $app ) {
-		return $this->outputsInitTemplate( $app, array(
+	public function init( Request $request ) {
+		return $this->outputsInitTemplate( array(
 			'iaId' => $request->get( 'iaId', '' ),
 			'commonsName' => $request->get( 'commonsName', '' )
 		) );
 	}
 
-	public function fill( Request $request, Application $app ) {
+	public function fill( Request $request ) {
 		$iaId = $request->get( 'iaId', '' );
 		$commonsName = $this->commonsClient->normalizePageTitle( $request->get( 'commonsName', '' ) );
 		if( $iaId === '' || $commonsName === '' ) {
-			return $this->outputsInitTemplate( $app, array(
+			return $this->outputsInitTemplate( array(
 				'iaId' => $iaId,
 				'commonsName' => $commonsName,
 				'error' => 'You must set all the fields of the form !'
@@ -65,7 +77,7 @@ class Commons {
 			$commonsName = $m[1];
 		}
 		if( !$this->commonsClient->isPageTitleValid( $commonsName ) ) {
-			return $this->outputsInitTemplate( $app, array(
+			return $this->outputsInitTemplate( array(
 				'iaId' => $iaId,
 				'commonsName' => $commonsName,
 				'error' => 'The image name "' . htmlspecialchars( $commonsName ) . '" is not valid file name'
@@ -75,7 +87,7 @@ class Commons {
 		try {
 			$iaData = $this->iaClient->fileDetails( $iaId );
 		} catch( GuzzleException $e ) {
-			return $this->outputsInitTemplate( $app, array(
+			return $this->outputsInitTemplate( array(
 				'iaId' => $iaId,
 				'commonsName' => $commonsName,
 				'error' => '<a href="http://archive.org/details/' . rawurlencode( $iaId ) . '">Book ' . htmlspecialchars( $iaId ) . '</a> not found in Internet Archive !'
@@ -84,7 +96,7 @@ class Commons {
 		$iaId = $iaData['metadata']['identifier'][0];
 		$file = $this->getFileName( $iaData );
 		if( $file === null ) {
-			return $this->outputsInitTemplate( $app, array(
+			return $this->outputsInitTemplate( array(
 				'iaId' => $iaId,
 				'commonsName' => $commonsName,
 				'error' => 'No DjVu or PDF file found !'
@@ -94,7 +106,7 @@ class Commons {
 		$fullCommonsName = $commonsName . '.' . $fileType;
 
 		if( $this->commonsClient->pageExist( 'File:' . $fullCommonsName ) ) {
-			return $this->outputsInitTemplate( $app, array(
+			return $this->outputsInitTemplate( array(
 				'iaId' => $iaId,
 				'commonsName' => $commonsName,
 				'error' => '<a href="http://commons.wikimedia.org/wiki/File:' . rawurlencode( $fullCommonsName ) . '">A file with the name ' . htmlspecialchars( $fullCommonsName ) . '</a> already exist on Commons !'
@@ -112,16 +124,16 @@ class Commons {
 		$templateParams['description'] = $description;
 		$templateParams['notes'] = $notes;
 
-		return $this->outputsFillTemplate( $app, $templateParams );
+		return $this->outputsFillTemplate( $templateParams );
 	}
 
-	public function save( Request $request, Application $app ) {
+	public function save( Request $request ) {
 		$iaId = $request->get( 'iaId', '' );
 		$commonsName = $this->commonsClient->normalizePageTitle( $request->get( 'commonsName', '' ) );
 		$iaFileName = $request->get( 'iaFileName', '' );
 		$description = $request->get( 'description', '' );
 		if($iaId === '' || $commonsName === '' || $iaFileName === '' || $description === '') {
-			return $this->outputsfillTemplate( $app, array(
+			return $this->outputsfillTemplate( array(
 				'iaId' => $iaId,
 				'commonsName' => $commonsName,
 				'iaFileName' => $iaFileName,
@@ -130,7 +142,7 @@ class Commons {
 			) );
 		}
 		if( $this->commonsClient->pageExist( 'File:' . $commonsName ) ) {
-			return $this->outputsfillTemplate( $app, array(
+			return $this->outputsfillTemplate( array(
 				'iaId' => $iaId,
 				'commonsName' => $commonsName,
 				'iaFileName' => $iaFileName,
@@ -143,7 +155,7 @@ class Commons {
 		try {
 			$this->iaClient->downloadFile( $iaId . $iaFileName, $tempFile );
 		} catch( GuzzleException $e ) {
-			return $this->outputsfillTemplate( $app, array(
+			return $this->outputsfillTemplate( array(
 				'iaId' => $iaId,
 				'commonsName' => $commonsName,
 				'iaFileName' => $iaFileName,
@@ -158,7 +170,7 @@ class Commons {
 			$this->commonsClient->logout();
 		} catch( GuzzleException $e ) {
 			unlink( $tempFile );
-			return $this->outputsfillTemplate( $app, array(
+			return $this->outputsfillTemplate( array(
 				'iaId' => $iaId,
 				'commonsName' => $commonsName,
 				'iaFileName' => $iaFileName,
@@ -168,7 +180,7 @@ class Commons {
 		}
 
 		unlink( $tempFile );
-		return $this->outputsInitTemplate( $app, array(
+		return $this->outputsInitTemplate( array(
 			'success' => '<a href="http://commons.wikimedia.org/wiki/File:' . rawurlencode( $commonsName ) . '">The file</a> have been successfully uploaded to Commons !'
 		) );
 	}
@@ -181,13 +193,13 @@ class Commons {
 	 * @param array $params
 	 * @return Response
 	 */
-	protected function outputsInitTemplate( Application $app, array $params ) {
+	protected function outputsInitTemplate( array $params ) {
 		$defaultParams = array(
 			'iaId' => '',
 			'commonsName' => ''
 		);
 		$params = array_merge( $defaultParams, $params );
-		return $this->outputsTemplate( $app, 'commons/init.twig', $params );
+		return $this->outputsTemplate( 'commons/init.twig', $params );
 
 	}
 
@@ -199,7 +211,7 @@ class Commons {
 	 * @param array $params
 	 * @return Response
 	 */
-	protected function outputsFillTemplate( Application $app, array $params ) {
+	protected function outputsFillTemplate( array $params ) {
 		$defaultParams = array(
 			'iaId' => '',
 			'commonsName' => '',
@@ -209,7 +221,7 @@ class Commons {
 
 		);
 		$params = array_merge( $defaultParams, $params );
-		return $this->outputsTemplate( $app, 'commons/fill.twig', $params );
+		return $this->outputsTemplate( 'commons/fill.twig', $params );
 
 	}
 
@@ -221,14 +233,14 @@ class Commons {
 	 * @param array $params
 	 * @return Response
 	 */
-	protected function outputsTemplate( Application $app, $templateName, array $params ) {
+	protected function outputsTemplate( $templateName, array $params ) {
 		$defaultParams = array(
 			'success' => '',
 			'warning' => '',
 			'error' => ''
 		);
 		$params = array_merge( $defaultParams, $params );
-		return $app['twig']->render( $templateName, $params );
+		return $this->app['twig']->render( $templateName, $params );
 
 	}
 
