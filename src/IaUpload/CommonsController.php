@@ -301,7 +301,11 @@ class CommonsController {
 		}
 		$content .= '| Subtitle     = ' . "\n";
 		$content .= '| Series title = ' . "\n";
-		$content .= '| Volume       = ' . "\n";
+		if( isset($data['metadata']['volume'][0]) ) {
+			$content .= '| Volume       = ' . $data['metadata']['volume'][0] . "\n";
+		} else {
+			$content .= '| Volume       = ' . "\n";
+		}
 		$content .= '| Edition      = ' . "\n";
 		if( isset($data['metadata']['publisher'][0]) ) {
 			$content .= '| Publisher    = ' . $data['metadata']['publisher'][0] . "\n";
