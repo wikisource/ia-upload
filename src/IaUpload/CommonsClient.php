@@ -105,7 +105,7 @@ class CommonsClient extends Client {
 		}
 
 		$result = $this->apiGet( array(
-			'action' => 'token',
+			'action' => 'tokens',
 			'type' => 'edit'
 		) );
 		if( !array_key_exists( 'edittoken', $result['tokens'] ) ) {
