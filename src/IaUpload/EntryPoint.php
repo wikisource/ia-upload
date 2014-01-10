@@ -52,12 +52,12 @@ class EntryPoint {
 	}
 
 	public function oAuthInit( Request $request, Application $app ) {
-		$controller = new oAuthController( $app, $this->config );
+		$controller = new OAuthController( $app, $this->config );
 		return $controller->init( $request );
 	}
 
 	public function oAuthCallback( Request $request, Application $app ) {
-		$controller = new oAuthController( $app, $this->config );
+		$controller = new OAuthController( $app, $this->config );
 		return $controller->callback( $request );
 	}
 } 
