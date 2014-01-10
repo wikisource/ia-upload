@@ -104,20 +104,14 @@ class CommonsClient extends Client {
 			return $this->editToken;
 		}
 
-		$params = array(
-			'action' => 'query',
-			'prop' => 'info',
-			'intoken' => 'edit',
-			'titles' => 'Main Page'
-		);
-		$result = $this->apiGet( $params );
-		foreach ( $result['query']['pages'] as $ret ) {
-			if( array_key_exists( 'edittoken', $ret ) ) {
-				$this->editToken = $ret['edittoken'];
-				return $this->editToken;
-			}
+		$result = $this->get( array(
+			'action' => 'token',
+			'type' => 'edit'
+		) );
+		if( !array_key_exists( 'edittoken', $result['tokens'] ) ) {
+			throw new ClientErrorResponseException( 'Edittoken retriving failure' );
 		}
-		throw new ClientErrorResponseException( 'The API returned a result that does not contains an edit token' );
+		return $result['tokens']['edittoken'];
 	}
 
 	/**
