@@ -165,9 +165,7 @@ class CommonsController {
 		}
 
 		try {
-			$this->commonsClient->login( $this->config['username'], $this->config['password'] );
 			$this->commonsClient->upload( $commonsName, $tempFile, $description, 'Importation from Internet Archive' );
-			$this->commonsClient->logout();
 		} catch( GuzzleException $e ) {
 			unlink( $tempFile );
 			return $this->outputsfillTemplate( array(

@@ -93,43 +93,6 @@ class CommonsClient extends Client {
 	}
 
 	/**
-	 * Do login
-	 *
-	 * @param string $user user name
-	 * @param string $password user password
-	 */
-	public function login( $user, $password ) {
-		$params = array(
-			'action' => 'login'
-		);
-		$post = array(
-			'lgname' => $user,
-			'lgpassword' => $password
-		);
-		$result = $this->apiPost( $params, $post );
-
-		if ( $result['login']['result'] === 'NeedToken' ) {
-			$post['lgtoken'] = $result['login']['token'];
-			$result = $this->apiPost( $params, $post );
-		}
-		if ( $result['login']['result'] === 'Success' ) {
-			$this->editToken = null;
-		} else {
-			throw new ClientErrorResponseException( 'Login failure' );
-		}
-	}
-
-	/**
-	 * Do logout
-	 */
-	public function logout() {
-		$this->get( array(
-			'action' => 'logout'
-		) );
-		$this->editToken = null;
-	}
-
-	/**
 	 * Returns the edit token for the current user
 	 *
 	 * @return string
