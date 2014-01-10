@@ -27,7 +27,9 @@ class CommonsClient extends Client {
 	public static function factory( $config = array() ) {
 		$required = array(
 			'consumer_key',
-			'consumer_secret'
+			'consumer_secret',
+			'token',
+			'token_secret'
 		);
 		$config = Collection::fromConfig( $config, array(), $required );
 
@@ -110,10 +112,12 @@ class CommonsClient extends Client {
 		);
 		$result = $this->apiGet( $params );
 		foreach ( $result['query']['pages'] as $ret ) {
-			$this->editToken = $ret['edittoken'];
-			return $this->editToken;
+			if( array_key_exists( 'edittoken', $ret ) ) {
+				$this->editToken = $ret['edittoken'];
+				return $this->editToken;
+			}
 		}
-		throw new ClientErrorResponseException( 'The API returned a result that is not an array' );
+		throw new ClientErrorResponseException( 'The API returned a result that does not contains an edit token' );
 	}
 
 	/**
