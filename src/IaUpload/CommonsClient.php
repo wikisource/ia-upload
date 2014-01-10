@@ -104,7 +104,7 @@ class CommonsClient extends Client {
 			return $this->editToken;
 		}
 
-		$result = $this->get( array(
+		$result = $this->apiGet( array(
 			'action' => 'token',
 			'type' => 'edit'
 		) );
