@@ -173,7 +173,7 @@ class CommonsController {
 				'commonsName' => $commonsName,
 				'iaFileName' => $iaFileName,
 				'description' => $description,
-				'error' => 'The upload to WikimediaCommons failed'
+				'error' => 'The upload to WikimediaCommons failed: ' . $e->getMessage()
 			) );
 		}
 

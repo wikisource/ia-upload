@@ -64,6 +64,6 @@ class OAuthController {
 		$this->app['session']->set( 'token_key', $token['key'] );
 		$this->app['session']->set( 'token_secret', $token['secret'] );
 
-		return $this->app->redirect( 'commons/init' );
+		return $this->app->redirect( '/commons/init' );
 	}
 } 
