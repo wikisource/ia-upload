@@ -56,7 +56,7 @@ class OAuthController {
 			'oauth_token' => $token['key'],
 			'oauth_consumer_key' => $this->config['consumerKey']
 		) );
-		return $this->app->redirect( $url );
+		return $this->app->redirect( (string) $url );
 	}
 
 	public function callback( Request $request ) {
