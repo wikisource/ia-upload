@@ -198,7 +198,6 @@ class CommonsController {
 		);
 		$params = array_merge( $defaultParams, $params );
 		return $this->outputsTemplate( 'commons/init.twig', $params );
-
 	}
 
 	/**
@@ -220,7 +219,6 @@ class CommonsController {
 		);
 		$params = array_merge( $defaultParams, $params );
 		return $this->outputsTemplate( 'commons/fill.twig', $params );
-
 	}
 
 	/**
