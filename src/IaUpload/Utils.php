@@ -25,11 +25,14 @@ class Utils {
 	public function normalizeLanguageCode( $language ) {
 		global $languageCategories;
 
+		$language = strtolower( $language );
+
 		if(strlen($language) == 2) {
 			return $language;
 		} elseif(strlen($language) == 3) {
 			return $language[0] . $language[1];
 		} else {
+			$language = ucfirst( $language );
 			foreach($languageCategories as $id => $name) {
 				if( $language == $name ) {
 					return $id;
