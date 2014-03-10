@@ -308,9 +308,15 @@ class CommonsController {
 		} else {
 			$content .= '| Publisher    = ' . "\n";
 		}
-		$content .= '| Printer      = ' . "\n";
+		if( isset($data['metadata']['printer'][0]) ) {
+			$content .= '| Printer      = ' . $data['metadata']['printer'][0] . "\n";
+		} else {
+			$content .= '| Printer      = ' . "\n";
+		}
 		if( isset($data['metadata']['date'][0]) ) {
 			$content .= '| Date         = ' . $data['metadata']['date'][0] . "\n";
+		} elseif( isset($data['metadata']['year'][0]) ) {
+			$content .= '| Date         = ' . $data['metadata']['year'][0] . "\n";
 		} else {
 			$content .= '| Date         = ' . "\n";
 		}
