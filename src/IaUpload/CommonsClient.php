@@ -138,7 +138,11 @@ class CommonsClient extends Client {
 			'comment' => $comment,
 			'token' => $this->getEditToken()
 		);
-		return $this->apiPost( $params, $post );
+		$result = $this->apiPost( $params, $post );
+		if( array_key_exists( 'warnings', $result ) ) {
+			throw new ClientErrorResponseException( $result['warnings'], implode( ' | ', $result['warnings'] ) );
+		}
+		return $result;
 	}
 
 	/**
