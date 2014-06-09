@@ -58,8 +58,8 @@ class CommonsController {
 
 	public function init( Request $request ) {
 		return $this->outputsInitTemplate( array(
-			'iaId' => $request->get( 'iaId', '' ),
-			'commonsName' => $request->get( 'commonsName', '' )
+			'iaId' => $request->get( 'iaId', $this->app['session']->get( 'iaId', '' ) ),
+			'commonsName' => $request->get( 'commonsName', $this->app['session']->get( 'commonsName', '' ) )
 		) );
 	}
 

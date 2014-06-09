@@ -35,6 +35,8 @@ class EntryPoint {
 
 	public function commonsFill( Request $request, Application $app ) {
 		if ( !$app['session']->has( 'token_key', null ) ) {
+			$app['session']->set( 'iaId', $request->get( 'iaId', '' ) );
+			$app['session']->set( 'commonsName', $request->get( 'commonsName', '' ) );
 			return $app->redirect( $app['url_generator']->generate( 'oauth-init' ) );
 		}
 
