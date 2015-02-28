@@ -165,7 +165,7 @@ class CommonsController {
 		}
 
 		try {
-			$this->commonsClient->upload( $commonsName, $tempFile, $description, 'Importation from Internet Archive' );
+			$this->commonsClient->upload( $commonsName, $tempFile, $description, 'Importation from Internet Archive via [[toollabs:ia-upload|IA-upload]]' );
 		} catch( GuzzleException $e ) {
 			unlink( $tempFile );
 			return $this->outputsfillTemplate( array(
