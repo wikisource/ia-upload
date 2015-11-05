@@ -179,7 +179,7 @@ class CommonsController {
 
 		unlink( $tempFile );
 		return $this->outputsInitTemplate( array(
-			'success' => '<a href="http://commons.wikimedia.org/wiki/File:' . rawurlencode( $commonsName ) . '">The file</a> have been successfully uploaded to Commons !'
+			'success' => '<a href="http://commons.wikimedia.org/wiki/File:' . rawurlencode( $commonsName ) . '">The file</a> has been successfully uploaded to Commons !'
 		) );
 	}
 
