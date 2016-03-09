@@ -186,7 +186,6 @@ class CommonsController {
 	/**
 	 * Outputs a template as response
 	 *
-	 * @param $templateName
 	 * @param array $params
 	 * @return Response
 	 */
@@ -202,7 +201,6 @@ class CommonsController {
 	/**
 	 * Outputs a template as response
 	 *
-	 * @param $templateName
 	 * @param array $params
 	 * @return Response
 	 */
@@ -247,9 +245,9 @@ class CommonsController {
 		$djvu = null;
 		$pdf = null;
 		foreach( $data['files'] as $i => $info) {
-			if( $info['format'] == 'DjVu' ) {
+			if( $info['format'] === 'DjVu' ) {
 				$djvu = $i;
-			} else if( $info['format'] == 'Text PDF' ) {
+			} else if( $info['format'] === 'Text PDF' || $info['format'] === 'Additional Text PDF' ) {
 				$pdf = $i;
 			}
 		}
