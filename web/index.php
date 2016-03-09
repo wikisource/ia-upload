@@ -2,6 +2,8 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+ini_set( 'memory_limit', '256M' ); // set memory limit to 256M to be sure that all files could be uploaded
+
 $app = new Silex\Application();
 $app->register( new Silex\Provider\SessionServiceProvider() );
 $app->register( new Silex\Provider\UrlGeneratorServiceProvider() );
