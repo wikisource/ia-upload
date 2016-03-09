@@ -10,7 +10,6 @@ $app->register( new Silex\Provider\UrlGeneratorServiceProvider() );
 $app->register( new Silex\Provider\TwigServiceProvider(), array(
 	'twig.path' => __DIR__ . '/../views',
 ) );
-$app['debug'] = true; //TODO remove
 
 $app->get( '/', function() use( $app ) {
 	return $app->redirect( 'commons/init' );
