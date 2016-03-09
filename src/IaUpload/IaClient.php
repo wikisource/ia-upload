@@ -2,7 +2,6 @@
 
 namespace IaUpload;
 
-use Guzzle\Common\Collection;
 use Guzzle\Http\Client;
 
 /**
@@ -15,7 +14,7 @@ use Guzzle\Http\Client;
  */
 class IaClient extends Client {
 
-	public static function factory( $config = array() ) {
+	public static function factory() {
 		return new self( 'https://archive.org' );
 	}
 

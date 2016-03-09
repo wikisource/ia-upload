@@ -45,7 +45,7 @@ class OAuthController {
 		) );
 	}
 
-	public function init( Request $request ) {
+	public function init() {
 		$token = $this->oAuthClient->getInitiationToken();
 		$this->app['session']->set( 'token_key', $token['key'] );
 		$this->app['session']->set( 'token_secret', $token['secret'] );

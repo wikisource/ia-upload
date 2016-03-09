@@ -186,7 +186,6 @@ class CommonsController {
 	/**
 	 * Outputs a template as response
 	 *
-	 * @param Application $app
 	 * @param $templateName
 	 * @param array $params
 	 * @return Response
@@ -203,7 +202,6 @@ class CommonsController {
 	/**
 	 * Outputs a template as response
 	 *
-	 * @param Application $app
 	 * @param $templateName
 	 * @param array $params
 	 * @return Response
@@ -224,7 +222,6 @@ class CommonsController {
 	/**
 	 * Outputs a template as response
 	 *
-	 * @param Application $app
 	 * @param $templateName
 	 * @param array $params
 	 * @return Response

@@ -55,7 +55,7 @@ class EntryPoint {
 
 	public function oAuthInit( Request $request, Application $app ) {
 		$controller = new OAuthController( $app, $this->config );
-		return $controller->init( $request );
+		return $controller->init();
 	}
 
 	public function oAuthCallback( Request $request, Application $app ) {

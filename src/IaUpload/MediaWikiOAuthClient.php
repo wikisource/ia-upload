@@ -39,17 +39,11 @@ class MediaWikiOAuthClient extends Client {
 	 * @throws ClientErrorResponseException
 	 */
 	public function getInitiationToken() {
-		$token = $this->get( '', null, array(
-			'query' => array(
-				'title' => 'Special:OAuth/initiate',
-				'format' => 'json',
-				'oauth_callback' => 'oob'
-			)
-		) )->send()->json();
-		if ( array_key_exists( 'error', $token ) ) {
-			throw new ClientErrorResponseException( 'Error retrieving OAuth token:' . $token['error'] );
-		}
-		return $token;
+		return $this->getToken( array(
+			'title' => 'Special:OAuth/initiate',
+			'format' => 'json',
+			'oauth_callback' => 'oob'
+		) );
 	}
 
 	/**
@@ -59,12 +53,16 @@ class MediaWikiOAuthClient extends Client {
 	 * @throws ClientErrorResponseException
 	 */
 	public function getFinalToken( $verifier ) {
+		return $this->getToken( array(
+			'title' => 'Special:OAuth/token',
+			'format' => 'json',
+			'oauth_verifier' => $verifier
+		) );
+	}
+
+	private function getToken( array $parameters ) {
 		$token = $this->get( '', null, array(
-			'query' => array(
-				'title' => 'Special:OAuth/token',
-				'format' => 'json',
-				'oauth_verifier' => $verifier
-			)
+			'query' => $parameters
 		) )->send()->json();
 		if ( array_key_exists( 'error', $token ) ) {
 			throw new ClientErrorResponseException( 'Error retrieving OAuth token:' . $token['error'] );
