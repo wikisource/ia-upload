@@ -1,18 +1,27 @@
 {
-	"name": "tpt/iaUpload",
+	"name": "tpt/ia-upload",
 	"description": "Bot to upload Internet Archive files to Wikimedia Commons",
 	"minimum-stability": "stable",
 	"require": {
+		"php": ">=5.5",
 		"guzzle/http": "~3.7",
 		"guzzle/plugin-oauth": "~3.7",
 		"guzzle/plugin-cookie": "~3.7",
 		"silex/silex": "~1.1",
-		"twig/twig": "~1.14",
-		"symfony/twig-bridge": "~2.3"
+		"twig/twig": "~1.24",
+		"symfony/twig-bridge": "~2.8"
+	},
+	"require-dev": {
+		"mediawiki/mediawiki-codesniffer": "~0.7"
 	},
 	"autoload": {
 		"psr-0": {
 			"IaUpload\\": "src/"
 		}
+	},
+	"scripts": {
+		"test": [
+			"phpcs"
+		]
 	}
 }

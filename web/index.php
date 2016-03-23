@@ -7,9 +7,9 @@ ini_set( 'memory_limit', '256M' ); // set memory limit to 256M to be sure that a
 $app = new Silex\Application();
 $app->register( new Silex\Provider\SessionServiceProvider() );
 $app->register( new Silex\Provider\UrlGeneratorServiceProvider() );
-$app->register( new Silex\Provider\TwigServiceProvider(), array(
+$app->register( new Silex\Provider\TwigServiceProvider(), [
 	'twig.path' => __DIR__ . '/../views',
-) );
+] );
 
 $app->get( '/', function() use( $app ) {
 	return $app->redirect( 'commons/init' );

@@ -25,11 +25,11 @@ class IaClient extends Client {
 	 * @return array
 	 */
 	public function fileDetails( $fileId ) {
-		return $this->get( '/details/' . rawurlencode( $fileId ), null, array(
-			'query' => array(
+		return $this->get( '/details/' . rawurlencode( $fileId ), null, [
+			'query' => [
 				'output' => 'json'
-			)
-		) )->send()->json();
+			]
+		] )->send()->json();
 	}
 
 	/**
@@ -40,7 +40,7 @@ class IaClient extends Client {
 	 */
 	public function downloadFile( $fileName, $path ) {
 		$this->get( '/download/' . $fileName )
-            ->setResponseBody( $path )
+			->setResponseBody( $path )
 			->send();
 	}
 }

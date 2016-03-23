@@ -62,4 +62,4 @@ class EntryPoint {
 		$controller = new OAuthController( $app, $this->config );
 		return $controller->callback( $request );
 	}
-} 
+}

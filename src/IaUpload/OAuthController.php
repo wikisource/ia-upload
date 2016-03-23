@@ -36,13 +36,13 @@ class OAuthController {
 	public function __construct( Application $app, array $config ) {
 		$this->app = $app;
 		$this->config = $config;
-		$this->oAuthClient = MediaWikiOAuthClient::factory( array(
+		$this->oAuthClient = MediaWikiOAuthClient::factory( [
 			'base_url' => self::OAUTH_URL,
 			'consumer_key' => $this->config['consumerKey'],
 			'consumer_secret' => $this->config['consumerSecret'],
 			'token'           => $this->app['session']->get( 'token_key', '' ),
 			'token_secret'    => $this->app['session']->get( 'token_secret', '' )
-		) );
+		] );
 	}
 
 	public function init() {
@@ -51,11 +51,11 @@ class OAuthController {
 		$this->app['session']->set( 'token_secret', $token['secret'] );
 
 		$url = Url::factory( self::OAUTH_URL );
-		$url->setQuery( array(
+		$url->setQuery( [
 			'title' => 'Special:OAuth/authorize',
 			'oauth_token' => $token['key'],
 			'oauth_consumer_key' => $this->config['consumerKey']
-		) );
+		] );
 		return $this->app->redirect( (string) $url );
 	}
 

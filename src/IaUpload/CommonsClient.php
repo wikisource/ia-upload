@@ -24,14 +24,14 @@ class CommonsClient extends Client {
 	 */
 	protected $editToken;
 
-	public static function factory( $config = array() ) {
-		$required = array(
+	public static function factory( $config = [] ) {
+		$required = [
 			'consumer_key',
 			'consumer_secret',
 			'token',
 			'token_secret'
-		);
-		$config = Collection::fromConfig( $config, array(), $required );
+		];
+		$config = Collection::fromConfig( $config, [], $required );
 
 		$client = new self( 'https://commons.wikimedia.org/w/api.php', $config );
 		$client->addSubscriber( new CookiePlugin( new ArrayCookieJar() ) );
@@ -49,9 +49,9 @@ class CommonsClient extends Client {
 	protected function apiGet( $params ) {
 		$params['format'] = 'json';
 
-		$result = $this->get( null, null, array(
+		$result = $this->get( null, null, [
 			'query' => $params
-		) )->send()->json();
+		] )->send()->json();
 
 		if ( array_key_exists( 'error', $result ) ) {
 			throw new ClientErrorResponseException( $result['error']['info'] );
@@ -69,9 +69,9 @@ class CommonsClient extends Client {
 	protected function apiPost( $params, $postFields ) {
 		$params['format'] = 'json';
 
-		$result = $this->post( null, null, $postFields, array(
+		$result = $this->post( null, null, $postFields, [
 			'query' => $params
-		) )->send()->json();
+		] )->send()->json();
 
 		if ( array_key_exists( 'error', $result ) ) {
 			throw new ClientErrorResponseException( $result['error']['info'] );
@@ -86,11 +86,11 @@ class CommonsClient extends Client {
 	 * @return bool
 	 */
 	public function pageExist( $pageTitle ) {
-		$result = $this->apiGet( array(
+		$result = $this->apiGet( [
 			'action' => 'query',
 			'titles' => $pageTitle,
 			'prop' => 'info'
-		) );
+		] );
 		return !isset( $result['query']['pages'][-1] );
 	}
 
@@ -104,11 +104,11 @@ class CommonsClient extends Client {
 			return $this->editToken;
 		}
 
-		$result = $this->apiGet( array(
+		$result = $this->apiGet( [
 			'action' => 'tokens',
 			'type' => 'edit'
-		) );
-		if( !array_key_exists( 'edittoken', $result['tokens'] ) ) {
+		] );
+		if ( !array_key_exists( 'edittoken', $result['tokens'] ) ) {
 			throw new ClientErrorResponseException( 'Edittoken retriving failure' );
 		}
 		return $result['tokens']['edittoken'];
@@ -128,18 +128,18 @@ class CommonsClient extends Client {
 			return $this->editToken;
 		}
 
-		$params = array(
+		$params = [
 			'action' => 'upload',
 			'filename' => $fileName
-		);
-		$post = array(
+		];
+		$post = [
 			'text' => $text,
 			'file' => '@' . $filePath,
 			'comment' => $comment,
 			'token' => $this->getEditToken()
-		);
+		];
 		$result = $this->apiPost( $params, $post );
-		if( array_key_exists( 'warnings', $result ) ) {
+		if ( array_key_exists( 'warnings', $result ) ) {
 			throw new ClientErrorResponseException( $result['warnings'], implode( ' | ', $result['warnings'] ) );
 		}
 		return $result;
@@ -152,7 +152,7 @@ class CommonsClient extends Client {
 	 * @return string
 	 */
 	public function normalizePageTitle( $title ) {
-		return str_replace( array( ' ', "\t", "\n" ), array( '_', '_', '_' ), $title );
+		return str_replace( [ ' ', "\t", "\n" ], [ '_', '_', '_' ], $title );
 	}
 
 	/**

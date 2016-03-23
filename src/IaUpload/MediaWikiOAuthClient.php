@@ -17,13 +17,13 @@ use Guzzle\Plugin\Oauth\OauthPlugin;
  */
 class MediaWikiOAuthClient extends Client {
 
-	public static function factory( $config = array() ) {
-		$required = array(
+	public static function factory( $config = [] ) {
+		$required = [
 			'base_url',
 			'consumer_key',
 			'consumer_secret'
-		);
-		$config = Collection::fromConfig( $config, array(), $required );
+		];
+		$config = Collection::fromConfig( $config, [], $required );
 		$config['request_method'] = OauthPlugin::REQUEST_METHOD_QUERY;
 
 		$client = new self( $config['base_url'], $config );
@@ -39,11 +39,11 @@ class MediaWikiOAuthClient extends Client {
 	 * @throws ClientErrorResponseException
 	 */
 	public function getInitiationToken() {
-		return $this->getToken( array(
+		return $this->getToken( [
 			'title' => 'Special:OAuth/initiate',
 			'format' => 'json',
 			'oauth_callback' => 'oob'
-		) );
+		] );
 	}
 
 	/**
@@ -53,20 +53,20 @@ class MediaWikiOAuthClient extends Client {
 	 * @throws ClientErrorResponseException
 	 */
 	public function getFinalToken( $verifier ) {
-		return $this->getToken( array(
+		return $this->getToken( [
 			'title' => 'Special:OAuth/token',
 			'format' => 'json',
 			'oauth_verifier' => $verifier
-		) );
+		] );
 	}
 
 	private function getToken( array $parameters ) {
-		$token = $this->get( '', null, array(
+		$token = $this->get( '', null, [
 			'query' => $parameters
-		) )->send()->json();
+		] )->send()->json();
 		if ( array_key_exists( 'error', $token ) ) {
 			throw new ClientErrorResponseException( 'Error retrieving OAuth token:' . $token['error'] );
 		}
 		return $token;
 	}
-} 
+}
