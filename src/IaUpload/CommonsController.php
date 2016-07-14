@@ -87,6 +87,10 @@ class CommonsController {
 	}
 
 	public function init( Request $request ) {
+		if ( !$this->app['session']->has( 'token_key', null ) ) {
+			return $this->app->redirect( $this->app['url_generator']->generate( 'oauth-init' ) );
+		}
+
 		return $this->outputsInitTemplate( [
 			'iaId' => $request->get( 'iaId', $this->app['session']->get( 'iaId', '' ) ),
 			'commonsName' => $request->get( 'commonsName', $this->app['session']->get( 'commonsName', '' ) )
@@ -94,6 +98,12 @@ class CommonsController {
 	}
 
 	public function fill( Request $request ) {
+		if ( !$this->app['session']->has( 'token_key', null ) ) {
+			$this->app['session']->set( 'iaId', $request->get( 'iaId', '' ) );
+			$this->app['session']->set( 'commonsName', $request->get( 'commonsName', '' ) );
+			return $this->app->redirect( $this->app['url_generator']->generate( 'oauth-init' ) );
+		}
+
 		$iaId = $request->get( 'iaId', '' );
 		$commonsName = $this->commonsClient->normalizePageTitle( $request->get( 'commonsName', '' ) );
 		if ( $iaId === '' || $commonsName === '' ) {
@@ -158,6 +168,10 @@ class CommonsController {
 	}
 
 	public function save( Request $request ) {
+		if ( !$this->app['session']->has( 'token_key', null ) ) {
+			return $this->app->redirect( $this->app['url_generator']->generate( 'oauth-init' ) );
+		}
+
 		$iaId = $request->get( 'iaId', '' );
 		$commonsName = $this->commonsClient->normalizePageTitle( $request->get( 'commonsName', '' ) );
 		$iaFileName = $request->get( 'iaFileName', '' );

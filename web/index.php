@@ -1,24 +1,51 @@
 <?php
 
+namespace IaUpload;
+
+use Silex\Application;
+use Silex\Provider\SessionServiceProvider;
+use Silex\Provider\TwigServiceProvider;
+use Symfony\Component\HttpFoundation\Request;
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
 ini_set( 'memory_limit', '256M' ); // set memory limit to 256M to be sure that all files could be uploaded
+date_default_timezone_set( 'UTC' );
 
-$app = new Silex\Application();
-$app->register( new Silex\Provider\SessionServiceProvider() );
-$app->register( new Silex\Provider\UrlGeneratorServiceProvider() );
-$app->register( new Silex\Provider\TwigServiceProvider(), [
+$config = parse_ini_file( __DIR__ . '/../config.ini' );
+
+$app = new Application();
+$app->register( new SessionServiceProvider() );
+$app->register( new TwigServiceProvider(), [
 	'twig.path' => __DIR__ . '/../views',
 ] );
+$app['debug'] = isset( $config['debug'] ) && $config['debug'];
+
+$commonController = new CommonsController( $app, $config );
+$oauthController = new OAuthController( $app, $config );
 
 $app->get( '/', function() use( $app ) {
 	return $app->redirect( 'commons/init' );
 } );
 
-$app->get( 'commons/init', 'IaUpload\\EntryPoint::commonsInit' )->bind( 'commons-init' );
-$app->get( 'commons/fill', 'IaUpload\\EntryPoint::commonsFill' )->bind( 'commons-fill' );
-$app->post( 'commons/save', 'IaUpload\\EntryPoint::commonsSave' )->bind( 'commons-save' );
-$app->get( 'oauth/init', 'IaUpload\\EntryPoint::oAuthInit' )->bind( 'oauth-init' );
-$app->get( 'oauth/callback', 'IaUpload\\EntryPoint::oAuthCallback' )->bind( 'oauth-callback' );
+$app->get( 'commons/init', function( Request $request ) use ( $commonController ) {
+	return $commonController->init( $request );
+} )->bind( 'commons-init' );
+
+$app->get( 'commons/fill', function( Request $request ) use ( $commonController ) {
+	return $commonController->fill( $request );
+} )->bind( 'commons-fill' );
+
+$app->post( 'commons/save', function( Request $request ) use ( $commonController ) {
+	return $commonController->save( $request );
+} )->bind( 'commons-save' );
+
+$app->get( 'oauth/init', function() use ( $oauthController ) {
+	return $oauthController->init();
+} )->bind( 'oauth-init' );
+
+$app->get( 'oauth/callback', function( Request $request ) use ( $oauthController ) {
+	return $oauthController->callback( $request );
+} )->bind( 'oauth-callback' );
 
 $app->run();
