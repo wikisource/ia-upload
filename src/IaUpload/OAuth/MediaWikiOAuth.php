@@ -104,7 +104,7 @@ class MediaWikiOAuth {
 		$result = $this->doOAuthRequest( $accessToken, [
 			'title' => 'Special:OAuth/identify'
 		] );
-		return JWT::decode( $result, $this->consumerToken->getSecret() );
+		return JWT::decode( $result, $this->consumerToken->getSecret(), [ 'HS256' ] );
 	}
 
 	/**
