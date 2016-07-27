@@ -31,7 +31,7 @@
 			</div>
 			<div class="form-group">
 				<div class="col-lg-offset-2 col-lg-10">
-					<input class="btn btn-primary" type="submit" value="Upload" /> <span>(Warning: the upload may take more than one minute !)</span>
+					<input class="btn btn-primary" type="submit" value="Upload" {% if not  user %}disabled title="You should authorize ia-upload before uploading the file"{%  endif %} /> <span>(Warning: the upload may take more than one minute !)</span>
 				</div>
 			</div>
 		</fieldset>

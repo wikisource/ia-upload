@@ -2,7 +2,8 @@
 
 namespace IaUpload;
 
-use Guzzle\Http\Url;
+use IaUpload\OAuth\MediaWikiOAuth;
+use IaUpload\OAuth\Token\ConsumerToken;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -22,12 +23,7 @@ class OAuthController {
 	protected $app;
 
 	/**
-	 * @var array
-	 */
-	protected $config;
-
-	/**
-	 * @var MediaWikiOAuthClient
+	 * @var MediaWikiOAuth
 	 */
 	protected $oAuthClient;
 
@@ -35,35 +31,28 @@ class OAuthController {
 
 	public function __construct( Application $app, array $config ) {
 		$this->app = $app;
-		$this->config = $config;
-		$this->oAuthClient = MediaWikiOAuthClient::factory( [
-			'base_url' => self::OAUTH_URL,
-			'consumer_key' => $this->config['consumerKey'],
-			'consumer_secret' => $this->config['consumerSecret'],
-			'token'           => $this->app['session']->get( 'token_key', '' ),
-			'token_secret'    => $this->app['session']->get( 'token_secret', '' )
-		] );
+		$this->oAuthClient = new MediaWikiOAuth(
+		    self::OAUTH_URL,
+			new ConsumerToken( $config['consumerKey'], $config['consumerSecret'] )
+		);
 	}
 
-	public function init() {
-		$token = $this->oAuthClient->getInitiationToken();
-		$this->app['session']->set( 'token_key', $token['key'] );
-		$this->app['session']->set( 'token_secret', $token['secret'] );
+	public function init( Request $request ) {
+		$this->app['session']->set( 'referer', $request->headers->get( 'referer', '/', true ) );
 
-		$url = Url::factory( self::OAUTH_URL );
-		$url->setQuery( [
-			'title' => 'Special:OAuth/authorize',
-			'oauth_token' => $token['key'],
-			'oauth_consumer_key' => $this->config['consumerKey']
-		] );
-		return $this->app->redirect( (string) $url );
+		list( $redirectUri, $requestToken ) = $this->oAuthClient->initiate();
+		$this->app['session']->set( 'request_token', $requestToken );
+		return $this->app->redirect( $redirectUri );
 	}
 
 	public function callback( Request $request ) {
-		$token = $this->oAuthClient->getFinalToken( $request->get( 'oauth_verifier' ) );
-		$this->app['session']->set( 'token_key', $token['key'] );
-		$this->app['session']->set( 'token_secret', $token['secret'] );
+	    $accessToken = $this->oAuthClient->complete(
+			$this->app['session']->get( 'request_token' ),
+	        $request->get( 'oauth_verifier' )
+		);
+		$this->app['session']->set( 'access_token', $accessToken );
+		$this->app['session']->set( 'user', $this->oAuthClient->identify( $accessToken )->username );
 
-		return $this->app->redirect( $this->app['url_generator']->generate( 'commons-init' ) );
+		return $this->app->redirect( $this->app['session']->get( 'referer' ) );
 	}
 }

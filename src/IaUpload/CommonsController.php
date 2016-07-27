@@ -2,7 +2,10 @@
 
 namespace IaUpload;
 
-use Guzzle\Common\Exception\GuzzleException;
+use GuzzleHttp\Exception\GuzzleException;
+use IaUpload\OAuth\MediaWikiOAuth;
+use IaUpload\OAuth\Token\ConsumerToken;
+use Mediawiki\Api\MediawikiApi;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,6 +19,8 @@ use Symfony\Component\HttpFoundation\Response;
  * @licence GNU GPL v2+
  */
 class CommonsController {
+
+	const COMMONS_API_URI = 'https://commons.wikimedia.org/w/api.php';
 
 	/**
 	 * @var Application
@@ -77,33 +82,30 @@ class CommonsController {
 		$this->app = $app;
 		$this->config = $config;
 
-		$this->iaClient = IaClient::factory();
-		$this->commonsClient = CommonsClient::factory( [
-			'consumer_key' => $this->config['consumerKey'],
-			'consumer_secret' => $this->config['consumerSecret'],
-			'token'           => $this->app['session']->get( 'token_key', '' ),
-			'token_secret'    => $this->app['session']->get( 'token_secret', '' )
-		] );
+		$this->iaClient = new IaClient();
+		$this->commonsClient = new CommonsClient($this->buildMediawikiApi());
+	}
+
+	private function buildMediawikiApi() {
+	    if ( $this->app['session']->has( 'access_token' ) ) {
+			$oAuth = new MediaWikiOAuth(
+			    OAuthController::OAUTH_URL,
+				new ConsumerToken( $this->config['consumerKey'], $this->config['consumerSecret'] )
+			);
+			return $oAuth->buildMediawikiApiFromToken( self::COMMONS_API_URI, $this->app['session']->get( 'access_token' ) );
+		   } else {
+		    return new MediawikiApi( self::COMMONS_API_URI );
+		   }
 	}
 
 	public function init( Request $request ) {
-		if ( !$this->app['session']->has( 'token_key', null ) ) {
-			return $this->app->redirect( $this->app['url_generator']->generate( 'oauth-init' ) );
-		}
-
 		return $this->outputsInitTemplate( [
-			'iaId' => $request->get( 'iaId', $this->app['session']->get( 'iaId', '' ) ),
-			'commonsName' => $request->get( 'commonsName', $this->app['session']->get( 'commonsName', '' ) )
+			'iaId' => $request->get( 'iaId', '' ),
+			'commonsName' => $request->get( 'commonsName', '' )
 		] );
 	}
 
 	public function fill( Request $request ) {
-		if ( !$this->app['session']->has( 'token_key', null ) ) {
-			$this->app['session']->set( 'iaId', $request->get( 'iaId', '' ) );
-			$this->app['session']->set( 'commonsName', $request->get( 'commonsName', '' ) );
-			return $this->app->redirect( $this->app['url_generator']->generate( 'oauth-init' ) );
-		}
-
 		$iaId = $request->get( 'iaId', '' );
 		$commonsName = $this->commonsClient->normalizePageTitle( $request->get( 'commonsName', '' ) );
 		if ( $iaId === '' || $commonsName === '' ) {
@@ -168,10 +170,6 @@ class CommonsController {
 	}
 
 	public function save( Request $request ) {
-		if ( !$this->app['session']->has( 'token_key', null ) ) {
-			return $this->app->redirect( $this->app['url_generator']->generate( 'oauth-init' ) );
-		}
-
 		$iaId = $request->get( 'iaId', '' );
 		$commonsName = $this->commonsClient->normalizePageTitle( $request->get( 'commonsName', '' ) );
 		$iaFileName = $request->get( 'iaFileName', '' );
@@ -272,7 +270,8 @@ class CommonsController {
 		$defaultParams = [
 			'success' => '',
 			'warning' => '',
-			'error' => ''
+			'error' => '',
+			'user' => $this->app['session']->get( 'user' )
 		];
 		$params = array_merge( $defaultParams, $params );
 		return $this->app['twig']->render( $templateName, $params );

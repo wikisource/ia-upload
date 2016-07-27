@@ -2,7 +2,8 @@
 
 namespace IaUpload;
 
-use Guzzle\Http\Client;
+use GuzzleHttp\Client;
+use Psr\Http\Message\StreamInterface;
 
 /**
  * Client for IA API
@@ -12,10 +13,17 @@ use Guzzle\Http\Client;
  *
  * @licence GNU GPL v2+
  */
-class IaClient extends Client {
+class IaClient {
 
-	public static function factory() {
-		return new self( 'https://archive.org' );
+	/**
+	 * @var Client
+	 */
+	private $client;
+
+	public function __construct() {
+		$this->client = new Client( [
+			'base_uri' => 'https://archive.org'
+		] );
 	}
 
 	/**
@@ -25,11 +33,11 @@ class IaClient extends Client {
 	 * @return array
 	 */
 	public function fileDetails( $fileId ) {
-		return $this->get( '/details/' . rawurlencode( $fileId ), null, [
+		return \GuzzleHttp\json_decode( $this->client->get( '/details/' . rawurlencode( $fileId ), [
 			'query' => [
 				'output' => 'json'
 			]
-		] )->send()->json();
+		] )->getBody(), true );
 	}
 
 	/**
@@ -39,8 +47,17 @@ class IaClient extends Client {
 	 * @param string $path the path to put the file in
 	 */
 	public function downloadFile( $fileName, $path ) {
-		$this->get( '/download/' . $fileName )
-			->setResponseBody( $path )
-			->send();
+		$this->streamToFile(
+			$this->client->get( '/download/' . $fileName )->getBody(),
+			$path
+		);
+	}
+
+	private function streamToFile( StreamInterface $stream, $fileName ) {
+	    $file = fopen( $fileName, 'w' );
+	    while ( !$stream->eof() ) {
+	        fwrite( $file, $stream->read( 1024 ) );
+		   }
+		fclose( $file );
 	}
 }

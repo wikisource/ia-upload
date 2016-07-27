@@ -40,8 +40,8 @@ $app->post( 'commons/save', function( Request $request ) use ( $commonController
 	return $commonController->save( $request );
 } )->bind( 'commons-save' );
 
-$app->get( 'oauth/init', function() use ( $oauthController ) {
-	return $oauthController->init();
+$app->get( 'oauth/init', function( Request $request ) use ( $oauthController ) {
+	return $oauthController->init( $request );
 } )->bind( 'oauth-init' );
 
 $app->get( 'oauth/callback', function( Request $request ) use ( $oauthController ) {
