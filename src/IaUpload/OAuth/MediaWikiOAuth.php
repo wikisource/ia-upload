@@ -113,10 +113,17 @@ class MediaWikiOAuth {
 	 * @return MediawikiApi
 	 */
 	public function buildMediawikiApiFromToken( $apiUrl, AccessToken $accessToken ) {
+		return new MediawikiApi( $apiUrl, $this->buildMediawikiClientFromToken( $accessToken ) );
+	}
+
+	/**
+	 * @deprecated Useful only because MediawikiApi is not able to do multipart POST requests
+	 */
+	public function buildMediawikiClientFromToken( AccessToken $accessToken ) {
 		$clientFactory = new ClientFactory( [
 			'middleware' => [ $this->buildOAuth1MiddlewareFromToken( $accessToken ) ]
 		] );
-		return new MediawikiApi( $apiUrl, $clientFactory->getClient() );
+		return $clientFactory->getClient();
 	}
 
 	private function doOAuthJsonRequest( Token $token = null, array $params ) {

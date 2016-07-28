@@ -2,6 +2,7 @@
 
 namespace IaUpload;
 
+use GuzzleHttp\Client;
 use GuzzleHttp\Exception\TransferException;
 use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\SimpleRequest;
@@ -17,12 +18,18 @@ use Mediawiki\Api\SimpleRequest;
 class CommonsClient {
 
 	/**
+	 * @var Client
+	 */
+	private $client;
+
+	/**
 	 * @var MediawikiApi
 	 */
 	private $mediawikiApi;
 
-	public function __construct( MediawikiApi $mediawikiApi ) {
-		$this->mediawikiApi = $mediawikiApi;
+	public function __construct( Client $oauthClient ) {
+	    $this->client = $oauthClient;
+		$this->mediawikiApi = new MediawikiApi( 'https://commons.wikimedia.org/w/api.php', $oauthClient );
 	}
 
 	/**
@@ -49,15 +56,17 @@ class CommonsClient {
 	 * @return array
 	 */
 	public function upload( $fileName, $filePath, $text, $comment ) {
-		$params = [
-			'action' => 'upload',
-			'filename' => $fileName,
-			'text' => $text,
-			'file' => fopen( $filePath, 'r' ),
-			'comment' => $comment,
-			'token' => $this->mediawikiApi->getToken( 'edit' )
-		];
-		$result = $this->mediawikiApi->postRequest( new SimpleRequest( 'upload', $params ) );
+		$result = json_decode( $this->client->post( 'https://commons.wikimedia.org/w/api.php', [
+			'multipart' => [
+				[ 'name' => 'action', 'contents' => 'upload' ],
+				[ 'name' => 'format', 'contents' => 'json' ],
+				[ 'name' => 'filename', 'contents' => $fileName ],
+				[ 'name' => 'text', 'contents' => $text ],
+				[ 'name' => 'file', 'contents' => fopen( $filePath, 'r' ) ],
+				[ 'name' => 'comment', 'contents' => $comment ],
+				[ 'name' => 'token', 'contents' => $this->mediawikiApi->getToken( 'edit' ) ]
+			]
+		] )->getBody(), true );
 		if ( array_key_exists( 'warnings', $result ) ) {
 			throw new TransferException( $result['warnings'], implode( ' | ', $result['warnings'] ) );
 		}
