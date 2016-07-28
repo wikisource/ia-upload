@@ -3,9 +3,9 @@
 namespace IaUpload;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\TransferException;
 use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\SimpleRequest;
+use Mediawiki\Api\UsageException;
 
 /**
  * Client for Commons API
@@ -67,9 +67,14 @@ class CommonsClient {
 				[ 'name' => 'token', 'contents' => $this->mediawikiApi->getToken( 'edit' ) ]
 			]
 		] )->getBody(), true );
-		if ( array_key_exists( 'warnings', $result ) ) {
-			throw new TransferException( $result['warnings'], implode( ' | ', $result['warnings'] ) );
-		}
+        if( array_key_exists( 'error', $result ) ) {
+            throw new UsageException( $result['error']['code'],  $result['error']['info'], $result );
+        }
+        if( array_key_exists( 'warnings', $result ) ) {
+            foreach( $result['warnings'] as $module => $warningData ) {
+                throw new UsageException( $module,  $warningData, $result );
+            }
+        }
 		return $result;
 	}
 

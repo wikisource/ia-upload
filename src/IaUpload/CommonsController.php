@@ -2,6 +2,7 @@
 
 namespace IaUpload;
 
+use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 use IaUpload\OAuth\MediaWikiOAuth;
 use IaUpload\OAuth\Token\ConsumerToken;
@@ -208,7 +209,7 @@ class CommonsController {
 
 		try {
 			$this->commonsClient->upload( $commonsName, $tempFile, $description, 'Importation from Internet Archive via [[toollabs:ia-upload|IA-upload]]' );
-		} catch ( GuzzleException $e ) {
+		} catch ( Exception $e ) {
 			unlink( $tempFile );
 			return $this->outputsFillTemplate( [
 				'iaId' => $iaId,
