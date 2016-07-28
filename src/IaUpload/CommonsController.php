@@ -5,7 +5,7 @@ namespace IaUpload;
 use GuzzleHttp\Exception\GuzzleException;
 use IaUpload\OAuth\MediaWikiOAuth;
 use IaUpload\OAuth\Token\ConsumerToken;
-use Mediawiki\Api\MediawikiApi;
+use Mediawiki\Api\Guzzle\ClientFactory;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -83,18 +83,18 @@ class CommonsController {
 		$this->config = $config;
 
 		$this->iaClient = new IaClient();
-		$this->commonsClient = new CommonsClient( $this->buildMediawikiApi() );
+		$this->commonsClient = new CommonsClient( $this->buildMediawikiClient() );
 	}
 
-	private function buildMediawikiApi() {
+	private function buildMediawikiClient() {
 	    if ( $this->app['session']->has( 'access_token' ) ) {
 			$oAuth = new MediaWikiOAuth(
 			    OAuthController::OAUTH_URL,
 				new ConsumerToken( $this->config['consumerKey'], $this->config['consumerSecret'] )
 			);
-			return $oAuth->buildMediawikiApiFromToken( self::COMMONS_API_URI, $this->app['session']->get( 'access_token' ) );
+			return $oAuth->buildMediawikiClientFromToken( $this->app['session']->get( 'access_token' ) );
 		   } else {
-		    return new MediawikiApi( self::COMMONS_API_URI );
+		    return ( new ClientFactory() )->getClient();
 		   }
 	}
 
