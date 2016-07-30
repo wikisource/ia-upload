@@ -34,6 +34,11 @@ class CommonsController {
 	protected $iaClient;
 
 	/**
+	 * @var IaDjvuClient
+	 */
+	protected $iajvuClient;
+
+	/**
 	 * @var CommonsClient
 	 */
 	protected $commonsClient;
@@ -84,6 +89,7 @@ class CommonsController {
 		$this->config = $config;
 
 		$this->iaClient = new IaClient();
+		$this->iaDjvuClient = new IaDjvuClient();
 		$this->commonsClient = new CommonsClient( $this->buildMediawikiClient(), $app['logger'] );
 	}
 
@@ -116,7 +122,7 @@ class CommonsController {
 				'error' => 'You must set all the fields of the form !'
 			] );
 		}
-		if ( preg_match( '/^(.*)\.djvu$/', $commonsName, $m ) || preg_match( '/^(.*)\.pdf$/', $commonsName, $m ) ) {
+		if ( preg_match( '/^(.*)\.(pdf|djvu)$/', $commonsName, $m ) ) {
 			$commonsName = $m[1];
 		}
 		if ( !$this->commonsClient->isPageTitleValid( $commonsName ) ) {
@@ -137,16 +143,15 @@ class CommonsController {
 			] );
 		}
 		$iaId = $iaData['metadata']['identifier'][0];
-		$file = $this->getFileName( $iaData );
-		if ( $file === null ) {
+		$iaFileName = $this->getDjvuFileName( $iaData );
+		if ( $iaFileName === null ) {
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
 				'commonsName' => $commonsName,
 				'error' => 'No DjVu or PDF file found !'
 			] );
 		}
-		list( $iaFileName, $fileType ) = $file;
-		$fullCommonsName = $commonsName . '.' . $fileType;
+		$fullCommonsName = $commonsName . '.djvu';
 
 		if ( $this->commonsClient->pageExist( 'File:' . $fullCommonsName ) ) {
 			return $this->outputsInitTemplate( [
@@ -160,8 +165,9 @@ class CommonsController {
 			'commonsName' => $fullCommonsName,
 			'iaFileName' => $iaFileName
 		];
-		if ( $fileType == 'pdf' ) {
-			$templateParams['warning'] = 'The export tool will upload the pdf file';
+		if ( $iaFileName == '' ) {
+			$this->iaDjvuClient->startConversion( $iaId );
+			$templateParams['warning'] = 'The export tool will convert the Internet Archive PDF file to DjVu (it may takes some time).';
 		}
 		list( $description, $notes ) = $this->createPageContent( $iaData );
 		$templateParams['description'] = $description;
@@ -175,7 +181,7 @@ class CommonsController {
 		$commonsName = $this->commonsClient->normalizePageTitle( $request->get( 'commonsName', '' ) );
 		$iaFileName = $request->get( 'iaFileName', '' );
 		$description = $request->get( 'description', '' );
-		if ( $iaId === '' || $commonsName === '' || $iaFileName === '' || $description === '' ) {
+		if ( $iaId === '' || $commonsName === '' || $description === '' ) {
 			return $this->outputsFillTemplate( [
 				'iaId' => $iaId,
 				'commonsName' => $commonsName,
@@ -194,17 +200,31 @@ class CommonsController {
 			] );
 		}
 
-		$tempFile = __DIR__ . '/../../' . $this->config['tempDirectory'] . $iaFileName;
-		try {
-			$this->iaClient->downloadFile( $iaId . $iaFileName, $tempFile );
-		} catch ( GuzzleException $e ) {
-			return $this->outputsFillTemplate( [
-				'iaId' => $iaId,
-				'commonsName' => $commonsName,
-				'iaFileName' => $iaFileName,
-				'description' => $description,
-				'error' => '<a href="http://archive.org/details/' . rawurlencode( $iaId ) . '">File</a> not found in Internet Archive !'
-			] );
+		$tempFile = __DIR__ . '/../../' . $this->config['tempDirectory'] . '/' . $iaId . '.djvu';
+		if ( $iaFileName === '' ) {
+			try {
+				$this->iaDjvuClient->downloadFile( $iaId, $tempFile );
+			} catch ( GuzzleException $e ) {
+				return $this->outputsFillTemplate( [
+					'iaId' => $iaId,
+					'commonsName' => $commonsName,
+					'iaFileName' => $iaFileName,
+					'description' => $description,
+					'error' => '<a href="http://archive.org/details/' . rawurlencode( $iaId ) . '">File</a> conversion failed !'
+				] );
+			}
+		} else {
+			try {
+				$this->iaClient->downloadFile( $iaId . $iaFileName, $tempFile );
+			} catch ( GuzzleException $e ) {
+				return $this->outputsFillTemplate( [
+					'iaId' => $iaId,
+					'commonsName' => $commonsName,
+					'iaFileName' => $iaFileName,
+					'description' => $description,
+					'error' => '<a href="http://archive.org/details/' . rawurlencode( $iaId ) . '">File</a> not found in Internet Archive !'
+				] );
+			}
 		}
 
 		try {
@@ -280,25 +300,25 @@ class CommonsController {
 	}
 
 	/**
-	 * Returns the file name to use and its extension
+	 * Returns the file name to use
 	 *
 	 * @param array $data
-	 * @return array|null
+	 * @return string null nothing found, caller should abort, '', should call PDF -> DjVu converter, not empty string the DjVu file name
 	 */
-	protected function getFileName( $data ) {
+	protected function getDjvuFileName( $data ) {
 		$djvu = null;
 		$pdf = null;
 		foreach ( $data['files'] as $i => $info ) {
 			if ( $info['format'] === 'DjVu' ) {
 				$djvu = $i;
-			} elseif ( $info['format'] === 'Text PDF' || $info['format'] === 'Additional Text PDF' ) {
+			} elseif ( $info['format'] === 'Additional Text PDF' ) {
 				$pdf = $i;
 			}
 		}
 		if ( $djvu !== null ) {
-			return [ $djvu, 'djvu' ];
+			return $djvu;
 		} elseif ( $pdf !== null ) {
-			return [ $pdf, 'pdf' ];
+			return '';
 		} else {
 			return null;
 		}
