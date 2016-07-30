@@ -38,7 +38,7 @@
 			{% if user %}
 				<div class="alert alert-success">You are logged as {{ user }}</div>
 			{% else %}
-				<div class="alert alert-warning">You should <a href="{{ path( 'oauth-init' ) }}">authorize ia-upload</a> to upload books to Wikimedia Commons.</div>
+				<div class="alert alert-warning">You should <a href="{{ path( 'oauth-init', {'referer': global.request.uri} ) }}">authorize ia-upload</a> to upload books to Wikimedia Commons.</div>
 			{% endif %}
 			{% if success %}
 				<div class="alert alert-success">{{ success|raw }}</div>

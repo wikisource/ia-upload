@@ -152,7 +152,7 @@ class MediaWikiOAuth {
 		$stack->push( $this->buildOAuth1MiddlewareFromToken( $token ) );
 		return new Client( [
 			'base_uri' => $this->baseUri,
-            'headers' => [ 'User-Agent' => 'Tpt/ia-upload' ],
+			'headers' => [ 'User-Agent' => 'Tpt/ia-upload' ],
 			'handler' => $stack,
 			'auth' => 'oauth'
 		] );

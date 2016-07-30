@@ -38,8 +38,7 @@ class OAuthController {
 	}
 
 	public function init( Request $request ) {
-		$this->app['session']->set( 'referer', $request->headers->get( 'referer', '/', true ) );
-
+		$this->app['session']->set( 'referer', $request->get( 'referer', '' ) );
 		list( $redirectUri, $requestToken ) = $this->oAuthClient->initiate();
 		$this->app['session']->set( 'request_token', $requestToken );
 		return $this->app->redirect( $redirectUri );
