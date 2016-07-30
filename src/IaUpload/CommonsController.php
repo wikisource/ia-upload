@@ -36,7 +36,7 @@ class CommonsController {
 	/**
 	 * @var IaDjvuClient
 	 */
-	protected $iajvuClient;
+	protected $iaDjvuClient;
 
 	/**
 	 * @var CommonsClient
