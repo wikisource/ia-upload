@@ -84,7 +84,7 @@ class CommonsController {
 		$this->config = $config;
 
 		$this->iaClient = new IaClient();
-		$this->commonsClient = new CommonsClient( $this->buildMediawikiClient() );
+		$this->commonsClient = new CommonsClient( $this->buildMediawikiClient(), $app['logger'] );
 	}
 
 	private function buildMediawikiClient() {

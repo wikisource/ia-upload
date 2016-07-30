@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\Api\UsageException;
+use Psr\Log\LoggerInterface;
 
 /**
  * Client for Commons API
@@ -27,9 +28,10 @@ class CommonsClient {
 	 */
 	private $mediawikiApi;
 
-	public function __construct( Client $oauthClient ) {
+	public function __construct( Client $oauthClient, LoggerInterface $logger ) {
 	    $this->client = $oauthClient;
 		$this->mediawikiApi = new MediawikiApi( 'https://commons.wikimedia.org/w/api.php', $oauthClient );
+		$this->mediawikiApi->setLogger( $logger );
 	}
 
 	/**
@@ -67,14 +69,14 @@ class CommonsClient {
 				[ 'name' => 'token', 'contents' => $this->mediawikiApi->getToken( 'edit' ) ]
 			]
 		] )->getBody(), true );
-        if( array_key_exists( 'error', $result ) ) {
-            throw new UsageException( $result['error']['code'],  $result['error']['info'], $result );
-        }
-        if( array_key_exists( 'warnings', $result ) ) {
-            foreach( $result['warnings'] as $module => $warningData ) {
-                throw new UsageException( $module,  $warningData, $result );
-            }
-        }
+		if ( array_key_exists( 'error', $result ) ) {
+			throw new UsageException( $result['error']['code'],  $result['error']['info'], $result );
+		}
+		if ( array_key_exists( 'warnings', $result ) ) {
+			foreach ( $result['warnings'] as $module => $warningData ) {
+				throw new UsageException( $module,  $warningData, $result );
+			}
+		}
 		return $result;
 	}
 

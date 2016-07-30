@@ -3,6 +3,7 @@
 namespace IaUpload;
 
 use Silex\Application;
+use Silex\Provider\MonologServiceProvider;
 use Silex\Provider\SessionServiceProvider;
 use Silex\Provider\TwigServiceProvider;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,6 +20,7 @@ $app->register( new SessionServiceProvider() );
 $app->register( new TwigServiceProvider(), [
 	'twig.path' => __DIR__ . '/../views',
 ] );
+$app->register( new MonologServiceProvider() );
 $app['debug'] = isset( $config['debug'] ) && $config['debug'];
 
 $commonController = new CommonsController( $app, $config );
