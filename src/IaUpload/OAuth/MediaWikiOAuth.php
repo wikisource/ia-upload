@@ -11,7 +11,6 @@ use IaUpload\OAuth\Token\AccessToken;
 use IaUpload\OAuth\Token\ConsumerToken;
 use IaUpload\OAuth\Token\RequestToken;
 use IaUpload\OAuth\Token\Token;
-use Mediawiki\Api\Guzzle\ClientFactory;
 use Mediawiki\Api\MediawikiApi;
 
 /**
@@ -120,10 +119,14 @@ class MediaWikiOAuth {
 	 * @deprecated Useful only because MediawikiApi is not able to do multipart POST requests
 	 */
 	public function buildMediawikiClientFromToken( AccessToken $accessToken ) {
-		$clientFactory = new ClientFactory( [
-			'middleware' => [ $this->buildOAuth1MiddlewareFromToken( $accessToken ) ]
+		$stack = HandlerStack::create();
+		$stack->push( $this->buildOAuth1MiddlewareFromToken( $accessToken ) );
+		return new Client( [
+			'auth' => 'oauth',
+			'cookies' => true,
+			'handler' =>  $stack,
+			'headers' => [ 'User-Agent' => 'Tpt/ia-upload' ]
 		] );
-		return $clientFactory->getClient();
 	}
 
 	private function doOAuthJsonRequest( Token $token = null, array $params ) {
@@ -149,6 +152,7 @@ class MediaWikiOAuth {
 		$stack->push( $this->buildOAuth1MiddlewareFromToken( $token ) );
 		return new Client( [
 			'base_uri' => $this->baseUri,
+            'headers' => [ 'User-Agent' => 'Tpt/ia-upload' ],
 			'handler' => $stack,
 			'auth' => 'oauth'
 		] );
