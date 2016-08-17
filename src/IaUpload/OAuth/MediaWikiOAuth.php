@@ -62,7 +62,7 @@ class MediaWikiOAuth {
 
 		$redirectUri = new Uri( $this->baseUri );
 		$redirectUri = $redirectUri->withQuery( \GuzzleHttp\Psr7\build_query( [
-			'title' => 'Special:OAuth/authorize',
+			'title' => 'Special:OAuth/authenticate',
 			'oauth_token' => $requestToken->getKey(),
 			'oauth_consumer_key' => $this->consumerToken->getKey()
 		] ) );
