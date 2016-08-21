@@ -16,7 +16,11 @@ date_default_timezone_set( 'UTC' );
 $config = parse_ini_file( __DIR__ . '/../config.ini' );
 
 $app = new Application();
-$app->register( new SessionServiceProvider() );
+$app->register( new SessionServiceProvider(), [
+	'session.storage.options' => [
+		'cookie_lifetime' => 24*60*60
+	]
+] );
 $app->register( new TwigServiceProvider(), [
 	'twig.path' => __DIR__ . '/../views',
 ] );
