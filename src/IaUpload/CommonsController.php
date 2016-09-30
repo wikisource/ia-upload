@@ -311,7 +311,7 @@ class CommonsController {
 		foreach ( $data['files'] as $i => $info ) {
 			if ( $info['format'] === 'DjVu' ) {
 				$djvu = $i;
-			} elseif ( $info['format'] === 'Additional Text PDF' ) {
+			} elseif ( $info['format'] === 'Additional Text PDF' || $info['format'] === 'Text PDF' ) {
 				$pdf = $i;
 			}
 		}
