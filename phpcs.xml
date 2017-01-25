@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset name="wsexport">
+<ruleset name="ia-upload">
 	<rule ref="vendor/mediawiki/mediawiki-codesniffer/MediaWiki" />
 	<rule ref="MediaWiki.NamingConventions.PrefixedGlobalFunctions.wfPrefix">
 		<severity>0</severity>

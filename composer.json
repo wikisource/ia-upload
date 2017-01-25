@@ -1,6 +1,8 @@
 {
 	"name": "tpt/ia-upload",
 	"description": "Bot to upload Internet Archive files to Wikimedia Commons",
+	"license": "GPL-2.0+",
+	"homepage": "https://wikitech.wikimedia.org/wiki/Tool:IA_Upload",
 	"minimum-stability": "stable",
 	"require": {
 		"php": ">=5.5",
@@ -24,6 +26,15 @@
 	"scripts": {
 		"test": [
 			"phpcs"
+		],
+		"configini": [
+			"php -r \"file_exists('config.ini') || copy('config_example.ini', 'config.ini');\""
+		],
+		"post-install-cmd": [
+			"composer configini"
+		],
+		"post-update-cmd": [
+			"composer configini"
 		]
 	}
 }

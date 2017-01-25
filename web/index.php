@@ -13,7 +13,12 @@ require_once __DIR__ . '/../vendor/autoload.php';
 ini_set( 'memory_limit', '256M' ); // set memory limit to 256M to be sure that all files could be uploaded
 date_default_timezone_set( 'UTC' );
 
-$config = parse_ini_file( __DIR__ . '/../config.ini' );
+$configFile = __DIR__ . '/../config.ini';
+$config = parse_ini_file( $configFile );
+if ( $config === false ) {
+	echo "Unable to parse config file at $configFile";
+	exit( 1 );
+}
 
 $app = new Application();
 $app->register( new SessionServiceProvider(), [
