@@ -4,19 +4,28 @@
 		<fieldset>
 			<legend>Upload a file</legend>
 			<div class="form-group">
-				<label for="iaId" class="col-lg-2 control-label">Id of the file in Internet Archive: </label>
-				<div class="col-lg-10">
+				<label for="iaId" class="col-lg-3 control-label">ID of the file on Internet Archive:</label>
+				<div class="col-lg-9">
 					<input name="iaId" id="iaId" type="text" size="30" required="required" class="form-control" value="{{ iaId|e }}" />
-				</div>
-			</div>
-			<div class="col-lg-10">
-				<label for="commonsName" class="col-lg-2 control-label">File name on Commons: </label>
-				<div class="controls">
-					<span class="input-group"><input name="commonsName" id="commonsName" type="text" size="30" required="required" class="form-control" value="{{ commonsName|e }}" /><span class="input-group-addon">.djvu</span></span>
+					<span class="help-block">
+						The ID is the part of the URL after 'details/', for example: <code>https://archive.org/details/<u><strong>cu31924022189587</strong></u></code>
+					</span>
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-lg-offset-2 col-lg-10">
+				<label for="commonsName" class="col-lg-3 control-label">File name on Commons:</label>
+				<div class="controls col-lg-9">
+					<span class="input-group"><input name="commonsName" id="commonsName" type="text" size="30" required="required" class="form-control" value="{{ commonsName|e }}" />
+						<span class="input-group-addon">.djvu</span>
+					</span>
+					<span class="help-block">
+						The name to give this file when it's uploaded to Wikimedia Commons.
+						If the file already exists, it won't be re-uploaded and you'll be prompted to change it here.
+					</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-lg-offset-3 col-lg-9">
 					<input class="btn btn-primary" type="submit" value="Get metadata" />
 				</div>
 			</div>
