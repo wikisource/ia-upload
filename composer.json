@@ -13,7 +13,9 @@
 		"symfony/twig-bridge": "~3.1",
 		"addwiki/mediawiki-api-base": "~2.2",
 		"firebase/php-jwt": "~4.0",
-		"monolog/monolog": "~1.20"
+		"monolog/monolog": "~1.20",
+		"symfony/console": "^3.2",
+		"pastuhov/php-exec-command": "^1.1"
 	},
 	"require-dev": {
 		"mediawiki/mediawiki-codesniffer": "~0.7"

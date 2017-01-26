@@ -3,4 +3,5 @@ temp/*
 vendor/*
 .idea/*
 web/.htaccess
+/jobqueue
 

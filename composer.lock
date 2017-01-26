@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9f08953d6024d5ca5e0950a2e0956664",
-    "content-hash": "3bacb5493cbdb4bafadddecad4d48d68",
+    "hash": "8128348aad99b3334ee926ec9e196046",
+    "content-hash": "6ed8e683e5913febecdef4ec15893678",
     "packages": [
         {
             "name": "addwiki/mediawiki-api-base",
@@ -397,6 +397,59 @@
             "time": "2016-11-26 00:15:39"
         },
         {
+            "name": "pastuhov/php-exec-command",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pastuhov/php-exec-command.git",
+                "reference": "5c7a7187724ee58b4742c89c02f3bab52f690211"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pastuhov/php-exec-command/zipball/5c7a7187724ee58b4742c89c02f3bab52f690211",
+                "reference": "5c7a7187724ee58b4742c89c02f3bab52f690211",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*",
+                "scrutinizer/ocular": "~1.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "pastuhov\\Command\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Kirill Pastukhov",
+                    "email": "kirill@pastukhov.su",
+                    "homepage": "https://github.com/pastuhov/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Simple php command executor with param binding.",
+            "homepage": "https://github.com/pastuhov/php-exec-command",
+            "keywords": [
+                "command",
+                "exec",
+                "system"
+            ],
+            "time": "2016-08-27 09:07:48"
+        },
+        {
             "name": "pimple/pimple",
             "version": "v3.0.2",
             "source": {
@@ -623,6 +676,69 @@
                 "microframework"
             ],
             "time": "2016-11-06 18:09:06"
+        },
+        {
+            "name": "symfony/console",
+            "version": "v3.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/console.git",
+                "reference": "4f9e449e76996adf310498a8ca955c6deebe29dd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/console/zipball/4f9e449e76996adf310498a8ca955c6deebe29dd",
+                "reference": "4f9e449e76996adf310498a8ca955c6deebe29dd",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9",
+                "symfony/debug": "~2.8|~3.0",
+                "symfony/polyfill-mbstring": "~1.0"
+            },
+            "require-dev": {
+                "psr/log": "~1.0",
+                "symfony/event-dispatcher": "~2.8|~3.0",
+                "symfony/filesystem": "~2.8|~3.0",
+                "symfony/process": "~2.8|~3.0"
+            },
+            "suggest": {
+                "psr/log": "For using the console logger",
+                "symfony/event-dispatcher": "",
+                "symfony/filesystem": "",
+                "symfony/process": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Console\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Console Component",
+            "homepage": "https://symfony.com",
+            "time": "2017-01-08 20:47:33"
         },
         {
             "name": "symfony/debug",

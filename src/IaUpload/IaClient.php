@@ -3,6 +3,7 @@
 namespace IaUpload;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\StreamInterface;
 
 /**
@@ -29,15 +30,20 @@ class IaClient {
 	/**
 	 * Returns details of a file
 	 *
-	 * @param string $fileId
-	 * @return array
+	 * @param string $fileId The IA identifier.
+	 * @return array|boolean The details as an array, or false if none could be retrieved.
 	 */
 	public function fileDetails( $fileId ) {
-		return \GuzzleHttp\json_decode( $this->client->get( '/details/' . rawurlencode( $fileId ), [
-			'query' => [
-				'output' => 'json'
-			]
-		] )->getBody(), true );
+		try {
+			$details = $this->client->get( '/details/' . rawurlencode( $fileId ), [
+				'query' => [
+					'output' => 'json'
+				]
+			] );
+		} catch ( GuzzleException $e ) {
+			return false;
+		}
+		return \GuzzleHttp\json_decode( $details->getBody(), true );
 	}
 
 	/**

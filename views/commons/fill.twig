@@ -2,20 +2,46 @@
 {% block body %}
 	<form method="POST" action="{{ path( 'commons-save' ) }}" role="form" class="form-horizontal">
 		<input name="iaFileName" id="iaFileName" type="hidden" required="required" value="{{ iaFileName|e }}" />
+		<input type="hidden" value="{% if hasDjvu %}yes{% endif %}" name="hasDjvu" />
 		<fieldset>
 			<legend>Upload a file</legend>
+
 			<div class="form-group">
-				<label for="iaId" class="col-lg-2 control-label">Id of the file in Internet Archive: </label>
+				<label for="iaId" class="col-lg-2 control-label">ID of the file on Internet Archive:</label>
 				<div class="col-lg-10">
 					<input name="iaId" id="iaId" type="text" size="30" required="required" readonly="readonly" class="form-control" value="{{ iaId|e }}" />
 				</div>
 			</div>
+
 			<div class="form-group">
-				<label for="commonsName" class="col-lg-2 control-label">File name on Commons: </label>
+				<label for="commonsName" class="col-lg-2 control-label">File name on Commons:</label>
 				<div class="col-lg-10">
 					<input name="commonsName" id="commonsName" type="text" size="30" required="required" readonly="readonly" class="form-control" value="{{ commonsName|e }}" />
 				</div>
 			</div>
+
+			<div class="form-group">
+				<label for="sourceFile" class="col-lg-2 control-label">DjVu source:</label>
+				<div class="col-lg-10">
+					<select name="fileSource" class="form-control">
+						<option value="djvu" {% if fileSource == 'djvu' and hasDjvu %}selected{% endif %} {% if not hasDjvu %}disabled{% endif %}>
+							use existing DjVu {% if not hasDjvu %}(not available for this item){% endif %}
+						</option>
+						<option value="jp2" {% if fileSource == 'jp2' %}selected{% endif %}>
+							from original scans (JP2)
+						</option>
+						<option value="pdf" {% if fileSource == 'pdf' %}selected{% endif %}>
+							from PDF (may be of lower quality)
+						</option>
+					</select>
+					<span class="help-block">
+						Where should the DjVu file be generated from?<br />
+						Note that for JP2 and PDF, <strong>your authentication credentials will be stored</strong> on the Tool Labs server for as long as it takes to complete the conversion (usually less than an hour).
+						You can <a href="https://commons.wikimedia.org/wiki/Special:OAuthManageMyGrants">revoke this tool's access</a> at any time.
+					</span>
+				</div>
+			</div>
+
 			<div class="form-group">
 				<label for="description" class="col-lg-2 control-label">Commons description: </label>
 				<div class="col-lg-10">
@@ -29,11 +55,13 @@
 					</div>
 				</div>
 			</div>
+
 			<div class="form-group">
 				<div class="col-lg-offset-2 col-lg-10">
 					<input class="btn btn-primary" type="submit" value="Upload" {% if not  user %}disabled title="You should authorize ia-upload before uploading the file"{%  endif %} /> <span>(Warning: the upload may take more than one minute !)</span>
 				</div>
 			</div>
+
 		</fieldset>
 	</form>
 {% endblock %}

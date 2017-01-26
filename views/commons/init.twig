@@ -31,4 +31,35 @@
 			</div>
 		</fieldset>
 	</form>
+
+	<h2>Job queue</h2>
+	{% if not jobs %}
+		<p class="alert alert-success">The job queue is currently empty.</p>
+	{% else %}
+		<p>
+			Jobs will be removed from this list once completed and uploaded to Commons.
+			{% if user %}
+			Files will appear in <a href="https://commons.wikimedia.org/wiki/Special:Contributions/{{ user }}">your contributions list</a> on Commons.
+			{% endif %}
+		</p>
+		<table class="table">
+			<thead>
+			<tr>
+				<th>IA Item</th>
+				<th>Commons filename</th>
+				<th>Status</th>
+			</tr>
+			</thead>
+		{% for job in jobs %}
+			<tbody>
+			<tr>
+				<td><a href="https://archive.org/details/{{ job.iaId }}">{{ job.iaId }}</a></td>
+				<td><a href="https://commons.wikimedia.org/wiki/File:{{ job.commonsName }}">{{ job.commonsName }}</a></td>
+				<td>{% if job.locked %}In progress{% else %}Queued{% endif %}</td>
+			</tr>
+			</tbody>
+		{% endfor %}
+		</table>
+	{% endif %}
+
 {% endblock %}
