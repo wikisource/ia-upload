@@ -21,13 +21,21 @@
 			padding: 20px 20px 10px;
 			margin: -20px -20px 20px;
 		}
+		#debug-notice { margin:0; border-radius:0; padding:0.4em; text-align:center }
 	</style>
 </head>
 <body>
+
+	{% if debug %}
+	<div class="alert alert-danger" id="debug-notice">
+		This site is in debug mode, and may not be working correctly.
+	</div>
+	{% endif %}
+
 	<div class="container">
 		<div class="content">
 			<div class="page-header">
-				<h1>Upload books from Internet Archive.</h1>
+				<h1>Upload books from Internet Archive</h1>
 			</div>
 			{% if error %}
 				<div class="alert alert-danger">{{ error|raw }}</div>
