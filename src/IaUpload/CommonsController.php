@@ -289,6 +289,7 @@ class CommonsController {
 	 */
 	protected function outputsTemplate( $templateName, array $params ) {
 		$defaultParams = [
+			'debug' => $this->app['debug'],
 			'success' => '',
 			'warning' => '',
 			'error' => '',
