@@ -3,7 +3,6 @@
 namespace IaUpload;
 
 use Exception;
-use GuzzleHttp\Exception\GuzzleException;
 use IaUpload\OAuth\MediaWikiOAuth;
 use IaUpload\OAuth\Token\ConsumerToken;
 use Mediawiki\Api\Guzzle\ClientFactory;
@@ -32,11 +31,6 @@ class CommonsController {
 	 * @var IaClient
 	 */
 	protected $iaClient;
-
-	/**
-	 * @var IaDjvuClient
-	 */
-	protected $iaDjvuClient;
 
 	/**
 	 * @var CommonsClient
@@ -89,7 +83,6 @@ class CommonsController {
 		$this->config = $config;
 
 		$this->iaClient = new IaClient();
-		$this->iaDjvuClient = new IaDjvuClient();
 		$this->commonsClient = new CommonsClient( $this->buildMediawikiClient(), $app['logger'] );
 	}
 
@@ -105,16 +98,46 @@ class CommonsController {
 		   }
 	}
 
+	/**
+	 *
+	 */
+	protected function getJobDirectory( $iaId = null ) {
+		$jobDirectoryName = __DIR__ . '/../../jobqueue/' . $iaId;
+		if ( !is_dir( $jobDirectoryName ) ) {
+			mkdir( $jobDirectoryName, 0755, true );
+		}
+		$jobDirectory = realpath( $jobDirectoryName );
+		if ( $jobDirectory === false || !is_writable( $jobDirectory ) ) {
+			throw new Exception( "Unable to create temporary directory '$jobDirectoryName'" );
+		}
+		return $jobDirectory;
+	}
+
+	/**
+	 * The first action presented to the user.
+	 * @param Request $request
+	 * @return Response
+	 */
 	public function init( Request $request ) {
+		$jobs = [];
+		foreach ( glob( $this->getJobDirectory() . '/*/job.json' ) as $jobFile ) {
+			$jobInfo = \GuzzleHttp\json_decode( file_get_contents( $jobFile ) );
+			$jobInfo->locked = file_exists( dirname( $jobFile ) . '/lock' );
+			$jobs[] = $jobInfo;
+		}
 		return $this->outputsInitTemplate( [
 			'iaId' => $request->get( 'iaId', '' ),
-			'commonsName' => $request->get( 'commonsName', '' )
+			'commonsName' => $request->get( 'commonsName', '' ),
+		    'jobs' => $jobs,
 		] );
 	}
 
 	public function fill( Request $request ) {
+		// Get inputs.
 		$iaId = $request->get( 'iaId', '' );
 		$commonsName = $this->commonsClient->normalizePageTitle( $request->get( 'commonsName', '' ) );
+		$fileSource = $request->get( 'fileSource', 'djvu' );
+		// Validate inputs.
 		if ( $iaId === '' || $commonsName === '' ) {
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
@@ -122,9 +145,11 @@ class CommonsController {
 				'error' => 'You must set all the fields of the form !'
 			] );
 		}
+		// Strip any trailing file extension.
 		if ( preg_match( '/^(.*)\.(pdf|djvu)$/', $commonsName, $m ) ) {
 			$commonsName = $m[1];
 		}
+		// Check that the filename is allowed on Commons.
 		if ( !$this->commonsClient->isPageTitleValid( $commonsName ) ) {
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
@@ -133,23 +158,22 @@ class CommonsController {
 			] );
 		}
 
-		try {
-			$iaData = $this->iaClient->fileDetails( $iaId );
-		} catch ( GuzzleException $e ) {
+		// Try to get IA details.
+		$iaData = $this->iaClient->fileDetails( $iaId );
+		if ( $iaData === false ) {
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
 				'commonsName' => $commonsName,
-				'error' => '<a href="http://archive.org/details/' . rawurlencode( $iaId ) . '">Book ' . htmlspecialchars( $iaId ) . '</a> not found in Internet Archive !'
+				'error' => '<a href="http://archive.org/details/' . rawurlencode( $iaId ) . '">Book ' . htmlspecialchars( $iaId ) . '</a> not found in Internet Archive!'
 			] );
 		}
 		$iaId = $iaData['metadata']['identifier'][0];
+
+		// See if a IA DjVu or PDF file exists.
+		$hasDjvu = true;
 		$iaFileName = $this->getDjvuFileName( $iaData );
-		if ( $iaFileName === null ) {
-			return $this->outputsInitTemplate( [
-				'iaId' => $iaId,
-				'commonsName' => $commonsName,
-				'error' => 'No DjVu or PDF file found !'
-			] );
+		if ( strlen( $iaFileName ) < 1 ) {
+			$hasDjvu = false;
 		}
 		$fullCommonsName = $commonsName . '.djvu';
 
@@ -163,12 +187,10 @@ class CommonsController {
 		$templateParams = [
 			'iaId' => $iaId,
 			'commonsName' => $fullCommonsName,
-			'iaFileName' => $iaFileName
+			'iaFileName' => $iaFileName,
+			'hasDjvu' => $hasDjvu,
+		    'fileSource' => $fileSource,
 		];
-		if ( $iaFileName == '' ) {
-			$this->iaDjvuClient->startConversion( $iaId );
-			$templateParams['warning'] = 'The export tool will convert the Internet Archive PDF file to DjVu (it may takes some time).';
-		}
 		list( $description, $notes ) = $this->createPageContent( $iaData );
 		$templateParams['description'] = $description;
 		$templateParams['notes'] = $notes;
@@ -176,74 +198,99 @@ class CommonsController {
 		return $this->outputsFillTemplate( $templateParams );
 	}
 
+	/**
+	 * The save action either uploads the IA DjVu to Commons, or when conversion is required it
+	 * puts the job data into the queue for subsequent processing by the CLI part of this tool.
+	 *
+	 * @param Request $request
+	 * @return Response
+	 */
 	public function save( Request $request ) {
-		$iaId = $request->get( 'iaId', '' );
-		$commonsName = $this->commonsClient->normalizePageTitle( $request->get( 'commonsName', '' ) );
-		$iaFileName = $request->get( 'iaFileName', '' );
-		$description = $request->get( 'description', '' );
-		if ( $iaId === '' || $commonsName === '' || $description === '' ) {
-			return $this->outputsFillTemplate( [
-				'iaId' => $iaId,
-				'commonsName' => $commonsName,
-				'iaFileName' => $iaFileName,
-				'description' => $description,
-				'error' => 'You must set all the fields of the form !'
-			] );
-		}
-		if ( $this->commonsClient->pageExist( 'File:' . $commonsName ) ) {
-			return $this->outputsFillTemplate( [
-				'iaId' => $iaId,
-				'commonsName' => $commonsName,
-				'iaFileName' => $iaFileName,
-				'description' => $description,
-				'error' => '<a href="http://commons.wikimedia.org/wiki/File:' . rawurlencode( $commonsName ) . '">A file with the name ' . htmlspecialchars( $commonsName ) . '</a> already exist on Commons !'
-			] );
+		// Get all form inputs.
+		$jobInfo = [
+			'iaId' => $request->get( 'iaId' ),
+			'commonsName' => $this->commonsClient->normalizePageTitle( $request->get( 'commonsName' ) ),
+			'iaFileName' => $request->get( 'iaFileName' ),
+			'description' => $request->get( 'description' ),
+			'fileSource' => $request->get( 'fileSource', 'jp2' ),
+			'hasDjvu' => $request->get( 'hasDjvu', 0 ) === 'yes',
+		];
+		if ( !$jobInfo['iaId'] || !$jobInfo['commonsName'] || !$jobInfo['description'] ) {
+			$jobInfo['error'] = 'You must set all the fields of the form';
+			return $this->outputsFillTemplate( $jobInfo );
 		}
 
-		$tempFile = __DIR__ . '/../../' . $this->config['tempDirectory'] . '/' . $iaId . '.djvu';
-		if ( $iaFileName === '' ) {
+		// Check again that the Commons file doesn't exist.
+		if ( $this->commonsClient->pageExist( 'File:' . $jobInfo['commonsName'] ) ) {
+			$jobInfo['error'] = 'A file with the name '
+				. '<a href="https://commons.wikimedia.org/wiki/File:'
+				. rawurlencode( $jobInfo['commonsName'] ) . '">'
+				. htmlspecialchars( $jobInfo['commonsName'] )
+				. '</a> already exist on Commons!';
+			return $this->outputsFillTemplate( $jobInfo );
+		}
+
+		// Check again that the IA item does exist.
+		$iaData = $this->iaClient->fileDetails( $jobInfo['iaId'] );
+		if ( $iaData === false ) {
+			$jobInfo['error'] = 'Item <a href="https://archive.org/details/'
+				. rawurlencode( $jobInfo['iaId'] )
+				. '">' . htmlspecialchars( $jobInfo['iaId'] )
+				. '</a> not found in Internet Archive!';
+			return $this->outputsFillTemplate( $jobInfo );
+		}
+		$jobInfo['iaId'] = $iaData['metadata']['identifier'][0];
+
+		// Create a local working directory.
+		$jobDirectory = $this->getJobDirectory( $jobInfo['iaId' ] );
+
+		// For PDF and JP2 conversion, add the job to the queue.
+		if ( $jobInfo['fileSource'] === 'pdf' || $jobInfo['fileSource'] === 'jp2' ) {
+			// Create a private job file before writing contents to it,
+			// because it contains the access token.
+			$jobInfo['userAccessToken'] = $this->app['session']->get( 'access_token' );
+			$jobFile = $jobDirectory . '/job.json';
+			$oldUmask = umask( 0177 );
+			touch( $jobFile );
+			umask( $oldUmask );
+			chmod( $jobFile, 0600 );
+			file_put_contents( $jobFile, \GuzzleHttp\json_encode( $jobInfo ) );
+			return $this->app->redirect( $this->app["url_generator"]->generate( 'commons-init' ) );
+		}
+
+		// Use IA DjVu file (don't add it to the queue, as this shouldn't take too long).
+		if ( $jobInfo['fileSource'] === 'djvu' ) {
+			$remoteDjVuFile = $jobInfo['iaId'] . $jobInfo['iaFileName'];
+			$localDjVuFile = $jobDirectory . '/' . $jobInfo['iaFileName'];
 			try {
-				$this->iaDjvuClient->downloadFile( $iaId, $tempFile );
-			} catch ( GuzzleException $e ) {
-				return $this->outputsFillTemplate( [
-					'iaId' => $iaId,
-					'commonsName' => $commonsName,
-					'iaFileName' => $iaFileName,
-					'description' => $description,
-					'error' => '<a href="http://archive.org/details/' . rawurlencode( $iaId ) . '">File</a> conversion failed !'
-				] );
+				$this->iaClient->downloadFile( $remoteDjVuFile, $localDjVuFile );
+				$this->commonsClient->upload(
+					$jobInfo['commonsName'],
+					$localDjVuFile,
+					$jobInfo['description'],
+					'Importation from Internet Archive via [[toollabs:ia-upload|IA-upload]]'
+				);
+			} catch ( Exception $e ) {
+				unlink( $localDjVuFile );
+				rmdir( $jobDirectory );
+				$jobInfo['error'] = "An error occurred: " . $e->getMessage();
+				return $this->outputsFillTemplate( $jobInfo );
 			}
-		} else {
-			try {
-				$this->iaClient->downloadFile( $iaId . $iaFileName, $tempFile );
-			} catch ( GuzzleException $e ) {
-				return $this->outputsFillTemplate( [
-					'iaId' => $iaId,
-					'commonsName' => $commonsName,
-					'iaFileName' => $iaFileName,
-					'description' => $description,
-					'error' => '<a href="http://archive.org/details/' . rawurlencode( $iaId ) . '">File</a> not found in Internet Archive !'
-				] );
+			// Confirm that it was uploaded.
+			if ( !$this->commonsClient->pageExist( 'File:' . $jobInfo['commonsName'] ) ) {
+				$jobInfo['error'] = 'File failed to upload';
+				return $this->outputsFillTemplate( $jobInfo );
 			}
-		}
-
-		try {
-			$this->commonsClient->upload( $commonsName, $tempFile, $description, 'Importation from Internet Archive via [[toollabs:ia-upload|IA-upload]]' );
-		} catch ( Exception $e ) {
-			unlink( $tempFile );
-			return $this->outputsFillTemplate( [
-				'iaId' => $iaId,
-				'commonsName' => $commonsName,
-				'iaFileName' => $iaFileName,
-				'description' => $description,
-				'error' => 'The upload to WikimediaCommons failed: ' . $e->getMessage()
+			unlink( $localDjVuFile );
+			rmdir( $jobDirectory );
+			return $this->outputsInitTemplate( [
+				'success' => 'The file <a href="http://commons.wikimedia.org/wiki/File:'
+					. rawurlencode( $jobInfo['commonsName'] ) . '">'
+					. rawurlencode( $jobInfo['commonsName'] )
+					. '</a> has been successfully uploaded to Commons!'
 			] );
 		}
 
-		unlink( $tempFile );
-		return $this->outputsInitTemplate( [
-			'success' => '<a href="http://commons.wikimedia.org/wiki/File:' . rawurlencode( $commonsName ) . '">The file</a> has been successfully uploaded to Commons !'
-		] );
 	}
 
 	/**
@@ -255,7 +302,8 @@ class CommonsController {
 	protected function outputsInitTemplate( array $params ) {
 		$defaultParams = [
 			'iaId' => '',
-			'commonsName' => ''
+			'commonsName' => '',
+			'jobs' => [],
 		];
 		$params = array_merge( $defaultParams, $params );
 		return $this->outputsTemplate( 'commons/init.twig', $params );

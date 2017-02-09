@@ -29,9 +29,21 @@ class CommonsClient {
 	private $mediawikiApi;
 
 	public function __construct( Client $oauthClient, LoggerInterface $logger ) {
-	    $this->client = $oauthClient;
+		$this->client = $oauthClient;
 		$this->mediawikiApi = new MediawikiApi( 'https://commons.wikimedia.org/w/api.php', $oauthClient );
 		$this->mediawikiApi->setLogger( $logger );
+	}
+
+	/**
+	 * Can the current user upload files?
+	 * @return boolean
+	 */
+	public function canUpload() {
+		$result = $this->mediawikiApi->getRequest( new SimpleRequest( 'query', [
+			'meta' => 'userinfo',
+			'uiprop' => 'rights'
+		] ) );
+		return in_array( 'upload', $result['query']['userinfo']['rights'] );
 	}
 
 	/**
@@ -87,7 +99,7 @@ class CommonsClient {
 	 * @return string
 	 */
 	public function normalizePageTitle( $title ) {
-		return str_replace( [ ' ', "\t", "\n" ], [ '_', '_', '_' ], $title );
+		return str_replace( [ ' ', "\t", "\n" ], [ '_', '_', '_' ], trim( $title ) );
 	}
 
 	/**
