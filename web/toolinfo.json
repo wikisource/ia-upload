@@ -1,0 +1,9 @@
+{
+	"name" : "ia-upload",
+	"title" : "IA Upload",
+	"description" : "A tool to upload Internet Archive files to Wikimedia Commons",
+	"url" : "http://tools.wmflabs.org/ia-upload/",
+	"keywords" : "Wikisource, Internet Archive, DjVu, PDF, conversion, upload",
+	"author" : "",
+	"repository" : "https://github.com/hay/wiki-tools.git"
+}
