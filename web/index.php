@@ -21,17 +21,29 @@ if ( $config === false ) {
 }
 
 $app = new Application();
+
+// Sessions.
+$request = Request::createFromGlobals();
 $app->register( new SessionServiceProvider(), [
 	'session.storage.options' => [
-		'cookie_lifetime' => 24*60*60
+		'cookie_lifetime' => 24 * 60 * 60,
+		'name' => 'ia-upload-session',
+		'cookie_path' => $request->getBaseUrl(),
+		'cookie_httponly' => true,
+		'cookie_secure' => $request->getHost() !== 'localhost',
 	]
 ] );
+
+// Twig views.
 $app->register( new TwigServiceProvider(), [
 	'twig.path' => __DIR__ . '/../views',
 ] );
+
+// Logging and debugging.
 $app->register( new MonologServiceProvider() );
 $app['debug'] = isset( $config['debug'] ) && $config['debug'];
 
+// Routes.
 $commonController = new CommonsController( $app, $config );
 $oauthController = new OAuthController( $app, $config );
 
