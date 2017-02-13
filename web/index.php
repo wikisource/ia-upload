@@ -46,6 +46,9 @@ $app['debug'] = isset( $config['debug'] ) && $config['debug'];
 // Routes.
 $commonController = new CommonsController( $app, $config );
 $oauthController = new OAuthController( $app, $config );
+if ($request->getHost() !== 'localhost') {
+	$app['controllers']->requireHttps();
+}
 
 $app->get( '/', function() use( $app ) {
 	return $app->redirect( 'commons/init' );
