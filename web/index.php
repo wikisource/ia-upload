@@ -22,6 +22,14 @@ if ( $config === false ) {
 
 $app = new Application();
 
+// Ensure the tool is accessed over HTTPS.
+$app->before( function ( Request $request, Application $app ) {
+	if ( $request->headers->get( 'X-Forwarded-Proto' ) == 'http' ) {
+		$uri = 'https://' . $request->getHost() . $request->headers->get( 'X-Original-URI' );
+		return $app->redirect( $uri );
+	}
+}, Application::EARLY_EVENT );
+
 // Sessions.
 $request = Request::createFromGlobals();
 $app->register( new SessionServiceProvider(), [
