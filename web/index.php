@@ -22,12 +22,19 @@ if ( $config === false ) {
 
 $app = new Application();
 
-// Ensure the tool is accessed over HTTPS.
 $app->before( function ( Request $request, Application $app ) {
+
+	// Ensure the tool is accessed over HTTPS.
 	if ( $request->headers->get( 'X-Forwarded-Proto' ) == 'http' ) {
 		$uri = 'https://' . $request->getHost() . $request->headers->get( 'X-Original-URI' );
 		return $app->redirect( $uri );
 	}
+
+	// Make all internally-generated links be "https://"
+	if ( $request->headers->get( 'X-Forwarded-Proto' ) == 'https' ) {
+		$app['controllers']->requireHttps();
+	}
+
 }, Application::EARLY_EVENT );
 
 // Sessions.
