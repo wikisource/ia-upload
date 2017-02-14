@@ -8,6 +8,7 @@ use IaUpload\OAuth\MediaWikiOAuth;
 use IaUpload\OAuth\Token\AccessToken;
 use IaUpload\OAuth\Token\ConsumerToken;
 use IaUpload\OAuthController;
+use Mediawiki\Api\UsageException;
 use Monolog\Handler\ErrorLogHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -75,12 +76,19 @@ class JobsCommand extends Command {
 
 			// Upload to Commons.
 			$log->info( "Uploading to $localDjvu to Commons $jobInfo->commonsName" );
-			$commonsClient->upload(
-				$jobInfo->commonsName,
-				$localDjvu,
-				$jobInfo->description,
-				'Imported from Internet Archive by the [[wikitech:Tool:IA Upload|IA Upload tool]] job queue'
-			);
+			try {
+				$comment = 'Imported from Internet Archive by '
+					. 'the [[wikitech:Tool:IA Upload|IA Upload tool]] job queue';
+				$commonsClient->upload(
+					$jobInfo->commonsName,
+					$localDjvu,
+					$jobInfo->description,
+					$comment
+				);
+			} catch ( UsageException $e ) {
+				$log->critical( $e->getMessage() );
+				throw $e;
+			}
 			$this->deleteDirectory( dirname( $jobFile ) );
 		}
 		return 0;
