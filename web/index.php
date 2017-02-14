@@ -71,6 +71,10 @@ $app->post( 'commons/save', function( Request $request ) use ( $commonController
 	return $commonController->save( $request );
 } )->bind( 'commons-save' );
 
+$app->get( 'log/{iaId}', function( Request $request, $iaId ) use ( $commonController ) {
+	return $commonController->logview( $request, $iaId );
+} )->bind( 'log' );
+
 $app->get( 'oauth/init', function( Request $request ) use ( $oauthController ) {
 	return $oauthController->init( $request );
 } )->bind( 'oauth-init' );

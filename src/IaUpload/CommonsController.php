@@ -294,6 +294,18 @@ class CommonsController {
 	}
 
 	/**
+	 * Display the log of a given job.
+	 * @param Request $request
+	 * @param string $iaId
+	 */
+	public function logview( Request $request, $iaId ) {
+		// @todo Not duplicate the log name between here and JobsCommand.
+		$logFile = $this->getJobDirectory( $iaId ) . '/log.txt';
+		$log = ( file_exists( $logFile ) ) ? file_get_contents( $logFile ) : 'No log available.';
+		return new Response( $log, 200, [ 'Content-Type' => 'text/plain' ] );
+	}
+
+	/**
 	 * Outputs a template as response
 	 *
 	 * @param array $params

@@ -48,6 +48,7 @@
 				<th>IA Item</th>
 				<th>Commons filename</th>
 				<th>Status</th>
+				<th>Log</th>
 			</tr>
 			</thead>
 		{% for job in jobs %}
@@ -56,6 +57,7 @@
 				<td><a href="https://archive.org/details/{{ job.iaId }}">{{ job.iaId }}</a></td>
 				<td><a href="https://commons.wikimedia.org/wiki/File:{{ job.commonsName }}">{{ job.commonsName }}</a></td>
 				<td>{% if job.locked %}In progress{% else %}Queued{% endif %}</td>
+				<td><a href="{{ url( 'log', {iaId: job.iaId} ) }}">View log</a></td>
 			</tr>
 			</tbody>
 		{% endfor %}
