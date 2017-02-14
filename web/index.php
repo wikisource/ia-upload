@@ -22,19 +22,12 @@ if ( $config === false ) {
 
 $app = new Application();
 
+// Ensure the tool is accessed over HTTPS.
 $app->before( function ( Request $request, Application $app ) {
-
-	// Ensure the tool is accessed over HTTPS.
 	if ( $request->headers->get( 'X-Forwarded-Proto' ) == 'http' ) {
 		$uri = 'https://' . $request->getHost() . $request->headers->get( 'X-Original-URI' );
 		return $app->redirect( $uri );
 	}
-
-	// Make all internally-generated links be "https://"
-	if ( $request->headers->get( 'X-Forwarded-Proto' ) == 'https' ) {
-		$app['controllers']->requireHttps();
-	}
-
 }, Application::EARLY_EVENT );
 
 // Sessions.
@@ -85,5 +78,9 @@ $app->get( 'oauth/init', function( Request $request ) use ( $oauthController ) {
 $app->get( 'oauth/callback', function( Request $request ) use ( $oauthController ) {
 	return $oauthController->callback( $request );
 } )->bind( 'oauth-callback' );
+
+// Add tool labs' IPs as trusted.
+// See https://wikitech.wikimedia.org/wiki/Help:Tool_Labs/Web#Web_proxy_servers
+Request::setTrustedProxies( [ '10.68.21.49', '10.68.21.81' ] );
 
 $app->run();
