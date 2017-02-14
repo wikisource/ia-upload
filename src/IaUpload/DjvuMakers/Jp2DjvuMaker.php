@@ -155,6 +155,12 @@ class Jp2DjvuMaker extends DjvuMaker {
 		// Replace URLs in the XML. Every OBJECT element has a 'data' attribute which is a URI.
 		$this->log->info( "Modifying DjVu XML file $djvuXmlFile to add $djvuFile" );
 		$xml = simplexml_load_file( $djvuXmlFile, null, LIBXML_NOENT );
+		// If we can't load the XML file, just return because at least a plain DjVu will have
+		// been created (this is usually for languages not supported by IA OCR).
+		if ( $xml === false || !isset( $xml->BODY ) ) {
+			$this->log->info( "Unable to load XML file or no BODY element found in '$xml'" );
+			return;
+		}
 		$pageNum = 0;
 		foreach ( $xml->BODY->OBJECT as $object ) {
 			$object['data'] = 'file://localhost'.$djvuFile;
