@@ -35,6 +35,12 @@
 	<div class="container">
 		<div class="content">
 			<div class="page-header">
+				{% if user %}
+				<ul id="user-status" class="pull-right list-inline">
+					<li>You are logged in as {{ user }}</li>
+					<li><a href="{{ url('logout') }}">Logout</a></li>
+				</ul>
+				{% endif %}
 				<h1>Upload books from Internet Archive</h1>
 			</div>
 			{% if error %}
@@ -43,10 +49,8 @@
 			{% if warning %}
 				<div class="alert alert-warning">{{ warning|raw }}</div>
 			{% endif %}
-			{% if user %}
-				<div class="alert alert-success">You are logged as {{ user }}</div>
-			{% else %}
-				<div class="alert alert-warning">You should <a href="{{ path( 'oauth-init', {'referer': global.request.uri} ) }}">authorize ia-upload</a> to upload books to Wikimedia Commons.</div>
+			{% if not user %}
+				<div class="alert alert-warning">You must <a href="{{ path( 'oauth-init', {'referer': global.request.uri} ) }}">log in</a> to upload books to Wikimedia Commons</div>
 			{% endif %}
 			{% if success %}
 				<div class="alert alert-success">{{ success|raw }}</div>

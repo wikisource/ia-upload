@@ -57,7 +57,7 @@ $oauthController = new OAuthController( $app, $config );
 
 $app->get( '/', function() use( $app ) {
 	return $app->redirect( 'commons/init' );
-} );
+} )->bind( 'home' );
 
 $app->get( 'commons/init', function( Request $request ) use ( $commonController ) {
 	return $commonController->init( $request );
@@ -82,6 +82,10 @@ $app->get( 'oauth/init', function( Request $request ) use ( $oauthController ) {
 $app->get( 'oauth/callback', function( Request $request ) use ( $oauthController ) {
 	return $oauthController->callback( $request );
 } )->bind( 'oauth-callback' );
+
+$app->get( 'logout', function( Request $request ) use ( $oauthController ) {
+	return $oauthController->logout( $request );
+} )->bind( 'logout' );
 
 // Add tool labs' IPs as trusted.
 // See https://wikitech.wikimedia.org/wiki/Help:Tool_Labs/Web#Web_proxy_servers

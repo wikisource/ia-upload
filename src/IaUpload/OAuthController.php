@@ -4,6 +4,7 @@ namespace IaUpload;
 
 use IaUpload\OAuth\MediaWikiOAuth;
 use IaUpload\OAuth\Token\ConsumerToken;
+use IaUpload\OAuth\Token\RequestToken;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -45,13 +46,26 @@ class OAuthController {
 	}
 
 	public function callback( Request $request ) {
-	    $accessToken = $this->oAuthClient->complete(
-			$this->app['session']->get( 'request_token' ),
-	        $request->get( 'oauth_verifier' )
-		);
+		$reqestToken = $this->app['session']->get( 'request_token' );
+		if ( !$reqestToken instanceof RequestToken ) {
+			$this->app->abort( 403, 'Unable to load request token from session' );
+		}
+		$verifier = $request->get( 'oauth_verifier' );
+		$accessToken = $this->oAuthClient->complete( $reqestToken, $verifier );
 		$this->app['session']->set( 'access_token', $accessToken );
 		$this->app['session']->set( 'user', $this->oAuthClient->identify( $accessToken )->username );
-
+		$this->app['session']->remove( 'request_token' );
+		$this->app['session']->migrate();
 		return $this->app->redirect( $this->app['session']->get( 'referer' ) );
+	}
+
+	/**
+	 * Log out the current user.
+	 * @param Request $request
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 */
+	public function logout( Request $request ) {
+		$this->app['session']->invalidate();
+		return $this->app->redirect( $this->app['url_generator']->generate( 'home' ) );
 	}
 }
