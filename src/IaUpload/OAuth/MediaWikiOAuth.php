@@ -32,6 +32,9 @@ class MediaWikiOAuth {
 	 */
 	private $consumerToken;
 
+	/** @var string The user-agent with which to identify this tool. */
+	protected $userAgent = 'wikisource/ia-upload';
+
 	/**
 	 * @param string $baseUri The URI of the index.php file of the wiki like 'https://commons.wikimedia.org/w/index.php'
 	 * @param ConsumerToken $consumerToken
@@ -125,7 +128,7 @@ class MediaWikiOAuth {
 			'auth' => 'oauth',
 			'cookies' => true,
 			'handler' =>  $stack,
-			'headers' => [ 'User-Agent' => 'Tpt/ia-upload' ]
+			'headers' => [ 'User-Agent' => $this->userAgent ]
 		] );
 	}
 
@@ -152,7 +155,7 @@ class MediaWikiOAuth {
 		$stack->push( $this->buildOAuth1MiddlewareFromToken( $token ) );
 		return new Client( [
 			'base_uri' => $this->baseUri,
-			'headers' => [ 'User-Agent' => 'Tpt/ia-upload' ],
+			'headers' => [ 'User-Agent' => $this->userAgent ],
 			'handler' => $stack,
 			'auth' => 'oauth'
 		] );

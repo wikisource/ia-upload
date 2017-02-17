@@ -1,5 +1,5 @@
 {
-	"name": "tpt/ia-upload",
+	"name": "wikisource/ia-upload",
 	"description": "Bot to upload Internet Archive files to Wikimedia Commons",
 	"license": "GPL-2.0+",
 	"homepage": "https://wikitech.wikimedia.org/wiki/Tool:IA_Upload",
@@ -9,7 +9,6 @@
 		"guzzlehttp/guzzle": "~6.0",
 		"guzzlehttp/oauth-subscriber": "~0.3",
 		"silex/silex": "~2.0",
-		"twig/twig": "~1.24",
 		"symfony/twig-bridge": "~3.1",
 		"addwiki/mediawiki-api-base": "~2.2",
 		"firebase/php-jwt": "~4.0",

@@ -3,6 +3,7 @@ Internet Archive Upload Tool
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Tpt/ia-upload/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Tpt/ia-upload/?branch=master)
 [![Build Status](https://travis-ci.org/wikisource/ia-upload.svg?branch=master)](https://travis-ci.org/wikisource/ia-upload)
+[![Dependency Status](https://www.versioneye.com/user/projects/58a64b614ca76f004ed471fa/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/58a64b614ca76f004ed471fa)
 
 A small tool to import DjVu files from Internet Archive to Wikimedia Commons.
 See it in operation at [tools.wmflabs.org/ia-upload/](https://tools.wmflabs.org/ia-upload/)

@@ -4,6 +4,6 @@
 	"description" : "A tool to upload Internet Archive files to Wikimedia Commons",
 	"url" : "http://tools.wmflabs.org/ia-upload/",
 	"keywords" : "Wikisource, Internet Archive, DjVu, PDF, conversion, upload",
-	"author" : "Tpt, Samwilson",
+	"author" : "Tpt, Sam Wilson",
 	"repository" : "https://github.com/wikisource/ia-upload.git"
 }
