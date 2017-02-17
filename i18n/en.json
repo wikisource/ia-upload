@@ -10,7 +10,7 @@
 	"form-label-ia-id": "ID of the file on Internet Archive:",
 	"form-label-commons-name": "File name on Commons:",
 	"form-label-file-source": "DjVu file source:",
-	"form-label-commons-descritpion": "Commons description:",
+	"form-label-commons-description": "Commons description:",
 	"ia-id-help": "The ID is the part of the URL after 'details/', for example: $1",
 	"commons-name-help": "The name to give this file when it's uploaded to Wikimedia Commons. If the file already exists, it won't be re-uploaded and you'll be prompted to change it here.",
 	"get-metadata": "Get metadata",
