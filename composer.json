@@ -1,6 +1,6 @@
 {
 	"name": "wikisource/ia-upload",
-	"description": "Bot to upload Internet Archive files to Wikimedia Commons",
+	"description": "Tool to upload DjVu files from the Internet Archive files to Wikimedia Commons",
 	"license": "GPL-2.0+",
 	"homepage": "https://wikitech.wikimedia.org/wiki/Tool:IA_Upload",
 	"minimum-stability": "stable",
@@ -15,7 +15,8 @@
 		"firebase/php-jwt": "~4.0",
 		"monolog/monolog": "~1.20",
 		"symfony/console": "^3.2",
-		"pastuhov/php-exec-command": "^1.1"
+		"pastuhov/php-exec-command": "^1.1",
+		"wikimedia/simplei18n": "^1.0"
 	},
 	"require-dev": {
 		"mediawiki/mediawiki-codesniffer": "~0.7"

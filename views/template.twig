@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8" />
-	<title>IA Upload Bot</title>
+	<title>{{ 'ia-upload'|message }}</title>
 	<link rel="stylesheet" href="//tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<style type="text/css">
@@ -27,9 +27,7 @@
 <body>
 
 	{% if debug %}
-	<div class="alert alert-danger" id="debug-notice">
-		This site is in debug mode, and may not be working correctly.
-	</div>
+	<div class="alert alert-danger" id="debug-notice">{{ 'debug-notice'|message }}</div>
 	{% endif %}
 
 	<div class="container">
@@ -37,11 +35,11 @@
 			<div class="page-header">
 				{% if user %}
 				<ul id="user-status" class="pull-right list-inline">
-					<li>You are logged in as {{ user }}</li>
-					<li><a href="{{ url('logout') }}">Logout</a></li>
+					<li>{{ 'logged-in-as'|message(user) }}</li>
+					<li><a href="{{ url('logout') }}">{{ 'logout'|message }}</a></li>
 				</ul>
 				{% endif %}
-				<h1>Upload books from Internet Archive</h1>
+				<h1>{{ 'site-title'|message }}</h1>
 			</div>
 			{% if error %}
 				<div class="alert alert-danger">{{ error|raw }}</div>
@@ -50,7 +48,9 @@
 				<div class="alert alert-warning">{{ warning|raw }}</div>
 			{% endif %}
 			{% if not user %}
-				<div class="alert alert-warning">You must <a href="{{ path( 'oauth-init', {'referer': global.request.uri} ) }}">log in</a> to upload books to Wikimedia Commons</div>
+				<div class="alert alert-warning">
+					{{ 'login-notice'|message(path( 'oauth-init', {'referer': global.request.uri} ) )|raw }}
+				</div>
 			{% endif %}
 			{% if success %}
 				<div class="alert alert-success">{{ success|raw }}</div>
@@ -61,8 +61,7 @@
 	</div>
 	<footer class="text-center text-muted">
 		<p>
-			This is the <a href="https://wikitech.wikimedia.org/wiki/Tool:IA_Upload">IA Upload tool</a>,
-			please <a href="https://github.com/wikisource/ia-upload/issues">report any issues</a>.
+			{{ 'site-explanation'|message('https://wikitech.wikimedia.org/wiki/Tool:IA_Upload', 'https://github.com/wikisource/ia-upload/issues')|raw }}
 		</p>
 	</footer>
 </body>

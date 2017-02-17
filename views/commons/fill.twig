@@ -4,46 +4,45 @@
 		<input name="iaFileName" id="iaFileName" type="hidden" required="required" value="{{ iaFileName|e }}" />
 		<input type="hidden" value="{% if hasDjvu %}yes{% endif %}" name="hasDjvu" />
 		<fieldset>
-			<legend>Upload a file</legend>
+			<legend>{{ 'upload-file'|message }}</legend>
 
 			<div class="form-group">
-				<label for="iaId" class="col-lg-2 control-label">ID of the file on Internet Archive:</label>
+				<label for="iaId" class="col-lg-2 control-label">{{ 'form-label-ia-id'|message }}</label>
 				<div class="col-lg-10">
 					<input name="iaId" id="iaId" type="text" size="30" required="required" readonly="readonly" class="form-control" value="{{ iaId|e }}" />
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label for="commonsName" class="col-lg-2 control-label">File name on Commons:</label>
+				<label for="commonsName" class="col-lg-2 control-label">{{ 'form-label-commons-name'|message }}</label>
 				<div class="col-lg-10">
 					<input name="commonsName" id="commonsName" type="text" size="30" required="required" readonly="readonly" class="form-control" value="{{ commonsName|e }}" />
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label for="sourceFile" class="col-lg-2 control-label">DjVu source:</label>
+				<label for="sourceFile" class="col-lg-2 control-label">{{ 'form-label-file-source'|message }}</label>
 				<div class="col-lg-10">
 					<select name="fileSource" class="form-control">
 						<option value="djvu" {% if fileSource == 'djvu' and hasDjvu %}selected{% endif %} {% if not hasDjvu %}disabled{% endif %}>
-							use existing DjVu {% if not hasDjvu %}(not available for this item){% endif %}
+							{{ 'file-source-djvu'|message }}
+							{% if not hasDjvu %}{{ 'file-source-not-available'|message }}{% endif %}
 						</option>
 						<option value="jp2" {% if fileSource == 'jp2' %}selected{% endif %}>
-							from original scans (JP2)
+							{{ 'file-source-jp2'|message }}
 						</option>
 						<option value="pdf" {% if fileSource == 'pdf' %}selected{% endif %}>
-							from PDF (may be of lower quality)
+							{{ 'file-source-pdf'|message }}
 						</option>
 					</select>
 					<span class="help-block">
-						Where should the DjVu file be generated from?<br />
-						Note that for JP2 and PDF, <strong>your authentication credentials will be stored</strong> on the Tool Labs server for as long as it takes to complete the conversion (usually less than an hour).
-						You can <a href="https://commons.wikimedia.org/wiki/Special:OAuthManageMyGrants">revoke this tool's access</a> at any time.
+						{{ 'file-source-help'|message('https://commons.wikimedia.org/wiki/Special:OAuthManageMyGrants')|raw }}
 					</span>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label for="commonsName" class="col-lg-2 control-label">Remove first page?</label>
+				<label for="commonsName" class="col-lg-2 control-label">{{ 'remove-first-page'|message }}</label>
 				<div class="col-lg-10 row">
 					<div class="col-lg-2">
 						{# See here for the URL structure: https://openlibrary.org/dev/docs/bookurls #}
@@ -53,32 +52,30 @@
 						<div class="radio">
 							<label>
 								<input type="radio" name="removeFirstPage" value="yes" />
-								Yes, remove this page from the DjVu
+								{{ 'remove-first-page-yes'|message }}
 							</label>
 						</div>
 						<div class="radio">
 							<label>
 								<input type="radio" name="removeFirstPage" value="no" />
-								No, leave it in
+								{{ 'remove-first-page-no'|message }}
 							</label>
 						</div>
 						<span class="help-block">
-							Some scans from Google contain a copyrighted cover page that isn't permitted on Commons.
-							For more information please see the
-							<a href="https://en.wikisource.org/wiki/Help:Internet_Archive#Google_Books">help page on Wikisource</a>.
+							{{ 'remove-first-page-help'|message|raw }}
 						</span>
 					</div>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label for="description" class="col-lg-2 control-label">Commons description: </label>
+				<label for="description" class="col-lg-2 control-label">{{ 'form-label-commons-description'|message }} </label>
 				<div class="col-lg-10">
 					<textarea name="description" id="description" required="required" rows="30" cols="60" class="form-control" >{{ description|e }}</textarea>
 					<div>
-						<ul>
+						<ul class="list-unstyled">
 						{% for note in notes %}
-        					<li>{{ note|raw }}</li>
+							<li>{{ note|raw }}</li>
 						{% endfor %}
 						</ul>
 					</div>
@@ -87,7 +84,8 @@
 
 			<div class="form-group">
 				<div class="col-lg-offset-2 col-lg-10">
-					<input class="btn btn-primary" type="submit" value="Upload" {% if not  user %}disabled title="You should authorize ia-upload before uploading the file"{%  endif %} /> <span>(Warning: the upload may take more than one minute !)</span>
+					<input class="btn btn-primary" type="submit" value="Upload" {% if not  user %}disabled title="{{ 'authorize-first'|message }}"{%  endif %} />
+					<span class="help-block">{{ 'upload-time-warning'|message }}</span>
 				</div>
 			</div>
 

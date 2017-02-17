@@ -2,53 +2,50 @@
 {% block body %}
 	<form method="GET" action="{{ path( 'commons-fill' ) }}" role="form" class="form-horizontal">
 		<fieldset>
-			<legend>Upload a file</legend>
+			<legend>{{ 'upload-file'|message }}</legend>
 			<div class="form-group">
-				<label for="iaId" class="col-lg-3 control-label">ID of the file on Internet Archive:</label>
+				<label for="iaId" class="col-lg-3 control-label">{{ 'form-label-ia-id'|message }}</label>
 				<div class="col-lg-9">
 					<input name="iaId" id="iaId" type="text" size="30" required="required" class="form-control" value="{{ iaId|e }}" />
 					<span class="help-block">
-						The ID is the part of the URL after 'details/', for example: <code>https://archive.org/details/<u><strong>cu31924022189587</strong></u></code>
+						{{ 'ia-id-help'|message('<code>https://archive.org/details/<u><strong>cu31924022189587</strong></u></code>')|raw }}
 					</span>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="commonsName" class="col-lg-3 control-label">File name on Commons:</label>
+				<label for="commonsName" class="col-lg-3 control-label">{{ 'form-label-commons-name'|message }}</label>
 				<div class="controls col-lg-9">
 					<span class="input-group"><input name="commonsName" id="commonsName" type="text" size="30" required="required" class="form-control" value="{{ commonsName|e }}" maxlength="240" />
 						<span class="input-group-addon">.djvu</span>
 					</span>
-					<span class="help-block">
-						The name to give this file when it's uploaded to Wikimedia Commons.
-						If the file already exists, it won't be re-uploaded and you'll be prompted to change it here.
-					</span>
+					<span class="help-block">{{ 'commons-name-help'|message }}</span>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-lg-offset-3 col-lg-9">
-					<input class="btn btn-primary" type="submit" value="Get metadata" />
+					<input class="btn btn-primary" type="submit" value="{{ 'get-metadata'|message }}" />
 				</div>
 			</div>
 		</fieldset>
 	</form>
 
-	<h2>Job queue</h2>
+	<h2>{{ 'job-queue'|message }}</h2>
 	{% if not jobs %}
-		<p class="alert alert-success">The job queue is currently empty.</p>
+		<p class="alert alert-success">{{ 'job-queue-empty'|message }}</p>
 	{% else %}
 		<p>
-			Jobs will be removed from this list once completed and uploaded to Commons.
+			{{ 'jobs-will-be-removed'|message }}
 			{% if user %}
-			Files will appear in <a href="https://commons.wikimedia.org/wiki/Special:Contributions/{{ user }}">your contributions list</a> on Commons.
+				{{ 'user-contribs-link'|message('https://commons.wikimedia.org/wiki/Special:Contributions/'~user) }}
 			{% endif %}
 		</p>
 		<table class="table">
 			<thead>
 			<tr>
-				<th>IA Item</th>
-				<th>Commons filename</th>
-				<th>Status</th>
-				<th>Log</th>
+				<th>{{ 'table-header-ia-item'|message }}</th>
+				<th>{{ 'table-header-commons-filename'|message }}</th>
+				<th>{{ 'table-header-status'|message }}</th>
+				<th>{{ 'table-header-log'|message }}</th>
 			</tr>
 			</thead>
 		{% for job in jobs %}
@@ -56,7 +53,7 @@
 			<tr>
 				<td><a href="https://archive.org/details/{{ job.iaId }}">{{ job.iaId }}</a></td>
 				<td><a href="https://commons.wikimedia.org/wiki/File:{{ job.commonsName }}">{{ job.commonsName }}</a></td>
-				<td>{% if job.locked %}In progress{% else %}Queued{% endif %}</td>
+				<td>{% if job.locked %}{{ 'in-progress'|message }}{% else %}{{ 'queued'|message }}{% endif %}</td>
 				<td><a href="{{ url( 'log', {iaId: job.iaId} ) }}">View log</a></td>
 			</tr>
 			</tbody>

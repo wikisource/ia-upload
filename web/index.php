@@ -7,6 +7,9 @@ use Silex\Provider\MonologServiceProvider;
 use Silex\Provider\SessionServiceProvider;
 use Silex\Provider\TwigServiceProvider;
 use Symfony\Component\HttpFoundation\Request;
+use Wikimedia\SimpleI18n\I18nContext;
+use Wikimedia\SimpleI18n\JsonCache;
+use Wikimedia\SimpleI18n\TwigExtension;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -50,6 +53,10 @@ $app->register( new TwigServiceProvider(), [
 // Logging and debugging.
 $app->register( new MonologServiceProvider() );
 $app['debug'] = isset( $config['debug'] ) && $config['debug'];
+
+// Internationalisation.
+$i18nContext = new I18nContext( new JsonCache( __DIR__ . '/../i18n' ) );
+$app['twig']->addExtension( new TwigExtension( $i18nContext ) );
 
 // Routes.
 $commonController = new CommonsController( $app, $config );

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ed3350dbf5c76b3edd61ff5bf7fc01ab",
-    "content-hash": "cf05f7b50f7df120c9c8de75ccb57aa2",
+    "hash": "167b7f5cf1144bc138e02eb6ca694dfc",
+    "content-hash": "f380efeba4cb24cfb517edd1251bea45",
     "packages": [
         {
             "name": "addwiki/mediawiki-api-base",
@@ -1267,6 +1267,59 @@
                 "templating"
             ],
             "time": "2017-01-11 19:36:15"
+        },
+        {
+            "name": "wikimedia/simplei18n",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wikimedia/simplei18n.git",
+                "reference": "46eead4fa2eaf23bdf392724c8ec370ff3e5b1b4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wikimedia/simplei18n/zipball/46eead4fa2eaf23bdf392724c8ec370ff3e5b1b4",
+                "reference": "46eead4fa2eaf23bdf392724c8ec370ff3e5b1b4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "psr/log": "~1.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0",
+                "twig/twig": "~1.16"
+            },
+            "suggest": {
+                "psr/log-implementation": "PSR-3 implemenation"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Wikimedia\\SimpleI18n\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Bryan Davis",
+                    "email": "bd808@bd808.com",
+                    "homepage": "http://bd808.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "No frills internationalization engine",
+            "homepage": "https://github.com/wikimedia/simplei18n",
+            "keywords": [
+                "i18n",
+                "internationalization",
+                "l10n",
+                "localization"
+            ],
+            "time": "2014-11-20 00:55:34"
         }
     ],
     "packages-dev": [
