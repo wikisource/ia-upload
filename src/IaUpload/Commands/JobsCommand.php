@@ -4,6 +4,7 @@ namespace IaUpload\Commands;
 
 use Exception;
 use IaUpload\CommonsClient;
+use IaUpload\IaClient;
 use IaUpload\OAuth\MediaWikiOAuth;
 use IaUpload\OAuth\Token\AccessToken;
 use IaUpload\OAuth\Token\ConsumerToken;
@@ -72,6 +73,12 @@ class JobsCommand extends Command {
 			} catch ( Exception $e ) {
 				$log->critical( $e->getMessage() );
 				throw $e;
+			}
+
+			// Remove the first page if required.
+			if ( $jobInfo->removeFirstPage ) {
+				$iaClient = new IaClient();
+				$iaClient->removeFirstPage( $localDjvu );
 			}
 
 			// Upload to Commons.

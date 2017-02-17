@@ -4,6 +4,7 @@ namespace IaUpload;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use pastuhov\Command\Command;
 use Psr\Http\Message\StreamInterface;
 
 /**
@@ -65,5 +66,15 @@ class IaClient {
 	        fwrite( $file, $stream->read( 1024 ) );
 		   }
 		fclose( $file );
+	}
+
+	/**
+	 * Remove the first page of the given DjVu file.
+	 * This is used to strip the Google cover page on request.
+	 * @param string $djvuFile Full filesystem path to the DjVu file.
+	 */
+	public function removeFirstPage( $djvuFile ) {
+		$cmd = "djvm -d \"$djvuFile\" 1";
+		$commandOutput = Command::exec( $cmd );
 	}
 }

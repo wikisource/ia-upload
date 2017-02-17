@@ -214,6 +214,7 @@ class CommonsController {
 			'description' => $request->get( 'description' ),
 			'fileSource' => $request->get( 'fileSource', 'jp2' ),
 			'hasDjvu' => $request->get( 'hasDjvu', 0 ) === 'yes',
+			'removeFirstPage' => $request->get( 'removeFirstPage', 0 ) === 'yes',
 		];
 		if ( !$jobInfo['iaId'] || !$jobInfo['commonsName'] || !$jobInfo['description'] ) {
 			$jobInfo['error'] = 'You must set all the fields of the form';
@@ -264,6 +265,9 @@ class CommonsController {
 			$localDjVuFile = $jobDirectory . '/' . $jobInfo['iaFileName'];
 			try {
 				$this->iaClient->downloadFile( $remoteDjVuFile, $localDjVuFile );
+				if ( $jobInfo['removeFirstPage'] ) {
+					$this->iaClient->removeFirstPage( $localDjVuFile );
+				}
 				$this->commonsClient->upload(
 					$jobInfo['commonsName'],
 					$localDjVuFile,
