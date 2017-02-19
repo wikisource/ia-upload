@@ -142,7 +142,7 @@ class CommonsController {
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
 				'commonsName' => $commonsName,
-				'error' => 'You must set all the fields of the form !'
+				'error' => $this->app['i18n']->message( 'set-all-fields' ),
 			] );
 		}
 		// Strip any trailing file extension.
@@ -154,17 +154,20 @@ class CommonsController {
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
 				'commonsName' => $commonsName,
-				'error' => 'The image name "' . htmlspecialchars( $commonsName ) . '" is not valid file name'
+				'error' => $this->app['i18n']->message( 'invalid-commons-name', [ $commonsName ] ),
 			] );
 		}
 
 		// Try to get IA details.
 		$iaData = $this->iaClient->fileDetails( $iaId );
 		if ( $iaData === false ) {
+			$link = '<a href="http://archive.org/details/' . rawurlencode( $iaId ) . '">'
+				. htmlspecialchars( $iaId )
+				. '</a>';
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
 				'commonsName' => $commonsName,
-				'error' => '<a href="http://archive.org/details/' . rawurlencode( $iaId ) . '">Book ' . htmlspecialchars( $iaId ) . '</a> not found in Internet Archive!'
+				'error' => $this->app['i18n']->message( 'no-found-on-ia', [ $link ] ),
 			] );
 		}
 		$iaId = $iaData['metadata']['identifier'][0];
@@ -178,10 +181,13 @@ class CommonsController {
 		$fullCommonsName = $commonsName . '.djvu';
 
 		if ( $this->commonsClient->pageExist( 'File:' . $fullCommonsName ) ) {
+			$link = '<a href="http://commons.wikimedia.org/wiki/File:' . rawurlencode( $fullCommonsName ) . '">' 
+				. htmlspecialchars( $fullCommonsName )
+				. '</a>';
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
 				'commonsName' => $commonsName,
-				'error' => '<a href="http://commons.wikimedia.org/wiki/File:' . rawurlencode( $fullCommonsName ) . '">A file with the name ' . htmlspecialchars( $fullCommonsName ) . '</a> already exist on Commons !'
+				'error' => $this->app['i18n']->message( 'already-on-commons', [ $link ] ),
 			] );
 		}
 		$templateParams = [
@@ -189,7 +195,7 @@ class CommonsController {
 			'commonsName' => $fullCommonsName,
 			'iaFileName' => $iaFileName,
 			'hasDjvu' => $hasDjvu,
-		    'fileSource' => $fileSource,
+			'fileSource' => $fileSource,
 		];
 		list( $description, $notes ) = $this->createPageContent( $iaData );
 		$templateParams['description'] = $description;
@@ -223,21 +229,20 @@ class CommonsController {
 
 		// Check again that the Commons file doesn't exist.
 		if ( $this->commonsClient->pageExist( 'File:' . $jobInfo['commonsName'] ) ) {
-			$jobInfo['error'] = 'A file with the name '
-				. '<a href="https://commons.wikimedia.org/wiki/File:'
-				. rawurlencode( $jobInfo['commonsName'] ) . '">'
+			$link = '<a href="http://commons.wikimedia.org/wiki/File:' . rawurlencode( $jobInfo['commonsName'] ) . '">'
 				. htmlspecialchars( $jobInfo['commonsName'] )
-				. '</a> already exist on Commons!';
+				. '</a>';
+			$jobInfo['error'] = $this->app['i18n']->message( 'already-on-commons', [ $link ] );
 			return $this->outputsFillTemplate( $jobInfo );
 		}
 
 		// Check again that the IA item does exist.
 		$iaData = $this->iaClient->fileDetails( $jobInfo['iaId'] );
 		if ( $iaData === false ) {
-			$jobInfo['error'] = 'Item <a href="https://archive.org/details/'
-				. rawurlencode( $jobInfo['iaId'] )
-				. '">' . htmlspecialchars( $jobInfo['iaId'] )
-				. '</a> not found in Internet Archive!';
+			$link = '<a href="http://archive.org/details/' . rawurlencode( $jobInfo['iaId'] ) . '">'
+				. htmlspecialchars( $iaId )
+				. '</a>';
+			$jobInfo['error'] = $this->app['i18n']->message( 'no-found-on-ia', [ $link ] );
 			return $this->outputsFillTemplate( $jobInfo );
 		}
 		$jobInfo['iaId'] = $iaData['metadata']['identifier'][0];

@@ -32,5 +32,9 @@
 	"remove-first-page-no": "No, leave it in",
 	"remove-first-page-help": "Some scans from Google contain a copyrighted cover page that isn't permitted on Commons. For more information please see the <a href='https://en.wikisource.org/wiki/Help:Internet_Archive#Google_Books'>help page on Wikisource</a>.",
 	"authorize-first": "You should authorize ia-upload before uploading the file",
-	"upload-time-warning": "(Warning: the upload may take more than one minute!)"
+	"upload-time-warning": "(Warning: the upload may take more than one minute!)",
+	"set-all-fields": "Please set all fields of the form",
+	"invalid-commons-name": "'$1' is not a valid file name for Wikimedia Commons",
+	"no-found-on-ia": "'$1' is not a valid Internet Archive identifier",
+	"already-on-commons": "A file named '$1' already exists on Wikimedia Commons"
 }

@@ -55,8 +55,8 @@ $app->register( new MonologServiceProvider() );
 $app['debug'] = isset( $config['debug'] ) && $config['debug'];
 
 // Internationalisation.
-$i18nContext = new I18nContext( new JsonCache( __DIR__ . '/../i18n' ) );
-$app['twig']->addExtension( new TwigExtension( $i18nContext ) );
+$app['i18n'] = new I18nContext( new JsonCache( __DIR__ . '/../i18n' ) );
+$app['twig']->addExtension( new TwigExtension( $app['i18n'] ) );
 
 // Routes.
 $commonController = new CommonsController( $app, $config );
