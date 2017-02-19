@@ -181,7 +181,7 @@ class CommonsController {
 		$fullCommonsName = $commonsName . '.djvu';
 
 		if ( $this->commonsClient->pageExist( 'File:' . $fullCommonsName ) ) {
-			$link = '<a href="http://commons.wikimedia.org/wiki/File:' . rawurlencode( $fullCommonsName ) . '">' 
+			$link = '<a href="http://commons.wikimedia.org/wiki/File:' . rawurlencode( $fullCommonsName ) . '">'
 				. htmlspecialchars( $fullCommonsName )
 				. '</a>';
 			return $this->outputsInitTemplate( [
