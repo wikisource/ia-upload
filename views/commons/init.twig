@@ -36,7 +36,7 @@
 		<p>
 			{{ 'jobs-will-be-removed'|message }}
 			{% if user %}
-				{{ 'user-contribs-link'|message('https://commons.wikimedia.org/wiki/Special:Contributions/'~user) }}
+				{{ 'user-contribs-link'|message('https://commons.wikimedia.org/wiki/Special:Contributions/'~user)|raw }}
 			{% endif %}
 		</p>
 		<table class="table">
