@@ -1,4 +1,9 @@
 {
+	"@metadata": {
+		"authors": [
+			"Nike"
+		]
+	},
 	"ia-upload": "Title of the tool",
 	"site-title": "The main title displayed on each page",
 	"debug-notice": "Message displayed when the site is in 'debug' mode",
@@ -10,7 +15,7 @@
 	"form-label-ia-id": "Form label for the Internet Archive ID field",
 	"form-label-commons-name": "Form label for the Commons filename field",
 	"form-label-file-source": "Form label for the file-source selection list",
-	"form-label-commons-descritpion": "Form label for the Commons description textarea",
+	"form-label-commons-description": "Form label for the Commons description textarea",
 	"ia-id-help": "Help text about how to find the Internet Archive ID",
 	"commons-name-help": "Help text for the Commons filename field",
 	"get-metadata": "Button text to proceed from the first form to the metadata-entry part",
@@ -19,7 +24,7 @@
 	"jobs-will-be-removed": "Comment about how jobs are removed from the queue",
 	"user-contribs-link": "Link to the user's contributions on Commons",
 	"table-header-ia-item": "Job queue table header",
-	"table-header-commons-name": "Job queue table header",
+	"table-header-commons-filename": "Job queue table header",
 	"table-header-status": "Job queue table header",
 	"table-header-log": "Job queue table header",
 	"file-source-djvu": "Entry in the file-source selection menu",
