@@ -1,0 +1,23 @@
+{
+	"@metadata": {
+		"authors": [
+			"Nike"
+		]
+	},
+	"ia-upload": "IA Upload",
+	"site-title": "Tallenna kirjoja Internet Archivesta",
+	"debug-notice": "Tämä sivu on vianjäljitystilassa eikä ehkä toimi oikein.",
+	"logged-in-as": "Olet kirjautunut sisään nimellä $1",
+	"logout": "Kirjaudu ulos",
+	"upload-file": "Tallenna tiedosto",
+	"form-label-commons-name": "Tiedoston nimi Commonsissa:",
+	"form-label-commons-description": "Commons-kuvaus:",
+	"get-metadata": "Hae metadata",
+	"job-queue": "Työjono",
+	"job-queue-empty": "Työjono on tällä hetkellä tyhjä.",
+	"jobs-will-be-removed": "Työ poistetaan tältä listalta kun se on valmis ja tallennettu Commonsiin.",
+	"table-header-status": "Tila",
+	"table-header-log": "Loki",
+	"in-progress": "Käynnissä",
+	"queued": "Jonossa"
+}
