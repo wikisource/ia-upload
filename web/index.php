@@ -37,7 +37,7 @@ $app->before( function ( Request $request, Application $app ) {
 $request = Request::createFromGlobals();
 $app->register( new SessionServiceProvider(), [
 	'session.storage.options' => [
-		'cookie_lifetime' => 24 * 60 * 60,
+		'cookie_lifetime' => 30 * 24 * 60 * 60, // To match default $wgCookieExpiration
 		'name' => 'ia-upload-session',
 		'cookie_path' => $request->getBaseUrl(),
 		'cookie_httponly' => true,
