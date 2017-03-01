@@ -470,7 +470,7 @@ class CommonsController {
 		$content .= '| Homecat      = ' . "\n";
 		$content .= '}}' . "\n" . '{{Djvu}}' . "\n\n";
 		$content .= '== {{int:license-header}} ==' . "\n" . '{{PD-scan}}' . "\n\n";
-		$content .= '[[Category:Uploaded with IA Upload‎]]' . "\n";
+		$content .= '[[Category:Uploaded with IA Upload]]' . "\n";
 
 		$isCategorised = false;
 		if ( isset( $data['metadata']['date'][0] ) && $this->commonsClient->pageExist( 'Category:' . $data['metadata']['date'][0] . ' books' ) ) {
