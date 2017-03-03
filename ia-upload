@@ -6,6 +6,8 @@ require __DIR__ . '/vendor/autoload.php';
 use IaUpload\Commands\JobsCommand;
 use Symfony\Component\Console\Application;
 
+setlocale( LC_ALL, 'en_US.UTF-8' );
+
 $application = new Application();
 $application->add( new JobsCommand() );
 $application->run();
