@@ -401,7 +401,9 @@ class CommonsController {
 	 * @return array
 	 */
 	protected function createPageContent( $data ) {
-		$language = $this->normalizeLanguageCode( $data['metadata']['language'][0] );
+		$language = isset( $data['metadata']['language'][0] )
+			? $this->normalizeLanguageCode( $data['metadata']['language'][0] )
+			: '';
 		$notes = [];
 		$content = '== {{int:filedesc}} ==' . "\n" . '{{Book' . "\n";
 		if ( isset( $data['metadata']['creator'][0] ) ) {
