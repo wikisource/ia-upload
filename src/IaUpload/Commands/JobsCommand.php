@@ -38,8 +38,13 @@ class JobsCommand extends Command {
 		$jobsDir = __DIR__ . '/../../../jobqueue';
 		$jobs = glob( $jobsDir . '/*/job.json' );
 		foreach ( $jobs as $jobFile ) {
+			// Make sure we can write to the job directory.
+			$jobDir = dirname( $jobFile );
+			if ( !is_writable( $jobDir ) ) {
+				throw new Exception( "Unable to write to job directory $jobDir" );
+			}
 			// Skip if this job is locked; otherwise lock this job.
-			$lockFile = dirname( $jobFile ) . '/lock';
+			$lockFile = $jobDir . '/lock';
 			if ( file_exists( $lockFile ) ) {
 				continue;
 			}
@@ -49,7 +54,7 @@ class JobsCommand extends Command {
 			$jobInfo = \GuzzleHttp\json_decode( file_get_contents( $jobFile ) );
 			$log = new Logger( 'LOG' );
 			$log->pushHandler( new ErrorLogHandler() );
-			$log->pushHandler( new StreamHandler( dirname( $jobFile ) . '/log.txt' ) );
+			$log->pushHandler( new StreamHandler( $jobDir . '/log.txt' ) );
 
 			// Make sure we can upload, before doing anything else.
 			$mediawikiClient = $this->getMediawikiClient( $jobInfo->userAccessToken );
@@ -92,11 +97,11 @@ class JobsCommand extends Command {
 					$jobInfo->description,
 					$comment
 				);
-			} catch ( UsageException $e ) {
+			} catch ( Exception $e ) {
 				$log->critical( $e->getMessage() );
 				throw $e;
 			}
-			$this->deleteDirectory( dirname( $jobFile ) );
+			$this->deleteDirectory( $jobDir );
 		}
 		return 0;
 	}
