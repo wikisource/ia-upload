@@ -2,6 +2,7 @@
 
 namespace IaUpload;
 
+use Exception;
 use GuzzleHttp\Client;
 use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\SimpleRequest;
@@ -82,11 +83,12 @@ class CommonsClient {
 			]
 		] )->getBody(), true );
 		if ( array_key_exists( 'error', $result ) ) {
-			throw new UsageException( $result['error']['code'],  $result['error']['info'], $result );
+			throw new UsageException( $result['error']['code'], $result['error']['info'], $result );
 		}
 		if ( array_key_exists( 'warnings', $result ) ) {
 			foreach ( $result['warnings'] as $module => $warningData ) {
-				throw new UsageException( $module,  $warningData, $result );
+				$warning = is_array( $warningData ) ? join( "\n", $warningData ) : $warningData;
+				throw new UsageException( $module, $warning, $result );
 			}
 		}
 		return $result;
@@ -99,7 +101,12 @@ class CommonsClient {
 	 * @return string
 	 */
 	public function normalizePageTitle( $title ) {
-		return str_replace( [ ' ', "\t", "\n" ], [ '_', '_', '_' ], trim( $title ) );
+		$request = new SimpleRequest( 'query', [ 'titles' => trim( $title ) ] );
+		$result = $this->mediawikiApi->getRequest( $request );
+		if ( !isset( $result['query']['normalized'][0]['to'] ) ) {
+			return $title;
+		}
+		return $result['query']['normalized'][0]['to'];
 	}
 
 	/**
