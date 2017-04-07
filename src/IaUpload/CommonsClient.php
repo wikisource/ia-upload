@@ -101,10 +101,11 @@ class CommonsClient {
 	 * @return string
 	 */
 	public function normalizePageTitle( $title ) {
-		$request = new SimpleRequest( 'query', [ 'titles' => trim( $title ) ] );
+		$trimmedTitle = trim( $title );
+		$request = new SimpleRequest( 'query', [ 'titles' => $trimmedTitle ] );
 		$result = $this->mediawikiApi->getRequest( $request );
 		if ( !isset( $result['query']['normalized'][0]['to'] ) ) {
-			return $title;
+			return $trimmedTitle;
 		}
 		return $result['query']['normalized'][0]['to'];
 	}
