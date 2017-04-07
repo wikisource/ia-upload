@@ -407,11 +407,16 @@ class CommonsController {
 		$notes = [];
 		$content = '== {{int:filedesc}} ==' . "\n" . '{{Book' . "\n";
 		if ( isset( $data['metadata']['creator'][0] ) ) {
-			if ( $this->commonsClient->pageExist( 'Creator:' . $data['metadata']['creator'][0] ) ) {
-				$content .= '| Author       = {{Creator:' . $data['metadata']['creator'][0] . '}}' . "\n";
+			$creator = $data['metadata']['creator'][0];
+			// If there's a comma, assume we're reversed.
+			if ( strpos( $creator, ',' ) !== false ) {
+				$creator = join( ' ', array_map( 'trim', array_reverse( explode( ',', $creator ) ) ) );
+			}
+			if ( $this->commonsClient->pageExist( "Creator:$creator" ) ) {
+				$content .= "| Author       = {{Creator:$creator}}\n";
 			} else {
-				$notes[] = 'The author "' . $data['metadata']['creator'][0] . '" doesn’t have a <a href="http://commons.wikimedia.org/wiki/Commons:Creator">creator</a> template. Isn’t he known under an other name or do you want to <a href="http://commons.wikimedia.org/w/index.php?title=' . rawurlencode( $data['metadata']['creator'][0] ). '&action=edit&preload=Template:Creator/preload">create it</a> ?';
-				$content .= '| Author       = ' . $data['metadata']['creator'][0] . "\n";
+				$notes[] = $this->app['i18n']->message( 'creator-template-missing', [ $creator ] );
+				$content .= "| Author       = $creator\n";
 			}
 		} else {
 			$content .= '| Author       = ' . "\n";
@@ -470,6 +475,7 @@ class CommonsController {
 		$content .= '| Other versions = ' . "\n";
 		$content .= '| Wikisource   = s:' . $language . ':Index:{{PAGENAME}}' . "\n";
 		$content .= '| Homecat      = ' . "\n";
+		$content .= '| Wikidata     = ' . "\n";
 		$content .= '}}' . "\n" . '{{Djvu}}' . "\n\n";
 		$content .= '== {{int:license-header}} ==' . "\n" . '{{PD-scan}}' . "\n\n";
 		$content .= '[[Category:Uploaded with IA Upload]]' . "\n";
