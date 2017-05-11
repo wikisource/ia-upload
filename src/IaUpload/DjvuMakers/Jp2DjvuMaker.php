@@ -4,7 +4,6 @@ namespace IaUpload\DjvuMakers;
 
 use Exception;
 use pastuhov\Command\Command;
-use pastuhov\Command\CommandException;
 use ZipArchive;
 
 /**
@@ -16,6 +15,7 @@ class Jp2DjvuMaker extends DjvuMaker {
 
 	/**
 	 * @inheritdoc
+	 * @return string
 	 */
 	public function createLocalDjvu() {
 		$this->downloadFiles();
@@ -71,7 +71,8 @@ class Jp2DjvuMaker extends DjvuMaker {
 		if ( is_dir( $outDir ) ) {
 			// Directory already exists; check contents.
 			$numInDir = count( glob( "$outDir/*.jp2" ) );
-			$numInZip = $zip->numFiles - 1; // Minus 1 for the top-level directory.
+			// Minus 1 for the top-level directory.
+			$numInZip = $zip->numFiles - 1;
 			if ( $numInDir === $numInZip ) {
 				// All done.
 				return $outDir;
@@ -111,7 +112,7 @@ class Jp2DjvuMaker extends DjvuMaker {
 			if ( !file_exists( $jpgFile ) ) {
 				$this->log->debug( "...to $jpgFile" );
 				$convertArgs = "-resize 1500x1500 \"$jp2File\" \"$jpgFile\"";
-				$this->runCommand( 'convert', $convertArgs );
+				$this->runCommand( 'gm convert', $convertArgs );
 			}
 
 			// Make DjVu file of this page. Use the item identifier as the filename instead of
@@ -132,7 +133,6 @@ class Jp2DjvuMaker extends DjvuMaker {
 			$this->runCommand( "djvm", "-c \"$singleDjvuFile\" " . $djvuFileList );
 		}
 		return $singleDjvuFile;
-
 	}
 
 	/**

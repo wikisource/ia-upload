@@ -21,6 +21,9 @@ class PdfDjvuMaker extends DjvuMaker {
 	 */
 	private $client;
 
+	/**
+	 * @return string
+	 */
 	public function createLocalDjvu() {
 		$this->client = new Client( [
 			'base_uri' => 'http://tools.wmflabs.org/phetools/pdf_to_djvu_cgi.py'
@@ -51,7 +54,7 @@ class PdfDjvuMaker extends DjvuMaker {
 	 */
 	public function downloadFile( $fileId, $outputFile ) {
 		$this->log->info( "Starting download to $outputFile" );
-	    // TODO: call startConversion when https://github.com/phil-el/phetools/issues/8 will be fixed
+		// TODO: call startConversion when https://github.com/phil-el/phetools/issues/8 will be fixed
 		while ( true ) {
 			try {
 				$this->log->debug( "Getting $fileId" );
@@ -64,8 +67,10 @@ class PdfDjvuMaker extends DjvuMaker {
 				$errorResponse = \GuzzleHttp\json_decode( file_get_contents( $outputFile ) );
 				$okayErrors = [ 0, 3 ];
 				if ( $errorResponse && in_array( $errorResponse->error, $okayErrors ) ) {
+					// If there's an error it's because it's not yet finished,
+					// so check again every 5 seconds.
 					$this->log->debug( $errorResponse->text );
-					sleep( 5 ); // Check again every 5 seconds.
+					sleep( 5 );
 				} else {
 					throw $e;
 				}
@@ -74,10 +79,10 @@ class PdfDjvuMaker extends DjvuMaker {
 	}
 
 	private function streamToFile( StreamInterface $stream, $fileName ) {
-	    $file = fopen( $fileName, 'w' );
-	    while ( !$stream->eof() ) {
-	        fwrite( $file, $stream->read( 1024 ) );
-		   }
+		$file = fopen( $fileName, 'w' );
+		while ( !$stream->eof() ) {
+			fwrite( $file, $stream->read( 1024 ) );
+		}
 		fclose( $file );
 	}
 }

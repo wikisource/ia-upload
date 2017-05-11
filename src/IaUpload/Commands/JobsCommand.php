@@ -9,7 +9,6 @@ use IaUpload\OAuth\MediaWikiOAuth;
 use IaUpload\OAuth\Token\AccessToken;
 use IaUpload\OAuth\Token\ConsumerToken;
 use IaUpload\OAuthController;
-use Mediawiki\Api\UsageException;
 use Monolog\Handler\ErrorLogHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -29,7 +28,7 @@ class JobsCommand extends Command {
 	}
 
 	/**
-	 * @param InputInterface  $input  An InputInterface instance
+	 * @param InputInterface $input An InputInterface instance
 	 * @param OutputInterface $output An OutputInterface instance
 	 * @return null|int null or 0 if everything went fine, or an error code
 	 * @throws Exception If unable to load the required DjVuMaker class.
@@ -107,7 +106,8 @@ class JobsCommand extends Command {
 	}
 
 	/**
-	 * @param $dir
+	 * Delete a directory tree, to any depth.
+	 * @param string $dir The directory to delete.
 	 */
 	protected function deleteDirectory( $dir ) {
 		$files = new RecursiveIteratorIterator(
@@ -125,7 +125,7 @@ class JobsCommand extends Command {
 	}
 
 	/**
-	 * @param string $accessToken The user's access token.
+	 * @param \stdClass $accessTokenDetails The user's access token.
 	 * @return \GuzzleHttp\Client
 	 */
 	protected function getMediawikiClient( $accessTokenDetails ) {

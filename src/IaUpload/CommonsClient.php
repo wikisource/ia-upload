@@ -29,6 +29,11 @@ class CommonsClient {
 	 */
 	private $mediawikiApi;
 
+	/**
+	 * CommonsClient constructor.
+	 * @param Client $oauthClient The Oauth client.
+	 * @param LoggerInterface $logger The logger.
+	 */
 	public function __construct( Client $oauthClient, LoggerInterface $logger ) {
 		$this->client = $oauthClient;
 		$this->mediawikiApi = new MediawikiApi( 'https://commons.wikimedia.org/w/api.php', $oauthClient );
@@ -50,7 +55,7 @@ class CommonsClient {
 	/**
 	 * Returns if a given page exists
 	 *
-	 * @param string $pageTitle
+	 * @param string $pageTitle The page title.
 	 * @return bool
 	 */
 	public function pageExist( $pageTitle ) {
@@ -69,6 +74,7 @@ class CommonsClient {
 	 * @param string $text the content of the description page
 	 * @param string $comment an edit comment
 	 * @return array
+	 * @throws UsageException If there's an API error.
 	 */
 	public function upload( $fileName, $filePath, $text, $comment ) {
 		$result = json_decode( $this->client->post( 'https://commons.wikimedia.org/w/api.php', [
@@ -97,7 +103,7 @@ class CommonsClient {
 	/**
 	 * Normalize a page title
 	 *
-	 * @param string $title
+	 * @param string $title The page title.
 	 * @return string
 	 */
 	public function normalizePageTitle( $title ) {
@@ -113,7 +119,7 @@ class CommonsClient {
 	/**
 	 * Check if the page title is valid
 	 *
-	 * @param string $title
+	 * @param string $title The page title.
 	 * @return bool
 	 */
 	public function isPageTitleValid( $title ) {

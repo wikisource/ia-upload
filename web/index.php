@@ -13,7 +13,8 @@ use Wikimedia\SimpleI18n\TwigExtension;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-ini_set( 'memory_limit', '256M' ); // set memory limit to 256M to be sure that all files could be uploaded
+// Set memory limit to 256M to be sure that all files could be uploaded.
+ini_set( 'memory_limit', '256M' );
 date_default_timezone_set( 'UTC' );
 
 $configFile = __DIR__ . '/../config.ini';
@@ -37,7 +38,8 @@ $app->before( function ( Request $request, Application $app ) {
 $request = Request::createFromGlobals();
 $app->register( new SessionServiceProvider(), [
 	'session.storage.options' => [
-		'cookie_lifetime' => 30 * 24 * 60 * 60, // To match default $wgCookieExpiration
+		// Cookie lifetime to match default $wgCookieExpiration.
+		'cookie_lifetime' => 30 * 24 * 60 * 60,
 		'name' => 'ia-upload-session',
 		'cookie_path' => $request->getBaseUrl(),
 		'cookie_httponly' => true,

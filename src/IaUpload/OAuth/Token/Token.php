@@ -47,6 +47,9 @@ abstract class Token implements JsonSerializable, Serializable {
 		return $this->secret;
 	}
 
+	/**
+	 * @return string[]
+	 */
 	public function jsonSerialize() {
 		return [
 			'key' => $this->key,
@@ -54,10 +57,18 @@ abstract class Token implements JsonSerializable, Serializable {
 		];
 	}
 
+	/**
+	 * Get a JSON string representation of this token.
+	 * @return string
+	 */
 	public function serialize() {
 		return json_encode( $this );
 	}
 
+	/**
+	 * Populate this token from a serialized string.
+	 * @param string $serialized The unserialized string.
+	 */
 	public function unserialize( $serialized ) {
 		$content = json_decode( $serialized, true );
 		$this->key = $content['key'];

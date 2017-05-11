@@ -9,6 +9,12 @@ A small tool to import DjVu files from Internet Archive to Wikimedia Commons.
 See it in operation at [tools.wmflabs.org/ia-upload/](https://tools.wmflabs.org/ia-upload/)
 and read the documentation at [wikitech.wikimedia.org/wiki/Tool:IA_Upload](https://wikitech.wikimedia.org/wiki/Tool:IA_Upload).
 
+## Prerequesites
+The actual format conversions are done by the following external tools, called from within IA Upload:
+
+1. [GraphicsMagick](http://www.graphicsmagick.org)
+2. [DjVuLibre](https://sourceforge.net/p/djvu/)
+
 ## Installation
 
 1. Clone from GitHub: `git clone https://github.com/wikisource/ia-upload` 

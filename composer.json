@@ -6,6 +6,7 @@
 	"minimum-stability": "stable",
 	"require": {
 		"php": ">=5.5",
+		"ext-zip": "*",
 		"guzzlehttp/guzzle": "~6.0",
 		"guzzlehttp/oauth-subscriber": "~0.3",
 		"silex/silex": "~2.0",

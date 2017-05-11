@@ -20,7 +20,7 @@ abstract class DjvuMaker {
 
 	/**
 	 * DjvuMaker constructor.
-	 * @param $itemIdentifier
+	 * @param string $itemIdentifier The IA ID.
 	 * @param Logger $log The logger.
 	 */
 	public function __construct( $itemIdentifier, Logger $log ) {

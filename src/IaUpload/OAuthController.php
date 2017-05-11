@@ -30,14 +30,24 @@ class OAuthController {
 
 	const OAUTH_URL = 'https://commons.wikimedia.org/w/index.php';
 
+	/**
+	 * OAuthController constructor.
+	 * @param Application $app The Silex application.
+	 * @param array $config The application configuration.
+	 */
 	public function __construct( Application $app, array $config ) {
 		$this->app = $app;
 		$this->oAuthClient = new MediaWikiOAuth(
-		    self::OAUTH_URL,
+			self::OAUTH_URL,
 			new ConsumerToken( $config['consumerKey'], $config['consumerSecret'] )
 		);
 	}
 
+	/**
+	 * The first stage of the authentication process, which redirects the user to Commons to authenticate.
+	 * @param Request $request The HTTP request.
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 */
 	public function init( Request $request ) {
 		$this->app['session']->set( 'referer', $request->get( 'referer', '' ) );
 		list( $redirectUri, $requestToken ) = $this->oAuthClient->initiate();
@@ -45,6 +55,11 @@ class OAuthController {
 		return $this->app->redirect( $redirectUri );
 	}
 
+	/**
+	 * The action that the user is redirected to after authorizing at Commons.
+	 * @param Request $request The HTTP request.
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 */
 	public function callback( Request $request ) {
 		$reqestToken = $this->app['session']->get( 'request_token' );
 		if ( !$reqestToken instanceof RequestToken ) {
@@ -61,7 +76,7 @@ class OAuthController {
 
 	/**
 	 * Log out the current user.
-	 * @param Request $request
+	 * @param Request $request The HTTP request.
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function logout( Request $request ) {

@@ -78,6 +78,11 @@ class CommonsController {
 		'vi' => 'Venetian'
 	];
 
+	/**
+	 * CommonsController constructor.
+	 * @param Application $app The Silex application
+	 * @param array $config App configuration.
+	 */
 	public function __construct( Application $app, array $config ) {
 		$this->app = $app;
 		$this->config = $config;
@@ -87,19 +92,22 @@ class CommonsController {
 	}
 
 	private function buildMediawikiClient() {
-	    if ( $this->app['session']->has( 'access_token' ) ) {
+		if ( $this->app['session']->has( 'access_token' ) ) {
 			$oAuth = new MediaWikiOAuth(
-			    OAuthController::OAUTH_URL,
+				OAuthController::OAUTH_URL,
 				new ConsumerToken( $this->config['consumerKey'], $this->config['consumerSecret'] )
 			);
 			return $oAuth->buildMediawikiClientFromToken( $this->app['session']->get( 'access_token' ) );
-		   } else {
-		    return ( new ClientFactory() )->getClient();
-		   }
+		} else {
+			return ( new ClientFactory() )->getClient();
+		}
 	}
 
 	/**
-	 *
+	 * Get the full directory name of the working directory for the given job.
+	 * @param string $iaId The IA item ID.
+	 * @return string The full filesystem path to the directory (as returned by realpath()).
+	 * @throws Exception If the directory can't be created or is not writable.
 	 */
 	protected function getJobDirectory( $iaId = null ) {
 		$jobDirectoryName = __DIR__ . '/../../jobqueue/' . $iaId;
@@ -115,7 +123,7 @@ class CommonsController {
 
 	/**
 	 * The first action presented to the user.
-	 * @param Request $request
+	 * @param Request $request The HTTP request.
 	 * @return Response
 	 */
 	public function init( Request $request ) {
@@ -128,10 +136,15 @@ class CommonsController {
 		return $this->outputsInitTemplate( [
 			'iaId' => $request->get( 'iaId', '' ),
 			'commonsName' => $request->get( 'commonsName', '' ),
-		    'jobs' => $jobs,
+			'jobs' => $jobs,
 		] );
 	}
 
+	/**
+	 * The second step, in which users fill in the Commons template etc.
+	 * @param Request $request The HTTP request.
+	 * @return Response
+	 */
 	public function fill( Request $request ) {
 		// Get inputs.
 		$iaId = $request->get( 'iaId', '' );
@@ -208,7 +221,7 @@ class CommonsController {
 	 * The save action either uploads the IA DjVu to Commons, or when conversion is required it
 	 * puts the job data into the queue for subsequent processing by the CLI part of this tool.
 	 *
-	 * @param Request $request
+	 * @param Request $request The HTTP request.
 	 * @return Response
 	 */
 	public function save( Request $request ) {
@@ -299,13 +312,13 @@ class CommonsController {
 					. '</a> has been successfully uploaded to Commons!'
 			] );
 		}
-
 	}
 
 	/**
 	 * Display the log of a given job.
-	 * @param Request $request
-	 * @param string $iaId
+	 * @param Request $request The HTTP request.
+	 * @param string $iaId The IA ID.
+	 * @return Response
 	 */
 	public function logview( Request $request, $iaId ) {
 		// @todo Not duplicate the log name between here and JobsCommand.
@@ -317,7 +330,7 @@ class CommonsController {
 	/**
 	 * Outputs a template as response
 	 *
-	 * @param array $params
+	 * @param array $params Parameters to pass to the template
 	 * @return Response
 	 */
 	protected function outputsInitTemplate( array $params ) {
@@ -333,7 +346,7 @@ class CommonsController {
 	/**
 	 * Outputs a template as response
 	 *
-	 * @param array $params
+	 * @param array $params Parameters to pass to the template
 	 * @return Response
 	 */
 	protected function outputsFillTemplate( array $params ) {
@@ -352,8 +365,8 @@ class CommonsController {
 	/**
 	 * Outputs a template as response
 	 *
-	 * @param $templateName
-	 * @param array $params
+	 * @param string $templateName The template filename.
+	 * @param array $params Parameters to pass to the template
 	 * @return Response
 	 */
 	protected function outputsTemplate( $templateName, array $params ) {
@@ -366,13 +379,12 @@ class CommonsController {
 		];
 		$params = array_merge( $defaultParams, $params );
 		return $this->app['twig']->render( $templateName, $params );
-
 	}
 
 	/**
 	 * Returns the file name to use
 	 *
-	 * @param array $data
+	 * @param array $data The IA metadata containing a 'files' key.
 	 * @return string null nothing found, caller should abort, '', should call PDF -> DjVu converter, not empty string the DjVu file name
 	 */
 	protected function getDjvuFileName( $data ) {
@@ -397,7 +409,7 @@ class CommonsController {
 	/**
 	 * Creates the content of the description page
 	 *
-	 * @param array $data
+	 * @param array $data The IA metadata.
 	 * @return array
 	 */
 	protected function createPageContent( $data ) {

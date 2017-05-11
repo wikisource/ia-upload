@@ -37,7 +37,7 @@ class MediaWikiOAuth {
 
 	/**
 	 * @param string $baseUri The URI of the index.php file of the wiki like 'https://commons.wikimedia.org/w/index.php'
-	 * @param ConsumerToken $consumerToken
+	 * @param ConsumerToken $consumerToken The consumer token.
 	 */
 	public function __construct( $baseUri, ConsumerToken $consumerToken ) {
 		$this->baseUri = $baseUri;
@@ -69,7 +69,7 @@ class MediaWikiOAuth {
 			'oauth_token' => $requestToken->getKey(),
 			'oauth_consumer_key' => $this->consumerToken->getKey()
 		] ) );
-		return [ (string) $redirectUri, $requestToken ];
+		return [ (string)$redirectUri, $requestToken ];
 	}
 
 	/**
@@ -120,6 +120,8 @@ class MediaWikiOAuth {
 
 	/**
 	 * @deprecated Useful only because MediawikiApi is not able to do multipart POST requests
+	 * @param AccessToken $accessToken The stored access token.
+	 * @return Client
 	 */
 	public function buildMediawikiClientFromToken( AccessToken $accessToken ) {
 		$stack = HandlerStack::create();

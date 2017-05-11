@@ -22,6 +22,9 @@ class IaClient {
 	 */
 	private $client;
 
+	/**
+	 * Create a new IaClient, with an HTTP client pointing to archive.org.
+	 */
 	public function __construct() {
 		$this->client = new Client( [
 			'base_uri' => 'https://archive.org'
@@ -61,10 +64,10 @@ class IaClient {
 	}
 
 	private function streamToFile( StreamInterface $stream, $fileName ) {
-	    $file = fopen( $fileName, 'w' );
-	    while ( !$stream->eof() ) {
-	        fwrite( $file, $stream->read( 1024 ) );
-		   }
+		$file = fopen( $fileName, 'w' );
+		while ( !$stream->eof() ) {
+			fwrite( $file, $stream->read( 1024 ) );
+		}
 		fclose( $file );
 	}
 
