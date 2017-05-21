@@ -1,0 +1,27 @@
+{
+	"@metadata": {
+		"authors": [
+			"Chrumps",
+			"Krottyianock"
+		]
+	},
+	"logged-in-as": "Jesteś zalogowany jako $1",
+	"logout": "Wyloguj",
+	"upload-file": "Prześlij plik",
+	"form-label-ia-id": "Identyfikator pliku w Internet Archive:",
+	"form-label-commons-name": "Nazwa pliku w Commons:",
+	"form-label-file-source": "Źródło pliku DjVu:",
+	"form-label-commons-description": "Opis w Commons:",
+	"job-queue": "Kolejka zadań",
+	"job-queue-empty": "Kolejka zadań jest obecnie pusta.",
+	"table-header-commons-filename": "Nazwa w Commons",
+	"table-header-status": "Status",
+	"table-header-log": "Rejestr",
+	"in-progress": "W trakcie",
+	"remove-first-page": "Usunąć pierwszą stronę?",
+	"remove-first-page-yes": "Tak, usuń tę stronę z DjVu",
+	"remove-first-page-no": "Nie, pozostawić ją",
+	"upload-time-warning": "(Uwaga: przesyłanie może trwać ponad jedną minutę!)",
+	"set-all-fields": "Wypełnij wszystkie pola formularza",
+	"creator-template-missing": "Autor $1 nie posiada uprawnień redaktora szablonów. Jeśli znasz jego numer w Wikidanych, możesz [https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php utworzyć szablon teraz]."
+}

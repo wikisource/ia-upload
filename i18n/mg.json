@@ -1,0 +1,29 @@
+{
+	"@metadata": {
+		"authors": [
+			"Jagwar"
+		]
+	},
+	"ia-upload": "Fandefasana IA",
+	"site-title": "Hampiditra boky avy amin'i Internet Archive",
+	"logged-in-as": "Tafiditra amin'ny anarana $1 ianao",
+	"logout": "Hivoaka",
+	"upload-file": "Handefa rakitra",
+	"form-label-file-source": "Rakitra fango DjVu:",
+	"form-label-commons-description": "Visavisa eo amin'i Commons:",
+	"get-metadata": "Haka angona fanampiny",
+	"job-queue": "Lisitr'asa",
+	"table-header-ia-item": "Zavatra IA",
+	"table-header-commons-filename": "Anaran-drakitra eo amin'i Commons",
+	"table-header-status": "Sata",
+	"table-header-log": "Laogy",
+	"in-progress": "An-dalana",
+	"queued": "Miandry",
+	"file-source-djvu": "Hampiasa DjVu efa misy",
+	"file-source-jp2": "avy amin'ny scan an'ny niaviana (JP2)",
+	"file-source-pdf": "avy amin'ny PDF (mety ho kalitao ambany kokoa)",
+	"file-source-not-available": "(tsy azo ampiasaina ho an'ity zavatra ity)",
+	"remove-first-page": "Hanala ny pejy voalohany?",
+	"remove-first-page-yes": "Eny, esorina amin'i DjVu ity pejy ity",
+	"remove-first-page-no": "Tsia, avelao"
+}

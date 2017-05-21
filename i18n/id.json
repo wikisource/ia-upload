@@ -1,0 +1,22 @@
+{
+	"@metadata": {
+		"authors": [
+			"Hidayatsrf"
+		]
+	},
+	"ia-upload": "IA Upload",
+	"site-title": "Unggah buku dari Internet Archive",
+	"debug-notice": "Situs ini dalam mode debug, Dan mungkin tidak bekerja dengan baik.",
+	"logged-in-as": "Anda masuk log sebagai $1",
+	"logout": "Keluar log",
+	"login-notice": "Anda harus <a href='$1'>masuk log</a> Untuk mengunggah buku Wikimedia Commons",
+	"site-explanation": "Ini adalah <a href='$1'>perkakas pengunggah IA</a>, silakan <a href='$2'>laporkan masalah</a>.",
+	"upload-file": "Unggah berkas",
+	"form-label-ia-id": "ID berkas di Internet Archive:",
+	"form-label-commons-name": "Nama berkas di Commons",
+	"form-label-file-source": "Sumber berkas DjVu:",
+	"form-label-commons-description": "Deskripsi Commons:",
+	"table-header-log": "Catatan (log)",
+	"in-progress": "Dalam proses",
+	"queued": "Dalam antrean"
+}

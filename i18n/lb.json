@@ -1,0 +1,28 @@
+{
+	"@metadata": {
+		"authors": [
+			"Robby"
+		]
+	},
+	"ia-upload": "IA Upload",
+	"logged-in-as": "Dir sidd als $1 ageloggt",
+	"logout": "Ausloggen",
+	"login-notice": "Dir musst Iech <a href='$1'>alogge</a> fir Bicher op Wikimedia Commons eropzelueden",
+	"upload-file": "E Fichier eroplueden",
+	"form-label-commons-name": "Numm vum Fichier op Commons:",
+	"form-label-file-source": "Quell-Fichier DjVu:",
+	"form-label-commons-description": "Commons-Beschreiwung:",
+	"table-header-ia-item": "IA-Element",
+	"table-header-commons-filename": "Numm vum Fichier op Commons",
+	"table-header-status": "Status",
+	"table-header-log": "Logbuch",
+	"in-progress": "Am Gaang",
+	"file-source-not-available": "(net disponibel fir dëst Element)",
+	"remove-first-page": "Éischt Säit ewechhuelen?",
+	"remove-first-page-yes": "Jo, dës Säit vun DjVu erofhuelen",
+	"remove-first-page-no": "Neen, draloossen",
+	"upload-time-warning": "(Ppgepasst: d'Eropluede ka méi laang wéi eng Minutt daueren)",
+	"set-all-fields": "Fëllt w.e.g. all Felder vum Formulaire aus",
+	"invalid-commons-name": "'$1' ass kee valabelen Numm fir e Fichier op Wikimedia Commons",
+	"already-on-commons": "Et gëtt schonn e Fichier mam Numm '$1' op Wikimedia Commons"
+}

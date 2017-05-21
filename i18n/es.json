@@ -1,0 +1,42 @@
+{
+	"@metadata": {
+		"authors": [
+			"Macofe"
+		]
+	},
+	"site-title": "Subir libros desde el Archivo de Internet",
+	"debug-notice": "Este sitio está en modo de depuración, y puede que no funcione correctamente.",
+	"logged-in-as": "Has accedido como $1",
+	"logout": "Salir",
+	"login-notice": "Debes <a href='$1'>iniciar sesión</a> para subir libros a Wikimedia Commons",
+	"upload-file": "Subir un archivo",
+	"form-label-ia-id": "Identificador del archivo en el Archivo de Internet:",
+	"form-label-commons-name": "Nombre de archivo en Commons:",
+	"form-label-file-source": "Fuente del archivo DjVu:",
+	"form-label-commons-description": "Descripción en Commons:",
+	"ia-id-help": "El identificador es la parte de la URL después de 'details/'. Por ejemplo: $1",
+	"commons-name-help": "El nombre que se dará a este archivo cuando se haya subido a Wikimedia Commons. Si el archivo ya existe, no se volverá a subir y te pedirá que lo cambies aquí.",
+	"get-metadata": "Obtener metadatos",
+	"job-queue": "Cola de trabajo",
+	"job-queue-empty": "La cola de trabajo está actualmente vacía.",
+	"jobs-will-be-removed": "Los trabajos se quitarán de esta lista una vez terminado y subido a Commons.",
+	"user-contribs-link": "Los archivos aparecerán en <a href='$1'>tu lista de contribuciones</a> en Commons.",
+	"table-header-commons-filename": "Nombre de archivo en Commons:",
+	"table-header-status": "Estado",
+	"table-header-log": "Registro",
+	"in-progress": "En proceso",
+	"queued": "En espera",
+	"file-source-djvu": "Usar DjVu existente",
+	"file-source-jp2": "de originales escaneados (JP2)",
+	"file-source-pdf": "de PDF (puede ser de menor calidad)",
+	"file-source-not-available": "(no disponible para este elemento)",
+	"file-source-help": "¿Desde dónde debería generarse el archivo DjVu?<br /> Observa que para JP2 y PDF, <strong>tus credenciales de autenticación se almacenerán</strong> en el servidor de Tool Labs hasta que se complete la conversión (usualmente, menos de una hora). Puedes <a href='$1'>revocar el acceso de esta herramienta</a> en cualquier momento.",
+	"remove-first-page": "¿Quitar la primera página?",
+	"remove-first-page-yes": "Sí, quitar esta página de la DjVu",
+	"remove-first-page-no": "No, conservarla",
+	"upload-time-warning": "(Advertencia: la subida puede tardar más de un minuto)",
+	"set-all-fields": "Completa todos los campos del formulario",
+	"invalid-commons-name": "'$1' no es un nombre de archivo válido para Wikimedia Commons",
+	"no-found-on-ia": "'$1' no es un identificador del Archivo de Internet válido",
+	"already-on-commons": "Un archivo llamado '$1' ya existe en Wikimedia Commons"
+}

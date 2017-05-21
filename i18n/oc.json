@@ -1,0 +1,22 @@
+{
+	"@metadata": {
+		"authors": [
+			"Cedric31"
+		]
+	},
+	"ia-upload": "Telecargament IA",
+	"site-title": "Telecargar de libres dempuèi los archius d’Internet",
+	"logout": "Desconnexion",
+	"upload-file": "Mandar un fichièr",
+	"form-label-file-source": "Fichièr font DjVu :",
+	"get-metadata": "Obténer las metadonadas",
+	"job-queue": "Fila de trabalhs",
+	"table-header-ia-item": "Element IA",
+	"table-header-commons-filename": "Nom del fichièr sus Commons",
+	"table-header-status": "Estatut",
+	"table-header-log": "Jornal",
+	"in-progress": "En cors",
+	"queued": "En espèra",
+	"file-source-djvu": "Utilizar DjVu existent",
+	"file-source-jp2": "dempuèi de scans de l’original (JP2)"
+}

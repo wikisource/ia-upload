@@ -1,0 +1,26 @@
+{
+	"@metadata": {
+		"authors": [
+			"Mainframe98"
+		]
+	},
+	"debug-notice": "Deze site is in debug-modus en functioneert mogelijk niet correct.",
+	"logged-in-as": "U bent aangemeld als $1",
+	"logout": "Afmelden",
+	"upload-file": "Bestand uploaden",
+	"form-label-commons-name": "Bestandsnaam op Commons:",
+	"form-label-commons-description": "Commons beschrijving:",
+	"job-queue": "Taakwachtrij",
+	"job-queue-empty": "De taakwachtrij is momenteel leeg.",
+	"table-header-commons-filename": "Commons bestandsnaam",
+	"table-header-status": "Status",
+	"table-header-log": "Logboek",
+	"in-progress": "Wordt uitgevoerd",
+	"queued": "In wachtrij",
+	"file-source-djvu": "Gebruik bestaande DjVu",
+	"file-source-jp2": "van de originele scans (JP2)",
+	"file-source-pdf": "van PDF (kan van een lagere kwaliteit zijn)",
+	"file-source-not-available": "(niet beschikbaar voor dit item)",
+	"upload-time-warning": "(Waarschuwing: het uploaden kan meer dan een minuut duren!)",
+	"already-on-commons": "Een bestand met de naam '$1' bestaat reeds op Wikimedia Commons"
+}

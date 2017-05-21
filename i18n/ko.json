@@ -1,0 +1,38 @@
+{
+	"@metadata": {
+		"authors": [
+			"Ykhwong"
+		]
+	},
+	"ia-upload": "IA 업로드",
+	"site-title": "인터넷 아카이브에서 책 업로드",
+	"debug-notice": "이 사이트는 디버그 모드이므로 올바르게 동작하지 않을 수 있습니다.",
+	"logged-in-as": "$1님으로 로그인하고 있습니다",
+	"logout": "로그아웃",
+	"login-notice": "책을 위키미디어 커먼즈에 업로드하려면 <a href='$1'>로그인</a>해야 합니다",
+	"site-explanation": "이것은 <a href='$1'>IA 업로드 도구</a>입니다. <a href='$2'>이슈를 보고해</a> 주십시오.",
+	"upload-file": "파일 업로드",
+	"form-label-ia-id": "인터넷 아카이브의 파일 ID:",
+	"form-label-commons-name": "공용의 파일 이름:",
+	"form-label-file-source": "DjVu 파일 소스:",
+	"form-label-commons-description": "커먼즈 설명:",
+	"get-metadata": "메타데이터 가져오기",
+	"table-header-ia-item": "IA 팀",
+	"table-header-commons-filename": "공용 파일 이름",
+	"table-header-status": "상태",
+	"table-header-log": "로그",
+	"in-progress": "진행 중",
+	"file-source-djvu": "기존 DjVu 사용",
+	"file-source-jp2": "원본 스캔(JP2)에서",
+	"file-source-pdf": "PDF에서 (품질이 더 낮을 수 있음)",
+	"file-source-not-available": "(이 항목에 대해 사용할 수 없음)",
+	"remove-first-page": "첫 페이지를 제거하겠습니까?",
+	"remove-first-page-yes": "예, DjVu에서 이 페이지를 제거합니다",
+	"remove-first-page-no": "아니오, 그대로 둡니다",
+	"authorize-first": "파일 업로드 이전에 ia-upload의 권한을 부여해야 합니다",
+	"upload-time-warning": "(경고: 업로드에 1분 이상 소요될 수 있습니다!)",
+	"set-all-fields": "양식의 모든 칸을 설정해 주십시오",
+	"invalid-commons-name": "'$1'은(는) 위키미디어 공용에 유효한 파일 이름이 아닙니다",
+	"no-found-on-ia": "'$1'은(는) 유효한 인터넷 아카이브 식별자가 아닙니다",
+	"already-on-commons": "이름이 '$1'인 파일이 위키미디어 공용에 이미 존재합니다"
+}
