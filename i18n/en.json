@@ -37,6 +37,7 @@
 	"upload-time-warning": "(Warning: the upload may take more than one minute!)",
 	"set-all-fields": "Please set all fields of the form",
 	"invalid-commons-name": "'$1' is not a valid file name for Wikimedia Commons",
+	"invalid-length": "'$1' is too long",
 	"no-found-on-ia": "'$1' is not a valid Internet Archive identifier",
 	"already-on-commons": "A file named '$1' already exists on Wikimedia Commons",
 	"creator-template-missing": "The author '$1' doesn’t have a <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>creator</a> template. If you know their Wikidata ID, you can <a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>create the template now</a>."
