@@ -158,6 +158,14 @@ class CommonsController {
 				'error' => $this->app['i18n']->message( 'set-all-fields' ),
 			] );
 		}
+		// Ensure that file name is less than or equal to 240 bytes.
+		if ( strlen( $commonsName ) > 240 ) {
+			return $this->outputsInitTemplate( [
+				'iaId' => $iaId,
+				'commonsName' => $commonsName,
+				'error' => $this->app['i18n']->message( 'invalid-length', [ $commonsName ] ),
+			] );
+		}
 		// Strip any trailing file extension.
 		if ( preg_match( '/^(.*)\.(pdf|djvu)$/', $commonsName, $m ) ) {
 			$commonsName = $m[1];
