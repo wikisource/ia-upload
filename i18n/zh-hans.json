@@ -42,6 +42,7 @@
 	"upload-time-warning": "（警告：上传可能超过1分钟！）",
 	"set-all-fields": "请选择表单中所有的字段",
 	"invalid-commons-name": "“$1”不是用于维基共享资源的有效文件名",
+	"invalid-length": "“$1”太长",
 	"no-found-on-ia": "“$1”不是一个有效的互联网档案馆标识符",
 	"already-on-commons": "维基共享资源上已存在名叫“$1”的文件",
 	"creator-template-missing": "作者“$1”没有<a href='https://commons.wikimedia.org/wiki/Commons:Creator'>creator</a>模板。如果您知道其维基数据ID，您<a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>现在就可以创建模板</a>。"

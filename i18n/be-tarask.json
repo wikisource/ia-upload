@@ -22,5 +22,18 @@
 	"job-queue": "Чарга заданьняў",
 	"job-queue-empty": "У цяперашні час чарга заданьняў пустая.",
 	"jobs-will-be-removed": "Заданьні будуць выдаленыя з гэтага сьпісу па завяршэньні і загрузцы ў Вікісховішча.",
-	"user-contribs-link": "Файлы зьявяцца ў <a href='$1'>вашым унёску</a> ў Вікісховішчы."
+	"user-contribs-link": "Файлы зьявяцца ў <a href='$1'>вашым унёску</a> ў Вікісховішчы.",
+	"table-header-ia-item": "Элемэнт архіву",
+	"table-header-commons-filename": "Назва файлу ў Вікісховішчы",
+	"table-header-status": "Статус",
+	"table-header-log": "Журнал",
+	"in-progress": "У працэсе",
+	"queued": "У чарзе",
+	"file-source-djvu": "Выкарыстаць існы DjVu",
+	"file-source-jp2": "з арыгінальных сканаў (JP2)",
+	"file-source-pdf": "з PDF (можа быць нізкай якасьці)",
+	"file-source-not-available": "(недаступна для гэтага элемэнту)",
+	"remove-first-page": "Выдаліць першую старонку?",
+	"remove-first-page-yes": "Так, выдаліць гэтую старонку з DjVu",
+	"remove-first-page-no": "Не, пакіньце яе"
 }

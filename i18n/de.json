@@ -42,6 +42,7 @@
 	"upload-time-warning": "(Warnung: Der Hochladeprozess kann mehr als eine Minute in Anspruch nehmen!)",
 	"set-all-fields": "Bitte alle Felder des Formulars ausfüllen.",
 	"invalid-commons-name": "„$1“ ist kein gültiger Dateiname für Wikimedia Commons",
+	"invalid-length": "„$1“ ist zu lang",
 	"no-found-on-ia": "„$1“ ist keine gültige Kennung für das Internet Archive",
 	"already-on-commons": "Eine Datei namens „$1“ ist bereits auf Wikimedia Commons vorhanden",
 	"creator-template-missing": "Der Autor „$1“ hat keine <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>Urheber</a>-Vorlage. Falls du seine Wikidata-Kennung kennst, kannst du <a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>jetzt die Vorlage erstellen</a>."

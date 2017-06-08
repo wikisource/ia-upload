@@ -1,16 +1,17 @@
 {
 	"@metadata": {
 		"authors": [
-			"Macofe"
+			"Macofe",
+			"Fitoschido"
 		]
 	},
-	"site-title": "Subir libros desde el Archivo de Internet",
+	"site-title": "Subir libros desde Internet Archive",
 	"debug-notice": "Este sitio está en modo de depuración, y puede que no funcione correctamente.",
 	"logged-in-as": "Has accedido como $1",
 	"logout": "Salir",
-	"login-notice": "Debes <a href='$1'>iniciar sesión</a> para subir libros a Wikimedia Commons",
+	"login-notice": "Debes <a href='$1'>acceder</a> para subir libros a Wikimedia Commons",
 	"upload-file": "Subir un archivo",
-	"form-label-ia-id": "Identificador del archivo en el Archivo de Internet:",
+	"form-label-ia-id": "Identificador del archivo en Internet Archive:",
 	"form-label-commons-name": "Nombre de archivo en Commons:",
 	"form-label-file-source": "Fuente del archivo DjVu:",
 	"form-label-commons-description": "Descripción en Commons:",
@@ -37,6 +38,7 @@
 	"upload-time-warning": "(Advertencia: la subida puede tardar más de un minuto)",
 	"set-all-fields": "Completa todos los campos del formulario",
 	"invalid-commons-name": "'$1' no es un nombre de archivo válido para Wikimedia Commons",
-	"no-found-on-ia": "'$1' no es un identificador del Archivo de Internet válido",
+	"invalid-length": "«$1» es demasiado largo",
+	"no-found-on-ia": "«$1» no es un identificador de Internet Archive válido",
 	"already-on-commons": "Un archivo llamado '$1' ya existe en Wikimedia Commons"
 }

@@ -46,6 +46,7 @@
 	"upload-time-warning": "(Предупреждение: загрузка может занять более одной минуты!)",
 	"set-all-fields": "Пожалуйста, заполните все поля формы",
 	"invalid-commons-name": "'$1' не является допустимым именем файла на Викискладе",
+	"invalid-length": "Длина '$1' слишком велика",
 	"no-found-on-ia": "'$1' не является корректным идентификатором Архива Интернета",
 	"already-on-commons": "Файл с именем '$1' уже существует на Викискладе",
 	"creator-template-missing": "У автора '$1' нет шаблона <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>creator</a>. Если Вы знаете его Wikidata ID, Вы можете<a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>создать шаблон сейчас</a>."

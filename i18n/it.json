@@ -1,0 +1,42 @@
+{
+	"@metadata": {
+		"authors": [
+			"Beta16",
+			"Redredsonia",
+			"Samuele2002",
+			"Statix64"
+		]
+	},
+	"ia-upload": "IA Upload",
+	"site-title": "Carica libri da Internet Archive",
+	"logged-in-as": "Hai effettuato l'accesso come $1",
+	"logout": "Esci",
+	"login-notice": "Devi <a href='$1'>accedere</a> per caricare libri su Wikimedia Commons",
+	"upload-file": "Carica un file",
+	"form-label-ia-id": "ID del file su Internet Archive:",
+	"form-label-commons-name": "Nome del file su Commons:",
+	"form-label-commons-description": "Descrizione Commons:",
+	"ia-id-help": "L'ID è la parte di URL dopo 'details/', per esempio: $1",
+	"get-metadata": "Ottieni metadata",
+	"job-queue": "Coda processi",
+	"job-queue-empty": "La coda di lavoro è attualmente vuota.",
+	"jobs-will-be-removed": "I job saranno rimossi da questo elenco una volta completati e caricati su Commons.",
+	"user-contribs-link": "I file verranno visualizzati nell'<a href='$1'>elenco dei tuoi contributi</a> su Commons.",
+	"table-header-commons-filename": "Nome file Commons",
+	"table-header-status": "Stato",
+	"table-header-log": "Registro",
+	"in-progress": "In corso",
+	"queued": "In coda",
+	"file-source-djvu": "Usa DjVu esistente",
+	"file-source-jp2": "da scansioni originali (JP2)",
+	"file-source-pdf": "da PDF (può essere di qualità inferiore)",
+	"file-source-not-available": "(non disponibile per questo elemento)",
+	"remove-first-page-yes": "Sì, rimuovi questa pagina dal DjVu",
+	"remove-first-page-no": "No, lasciala",
+	"upload-time-warning": "(Attenzione: il caricamento può richiedere più di un minuto!)",
+	"set-all-fields": "Completa tutti i campi del modulo",
+	"invalid-commons-name": "'$1' non è un nome del file valido per Wikimedia Commons",
+	"invalid-length": "'$1' è troppo lungo",
+	"no-found-on-ia": "'$1' non è un identificatore Internet Archive valido",
+	"already-on-commons": "Esiste già un file con nome '$1' su Wikimedia Commons"
+}

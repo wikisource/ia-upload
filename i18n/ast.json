@@ -42,6 +42,7 @@
 	"upload-time-warning": "(Atención: la xuba pué tardar más d'un minutu)",
 	"set-all-fields": "Por favor, completa tolos campos del formulariu",
 	"invalid-commons-name": "'$1' nun ye un nome de ficheru válidu pa Wikimedia Commons",
+	"invalid-length": "'$1' ye llargo enforma",
 	"no-found-on-ia": "'$1' nun ye un identificador válidu d'Internet Archive",
 	"already-on-commons": "Yá esiste un ficheru llamáu '$1' en Wikimedia Commons",
 	"creator-template-missing": "L'autor '$1' nun tien una plantía de <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>creador</a>. Si conoces el so identificador en Wikidata, puedes <a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>crear la plantía agora</a>."

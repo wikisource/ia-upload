@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Kly",
-			"烈羽"
+			"烈羽",
+			"Liuxinyu970226"
 		]
 	},
 	"ia-upload": "IA Upload",
@@ -43,7 +44,8 @@
 	"upload-time-warning": "（警告：上傳時間可能超過 1 分鐘！）",
 	"set-all-fields": "請設定表單裡所有欄位",
 	"invalid-commons-name": "「$1」不是一個在維基共享資源上有效的檔案名稱",
+	"invalid-length": "「$1」太長",
 	"no-found-on-ia": "「$1」不是一個有效的網際網路檔案館識別",
 	"already-on-commons": "維基共享資源上已存在名為「$1」的檔案",
-	"creator-template-missing": "作者\"$1\"沒有<a href='https://commons.wikimedia.org/wiki/Commons:Creator'>創建者</a>模板。如果您知道他們的維基數據 ID，您可以現在就<a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>創建模板</a>。"
+	"creator-template-missing": "作者\"$1\"沒有<a href='https://commons.wikimedia.org/wiki/Commons:Creator'>創建者</a>模板。如果您知道其維基數據 ID，您可以現在就<a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>創建模板</a>。"
 }
