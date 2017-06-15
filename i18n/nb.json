@@ -42,6 +42,7 @@
 	"upload-time-warning": "(Advarsel: Opplastingen kan ta lenger tid enn ett minutt!)",
 	"set-all-fields": "Vennligst skriv noe alle feltene i skjemaet",
 	"invalid-commons-name": "«$1» er ikke et gyldig filnavn for Wikimedia Commons",
+	"invalid-length": "«$1» er for lang",
 	"no-found-on-ia": "«$1» er ikke en gyldig identifikator fra Internet Archive",
 	"already-on-commons": "Ei fil med navn «$1» finnes allerede på Wikimedia Commons",
 	"creator-template-missing": "Forfatteren «$1» har ikke en <a href=\"https://commons.wikimedia.org/wiki/Commons:Creator\">skaper-mal</a>. Om du vet hva Wikidata-ID-en til personen er kan du <a href=\"https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php\">opprette malen nå</a>."
