@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"BanKris",
-			"Urbalazs"
+			"Urbalazs",
+			"Bencemac"
 		]
 	},
 	"ia-upload": "IA feltöltés",
@@ -43,6 +44,7 @@
 	"upload-time-warning": "(Figyelem: a feltöltés egy percnél többe is telhet!)",
 	"set-all-fields": "Töltsd ki az űrlap összes mezőjét",
 	"invalid-commons-name": "A(z) „$1” nem érvényes fájlnév a Wikimédia Commonsnál",
+	"invalid-length": "'$1' túl hosszú",
 	"no-found-on-ia": "A(z) „$1” nem érvényes Internet Archívum azonosító",
 	"already-on-commons": "Már létezik „$1” nevű fájl a Wikimédia Commons adatbázisában",
 	"creator-template-missing": "A(z) „$1” szerzőnek nincs <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>létrehozó</a> sablonja. Ha tudod a Wikipédia azonosítóját, akkor <a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>hozd létre a sablont most</a>."
