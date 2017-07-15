@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Fulup"
+			"Fulup",
+			"Gwenn-Ael"
 		]
 	},
 	"ia-upload": "IA Upload",
@@ -42,6 +43,7 @@
 	"upload-time-warning": "(Taolit pled : ouzhpenn ur vunutenn e c'hallo padout an enporzhiañ !)",
 	"set-all-fields": "Leuniit mat holl vaeziennoù ar furmskrid",
 	"invalid-commons-name": "N'eo ket '$1' un anv restr reizh evit Wikimedia Commons",
+	"invalid-length": "Re hir eo $1",
 	"no-found-on-ia": "N'eo ket '$1' un anaouder reizh evit Internet Archive",
 	"already-on-commons": "Bez' ez eus c'hoazh eus ur restr anvet '$1' war Wikimedia Commons",
 	"creator-template-missing": "N'eus ket a batrom <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>creator</a> gant an aozer. Ma anavezit e god anaout evit Wikidata e c'hallit <a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>krouiñ ar patrom diouzhtu</a>."
