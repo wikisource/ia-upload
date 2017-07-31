@@ -40,5 +40,6 @@
 	"invalid-commons-name": "'$1' no es un nombre de archivo válido para Wikimedia Commons",
 	"invalid-length": "«$1» es demasiado largo",
 	"no-found-on-ia": "«$1» no es un identificador de Internet Archive válido",
-	"already-on-commons": "Un archivo llamado '$1' ya existe en Wikimedia Commons"
+	"already-on-commons": "Un archivo llamado '$1' ya existe en Wikimedia Commons",
+	"creator-template-missing": "El autor '$1' no tiene una plantilla de <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>creador</a>. Si sabes su identificador de Wikidata, puedes <a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>crear la plantilla ahora</a>."
 }
