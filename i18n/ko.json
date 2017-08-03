@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ykhwong"
+			"Ykhwong",
+			"Revi"
 		]
 	},
 	"ia-upload": "IA 업로드",
@@ -16,12 +17,18 @@
 	"form-label-commons-name": "공용의 파일 이름:",
 	"form-label-file-source": "DjVu 파일 소스:",
 	"form-label-commons-description": "커먼즈 설명:",
+	"ia-id-help": "ID는 URL의 'details/' 이후 부분입니다. 예시: $1",
 	"get-metadata": "메타데이터 가져오기",
+	"job-queue": "작업 대기열",
+	"job-queue-empty": "작업 대기열이 비어 있습니다.",
+	"jobs-will-be-removed": "작업은 완료되어 공용에 업로드되면 이 목록에서 삭제됩니다.",
+	"user-contribs-link": "파일은 공용의 <a href='$1'>당신의 기여 목록</a>에 나타날 것입니다.",
 	"table-header-ia-item": "IA 팀",
 	"table-header-commons-filename": "공용 파일 이름",
 	"table-header-status": "상태",
 	"table-header-log": "로그",
 	"in-progress": "진행 중",
+	"queued": "대기 중",
 	"file-source-djvu": "기존 DjVu 사용",
 	"file-source-jp2": "원본 스캔(JP2)에서",
 	"file-source-pdf": "PDF에서 (품질이 더 낮을 수 있음)",
@@ -29,6 +36,7 @@
 	"remove-first-page": "첫 페이지를 제거하겠습니까?",
 	"remove-first-page-yes": "예, DjVu에서 이 페이지를 제거합니다",
 	"remove-first-page-no": "아니오, 그대로 둡니다",
+	"remove-first-page-help": "구글에서 스캔된 일부 스캔은 공용에서 허용되지 않는 저작권이 보호되는 커버 페이지를 가지고 있습니다. 더 자세한 정보는 <a href='https://en.wikisource.org/wiki/Help:Internet_Archive#Google_Books'>영어 위키문헌의 도움말</a>를 참조해 주세요.",
 	"authorize-first": "파일 업로드 이전에 ia-upload의 권한을 부여해야 합니다",
 	"upload-time-warning": "(경고: 업로드에 1분 이상 소요될 수 있습니다!)",
 	"set-all-fields": "양식의 모든 칸을 설정해 주십시오",
