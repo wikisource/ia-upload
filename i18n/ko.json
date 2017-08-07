@@ -20,7 +20,7 @@
 	"ia-id-help": "ID는 URL의 'details/' 이후 부분입니다. 예시: $1",
 	"get-metadata": "메타데이터 가져오기",
 	"job-queue": "작업 대기열",
-	"job-queue-empty": "작업 대기열이 비어 있습니다.",
+	"job-queue-empty": "작업 대기열이 현재 비어 있습니다.",
 	"jobs-will-be-removed": "작업은 완료되어 공용에 업로드되면 이 목록에서 삭제됩니다.",
 	"user-contribs-link": "파일은 공용의 <a href='$1'>당신의 기여 목록</a>에 나타날 것입니다.",
 	"table-header-ia-item": "IA 팀",

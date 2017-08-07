@@ -1,0 +1,28 @@
+{
+	"@metadata": {
+		"authors": [
+			"Saraiki"
+		]
+	},
+	"ia-upload": "آئی اے اپ لوڈ",
+	"site-title": "انٹرنیٹ آرکائیو توں کتاباں اپ لوڈ کرو",
+	"debug-notice": "ایہ سائٹ ڈی بغ موڈ وچ ہے تے بھانوٰیں ٹھیک کم نی کریندی پئی،",
+	"logged-in-as": "تساں $1 بݨ تے لاگ ان ہو",
+	"logout": "لاگ آؤٹ",
+	"upload-file": "فائل چڑھاؤ",
+	"form-label-ia-id": "انٹرنیٹ آرکائیو تے فائل دی آئی ڈی:",
+	"form-label-commons-name": "کامنز وچ فائل دا ناں:",
+	"form-label-commons-description": "کامنز دی تفصیل",
+	"get-metadata": "میٹا ڈیٹا گھنو",
+	"table-header-ia-item": "آئی اے آئٹم",
+	"table-header-commons-filename": "کامنز فائل دا ناں",
+	"table-header-status": "حالت",
+	"table-header-log": "لاگ",
+	"in-progress": "تھیندا پئے",
+	"queued": "قطار وچ ہے",
+	"file-source-not-available": "(ایں آئٹم کیتے دستیاب کائنی)",
+	"remove-first-page": "پہلا ورقہ مٹاواں؟",
+	"remove-first-page-no": "کو، ایں کوں اتھ چھوڑو",
+	"set-all-fields": "ایں فارم دے سارے خانے بھرو، مہربانی ہوسی",
+	"invalid-length": "$1 ٻہوں لمبا ہے"
+}
