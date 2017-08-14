@@ -4,7 +4,8 @@
 			"Beta16",
 			"Redredsonia",
 			"Samuele2002",
-			"Statix64"
+			"Statix64",
+			"Greis"
 		]
 	},
 	"ia-upload": "IA Upload",
@@ -31,6 +32,7 @@
 	"file-source-jp2": "da scansioni originali (JP2)",
 	"file-source-pdf": "da PDF (può essere di qualità inferiore)",
 	"file-source-not-available": "(non disponibile per questo elemento)",
+	"remove-first-page": "Rimuovere la prima pagina?",
 	"remove-first-page-yes": "Sì, rimuovi questa pagina dal DjVu",
 	"remove-first-page-no": "No, lasciala",
 	"upload-time-warning": "(Attenzione: il caricamento può richiedere più di un minuto!)",
