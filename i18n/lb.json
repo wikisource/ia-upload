@@ -5,6 +5,7 @@
 		]
 	},
 	"ia-upload": "IA Upload",
+	"site-title": "Bicher aus dem Internet Archive eroplueden",
 	"logged-in-as": "Dir sidd als $1 ageloggt",
 	"logout": "Ausloggen",
 	"login-notice": "Dir musst Iech <a href='$1'>alogge</a> fir Bicher op Wikimedia Commons eropzelueden",
@@ -17,6 +18,8 @@
 	"table-header-status": "Status",
 	"table-header-log": "Logbuch",
 	"in-progress": "Am Gaang",
+	"file-source-jp2": "vu Scanne vun Originaler (JP2)",
+	"file-source-pdf": "aus engem PDF (kann eng niddreg Qualitéit hunn)",
 	"file-source-not-available": "(net disponibel fir dëst Element)",
 	"remove-first-page": "Éischt Säit ewechhuelen?",
 	"remove-first-page-yes": "Jo, dës Säit vun DjVu erofhuelen",
