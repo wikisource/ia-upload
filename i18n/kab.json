@@ -1,0 +1,42 @@
+{
+	"@metadata": {
+		"authors": [
+			"Belkacem77",
+			"Sayem AtVkm"
+		]
+	},
+	"ia-upload": "Asali IA",
+	"site-title": "Sali idlisen seg uɣbaṛ n Internet",
+	"debug-notice": "Asmel-agi yella deg uskar n temseɣtayṭ, ihi yezmer ur iteddu ara akken iwata.",
+	"logged-in-as": "Teqqneḍ s $1",
+	"logout": "Ffeɣ",
+	"login-notice": "Yessefk <a href='$1'>ad teqqneḍ</a> akken ad tessaliḍ idlisen ar Wikimedia Commons",
+	"site-explanation": "Wagi <a href='$1'>d afecku n usali IA</a>, ma ualc aɣilif, <a href='$2'>azen-d yal ugur</a>.",
+	"upload-file": "Sali afaylu",
+	"form-label-ia-id": "Asulay n ufaylu n iɣbaṛen n Internet:",
+	"form-label-commons-name": "Isem n ufaylu di Commons:",
+	"form-label-file-source": "Afaylu aɣbalu DjVu:",
+	"form-label-commons-description": "Aglam ɣef Commons:",
+	"ia-id-help": "Asulay d aḥric n tensa URL deffir 'details/', amedya: $1",
+	"get-metadata": "Awi iɣef-isefka",
+	"job-queue": "Adras n umahil",
+	"job-queue-empty": "Adras n umahil d ilem akka tura.",
+	"table-header-ia-item": "Aferdis IA",
+	"table-header-commons-filename": "Isem n ufaylu di Commons",
+	"table-header-status": "Addad",
+	"table-header-log": "Aɣmis",
+	"in-progress": "Iteddu",
+	"queued": "Yettṛaǧu",
+	"file-source-djvu": "Seqdec DjVu yellan",
+	"file-source-jp2": "seg yal aḍumu aneṣli (JP2)",
+	"file-source-pdf": "Seg PDF (yezmer s tɣara meẓẓiyen)",
+	"file-source-not-available": "(ulac-it i uferdis-agi)",
+	"remove-first-page": "Kkes asebter-agi?",
+	"remove-first-page-yes": "Ih, kkes asebter-agi DjVu",
+	"remove-first-page-no": "Ala, eǧǧ-it",
+	"authorize-first": "Yessefk ad tsirgeḍ asali IA send asali n ufaylu",
+	"upload-time-warning": "(Ɣuṛ-k: asali yezmer ad yawi ugar n tesdat!)",
+	"set-all-fields": "Ma ulac aɣilif, ččaṛ tiferkit-agi",
+	"invalid-length": "'$1' ɣezzif atas",
+	"already-on-commons": "Isem n ufaylu '$1' yella yakkan di Wikimedia Commons"
+}
