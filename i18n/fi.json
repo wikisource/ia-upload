@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Nike"
+			"Nike",
+			"Pyscowicz"
 		]
 	},
 	"ia-upload": "IA Upload",
@@ -10,14 +11,18 @@
 	"logged-in-as": "Olet kirjautunut sisään nimellä $1",
 	"logout": "Kirjaudu ulos",
 	"upload-file": "Tallenna tiedosto",
+	"form-label-ia-id": "Tiedoston ID Internet Archivessa:",
 	"form-label-commons-name": "Tiedoston nimi Commonsissa:",
 	"form-label-commons-description": "Commons-kuvaus:",
 	"get-metadata": "Hae metadata",
 	"job-queue": "Työjono",
 	"job-queue-empty": "Työjono on tällä hetkellä tyhjä.",
 	"jobs-will-be-removed": "Työ poistetaan tältä listalta kun se on valmis ja tallennettu Commonsiin.",
+	"table-header-commons-filename": "Commons tiedostonimi",
 	"table-header-status": "Tila",
 	"table-header-log": "Loki",
 	"in-progress": "Käynnissä",
-	"queued": "Jonossa"
+	"queued": "Jonossa",
+	"invalid-length": "'$1' on liian pitkä",
+	"no-found-on-ia": "'$1' ei ole kelpaava Internet Archive -tunniste"
 }
