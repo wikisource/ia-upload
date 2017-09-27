@@ -21,6 +21,8 @@
 	"get-metadata": "Awi iɣef-isefka",
 	"job-queue": "Adras n umahil",
 	"job-queue-empty": "Adras n umahil d ilem akka tura.",
+	"jobs-will-be-removed": "Tiwuriyin ad ttwakksent si tebdart-agi ticki fukent udiɣ ma ifuk usali ar commons.",
+	"user-contribs-link": "Ifuyla ad d-banen deg <a href='$1'>tebdart-ik n uttekki</a> di Commons.",
 	"table-header-ia-item": "Aferdis IA",
 	"table-header-commons-filename": "Isem n ufaylu di Commons",
 	"table-header-status": "Addad",
@@ -37,6 +39,8 @@
 	"authorize-first": "Yessefk ad tsirgeḍ asali IA send asali n ufaylu",
 	"upload-time-warning": "(Ɣuṛ-k: asali yezmer ad yawi ugar n tesdat!)",
 	"set-all-fields": "Ma ulac aɣilif, ččaṛ tiferkit-agi",
+	"invalid-commons-name": "'$1' mačči d isem n ufaylu ameɣtu i Wikimedia Commons",
 	"invalid-length": "'$1' ɣezzif atas",
+	"no-found-on-ia": "'$1' mačči d asulay ameɣtu n n uɣbaṛ Internet",
 	"already-on-commons": "Isem n ufaylu '$1' yella yakkan di Wikimedia Commons"
 }
