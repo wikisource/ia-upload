@@ -13,14 +13,14 @@
 		"twig/twig": "^1.31",
 		"symfony/twig-bridge": "~3.1",
 		"addwiki/mediawiki-api-base": "~2.2",
-		"firebase/php-jwt": "~4.0",
+		"firebase/php-jwt": "^5.0",
 		"monolog/monolog": "~1.20",
 		"symfony/console": "^3.2",
 		"pastuhov/php-exec-command": "^1.1",
 		"wikimedia/simplei18n": "^1.0"
 	},
 	"require-dev": {
-		"mediawiki/mediawiki-codesniffer": "~0.7"
+		"mediawiki/mediawiki-codesniffer": "^13.0"
 	},
 	"autoload": {
 		"psr-0": {

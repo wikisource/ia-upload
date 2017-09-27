@@ -14,7 +14,7 @@ use ZipArchive;
 class Jp2DjvuMaker extends DjvuMaker {
 
 	/**
-	 * @inheritdoc
+	 * @inheritDoc
 	 * @return string
 	 */
 	public function createLocalDjvu() {

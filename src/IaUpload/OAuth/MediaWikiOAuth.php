@@ -129,7 +129,7 @@ class MediaWikiOAuth {
 		return new Client( [
 			'auth' => 'oauth',
 			'cookies' => true,
-			'handler' =>  $stack,
+			'handler' => $stack,
 			'headers' => [ 'User-Agent' => $this->userAgent ]
 		] );
 	}

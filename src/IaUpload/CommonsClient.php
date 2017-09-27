@@ -2,7 +2,6 @@
 
 namespace IaUpload;
 
-use Exception;
 use GuzzleHttp\Client;
 use Mediawiki\Api\MediawikiApi;
 use Mediawiki\Api\SimpleRequest;
@@ -42,7 +41,7 @@ class CommonsClient {
 
 	/**
 	 * Can the current user upload files?
-	 * @return boolean
+	 * @return bool
 	 */
 	public function canUpload() {
 		$result = $this->mediawikiApi->getRequest( new SimpleRequest( 'query', [

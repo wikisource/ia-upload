@@ -5,7 +5,6 @@ namespace IaUpload\DjvuMakers;
 use Exception;
 use IaUpload\IaClient;
 use Monolog\Logger;
-use Symfony\Component\Console\Output\OutputInterface;
 
 abstract class DjvuMaker {
 

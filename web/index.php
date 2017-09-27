@@ -64,35 +64,35 @@ $app['twig']->addExtension( new TwigExtension( $app['i18n'] ) );
 $commonController = new CommonsController( $app, $config );
 $oauthController = new OAuthController( $app, $config );
 
-$app->get( '/', function() use( $app ) {
+$app->get( '/', function () use( $app ) {
 	return $app->redirect( 'commons/init' );
 } )->bind( 'home' );
 
-$app->get( 'commons/init', function( Request $request ) use ( $commonController ) {
+$app->get( 'commons/init', function ( Request $request ) use ( $commonController ) {
 	return $commonController->init( $request );
 } )->bind( 'commons-init' );
 
-$app->get( 'commons/fill', function( Request $request ) use ( $commonController ) {
+$app->get( 'commons/fill', function ( Request $request ) use ( $commonController ) {
 	return $commonController->fill( $request );
 } )->bind( 'commons-fill' );
 
-$app->post( 'commons/save', function( Request $request ) use ( $commonController ) {
+$app->post( 'commons/save', function ( Request $request ) use ( $commonController ) {
 	return $commonController->save( $request );
 } )->bind( 'commons-save' );
 
-$app->get( 'log/{iaId}', function( Request $request, $iaId ) use ( $commonController ) {
+$app->get( 'log/{iaId}', function ( Request $request, $iaId ) use ( $commonController ) {
 	return $commonController->logview( $request, $iaId );
 } )->bind( 'log' );
 
-$app->get( 'oauth/init', function( Request $request ) use ( $oauthController ) {
+$app->get( 'oauth/init', function ( Request $request ) use ( $oauthController ) {
 	return $oauthController->init( $request );
 } )->bind( 'oauth-init' );
 
-$app->get( 'oauth/callback', function( Request $request ) use ( $oauthController ) {
+$app->get( 'oauth/callback', function ( Request $request ) use ( $oauthController ) {
 	return $oauthController->callback( $request );
 } )->bind( 'oauth-callback' );
 
-$app->get( 'logout', function( Request $request ) use ( $oauthController ) {
+$app->get( 'logout', function ( Request $request ) use ( $oauthController ) {
 	return $oauthController->logout( $request );
 } )->bind( 'logout' );
 

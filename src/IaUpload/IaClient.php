@@ -35,7 +35,7 @@ class IaClient {
 	 * Returns details of a file
 	 *
 	 * @param string $fileId The IA identifier.
-	 * @return array|boolean The details as an array, or false if none could be retrieved.
+	 * @return array|bool The details as an array, or false if none could be retrieved.
 	 */
 	public function fileDetails( $fileId ) {
 		try {
