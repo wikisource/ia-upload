@@ -18,7 +18,7 @@
 	"job-queue": "Työjono",
 	"job-queue-empty": "Työjono on tällä hetkellä tyhjä.",
 	"jobs-will-be-removed": "Työ poistetaan tältä listalta kun se on valmis ja tallennettu Commonsiin.",
-	"table-header-commons-filename": "Commons tiedostonimi",
+	"table-header-commons-filename": "Commons-tiedostonimi",
 	"table-header-status": "Tila",
 	"table-header-log": "Loki",
 	"in-progress": "Käynnissä",
