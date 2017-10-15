@@ -84,6 +84,10 @@ $app->get( 'log/{iaId}', function ( Request $request, $iaId ) use ( $commonContr
 	return $commonController->logview( $request, $iaId );
 } )->bind( 'log' );
 
+$app->get( '{iaId}.djvu', function ( Request $request, $iaId ) use ( $commonController ) {
+	return $commonController->downloadDjvu( $request, $iaId );
+} )->bind( 'djvu' );
+
 $app->get( 'oauth/init', function ( Request $request ) use ( $oauthController ) {
 	return $oauthController->init( $request );
 } )->bind( 'oauth-init' );

@@ -46,6 +46,7 @@
 				<th>{{ 'table-header-commons-filename'|message }}</th>
 				<th>{{ 'table-header-status'|message }}</th>
 				<th>{{ 'table-header-log'|message }}</th>
+				<th>{{ 'table-header-download'|message }}</th>
 			</tr>
 			</thead>
 		{% for job in jobs %}
@@ -53,8 +54,17 @@
 			<tr>
 				<td><a href="https://archive.org/details/{{ job.iaId }}">{{ job.iaId }}</a></td>
 				<td><a href="https://commons.wikimedia.org/wiki/File:{{ job.commonsName }}">{{ job.commonsName }}</a></td>
-				<td>{% if job.locked %}{{ 'in-progress'|message }}{% else %}{{ 'queued'|message }}{% endif %}</td>
+				<td>
+					{% if job.failed %}{{ 'possibly-failed'|message }}
+					{% elseif job.locked %}{{ 'in-progress'|message }}
+					{% else %}{{ 'queued'|message }}{% endif %}
+				</td>
 				<td><a href="{{ url( 'log', {iaId: job.iaId} ) }}">View log</a></td>
+				<td>
+					{% if job.hasDjvu %}
+						<a href="{{ url( 'djvu', {iaId: job.iaId} ) }}">Download DjVu</a>
+					{% endif %}
+				</td>
 			</tr>
 			</tbody>
 		{% endfor %}

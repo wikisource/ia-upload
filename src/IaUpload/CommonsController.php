@@ -7,6 +7,7 @@ use IaUpload\OAuth\MediaWikiOAuth;
 use IaUpload\OAuth\Token\ConsumerToken;
 use Mediawiki\Api\Guzzle\ClientFactory;
 use Silex\Application;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -131,6 +132,8 @@ class CommonsController {
 		foreach ( glob( $this->getJobDirectory() . '/*/job.json' ) as $jobFile ) {
 			$jobInfo = \GuzzleHttp\json_decode( file_get_contents( $jobFile ) );
 			$jobInfo->locked = file_exists( dirname( $jobFile ) . '/lock' );
+			$jobInfo->failed = filemtime( dirname( $jobFile ) . '/log.txt' ) < ( time() - 24 * 60 * 60 );
+			$jobInfo->hasDjvu = file_exists( dirname( $jobFile ) . '/' . $jobInfo->iaId . '.djvu' );
 			$jobs[] = $jobInfo;
 		}
 		return $this->outputsInitTemplate( [
@@ -333,6 +336,20 @@ class CommonsController {
 		$logFile = $this->getJobDirectory( $iaId ) . '/log.txt';
 		$log = ( file_exists( $logFile ) ) ? file_get_contents( $logFile ) : 'No log available.';
 		return new Response( $log, 200, [ 'Content-Type' => 'text/plain' ] );
+	}
+
+	/**
+	 * Download a single DjVu file if possible.
+	 * @param Request $request The HTTP request.
+	 * @param string $iaId The IA ID.
+	 * @return Response
+	 */
+	public function downloadDjvu( Request $request, $iaId ) {
+		$filename = $this->getJobDirectory( $iaId ) . '/' . $iaId . '.djvu';
+		if ( !file_exists( $filename ) ) {
+			return new Response( 'File not found', 404 );
+		}
+		return new BinaryFileResponse( $filename );
 	}
 
 	/**
