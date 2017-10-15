@@ -4,6 +4,7 @@ namespace IaUpload;
 
 use GuzzleHttp\Client;
 use Mediawiki\Api\MediawikiApi;
+use Mediawiki\Api\MediawikiFactory;
 use Mediawiki\Api\SimpleRequest;
 use Mediawiki\Api\UsageException;
 use Psr\Log\LoggerInterface;
@@ -76,27 +77,10 @@ class CommonsClient {
 	 * @throws UsageException If there's an API error.
 	 */
 	public function upload( $fileName, $filePath, $text, $comment ) {
-		$result = json_decode( $this->client->post( 'https://commons.wikimedia.org/w/api.php', [
-			'multipart' => [
-				[ 'name' => 'action', 'contents' => 'upload' ],
-				[ 'name' => 'format', 'contents' => 'json' ],
-				[ 'name' => 'filename', 'contents' => $fileName ],
-				[ 'name' => 'text', 'contents' => $text ],
-				[ 'name' => 'file', 'contents' => fopen( $filePath, 'r' ) ],
-				[ 'name' => 'comment', 'contents' => $comment ],
-				[ 'name' => 'token', 'contents' => $this->mediawikiApi->getToken( 'edit' ) ]
-			]
-		] )->getBody(), true );
-		if ( array_key_exists( 'error', $result ) ) {
-			throw new UsageException( $result['error']['code'], $result['error']['info'], $result );
-		}
-		if ( array_key_exists( 'warnings', $result ) ) {
-			foreach ( $result['warnings'] as $module => $warningData ) {
-				$warning = is_array( $warningData ) ? join( "\n", $warningData ) : $warningData;
-				throw new UsageException( $module, $warning, $result );
-			}
-		}
-		return $result;
+		$factory = new MediawikiFactory( $this->mediawikiApi );
+		$fileUploader = $factory->newFileUploader();
+		$fileUploader->setChunkSize( 90 * 1024 * 1024 );
+		$fileUploader->upload( $fileName, $filePath, $text, $comment );
 	}
 
 	/**
