@@ -133,7 +133,7 @@ class CommonsController {
 			$jobInfo = \GuzzleHttp\json_decode( file_get_contents( $jobFile ) );
 			$jobInfo->locked = file_exists( dirname( $jobFile ) . '/lock' );
 			$jobInfo->failed = false;
-			$logFile = dirname($jobFile) . '/log.txt';
+			$logFile = dirname( $jobFile ) . '/log.txt';
 			$jobInfo->failed = ( file_exists( $logFile ) && filemtime( $logFile ) < ( time() - 24 * 60 * 60 ) );
 			$jobInfo->hasDjvu = file_exists( dirname( $jobFile ) . '/' . $jobInfo->iaId . '.djvu' );
 			$jobs[] = $jobInfo;

@@ -64,6 +64,8 @@ $app['twig']->addExtension( new TwigExtension( $app['i18n'] ) );
 $commonController = new CommonsController( $app, $config );
 $oauthController = new OAuthController( $app, $config );
 
+$iaIdPattern = '[a-zA-Z0-9\._-]*';
+
 $app->get( '/', function () use( $app ) {
 	return $app->redirect( 'commons/init' );
 } )->bind( 'home' );
@@ -82,11 +84,11 @@ $app->post( 'commons/save', function ( Request $request ) use ( $commonControlle
 
 $app->get( 'log/{iaId}', function ( Request $request, $iaId ) use ( $commonController ) {
 	return $commonController->logview( $request, $iaId );
-} )->bind( 'log' );
+} )->assert( 'iaId', $iaIdPattern )->bind( 'log' );
 
 $app->get( '{iaId}.djvu', function ( Request $request, $iaId ) use ( $commonController ) {
 	return $commonController->downloadDjvu( $request, $iaId );
-} )->bind( 'djvu' );
+} )->assert( 'iaId', $iaIdPattern )->bind( 'djvu' );
 
 $app->get( 'oauth/init', function ( Request $request ) use ( $oauthController ) {
 	return $oauthController->init( $request );
