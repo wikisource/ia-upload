@@ -3,7 +3,8 @@
 		"authors": [
 			"Macofe",
 			"Fitoschido",
-			"Luisangelrg"
+			"Luisangelrg",
+			"RicardoSGZ"
 		]
 	},
 	"ia-upload": "Carga IA",
@@ -29,6 +30,7 @@
 	"table-header-commons-filename": "Nombre de archivo en Commons:",
 	"table-header-status": "Estado",
 	"table-header-log": "Registro",
+	"table-header-download": "Descargar",
 	"in-progress": "En proceso",
 	"queued": "En espera",
 	"file-source-djvu": "Usar DjVu existente",
