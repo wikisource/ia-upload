@@ -13,6 +13,9 @@ use ZipArchive;
  */
 class Jp2DjvuMaker extends DjvuMaker {
 
+	/** @var int The number of pages in the DjVu, set in self::convertJp2ToDjvu(). */
+	protected $pageCount = 0;
+
 	/**
 	 * @inheritDoc
 	 * @return string
@@ -22,6 +25,7 @@ class Jp2DjvuMaker extends DjvuMaker {
 		$jp2Directory = $this->unzipDownloadedJp2Archive();
 		$djvuFile = $this->convertJp2ToDjvu( $jp2Directory );
 		$this->addXmlToDjvu( $djvuFile );
+		$this->validateDjvu( $djvuFile );
 		return $djvuFile;
 	}
 
@@ -124,6 +128,7 @@ class Jp2DjvuMaker extends DjvuMaker {
 			}
 			$djvuFiles[] = $djvuFile;
 		}
+		$this->pageCount = count( $djvuFiles );
 
 		// Merge all DjVu files into one.
 		$singleDjvuFile = $this->jobDir().'/'.$this->itemId.'.djvu';
@@ -178,6 +183,51 @@ class Jp2DjvuMaker extends DjvuMaker {
 	}
 
 	/**
+	 * Validate the DjVu and remove any corrupted pages.
+	 * @param string $djvuFile Full path to the full, text-layer'd DjVu file.
+	 * @return bool False if validation failed.
+	 */
+	public function validateDjvu( $djvuFile ) {
+		// Not using self::runCommand() in this method because we want the return values.
+		$this->log->info( "Validating text layer of DjVu" );
+
+		// First check the whole file.
+		exec( "djvused -u '$djvuFile' -e 'select; output-txt' 2>&1", $out, $retVar );
+		if ( $retVar === 0 ) {
+			$this->log->debug( "Text layer OK" );
+			return true;
+		}
+		if ( $retVar !== 10 ) {
+			$this->log->error( "Unable to validate DjVu: $djvuFile" );
+			return false;
+		}
+
+		// If the whole file didn't validate, loop through each page looking for and fixing any errors.
+		for ( $pageNum = 1; $pageNum <= $this->pageCount; $pageNum++ ) {
+			// Check this page.
+			exec( "djvused -u '$djvuFile' -e 'select $pageNum; output-txt' 2>&1", $out, $retVar );
+			if ( $retVar === 0 ) {
+				// Page is okay.
+				continue;
+			}
+			if ( $retVar !== 10 ) {
+				// Page has some other sort of error.
+				$this->log->error( "Unable to validate DjVu page $pageNum in $djvuFile" );
+				continue;
+			}
+
+			// Try to fix this page by removing the text from it.
+			$this->log->info("Fixing page $pageNum (1-indexed)");
+			exec( "djvused -u '$djvuFile' -e 'select $pageNum; remove-txt; save'", $out, $retVar );
+			if ( $retVar !== 0 ) {
+				$this->log->error( "Unable to fix page $pageNum in $djvuFile" );
+				continue;
+			}
+		}
+		$this->log->info( "Validation complete" );
+	}
+
+	/**
 	 * Run an external command, first checking that it exists by using 'which'.
 	 * @param string $command The command to run.
 	 * @param string $args The arguments to the command. Will be appended to the command as-is.
@@ -191,5 +241,6 @@ class Jp2DjvuMaker extends DjvuMaker {
 		if ( $commandOutput ) {
 			$this->log->debug( $commandOutput );
 		}
+		$commandOutput;
 	}
 }

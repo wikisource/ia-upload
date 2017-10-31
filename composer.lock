@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a3742dd26cc5919979af529af38acd60",
+    "content-hash": "68201b5ac1bce8e45418c58e19fdb5f5",
     "packages": [
         {
             "name": "addwiki/mediawiki-api-base",
@@ -751,16 +751,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v3.3.9",
+            "version": "v3.3.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "a1e1b01293a090cb9ae2ddd221a3251a4a7e4abf"
+                "reference": "116bc56e45a8e5572e51eb43ab58c769a352366c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/a1e1b01293a090cb9ae2ddd221a3251a4a7e4abf",
-                "reference": "a1e1b01293a090cb9ae2ddd221a3251a4a7e4abf",
+                "url": "https://api.github.com/repos/symfony/console/zipball/116bc56e45a8e5572e51eb43ab58c769a352366c",
+                "reference": "116bc56e45a8e5572e51eb43ab58c769a352366c",
                 "shasum": ""
             },
             "require": {
@@ -815,20 +815,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2017-09-06T16:40:18+00:00"
+            "time": "2017-10-02T06:42:24+00:00"
         },
         {
             "name": "symfony/debug",
-            "version": "v3.3.9",
+            "version": "v3.3.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "8beb24eec70b345c313640962df933499373a944"
+                "reference": "eb95d9ce8f18dcc1b3dfff00cb624c402be78ffd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/8beb24eec70b345c313640962df933499373a944",
-                "reference": "8beb24eec70b345c313640962df933499373a944",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/eb95d9ce8f18dcc1b3dfff00cb624c402be78ffd",
+                "reference": "eb95d9ce8f18dcc1b3dfff00cb624c402be78ffd",
                 "shasum": ""
             },
             "require": {
@@ -871,20 +871,20 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2017-09-01T13:23:39+00:00"
+            "time": "2017-10-02T06:42:24+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v3.3.9",
+            "version": "v3.3.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "54ca9520a00386f83bca145819ad3b619aaa2485"
+                "reference": "d7ba037e4b8221956ab1e221c73c9e27e05dd423"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/54ca9520a00386f83bca145819ad3b619aaa2485",
-                "reference": "54ca9520a00386f83bca145819ad3b619aaa2485",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/d7ba037e4b8221956ab1e221c73c9e27e05dd423",
+                "reference": "d7ba037e4b8221956ab1e221c73c9e27e05dd423",
                 "shasum": ""
             },
             "require": {
@@ -934,20 +934,20 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2017-07-29T21:54:42+00:00"
+            "time": "2017-10-02T06:42:24+00:00"
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v3.3.9",
+            "version": "v3.3.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "2cdc7de1921d1a1c805a13dc05e44a2cd58f5ad3"
+                "reference": "22cf9c2b1d9f67cc8e75ae7f4eaa60e4c1eff1f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/2cdc7de1921d1a1c805a13dc05e44a2cd58f5ad3",
-                "reference": "2cdc7de1921d1a1c805a13dc05e44a2cd58f5ad3",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/22cf9c2b1d9f67cc8e75ae7f4eaa60e4c1eff1f8",
+                "reference": "22cf9c2b1d9f67cc8e75ae7f4eaa60e4c1eff1f8",
                 "shasum": ""
             },
             "require": {
@@ -987,20 +987,20 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-            "time": "2017-09-06T17:07:39+00:00"
+            "time": "2017-10-05T23:10:23+00:00"
         },
         {
             "name": "symfony/http-kernel",
-            "version": "v3.3.9",
+            "version": "v3.3.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-kernel.git",
-                "reference": "70f5bb3cdd737624249953b61023411e26be5db7"
+                "reference": "654f047a78756964bf91b619554f956517394018"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/70f5bb3cdd737624249953b61023411e26be5db7",
-                "reference": "70f5bb3cdd737624249953b61023411e26be5db7",
+                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/654f047a78756964bf91b619554f956517394018",
+                "reference": "654f047a78756964bf91b619554f956517394018",
                 "shasum": ""
             },
             "require": {
@@ -1073,20 +1073,20 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "https://symfony.com",
-            "time": "2017-09-11T16:13:23+00:00"
+            "time": "2017-10-05T23:40:19+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.5.0",
+            "version": "v1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "7c8fae0ac1d216eb54349e6a8baa57d515fe8803"
+                "reference": "2ec8b39c38cb16674bbf3fea2b6ce5bf117e1296"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/7c8fae0ac1d216eb54349e6a8baa57d515fe8803",
-                "reference": "7c8fae0ac1d216eb54349e6a8baa57d515fe8803",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/2ec8b39c38cb16674bbf3fea2b6ce5bf117e1296",
+                "reference": "2ec8b39c38cb16674bbf3fea2b6ce5bf117e1296",
                 "shasum": ""
             },
             "require": {
@@ -1098,7 +1098,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.5-dev"
+                    "dev-master": "1.6-dev"
                 }
             },
             "autoload": {
@@ -1132,20 +1132,20 @@
                 "portable",
                 "shim"
             ],
-            "time": "2017-06-14T15:44:48+00:00"
+            "time": "2017-10-11T12:05:26+00:00"
         },
         {
             "name": "symfony/routing",
-            "version": "v3.3.9",
+            "version": "v3.3.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/routing.git",
-                "reference": "970326dcd04522e1cd1fe128abaee54c225e27f9"
+                "reference": "2e26fa63da029dab49bf9377b3b4f60a8fecb009"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/routing/zipball/970326dcd04522e1cd1fe128abaee54c225e27f9",
-                "reference": "970326dcd04522e1cd1fe128abaee54c225e27f9",
+                "url": "https://api.github.com/repos/symfony/routing/zipball/2e26fa63da029dab49bf9377b3b4f60a8fecb009",
+                "reference": "2e26fa63da029dab49bf9377b3b4f60a8fecb009",
                 "shasum": ""
             },
             "require": {
@@ -1210,20 +1210,20 @@
                 "uri",
                 "url"
             ],
-            "time": "2017-07-29T21:54:42+00:00"
+            "time": "2017-10-02T07:25:00+00:00"
         },
         {
             "name": "symfony/twig-bridge",
-            "version": "v3.3.9",
+            "version": "v3.3.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/twig-bridge.git",
-                "reference": "9c12e8f02937a1edfa02fcc73282c7c1a18304b2"
+                "reference": "cc40b1ea0efd030d422c762328345883a0404de4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/twig-bridge/zipball/9c12e8f02937a1edfa02fcc73282c7c1a18304b2",
-                "reference": "9c12e8f02937a1edfa02fcc73282c7c1a18304b2",
+                "url": "https://api.github.com/repos/symfony/twig-bridge/zipball/cc40b1ea0efd030d422c762328345883a0404de4",
+                "reference": "cc40b1ea0efd030d422c762328345883a0404de4",
                 "shasum": ""
             },
             "require": {
@@ -1297,20 +1297,20 @@
             ],
             "description": "Symfony Twig Bridge",
             "homepage": "https://symfony.com",
-            "time": "2017-07-29T21:54:42+00:00"
+            "time": "2017-10-02T06:42:24+00:00"
         },
         {
             "name": "twig/twig",
-            "version": "v1.34.4",
+            "version": "v1.35.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "f878bab48edb66ad9c6ed626bf817f60c6c096ee"
+                "reference": "daa657073e55b0a78cce8fdd22682fddecc6385f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/f878bab48edb66ad9c6ed626bf817f60c6c096ee",
-                "reference": "f878bab48edb66ad9c6ed626bf817f60c6c096ee",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/daa657073e55b0a78cce8fdd22682fddecc6385f",
+                "reference": "daa657073e55b0a78cce8fdd22682fddecc6385f",
                 "shasum": ""
             },
             "require": {
@@ -1324,7 +1324,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.34-dev"
+                    "dev-master": "1.35-dev"
                 }
             },
             "autoload": {
@@ -1362,7 +1362,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2017-07-04T13:19:31+00:00"
+            "time": "2017-09-27T18:06:46+00:00"
         },
         {
             "name": "wikimedia/simplei18n",
@@ -1421,26 +1421,26 @@
     "packages-dev": [
         {
             "name": "mediawiki/mediawiki-codesniffer",
-            "version": "v13.0.0",
+            "version": "v14.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wikimedia/mediawiki-tools-codesniffer.git",
-                "reference": "296d53b0a02b41d478b028651bb3ca7ee07c9074"
+                "reference": "092ce78529556a3b774c0920a2a5d40cefb4207a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wikimedia/mediawiki-tools-codesniffer/zipball/296d53b0a02b41d478b028651bb3ca7ee07c9074",
-                "reference": "296d53b0a02b41d478b028651bb3ca7ee07c9074",
+                "url": "https://api.github.com/repos/wikimedia/mediawiki-tools-codesniffer/zipball/092ce78529556a3b774c0920a2a5d40cefb4207a",
+                "reference": "092ce78529556a3b774c0920a2a5d40cefb4207a",
                 "shasum": ""
             },
             "require": {
                 "php": ">= 5.5.9",
-                "squizlabs/php_codesniffer": "3.0.2"
+                "squizlabs/php_codesniffer": "3.1.1"
             },
             "require-dev": {
                 "jakub-onderka/php-console-highlighter": "0.3.2",
                 "jakub-onderka/php-parallel-lint": "0.9.2",
-                "phpunit/phpunit": "~4.1"
+                "phpunit/phpunit": "~4.8"
             },
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
@@ -1453,20 +1453,20 @@
                 "codesniffer",
                 "mediawiki"
             ],
-            "time": "2017-09-24T03:33:15+00:00"
+            "time": "2017-10-21T02:22:31+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.0.2",
+            "version": "3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "c7594a88ae75401e8f8d0bd4deb8431b39045c51"
+                "reference": "d667e245d5dcd4d7bf80f26f2c947d476b66213e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/c7594a88ae75401e8f8d0bd4deb8431b39045c51",
-                "reference": "c7594a88ae75401e8f8d0bd4deb8431b39045c51",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/d667e245d5dcd4d7bf80f26f2c947d476b66213e",
+                "reference": "d667e245d5dcd4d7bf80f26f2c947d476b66213e",
                 "shasum": ""
             },
             "require": {
@@ -1476,7 +1476,7 @@
                 "php": ">=5.4.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.0"
+                "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0"
             },
             "bin": [
                 "bin/phpcs",
@@ -1504,7 +1504,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2017-07-18T01:12:32+00:00"
+            "time": "2017-10-16T22:40:25+00:00"
         }
     ],
     "aliases": [],
