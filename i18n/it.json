@@ -26,6 +26,7 @@
 	"table-header-commons-filename": "Nome file Commons",
 	"table-header-status": "Stato",
 	"table-header-log": "Registro",
+	"table-header-download": "Scarica",
 	"in-progress": "In corso",
 	"queued": "In coda",
 	"file-source-djvu": "Usa DjVu esistente",

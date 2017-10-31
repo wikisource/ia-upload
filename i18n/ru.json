@@ -5,7 +5,8 @@
 			"Facenapalm",
 			"Nitch",
 			"Okras",
-			"Redredsonia"
+			"Redredsonia",
+			"Kareyac"
 		]
 	},
 	"ia-upload": "IA Upload",
@@ -31,8 +32,10 @@
 	"table-header-commons-filename": "Имя файла на Викискладе",
 	"table-header-status": "Состояние",
 	"table-header-log": "Журнал",
+	"table-header-download": "Скачать",
 	"in-progress": "В процессе",
 	"queued": "В очереди",
+	"possibly-failed": "Возможно, не удалось",
 	"file-source-djvu": "Использовать существующий DjVu",
 	"file-source-jp2": "из оригинальных сканов (JP2)",
 	"file-source-pdf": "из PDF (может быть более низкого качества)",

@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Mido"
+			"Mido",
+			"محمد أحمد عبد الفتاح"
 		]
 	},
 	"ia-upload": "رفع الملفات من أرشيف الإنترنت",
@@ -27,6 +28,7 @@
 	"table-header-commons-filename": "اسم الملف على كومنز",
 	"table-header-status": "الحالة",
 	"table-header-log": "السجل",
+	"table-header-download": "تنزيل",
 	"in-progress": "جار العمل عليها",
 	"queued": "في الطابور",
 	"file-source-djvu": "استخدم ديجافو موجود",
