@@ -33,6 +33,7 @@
 	"table-header-download": "Descargar",
 	"in-progress": "En proceso",
 	"queued": "En espera",
+	"possibly-failed": "Posiblemente falló",
 	"file-source-djvu": "Usar DjVu existente",
 	"file-source-jp2": "de originales escaneados (JP2)",
 	"file-source-pdf": "de PDF (puede ser de menor calidad)",
