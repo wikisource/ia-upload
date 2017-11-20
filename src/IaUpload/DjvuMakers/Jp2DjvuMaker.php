@@ -217,7 +217,7 @@ class Jp2DjvuMaker extends DjvuMaker {
 			}
 
 			// Try to fix this page by removing the text from it.
-			$this->log->info("Fixing page $pageNum (1-indexed)");
+			$this->log->info( "Fixing page $pageNum (1-indexed)" );
 			exec( "djvused -u '$djvuFile' -e 'select $pageNum; remove-txt; save'", $out, $retVar );
 			if ( $retVar !== 0 ) {
 				$this->log->error( "Unable to fix page $pageNum in $djvuFile" );
