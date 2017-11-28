@@ -1,8 +1,6 @@
 {% extends "template.twig" %}
 {% block body %}
 	<form method="POST" action="{{ path( 'commons-save' ) }}" role="form" class="form-horizontal">
-		<input name="iaFileName" id="iaFileName" type="hidden" required="required" value="{{ iaFileName|e }}" />
-		<input type="hidden" value="{% if hasDjvu %}yes{% endif %}" name="hasDjvu" />
 		<fieldset>
 			<legend>{{ 'upload-file'|message }}</legend>
 
@@ -23,16 +21,18 @@
 			<div class="form-group">
 				<label for="sourceFile" class="col-lg-2 control-label">{{ 'form-label-file-source'|message }}</label>
 				<div class="col-lg-10">
-					<select name="fileSource" class="form-control">
-						<option value="djvu" {% if fileSource == 'djvu' and hasDjvu %}selected{% endif %} {% if not hasDjvu %}disabled{% endif %}>
+					<select name="fileSource" id="sourceFile" class="form-control">
+						<option value="djvu" {% if fileSource == 'djvu' and djvuFilename %}selected{% endif %} {% if not djvuFilename %}disabled{% endif %}>
 							{{ 'file-source-djvu'|message }}
-							{% if not hasDjvu %}{{ 'file-source-not-available'|message }}{% endif %}
+							{% if not djvuFilename %}{{ 'file-source-not-available'|message }}{% endif %}
 						</option>
-						<option value="jp2" {% if fileSource == 'jp2' %}selected{% endif %}>
+						<option value="jp2" {% if fileSource == 'jp2' %}selected{% endif %} {% if not jp2Filename %}disabled{% endif %}>
 							{{ 'file-source-jp2'|message }}
+							{% if not jp2Filename %}{{ 'file-source-not-available'|message }}{% endif %}
 						</option>
-						<option value="pdf" {% if fileSource == 'pdf' %}selected{% endif %}>
+						<option value="pdf" {% if fileSource == 'pdf' %}selected{% endif %} {% if not pdfFilename %}disabled{% endif %}>
 							{{ 'file-source-pdf'|message }}
+							{% if not pdfFilename %}{{ 'file-source-not-available'|message }}{% endif %}
 						</option>
 					</select>
 					<span class="help-block">

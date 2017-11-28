@@ -187,7 +187,7 @@ class CommonsController {
 		// Try to get IA details.
 		$iaData = $this->iaClient->fileDetails( $iaId );
 		if ( $iaData === false ) {
-			$link = '<a href="http://archive.org/details/' . rawurlencode( $iaId ) . '">'
+			$link = '<a href="https://archive.org/details/' . rawurlencode( $iaId ) . '">'
 				. htmlspecialchars( $iaId )
 				. '</a>';
 			return $this->outputsInitTemplate( [
@@ -198,16 +198,10 @@ class CommonsController {
 		}
 		$iaId = $iaData['metadata']['identifier'][0];
 
-		// See if a IA DjVu or PDF file exists.
-		$hasDjvu = true;
-		$iaFileName = $this->getDjvuFileName( $iaData );
-		if ( strlen( $iaFileName ) < 1 ) {
-			$hasDjvu = false;
-		}
+		// See if the file already exists on Commons.
 		$fullCommonsName = $commonsName . '.djvu';
-
 		if ( $this->commonsClient->pageExist( 'File:' . $fullCommonsName ) ) {
-			$link = '<a href="http://commons.wikimedia.org/wiki/File:' . rawurlencode( $fullCommonsName ) . '">'
+			$link = '<a href="https://commons.wikimedia.org/wiki/File:' . rawurlencode( $fullCommonsName ) . '">'
 				. htmlspecialchars( $fullCommonsName )
 				. '</a>';
 			return $this->outputsInitTemplate( [
@@ -216,17 +210,19 @@ class CommonsController {
 				'error' => $this->app['i18n']->message( 'already-on-commons', [ $link ] ),
 			] );
 		}
+
+		// Output the page.
 		$templateParams = [
 			'iaId' => $iaId,
 			'commonsName' => $fullCommonsName,
-			'iaFileName' => $iaFileName,
-			'hasDjvu' => $hasDjvu,
+			'djvuFilename' => $this->getIaFileName( $iaData, 'djvu' ),
+			'pdfFilename' => $this->getIaFileName( $iaData, 'pdf' ),
+			'jp2Filename' => $this->getIaFileName( $iaData, 'jp2' ),
 			'fileSource' => $fileSource,
 		];
 		list( $description, $notes ) = $this->createPageContent( $iaData );
 		$templateParams['description'] = $description;
 		$templateParams['notes'] = $notes;
-
 		return $this->outputsFillTemplate( $templateParams );
 	}
 
@@ -242,10 +238,8 @@ class CommonsController {
 		$jobInfo = [
 			'iaId' => $request->get( 'iaId' ),
 			'commonsName' => $this->commonsClient->normalizePageTitle( $request->get( 'commonsName' ) ),
-			'iaFileName' => $request->get( 'iaFileName' ),
 			'description' => $request->get( 'description' ),
 			'fileSource' => $request->get( 'fileSource', 'jp2' ),
-			'hasDjvu' => $request->get( 'hasDjvu', 0 ) === 'yes',
 			'removeFirstPage' => $request->get( 'removeFirstPage', 0 ) === 'yes',
 		];
 		if ( !$jobInfo['iaId'] || !$jobInfo['commonsName'] || !$jobInfo['description'] ) {
@@ -266,7 +260,7 @@ class CommonsController {
 		$iaData = $this->iaClient->fileDetails( $jobInfo['iaId'] );
 		if ( $iaData === false ) {
 			$link = '<a href="http://archive.org/details/' . rawurlencode( $jobInfo['iaId'] ) . '">'
-				. htmlspecialchars( $iaId )
+				. htmlspecialchars( $jobInfo['iaId'] )
 				. '</a>';
 			$jobInfo['error'] = $this->app['i18n']->message( 'no-found-on-ia', [ $link ] );
 			return $this->outputsFillTemplate( $jobInfo );
@@ -292,8 +286,9 @@ class CommonsController {
 
 		// Use IA DjVu file (don't add it to the queue, as this shouldn't take too long).
 		if ( $jobInfo['fileSource'] === 'djvu' ) {
-			$remoteDjVuFile = $jobInfo['iaId'] . $jobInfo['iaFileName'];
-			$localDjVuFile = $jobDirectory . '/' . $jobInfo['iaFileName'];
+			$djvuFilename = $this->getIaFileName( $iaData, 'djvu' );
+			$remoteDjVuFile = $jobInfo['iaId'] . $djvuFilename;
+			$localDjVuFile = $jobDirectory . '/' . $djvuFilename;
 			try {
 				$this->iaClient->downloadFile( $remoteDjVuFile, $localDjVuFile );
 				if ( $jobInfo['removeFirstPage'] ) {
@@ -409,28 +404,24 @@ class CommonsController {
 	}
 
 	/**
-	 * Returns the file name to use
+	 * Returns the file name of the requested file from the given IA metadata.
 	 *
 	 * @param array $data The IA metadata containing a 'files' key.
-	 * @return string null nothing found, caller should abort, '', should call PDF -> DjVu converter, not empty string the DjVu file name
+	 * @param string $fileType One of 'djvu', 'pdf', or 'zip'.
+	 * @return string|bool The filename, or false if none could be found.
 	 */
-	protected function getDjvuFileName( $data ) {
-		$djvu = null;
-		$pdf = null;
-		foreach ( $data['files'] as $i => $info ) {
-			if ( $info['format'] === 'DjVu' ) {
-				$djvu = $i;
-			} elseif ( $info['format'] === 'Additional Text PDF' || $info['format'] === 'Text PDF' ) {
-				$pdf = $i;
+	protected function getIaFileName( $data, $fileType = 'djvu' ) {
+		foreach ( $data['files'] as $filePath => $fileInfo ) {
+			$djvu = ( $fileType === 'djvu' && $fileInfo['format'] === 'DjVu' );
+			$pdfFormats = [ 'Text PDF', 'Additional Text PDF', 'Image Container PDF' ];
+			$pdf = ( $fileType === 'pdf' && in_array( $fileInfo['format'], $pdfFormats ) );
+			// Could perhaps check for $fileInfo['format'] === 'Abbyy GZ'?
+			$zip = ( $fileType === 'jp2' && substr( $filePath, -8 ) === '_jp2.zip' );
+			if ( $djvu || $pdf || $zip ) {
+				return $filePath;
 			}
 		}
-		if ( $djvu !== null ) {
-			return $djvu;
-		} elseif ( $pdf !== null ) {
-			return '';
-		} else {
-			return null;
-		}
+		return false;
 	}
 
 	/**
