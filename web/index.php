@@ -72,7 +72,8 @@ $app->get( '/', function ( Request $request ) use( $commonController ) {
 
 // @deprecated in favour of 'home'.
 $app->get( 'commons/init', function ( Request $request ) use ( $app ) {
-	$homeUrl = $app["url_generator"]->generate( 'home' ) . '?' . $request->getQueryString();
+	$queryString = $request->getQueryString() ? '?' . $request->getQueryString() : '';
+	$homeUrl = $app["url_generator"]->generate( 'home' ) . $queryString;
 	return $app->redirect( $homeUrl );
 } );
 
