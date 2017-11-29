@@ -325,11 +325,10 @@ class CommonsController {
 			}
 			unlink( $localDjVuFile );
 			rmdir( $jobDirectory );
+			$url = 'http://commons.wikimedia.org/wiki/File:' . rawurlencode( $jobInfo['commonsName'] );
+			$msgParam = '<a href="' . $url . '">' . $jobInfo['commonsName'] . '</a>';
 			return $this->outputsInitTemplate( [
-				'success' => 'The file <a href="http://commons.wikimedia.org/wiki/File:'
-					. rawurlencode( $jobInfo['commonsName'] ) . '">'
-					. rawurlencode( $jobInfo['commonsName'] )
-					. '</a> has been successfully uploaded to Commons!'
+				'success' => $this->app['i18n']->message( 'successfully-uploaded', [ $msgParam ] ),
 			] );
 		}
 	}

@@ -48,5 +48,6 @@
 	"no-found-on-ia": "Message displayed when the provided IA identifier does not exist; $1 is a full HTML link",
 	"already-on-commons": "Message displayed when the provided Commons filename already exists; $1 is a full HTML link",
 	"creator-template-missing": "{{doc-singularthey}}",
-	"no-usable-files-found": "Error message explaining that none of the required file formats were found on Internet Archive"
+	"no-usable-files-found": "Error message explaining that none of the required file formats were found on Internet Archive",
+	"successfully-uploaded": "Message shown after a DjVu file has been transferred successfully to Commons; $1 is a full HTML link"
 }
