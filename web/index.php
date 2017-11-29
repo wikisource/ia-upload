@@ -66,13 +66,14 @@ $oauthController = new OAuthController( $app, $config );
 
 $iaIdPattern = '[a-zA-Z0-9\._-]*';
 
-$app->get( '/', function () use( $app ) {
-	return $app->redirect( 'commons/init' );
+$app->get( '/', function ( Request $request ) use( $commonController ) {
+	return $commonController->init( $request );
 } )->bind( 'home' );
 
-$app->get( 'commons/init', function ( Request $request ) use ( $commonController ) {
-	return $commonController->init( $request );
-} )->bind( 'commons-init' );
+// @deprecated in favour of 'home'.
+$app->get( 'commons/init', function () use ( $app ) {
+	return $app->redirect( 'commons/init' );
+} );
 
 $app->get( 'commons/fill', function ( Request $request ) use ( $commonController ) {
 	return $commonController->fill( $request );

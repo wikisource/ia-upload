@@ -293,7 +293,7 @@ class CommonsController {
 			umask( $oldUmask );
 			chmod( $jobFile, 0600 );
 			file_put_contents( $jobFile, \GuzzleHttp\json_encode( $jobInfo ) );
-			return $this->app->redirect( $this->app["url_generator"]->generate( 'commons-init' ) );
+			return $this->app->redirect( $this->app["url_generator"]->generate( 'home' ) );
 		}
 
 		// Use IA DjVu file (don't add it to the queue, as this shouldn't take too long).
@@ -443,26 +443,11 @@ class CommonsController {
 	 * @return array
 	 */
 	protected function createPageContent( $data ) {
-		$language = isset( $data['metadata']['language'][0] )
-			? $this->normalizeLanguageCode( $data['metadata']['language'][0] )
-			: '';
+		$language = $this->parseLanguageParam( $data );
 		$notes = [];
-		$content = '== {{int:filedesc}} ==' . "\n" . '{{Book' . "\n";
-		if ( isset( $data['metadata']['creator'][0] ) ) {
-			$creator = $data['metadata']['creator'][0];
-			// If there's a comma, assume we're reversed.
-			if ( strpos( $creator, ',' ) !== false ) {
-				$creator = join( ' ', array_map( 'trim', array_reverse( explode( ',', $creator ) ) ) );
-			}
-			if ( $this->commonsClient->pageExist( "Creator:$creator" ) ) {
-				$content .= "| Author       = {{Creator:$creator}}\n";
-			} else {
-				$notes[] = $this->app['i18n']->message( 'creator-template-missing', [ $creator ] );
-				$content .= "| Author       = $creator\n";
-			}
-		} else {
-			$content .= '| Author       = ' . "\n";
-		}
+		$content = '== {{int:filedesc}} ==' . "\n";
+		$content .= '{{Book' . "\n";
+		$content .= '| Author       = ' . $this->parseAuthorParam( $data, $notes ) . "\n";
 		$content .= '| Editor       = ' . "\n";
 		$content .= '| Translator   = ' . "\n";
 		$content .= '| Illustrator  = ' . "\n";
@@ -507,10 +492,7 @@ class CommonsController {
 		} else {
 			$content .= '| Description  = ' . "\n";
 		}
-		$content .= '| Source       = {{IA|' . $data['metadata']['identifier'][0] . '}}' . "\n";
-		if ( isset( $data['metadata']['source'][0] ) ) {
-			$content .= '<br />Internet Archive source: ' . $data['metadata']['source'][0] . "\n";
-		}
+		$content .= '| Source       = ' . $this->parseSourceParam( $data ) . "\n";
 		$content .= '| Image        = {{PAGENAME}}' . "\n";
 		$content .= '| Image page   = ' . "\n";
 		$content .= '| Permission   = ' . "\n";
@@ -542,14 +524,65 @@ class CommonsController {
 	}
 
 	/**
-	 * Normalize a language code
-	 * Very hacky
-	 *
-	 * @param string $language
+	 * Get the wikitext for the Author parameter.
+	 * @param mixed[] $data The IA metadata.
+	 * @param string[] &$notes The notes array to add warnings to.
 	 * @return string
 	 */
-	private function normalizeLanguageCode( $language ) {
-		$language = strtolower( $language );
+	protected function parseAuthorParam( $data, &$notes ) {
+		if ( !isset( $data['metadata']['creator'][0] ) ) {
+			return '';
+		}
+		$creator = $data['metadata']['creator'][0];
+		// If there's a comma, assume we're reversed.
+		if ( strpos( $creator, ',' ) !== false ) {
+			$creatorParts = array_map( 'trim', explode( ',', $creator ) );
+			// Exclude any parts that are dates (numbers and hyphens).
+			$authorParts = preg_grep( '/^[0-9-]*$/', $creatorParts, PREG_GREP_INVERT );
+			$creator = join( ' ',  array_reverse( $authorParts ) );
+		}
+		if ( $this->commonsClient->pageExist( "Creator:$creator" ) ) {
+			return "{{Creator:$creator}}";
+		} else {
+			$notes[] = $this->app['i18n']->message( 'creator-template-missing', [ $creator ] );
+			return $creator;
+		}
+	}
+
+	/**
+	 * Get the wikitext for the Source parameter.
+	 * @param mixed[] $data The IA metadata.
+	 * @return string
+	 */
+	protected function parseSourceParam( $data ) {
+		$out = '{{IA|' . $data['metadata']['identifier'][0] . '}}';
+		if ( isset( $data['metadata']['source'][0] ) ) {
+			$out .= "<br />Internet Archive source: ";
+			// Google Books links (mostly from BUB) run afoul of the Abuse Filter.
+			// e.g. http://books.google.com/books?id=zzsQAAAAIAAJ&hl=&source=gbs_api
+			// Replace with: https://commons.wikimedia.org/wiki/Template:Google_Book_Search_link
+			$googleBooks = '/.*books\.google\.com\/books\?id=([^&]*).*/';
+			preg_match( $googleBooks, $data['metadata']['source'][0], $matches );
+			if ( isset( $matches[1] ) ) {
+				$out .= '{{Google Book Search link|' . $matches[1] . '}}';
+			} else {
+				$out .= $data['metadata']['source'][0];
+			}
+		}
+		return $out;
+	}
+
+	/**
+	 * Normalize a language code.
+	 * @todo Make less hacky.
+	 * @param mixed[] $data The IA metadata.
+	 * @return string The language code.
+	 */
+	protected function parseLanguageParam( $data ) {
+		if ( !isset( $data['metadata']['language'][0] ) ) {
+			return '';
+		}
+		$language = strtolower( $data['metadata']['language'][0] );
 
 		if ( strlen( $language ) == 2 ) {
 			return $language;

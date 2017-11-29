@@ -44,7 +44,7 @@
 					<li><a href="{{ url('logout') }}">{{ 'logout'|message }}</a></li>
 				</ul>
 				{% endif %}
-				<h1>{{ 'site-title'|message }}</h1>
+				<h1><a href="{{ path( 'home' ) }}">{{ 'site-title'|message }}</a></h1>
 			</div>
 			{% if error %}
 				<div class="alert alert-danger">{{ error|raw }}</div>
