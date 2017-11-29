@@ -198,6 +198,18 @@ class CommonsController {
 		}
 		$iaId = $iaData['metadata']['identifier'][0];
 
+		// Make sure at least one of the required input formats is available.
+		$djvuFilename = $this->getIaFileName( $iaData, 'djvu' );
+		$pdfFilename = $this->getIaFileName( $iaData, 'pdf' );
+		$jp2Filename = $this->getIaFileName( $iaData, 'jp2' );
+		if ( ! ( $djvuFilename || $pdfFilename || $jp2Filename ) ) {
+			return $this->outputsInitTemplate( [
+				'iaId' => $iaId,
+				'commonsName' => $commonsName,
+				'error' => $this->app['i18n']->message( 'no-usable-files-found' ),
+			] );
+		}
+
 		// See if the file already exists on Commons.
 		$fullCommonsName = $commonsName . '.djvu';
 		if ( $this->commonsClient->pageExist( 'File:' . $fullCommonsName ) ) {
@@ -215,9 +227,9 @@ class CommonsController {
 		$templateParams = [
 			'iaId' => $iaId,
 			'commonsName' => $fullCommonsName,
-			'djvuFilename' => $this->getIaFileName( $iaData, 'djvu' ),
-			'pdfFilename' => $this->getIaFileName( $iaData, 'pdf' ),
-			'jp2Filename' => $this->getIaFileName( $iaData, 'jp2' ),
+			'djvuFilename' => $djvuFilename,
+			'pdfFilename' => $pdfFilename,
+			'jp2Filename' => $jp2Filename,
 			'fileSource' => $fileSource,
 		];
 		list( $description, $notes ) = $this->createPageContent( $iaData );

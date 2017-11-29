@@ -21,7 +21,7 @@
 			<div class="form-group">
 				<label for="sourceFile" class="col-lg-2 control-label">{{ 'form-label-file-source'|message }}</label>
 				<div class="col-lg-10">
-					<select name="fileSource" id="sourceFile" class="form-control">
+					<select name="fileSource" id="sourceFile" class="form-control" required="required">
 						<option value="djvu" {% if fileSource == 'djvu' and djvuFilename %}selected{% endif %} {% if not djvuFilename %}disabled{% endif %}>
 							{{ 'file-source-djvu'|message }}
 							{% if not djvuFilename %}{{ 'file-source-not-available'|message }}{% endif %}

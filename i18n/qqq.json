@@ -47,5 +47,6 @@
 	"invalid-commons-name": "Message displayed when the provided Commons filename is not valid; $1 is a full HTML link",
 	"no-found-on-ia": "Message displayed when the provided IA identifier does not exist; $1 is a full HTML link",
 	"already-on-commons": "Message displayed when the provided Commons filename already exists; $1 is a full HTML link",
-	"creator-template-missing": "{{doc-singularthey}}"
+	"creator-template-missing": "{{doc-singularthey}}",
+	"no-usable-files-found": "Error message explaining that none of the required file formats were found on Internet Archive"
 }
