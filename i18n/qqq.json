@@ -49,5 +49,7 @@
 	"already-on-commons": "Message displayed when the provided Commons filename already exists; $1 is a full HTML link",
 	"creator-template-missing": "{{doc-singularthey}}",
 	"no-usable-files-found": "Error message explaining that none of the required file formats were found on Internet Archive",
-	"successfully-uploaded": "Message shown after a DjVu file has been transferred successfully to Commons; $1 is a full HTML link"
+	"successfully-uploaded": "Message shown after a DjVu file has been transferred successfully to Commons; $1 is a full HTML link",
+	"recent-uploads": "Text for a link to RecentChanges at Wikimedia Commons",
+	"recent-uploads-tooltip": "Title text for a link to RecentChanges at Wikimedia Commons"
 }
