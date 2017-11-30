@@ -146,6 +146,9 @@ class Jp2DjvuMaker extends DjvuMaker {
 	 */
 	public function addXmlToDjvu( $djvuFile ) {
 		$djvuXmlFiles = glob( $this->jobDir() . '/*_djvu.xml' );
+		if ( count( $djvuXmlFiles ) === 0 ) {
+			throw new Exception( "No '*_djvu.xml' file found" );
+		}
 		$djvuXmlFile = array_shift( $djvuXmlFiles );
 		if ( !file_exists( $djvuXmlFile ) ) {
 			throw new Exception( "File not found: $djvuXmlFile" );
