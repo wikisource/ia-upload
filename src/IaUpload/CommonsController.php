@@ -408,7 +408,8 @@ class CommonsController {
 			'success' => '',
 			'warning' => '',
 			'error' => '',
-			'user' => $this->app['session']->get( 'user' )
+			'user' => $this->app['session']->get( 'user' ),
+			'oauth_cid' => isset( $this->config[ 'consumerId' ] ) ? $this->config[ 'consumerId' ] : '',
 		];
 		$params = array_merge( $defaultParams, $params );
 		return $this->app['twig']->render( $templateName, $params );

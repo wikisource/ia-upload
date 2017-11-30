@@ -38,12 +38,18 @@
 	<div class="container">
 		<div class="content">
 			<div class="page-header">
-				{% if user %}
-				<ul id="user-status" class="pull-right list-inline">
+				<ul class="pull-right list-inline">
+					<li>
+						<a href="https://commons.wikimedia.org/wiki/Special:RecentChanges?tagfilter=OAuth+CID%3A+{{ oauth_cid }}"
+						   target="_blank" title="{{ 'recent-uploads-tooltip'|message }}">
+							{{ 'recent-uploads'|message }}
+						</a>
+					</li>
+					{% if user %}
 					<li>{{ 'logged-in-as'|message(user) }}</li>
 					<li><a href="{{ url('logout') }}">{{ 'logout'|message }}</a></li>
+					{% endif %}
 				</ul>
-				{% endif %}
 				<h1><a href="{{ path( 'home' ) }}">{{ 'site-title'|message }}</a></h1>
 			</div>
 			{% if error %}
