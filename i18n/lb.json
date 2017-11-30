@@ -29,5 +29,6 @@
 	"set-all-fields": "Fëllt w.e.g. all Felder vum Formulaire aus",
 	"invalid-commons-name": "'$1' ass kee valabelen Numm fir e Fichier op Wikimedia Commons",
 	"invalid-length": "'$1' ass ze laang",
-	"already-on-commons": "Et gëtt schonn e Fichier mam Numm '$1' op Wikimedia Commons"
+	"already-on-commons": "Et gëtt schonn e Fichier mam Numm '$1' op Wikimedia Commons",
+	"successfully-uploaded": "$1 gouf op Commons eropgelueden!"
 }

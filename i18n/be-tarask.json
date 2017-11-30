@@ -47,5 +47,6 @@
 	"invalid-length": "«$1» занадта доўгі",
 	"no-found-on-ia": "«$1» не зьяўляецца слушным ідэнтыфікатарам Інтэрнэт-архіву",
 	"already-on-commons": "Файл з назвай «$1» ужо існуе ў Вікісховішчы",
-	"creator-template-missing": "Аўтар «$1» ня мае шаблёну <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>стваральніка</a>. Калі вы ведаеце яго ID у Вікізьвестках, вы можаце <a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>стварыць адпаведны шаблён</a>."
+	"creator-template-missing": "Аўтар «$1» ня мае шаблёну <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>стваральніка</a>. Калі вы ведаеце яго ID у Вікізьвестках, вы можаце <a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>стварыць адпаведны шаблён</a>.",
+	"no-usable-files-found": "Ня знойдзена адпаведных файлаў (DjVu, PDF ці JP2) для гэтага элемэнту."
 }

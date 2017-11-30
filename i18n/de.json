@@ -47,5 +47,7 @@
 	"invalid-length": "„$1“ ist zu lang",
 	"no-found-on-ia": "„$1“ ist keine gültige Kennung für das Internet Archive",
 	"already-on-commons": "Eine Datei namens „$1“ ist bereits auf Wikimedia Commons vorhanden",
-	"creator-template-missing": "Der Autor „$1“ hat keine <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>Urheber</a>-Vorlage. Falls du seine Wikidata-Kennung kennst, kannst du <a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>jetzt die Vorlage erstellen</a>."
+	"creator-template-missing": "Der Autor „$1“ hat keine <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>Urheber</a>-Vorlage. Falls du seine Wikidata-Kennung kennst, kannst du <a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>jetzt die Vorlage erstellen</a>.",
+	"no-usable-files-found": "Für dieses Objekt wurden keine verwendbaren Dateien (DjVu, PDF oder JP2) gefunden.",
+	"successfully-uploaded": "$1 wurde erfolgreich auf Commons hochgeladen!"
 }
