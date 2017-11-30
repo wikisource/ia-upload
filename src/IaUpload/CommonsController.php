@@ -423,14 +423,26 @@ class CommonsController {
 	 * @return string|bool The filename, or false if none could be found.
 	 */
 	protected function getIaFileName( $data, $fileType = 'djvu' ) {
-		foreach ( $data['files'] as $filePath => $fileInfo ) {
-			$djvu = ( $fileType === 'djvu' && $fileInfo['format'] === 'DjVu' );
-			$pdfFormats = [ 'Text PDF', 'Additional Text PDF', 'Image Container PDF' ];
-			$pdf = ( $fileType === 'pdf' && in_array( $fileInfo['format'], $pdfFormats ) );
-			// Could perhaps check for $fileInfo['format'] === 'Abbyy GZ'?
-			$zip = ( $fileType === 'jp2' && substr( $filePath, -8 ) === '_jp2.zip' );
-			if ( $djvu || $pdf || $zip ) {
-				return $filePath;
+		// First check for djvu or pdf.
+		if ( $fileType === 'djvu' || $fileType === 'pdf' ) {
+			foreach ( $data['files'] as $filePath => $fileInfo ) {
+				$djvu = ( $fileType === 'djvu' && $fileInfo['format'] === 'DjVu' );
+				$pdfFormats = [ 'Text PDF', 'Additional Text PDF', 'Image Container PDF' ];
+				$pdf = ( $fileType === 'pdf' && in_array( $fileInfo['format'], $pdfFormats ) );
+				if ( $djvu || $pdf ) {
+					return $filePath;
+				}
+			}
+		}
+
+		// Then jp2; we only consider to have a jp2 file if we've also got a  *_djvu.xml to go
+		// with it. Could perhaps instead check for $fileInfo['format'] === 'Abbyy GZ'?
+		if ( $fileType === 'jp2' ) {
+			$filenames = array_keys( $data['files'] );
+			$jp2 = preg_grep( '/.*_jp2\.zip/', $filenames );
+			$xml = preg_grep( '/.*_djvu\.xml/', $filenames );
+			if ( count( $jp2 ) > 0 && count( $xml ) > 0 ) {
+				return array_shift( $jp2 );
 			}
 		}
 		return false;
