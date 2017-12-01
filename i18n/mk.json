@@ -47,5 +47,9 @@
 	"invalid-length": "„$1“ е предолго",
 	"no-found-on-ia": "„$1“ не претставува важечка назнака на Семрежниот архив",
 	"already-on-commons": "На Ризницата веќе постои податотека со име „$1“",
-	"creator-template-missing": "Авторот „$1“ нема шаблон <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>Творец</a>. Ако ја знаете назнаката, сега можете да <a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>го создадете шаблонот</a>."
+	"creator-template-missing": "Авторот „$1“ нема шаблон <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>Творец</a>. Ако ја знаете назнаката, сега можете да <a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>го создадете шаблонот</a>.",
+	"no-usable-files-found": "Не пронајдов податотеки (DjVu, PDF или JP2) за тој предмет.",
+	"successfully-uploaded": "$1 е успешно подигнато на Ризницата!",
+	"recent-uploads": "Скорешни подигања",
+	"recent-uploads-tooltip": "Скорешни подигања со алаткава"
 }

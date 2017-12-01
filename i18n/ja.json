@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Otokoume"
+			"Otokoume",
+			"Omotecho"
 		]
 	},
 	"ia-upload": "IA Upload",
@@ -32,5 +33,8 @@
 	"invalid-commons-name": "「$1」は、ウィキメディア・コモンズの有効なファイル名ではありません",
 	"invalid-length": "「$1」は長すぎます",
 	"no-found-on-ia": "「$1」は、有効なインターネットアーカイブ識別子ではありません",
-	"already-on-commons": "「$1」というファイル名は、すでにウィキメディア・コモンズに存在します"
+	"already-on-commons": "「$1」というファイル名は、すでにウィキメディア・コモンズに存在します",
+	"successfully-uploaded": "コモンズで $1 のアップロードを完了しました。",
+	"recent-uploads": "最近のアップロード",
+	"recent-uploads-tooltip": "このツールを使った最近のアップロードを閲覧"
 }
