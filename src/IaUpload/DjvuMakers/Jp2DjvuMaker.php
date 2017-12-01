@@ -62,11 +62,11 @@ class Jp2DjvuMaker extends DjvuMaker {
 	 * @throws Exception If the zip file doesn't exist.
 	 */
 	protected function unzipDownloadedJp2Archive() {
-		$zipFiles = glob( $this->jobDir().'/*_jp2.zip' );
+		$zipFiles = preg_grep( '/^.*_jp2\.zip$/', scandir( $this->jobDir() ) );
 		if ( count( $zipFiles ) == 0 ) {
-			throw new Exception( "Zip file not found" );
+			throw new Exception( "JP2 zip file not found" );
 		}
-		$zipFile = array_shift( $zipFiles );
+		$zipFile = $this->jobDir() . '/' . array_shift( $zipFiles );
 		$this->log->info( "Unzipping $zipFile" );
 		$zip = new ZipArchive();
 		$zip->open( $zipFile );
@@ -74,7 +74,8 @@ class Jp2DjvuMaker extends DjvuMaker {
 		$outDir = dirname( $zipFile ) . '/' . pathinfo( $zipFile, PATHINFO_FILENAME );
 		if ( is_dir( $outDir ) ) {
 			// Directory already exists; check contents.
-			$numInDir = count( glob( "$outDir/*.jp2" ) );
+			// Minus 2 for dot and dot-dot.
+			$numInDir = count( scandir( $outDir ) ) - 2;
 			// Minus 1 for the top-level directory.
 			$numInZip = $zip->numFiles - 1;
 			if ( $numInDir === $numInZip ) {
@@ -97,7 +98,7 @@ class Jp2DjvuMaker extends DjvuMaker {
 	 */
 	protected function convertJp2ToDjvu( $itemDir ) {
 		$this->log->info( "Processing JP2 files" );
-		$jp2Files = glob( $itemDir . '/*.jp2' );
+		$jp2Files = preg_grep( '/^.*\.jp2$/', scandir( $itemDir ) );
 		if ( count( $jp2Files ) === 0 ) {
 			throw new Exception( "No JP2 file found in " . $itemDir );
 		}
@@ -108,7 +109,8 @@ class Jp2DjvuMaker extends DjvuMaker {
 		if ( !is_dir( $buildDir ) ) {
 			mkdir( $buildDir );
 		}
-		foreach ( $jp2Files as $jp2FileNum => $jp2File ) {
+		foreach ( $jp2Files as $jp2FileNum => $jp2FileName ) {
+			$jp2File = $itemDir . '/' . $jp2FileName;
 			$this->log->debug( "Converting $jp2File..." );
 
 			// Create Jpeg of this page.
@@ -145,11 +147,11 @@ class Jp2DjvuMaker extends DjvuMaker {
 	 * @throws Exception
 	 */
 	public function addXmlToDjvu( $djvuFile ) {
-		$djvuXmlFiles = glob( $this->jobDir() . '/*_djvu.xml' );
+		$djvuXmlFiles = preg_grep( '/^.*_djvu\.xml$/', scandir( $this->jobDir() ) );
 		if ( count( $djvuXmlFiles ) === 0 ) {
 			throw new Exception( "No '*_djvu.xml' file found" );
 		}
-		$djvuXmlFile = array_shift( $djvuXmlFiles );
+		$djvuXmlFile = $this->jobDir() . '/' . array_shift( $djvuXmlFiles );
 		if ( !file_exists( $djvuXmlFile ) ) {
 			throw new Exception( "File not found: $djvuXmlFile" );
 		}
