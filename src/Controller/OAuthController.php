@@ -1,10 +1,10 @@
 <?php
 
-namespace IaUpload;
+namespace Wikisource\IaUpload\Controller;
 
-use IaUpload\OAuth\MediaWikiOAuth;
-use IaUpload\OAuth\Token\ConsumerToken;
-use IaUpload\OAuth\Token\RequestToken;
+use Wikisource\IaUpload\OAuth\MediaWikiOAuth;
+use Wikisource\IaUpload\OAuth\Token\ConsumerToken;
+use Wikisource\IaUpload\OAuth\Token\RequestToken;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 

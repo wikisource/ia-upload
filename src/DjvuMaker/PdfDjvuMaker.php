@@ -1,6 +1,6 @@
 <?php
 
-namespace IaUpload\DjvuMakers;
+namespace Wikisource\IaUpload\DjvuMaker;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\BadResponseException;

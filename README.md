@@ -31,6 +31,6 @@ The actual format conversions are done by the following external tools, called f
          url.rewrite-if-not-file += ( "(.*)" => "index.php/$0" )
 
 4. Register an oAuth consumer on [Meta](https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration)
-   with a callback to e.g. `http://localhost/ia-upload/web/oauth/callback` (i.e. ending in `oauth/callback`)
+   with a callback to e.g. `http://localhost/ia-upload/public/oauth/callback` (i.e. ending in `oauth/callback`)
 5. Edit `config.ini` to add your consumer key and secret
 6. Make sure the `jobqueue` directory is writable by the web server

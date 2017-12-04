@@ -2,6 +2,6 @@ config.ini
 temp/*
 vendor/*
 .idea/*
-web/.htaccess
+public/.htaccess
 /jobqueue
 

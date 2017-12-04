@@ -1,6 +1,6 @@
 <?php
 
-namespace IaUpload\DjvuMakers;
+namespace Wikisource\IaUpload\DjvuMaker;
 
 use Exception;
 use pastuhov\Command\Command;
@@ -246,6 +246,5 @@ class Jp2DjvuMaker extends DjvuMaker {
 		if ( $commandOutput ) {
 			$this->log->debug( $commandOutput );
 		}
-		$commandOutput;
 	}
 }

@@ -1,9 +1,9 @@
 #!/usr/bin/env php
 <?php
 
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
-use IaUpload\Commands\JobsCommand;
+use Wikisource\IaUpload\Command\JobsCommand;
 use Symfony\Component\Console\Application;
 
 setlocale( LC_ALL, 'en_US.UTF-8' );

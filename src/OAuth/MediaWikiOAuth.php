@@ -1,16 +1,16 @@
 <?php
 
-namespace IaUpload\OAuth;
+namespace Wikisource\IaUpload\OAuth;
 
 use Firebase\JWT\JWT;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\Subscriber\Oauth\Oauth1;
-use IaUpload\OAuth\Token\AccessToken;
-use IaUpload\OAuth\Token\ConsumerToken;
-use IaUpload\OAuth\Token\RequestToken;
-use IaUpload\OAuth\Token\Token;
+use Wikisource\IaUpload\OAuth\Token\AccessToken;
+use Wikisource\IaUpload\OAuth\Token\ConsumerToken;
+use Wikisource\IaUpload\OAuth\Token\RequestToken;
+use Wikisource\IaUpload\OAuth\Token\Token;
 use Mediawiki\Api\MediawikiApi;
 
 /**

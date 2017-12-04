@@ -1,15 +1,17 @@
 <?php
 
-namespace IaUpload;
+namespace Wikisource\IaUpload\Controller;
 
 use Exception;
-use IaUpload\OAuth\MediaWikiOAuth;
-use IaUpload\OAuth\Token\ConsumerToken;
 use Mediawiki\Api\Guzzle\ClientFactory;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Wikisource\IaUpload\ApiClient\CommonsClient;
+use Wikisource\IaUpload\ApiClient\IaClient;
+use Wikisource\IaUpload\OAuth\MediaWikiOAuth;
+use Wikisource\IaUpload\OAuth\Token\ConsumerToken;
 
 /**
  * Controller for the commons upload process
@@ -19,7 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @licence GNU GPL v2+
  */
-class CommonsController {
+class UploadController {
 
 	const COMMONS_API_URI = 'https://commons.wikimedia.org/w/api.php';
 

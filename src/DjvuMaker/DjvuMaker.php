@@ -1,10 +1,10 @@
 <?php
 
-namespace IaUpload\DjvuMakers;
+namespace Wikisource\IaUpload\DjvuMaker;
 
 use Exception;
-use IaUpload\IaClient;
 use Monolog\Logger;
+use Wikisource\IaUpload\ApiClient\IaClient;
 
 abstract class DjvuMaker {
 
@@ -41,7 +41,7 @@ abstract class DjvuMaker {
 	 * @throws Exception If the job directory doesn't exist.
 	 */
 	protected function jobDir() {
-		$dirName = __DIR__ . '/../../../jobqueue/' . $this->itemId;
+		$dirName = __DIR__ . '/../../jobqueue/' . $this->itemId;
 		$dir = realpath( $dirName );
 		if ( $dir === false ) {
 			throw new Exception( "Unable to find job directory $dirName" );

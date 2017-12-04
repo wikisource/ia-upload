@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Wikimedia\SimpleI18n\I18nContext;
 use Wikimedia\SimpleI18n\JsonCache;
 use Wikimedia\SimpleI18n\TwigExtension;
+use Wikisource\IaUpload\Controller\OAuthController;
+use Wikisource\IaUpload\Controller\UploadController;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -61,13 +63,13 @@ $app['i18n'] = new I18nContext( new JsonCache( __DIR__ . '/../i18n' ) );
 $app['twig']->addExtension( new TwigExtension( $app['i18n'] ) );
 
 // Routes.
-$commonController = new CommonsController( $app, $config );
+$uploadController = new UploadController( $app, $config );
 $oauthController = new OAuthController( $app, $config );
 
 $iaIdPattern = '[a-zA-Z0-9\._-]*';
 
-$app->get( '/', function ( Request $request ) use( $commonController ) {
-	return $commonController->init( $request );
+$app->get( '/', function ( Request $request ) use( $uploadController ) {
+	return $uploadController->init( $request );
 } )->bind( 'home' );
 
 // @deprecated in favour of 'home'.
@@ -77,20 +79,20 @@ $app->get( 'commons/init', function ( Request $request ) use ( $app ) {
 	return $app->redirect( $homeUrl );
 } );
 
-$app->get( 'commons/fill', function ( Request $request ) use ( $commonController ) {
-	return $commonController->fill( $request );
+$app->get( 'commons/fill', function ( Request $request ) use ( $uploadController ) {
+	return $uploadController->fill( $request );
 } )->bind( 'commons-fill' );
 
-$app->post( 'commons/save', function ( Request $request ) use ( $commonController ) {
-	return $commonController->save( $request );
+$app->post( 'commons/save', function ( Request $request ) use ( $uploadController ) {
+	return $uploadController->save( $request );
 } )->bind( 'commons-save' );
 
-$app->get( 'log/{iaId}', function ( Request $request, $iaId ) use ( $commonController ) {
-	return $commonController->logview( $request, $iaId );
+$app->get( 'log/{iaId}', function ( Request $request, $iaId ) use ( $uploadController ) {
+	return $uploadController->logview( $request, $iaId );
 } )->assert( 'iaId', $iaIdPattern )->bind( 'log' );
 
-$app->get( '{iaId}.djvu', function ( Request $request, $iaId ) use ( $commonController ) {
-	return $commonController->downloadDjvu( $request, $iaId );
+$app->get( '{iaId}.djvu', function ( Request $request, $iaId ) use ( $uploadController ) {
+	return $uploadController->downloadDjvu( $request, $iaId );
 } )->assert( 'iaId', $iaIdPattern )->bind( 'djvu' );
 
 $app->get( 'oauth/init', function ( Request $request ) use ( $oauthController ) {
