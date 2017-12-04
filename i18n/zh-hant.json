@@ -51,5 +51,7 @@
 	"already-on-commons": "維基共享資源上已存在名為「$1」的檔案",
 	"creator-template-missing": "作者\"$1\"沒有<a href='https://commons.wikimedia.org/wiki/Commons:Creator'>創建者</a>模板。如果您知道其維基數據 ID，您可以現在就<a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>創建模板</a>。",
 	"no-usable-files-found": "沒有找到適用於項目的可用檔案（DjVu、PDF、或 JP2）。",
-	"successfully-uploaded": "$1 已成功上傳到共享資源！"
+	"successfully-uploaded": "$1 已成功上傳到共享資源！",
+	"recent-uploads": "最近上傳",
+	"recent-uploads-tooltip": "透過此工具檢視最近的上傳"
 }

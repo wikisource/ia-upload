@@ -47,5 +47,7 @@
 	"invalid-length": "'$1' طويل للغاية",
 	"no-found-on-ia": "'$1' ليس معرفا صحيحا لإرشيف الإنترنت",
 	"already-on-commons": "هناك بالفعل ملفا باسم '$1' على ويكيميديا كومنز",
-	"creator-template-missing": "لا يملك المؤلف '$1' قالب <a href=\"https://commons.wikimedia.org/wiki/Commons:Creator\">منشئ</a>. إذا كنت تعلم معرفه على ويكي داتا، يمكنك <a href=\"https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php\">إنشاء القالب الآن</a>."
+	"creator-template-missing": "لا يملك المؤلف '$1' قالب <a href=\"https://commons.wikimedia.org/wiki/Commons:Creator\">منشئ</a>. إذا كنت تعلم معرفه على ويكي داتا، يمكنك <a href=\"https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php\">إنشاء القالب الآن</a>.",
+	"recent-uploads": "أحدث المرفوعات",
+	"recent-uploads-tooltip": "اعرض أحدث المرفعوعات باستخدام هذه الأداة"
 }
