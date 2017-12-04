@@ -1,6 +1,6 @@
 <?php
 
-namespace IaUpload\OAuth\Token;
+namespace Wikisource\IaUpload\OAuth\Token;
 
 /**
  * @since 0.1

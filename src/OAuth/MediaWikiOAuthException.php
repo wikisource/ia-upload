@@ -1,6 +1,6 @@
 <?php
 
-namespace IaUpload\OAuth;
+namespace Wikisource\IaUpload\OAuth;
 
 use Mediawiki\Api\UsageException;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace IaUpload;
+namespace Wikisource\IaUpload\ApiClient;
 
 use GuzzleHttp\Client;
 use Mediawiki\Api\MediawikiApi;

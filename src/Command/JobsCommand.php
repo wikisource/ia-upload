@@ -1,14 +1,8 @@
 <?php
 
-namespace IaUpload\Commands;
+namespace Wikisource\IaUpload\Command;
 
 use Exception;
-use IaUpload\CommonsClient;
-use IaUpload\IaClient;
-use IaUpload\OAuth\MediaWikiOAuth;
-use IaUpload\OAuth\Token\AccessToken;
-use IaUpload\OAuth\Token\ConsumerToken;
-use IaUpload\OAuthController;
 use Monolog\Handler\ErrorLogHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -17,8 +11,18 @@ use RecursiveIteratorIterator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Wikisource\IaUpload\ApiClient\CommonsClient;
+use Wikisource\IaUpload\ApiClient\IaClient;
+use Wikisource\IaUpload\Controller\OAuthController;
+use Wikisource\IaUpload\DjvuMaker\DjvuMaker;
+use Wikisource\IaUpload\OAuth\MediaWikiOAuth;
+use Wikisource\IaUpload\OAuth\Token\AccessToken;
+use Wikisource\IaUpload\OAuth\Token\ConsumerToken;
 
 class JobsCommand extends Command {
+
+	/** @var string The full filesystem path to the 'jobqueue' directory, with no trailing slash. */
+	protected $jobqueueDir;
 
 	/**
 	 * Set name and job.
@@ -34,8 +38,8 @@ class JobsCommand extends Command {
 	 * @throws Exception If unable to load the required DjVuMaker class.
 	 */
 	protected function execute( InputInterface $input, OutputInterface $output ) {
-		$jobsDir = __DIR__ . '/../../../jobqueue';
-		$jobs = glob( $jobsDir . '/*/job.json' );
+		$this->jobqueueDir = __DIR__ . '/../../jobqueue';
+		$jobs = glob( $this->jobqueueDir . '/*/job.json' );
 		foreach ( $jobs as $jobFile ) {
 			// Make sure we can write to the job directory.
 			$jobDir = dirname( $jobFile );
@@ -64,13 +68,14 @@ class JobsCommand extends Command {
 
 			// Load the DjvuMaker class.
 			$classType = ucfirst( strtolower( $jobInfo->fileSource ) );
-			$fileSourceClass = '\\IaUpload\\DjvuMakers\\'.$classType.'DjvuMaker';
+			$fileSourceClass = 'Wikisource\\IaUpload\\DjvuMaker\\' . $classType . 'DjvuMaker';
 			if ( !class_exists( $fileSourceClass ) ) {
 				throw new Exception( "Unable to load class $fileSourceClass" );
 			}
 
 			// Generate the DjVu.
 			$log->info( "Creating DjVu for $jobInfo->iaId from $classType" );
+			/** @var DjvuMaker $jobClient */
 			$jobClient = new $fileSourceClass( $jobInfo->iaId, $log );
 			try {
 				$localDjvu = $jobClient->createLocalDjvu();
@@ -130,7 +135,7 @@ class JobsCommand extends Command {
 	 */
 	protected function getMediawikiClient( $accessTokenDetails ) {
 		// @TODO This shouldn't be here.
-		$configFile = __DIR__ . '/../../../config.ini';
+		$configFile = dirname( $this->jobqueueDir ) . '/config.ini';
 		$config = parse_ini_file( $configFile );
 		$token = new ConsumerToken( $config['consumerKey'], $config['consumerSecret'] );
 		$oAuth = new MediaWikiOAuth( OAuthController::OAUTH_URL, $token );
