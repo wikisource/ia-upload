@@ -224,7 +224,7 @@ class UploadController {
 					. ' ' . $this->app['i18n']->message( 'watch-log' );
 			}
 			// Make sure there aren't too many pages.
-			$maxPageCount = 700;
+			$maxPageCount = 900;
 			if ( isset( $iaData['metadata']['imagecount'][0] )
 				&& $iaData['metadata']['imagecount'][0] > $maxPageCount ) {
 				$msgParams = [ $iaData['metadata']['imagecount'][0], $maxPageCount ];
