@@ -212,6 +212,17 @@ class UploadController {
 			] );
 		}
 
+		// Make sure the zip file isn't too large.
+		$warning = '';
+		if ( $jp2Filename !== false ) {
+			$maxSizeInMb = 600;
+			$sizeInMb = round( $iaData['files'][$jp2Filename]['size'] / ( 1024 * 1024 ) );
+			if ( $sizeInMb > $maxSizeInMb ) {
+				$msgParams = [ $sizeInMb, $maxSizeInMb ];
+				$warning = $this->app['i18n']->message( 'zip-file-too-large', $msgParams );
+			}
+		}
+
 		// See if the file already exists on Commons.
 		$fullCommonsName = $commonsName . '.djvu';
 		if ( $this->commonsClient->pageExist( 'File:' . $fullCommonsName ) ) {
@@ -227,6 +238,7 @@ class UploadController {
 
 		// Output the page.
 		$templateParams = [
+			'warning' => $warning,
 			'iaId' => $iaId,
 			'commonsName' => $fullCommonsName,
 			'djvuFilename' => $djvuFilename,
