@@ -46,5 +46,8 @@
 	"no-usable-files-found": "No usable files (DjVu, PDF, or JP2) were found for that item.",
 	"successfully-uploaded": "$1 has been successfully uploaded to Commons!",
 	"recent-uploads": "Recent uploads",
-	"recent-uploads-tooltip": "View recent uploads by this tool"
+	"recent-uploads-tooltip": "View recent uploads by this tool",
+	"watch-log": "Please keep an eye on the log, and <a href='https://phabricator.wikimedia.org/maniphest/task/create/?projects=ia-upload'>create an issue</a> for any failures.",
+	"zip-file-too-large": "Please note that the Internet Archive's zip file of original scans <em>may</em> be too large for IA Upload to process (it is about $1 MB, and the maximum suggested size is $2 MB).",
+	"too-many-pages": "Please note that the Internet Archive's zip file of original scans <em>may</em> contain too many pages for IA Upload to process (it contains $1, and the maximum suggested number is $2)."
 }

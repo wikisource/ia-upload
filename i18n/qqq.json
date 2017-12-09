@@ -51,5 +51,8 @@
 	"no-usable-files-found": "Error message explaining that none of the required file formats were found on Internet Archive",
 	"successfully-uploaded": "Message shown after a DjVu file has been transferred successfully to Commons; $1 is a full HTML link",
 	"recent-uploads": "Text for a link to RecentChanges at Wikimedia Commons",
-	"recent-uploads-tooltip": "Title text for a link to RecentChanges at Wikimedia Commons"
+	"recent-uploads-tooltip": "Title text for a link to RecentChanges at Wikimedia Commons",
+	"watch-log": "Notice on warnings, with a link to create an issue on Phabricator",
+	"zip-file-too-large": "Warning when the zip file is too large. $1 is the file's size, $2 is the configured maximum (both integers, in MB)",
+	"too-many-pages": "Warning when the zip file contains too many pages. $1 is the page count, $2 is the configured maximum (both integers)"
 }
