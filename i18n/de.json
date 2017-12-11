@@ -51,5 +51,8 @@
 	"no-usable-files-found": "Für dieses Objekt wurden keine verwendbaren Dateien (DjVu, PDF oder JP2) gefunden.",
 	"successfully-uploaded": "$1 wurde erfolgreich auf Commons hochgeladen!",
 	"recent-uploads": "Zuletzt hochgeladene Dateien",
-	"recent-uploads-tooltip": "Zuletzt durch dieses Werkzeug hochgeladene Dateien ansehen"
+	"recent-uploads-tooltip": "Zuletzt durch dieses Werkzeug hochgeladene Dateien ansehen",
+	"watch-log": "Bitte behalte ein Auge auf das Logbuch und <a href='https://phabricator.wikimedia.org/maniphest/task/create/?projects=ia-upload'>erstelle Einträge für Fehler</a>, falls es welche gibt.",
+	"zip-file-too-large": "Bitte beachte, dass die ZIP-Datei der Originalscans vom Internet Archive für IA Upload zu groß zum Verarbeiten sein <em>könnte</em> (sie ist ungefähr $1 MB groß und die maximal vorgeschlagene Größe beträgt $2 MB).",
+	"too-many-pages": "Bitte beachte, dass die ZIP-Datei der Originalscans vom Internet Archive für IA Upload zu viele Seiten zum Verarbeiten enthalten <em>könnte</em> (sie enthält $1 und die maximal vorgeschlagene Anzahl beträgt $2)."
 }

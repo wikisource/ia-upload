@@ -49,5 +49,6 @@
 	"no-usable-files-found": "해당 항목에서 사용할 수 있는 파일 (DjVu, PDf 또는 JP2) 을 찾을 수 없었습니다.",
 	"successfully-uploaded": "$1이(가) 성공적으로 공용에 업로드되었습니다!",
 	"recent-uploads": "최근 업로드",
-	"recent-uploads-tooltip": "이 도구로 최근 업로드 보기"
+	"recent-uploads-tooltip": "이 도구로 최근 업로드 보기",
+	"watch-log": "로그를 주시해 주시고, 실패하면 <a href='https://phabricator.wikimedia.org/maniphest/task/create/?projects=ia-upload'>이슈를\n 생성해 주세요</a>."
 }

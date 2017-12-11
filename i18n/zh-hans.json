@@ -51,5 +51,8 @@
 	"no-usable-files-found": "在项目中未找到可用文件（DjVu、PDF或JP2）。",
 	"successfully-uploaded": "$1已成功上传到共享资源！",
 	"recent-uploads": "最近上传",
-	"recent-uploads-tooltip": "查看此工具的最近上传"
+	"recent-uploads-tooltip": "查看此工具的最近上传",
+	"watch-log": "请留意日志，并就任何故障<a href='https://phabricator.wikimedia.org/maniphest/task/create/?projects=ia-upload'>创建问题</a>。",
+	"zip-file-too-large": "请注意Internet Archive的原始扫描zip文件<em>可能</em>对于IA上传工具太大，从而无法正常处理（大约$1 MB，而最大建议大小则是$2 MB）。",
+	"too-many-pages": "请注意Internet Archive的原始扫描zip文件<em>可能</em>包含太多页面，从而IA上传工具无法正常处理（它包含$1个，而最大建议数量则是$2个）。"
 }

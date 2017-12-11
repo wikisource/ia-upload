@@ -51,5 +51,8 @@
 	"no-usable-files-found": "Inga användbara filer (DjVu, PDF eller JP2) hittades för föremålet.",
 	"successfully-uploaded": "$1 har laddats upp till Commons!",
 	"recent-uploads": "Senaste uppladdningar",
-	"recent-uploads-tooltip": "Visa senaste uppladdningar med detta verktyg"
+	"recent-uploads-tooltip": "Visa senaste uppladdningar med detta verktyg",
+	"watch-log": "Håll koll på loggen och <a href='https://phabricator.wikimedia.org/maniphest/task/create/?projects=ia-upload'>skapa ett ärende</a> för eventuella misslyckanden.",
+	"zip-file-too-large": "Observera att Internet Archives zip-fil av ursprungliga skanningar <em>kan</em> vara för stor för IA Upload att behandla (den är cirka $1 MB och maximal förslagen storlek är $2 MB).",
+	"too-many-pages": "Observera att Internet Archives zip-fil av ursprungliga skanningar <em>kan</em> innehålla för många sidor för IA Upload att behandla (den innehåller $1 MB och maximalt förslaget antal är $2 MB)."
 }

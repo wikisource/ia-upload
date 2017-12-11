@@ -7,7 +7,7 @@
 		]
 	},
 	"ia-upload": "IA Upload",
-	"site-title": "自網際網路檔案館上傳圖書",
+	"site-title": "從網際網路檔案館上傳圖書",
 	"debug-notice": "此網站目前處於除錯模式，可能會有運作不正常情況。",
 	"logged-in-as": "您已登入為$1",
 	"logout": "登出",
@@ -53,5 +53,8 @@
 	"no-usable-files-found": "沒有找到適用於項目的可用檔案（DjVu、PDF、或 JP2）。",
 	"successfully-uploaded": "$1 已成功上傳到共享資源！",
 	"recent-uploads": "最近上傳",
-	"recent-uploads-tooltip": "透過此工具檢視最近的上傳"
+	"recent-uploads-tooltip": "透過此工具檢視最近的上傳",
+	"watch-log": "請留意日誌內容，若有任何錯誤請<a href='https://phabricator.wikimedia.org/maniphest/task/create/?projects=ia-upload'>建立提問</a>。",
+	"zip-file-too-large": "請注意網際網路檔案館的原始掃描 zip 檔案對於 IA Upload <em>可能</em>會太大而無法處理（此大約是 $1 MB，而最大建議大小是 $2 MB）。",
+	"too-many-pages": "請注意網際網路檔案館的原始掃描 zip 檔案對於 IA Upload <em>可能</em>會包含太多頁面而無法處理（此包含 $1 張，而最大建議數量是 $2）。"
 }
