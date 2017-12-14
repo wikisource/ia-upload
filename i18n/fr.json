@@ -54,5 +54,8 @@
 	"no-usable-files-found": "Aucun fichier utilisable (DjVu, PDF, ou JP2) trouvé pour cet élément.",
 	"successfully-uploaded": "$1 a bien été téléchargé sur Communs !",
 	"recent-uploads": "Téléchargements récents",
-	"recent-uploads-tooltip": "Afficher les téléchargements récents faits via cet outil"
+	"recent-uploads-tooltip": "Afficher les téléchargements récents faits via cet outil",
+	"watch-log": "Veuillez garder un œil sur le journal, et <a href='https://phabricator.wikimedia.org/maniphest/task/create/?projects=ia-upload'>créer un signalement</a> pour tout problème.",
+	"zip-file-too-large": "Veuillez noter que le fichier zip des Archives de l’Internet des copies d’origine <em>peut</em> être trop gros pour que le téléchargement par IA se fasse (il fait environ $1 Mo, et la taille maximale suggérée est $2 Mo).",
+	"too-many-pages": "Veuillez noter que le fichier zip des Archives de l’Internet des copies originales <em>peut</em> contenir trop de pages pour que le téléchargement par IA se fasse (il en contient $1, et le nombre maximal suggéré est $2)."
 }

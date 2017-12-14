@@ -52,6 +52,7 @@
 	"no-found-on-ia": "«$1» no es un identificador de Internet Archive válido",
 	"already-on-commons": "Un archivo llamado '$1' ya existe en Wikimedia Commons",
 	"creator-template-missing": "El autor '$1' no tiene una plantilla de <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>creador</a>. Si sabes su identificador de Wikidata, puedes <a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>crear la plantilla ahora</a>.",
+	"no-usable-files-found": "No se encontró ningún archivo utilizable (en DjVu, PDF o JP2) para ese elemento.",
 	"successfully-uploaded": "$1 se cargó correctamente en Commons.",
 	"recent-uploads": "Cargas recientes",
 	"recent-uploads-tooltip": "Ver cargas recientes hechas con esta herramienta"
