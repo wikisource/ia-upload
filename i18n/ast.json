@@ -51,5 +51,8 @@
 	"no-usable-files-found": "Nun s'alcontraron ficheros utilizables (DjVu, PDF, o JP2) pa esi elementu.",
 	"successfully-uploaded": "$1 xubióse correutamente a Commons.",
 	"recent-uploads": "Cargues recién",
-	"recent-uploads-tooltip": "Ver les cargues recién d'esta ferramienta"
+	"recent-uploads-tooltip": "Ver les cargues recién d'esta ferramienta",
+	"watch-log": "Por favor, echa una güeyada al rexistru, y <a href='https://phabricator.wikimedia.org/maniphest/task/create/?projects=ia-upload'>crea un informe</a> de cualquier fallu.",
+	"zip-file-too-large": "Alvierte que'l ficheru zip de los escaneos orixinales d'Internet Archive <em>puede</em> ser enforma grande pa que lu procese IA Upload (tien unos $1 MB, y el tamañu máximu suxeríu ye de $2 MB).",
+	"too-many-pages": "Alvierte que'l ficheru zip de los escaneos orixinales d'Internet Archive <em>puede</em> contener demasiaes páxines pa que les procese IA Upload (contien $1, y el númberu máximu suxeríu ye $2)."
 }

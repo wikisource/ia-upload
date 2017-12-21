@@ -14,6 +14,8 @@
 	"form-label-commons-name": "کامنز وچ فائل دا ناں:",
 	"form-label-commons-description": "کامنز دی تفصیل",
 	"get-metadata": "میٹا ڈیٹا گھنو",
+	"job-queue": "کماں دی قطار",
+	"job-queue-empty": "کم دی قطار ہݨ خالی ہے۔",
 	"table-header-ia-item": "آئی اے آئٹم",
 	"table-header-commons-filename": "کامنز فائل دا ناں",
 	"table-header-status": "حالت",
@@ -25,5 +27,7 @@
 	"remove-first-page": "پہلا ورقہ مٹاواں؟",
 	"remove-first-page-no": "کو، ایں کوں اتھ چھوڑو",
 	"set-all-fields": "ایں فارم دے سارے خانے بھرو، مہربانی ہوسی",
-	"invalid-length": "$1 ٻہوں لمبا ہے"
+	"invalid-length": "$1 ٻہوں لمبا ہے",
+	"recent-uploads": "حالیہ اپ لوڈ",
+	"recent-uploads-tooltip": "ایں آوزار نال حالیہ اپ لوڈ ݙیکھو"
 }
