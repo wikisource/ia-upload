@@ -44,7 +44,7 @@ class OAuthController {
 	}
 
 	/**
-	 * The first stage of the authentication process, which redirects the user to Commons to authenticate.
+	 * The first stage of the authentication process, which redirects the user to Commons.
 	 * @param Request $request The HTTP request.
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */

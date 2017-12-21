@@ -136,8 +136,10 @@ class UploadController {
 			$jobInfo->locked = file_exists( dirname( $jobFile ) . '/lock' );
 			$jobInfo->failed = false;
 			$logFile = dirname( $jobFile ) . '/log.txt';
-			$jobInfo->failed = ( file_exists( $logFile ) && filemtime( $logFile ) < ( time() - 24 * 60 * 60 ) );
-			$jobInfo->hasDjvu = file_exists( dirname( $jobFile ) . '/' . $jobInfo->iaId . '.djvu' );
+			$aDayAgo = ( time() - 24 * 60 * 60 );
+			$jobInfo->failed = ( file_exists( $logFile ) && filemtime( $logFile ) < $aDayAgo );
+			$djvuFilename = dirname( $jobFile ) . '/' . $jobInfo->iaId . '.djvu';
+			$jobInfo->hasDjvu = file_exists( $djvuFilename );
 			$jobs[] = $jobInfo;
 		}
 		return $this->outputsInitTemplate( [
@@ -236,9 +238,8 @@ class UploadController {
 		// See if the file already exists on Commons.
 		$fullCommonsName = $commonsName . '.djvu';
 		if ( $this->commonsClient->pageExist( 'File:' . $fullCommonsName ) ) {
-			$link = '<a href="https://commons.wikimedia.org/wiki/File:' . rawurlencode( $fullCommonsName ) . '">'
-				. htmlspecialchars( $fullCommonsName )
-				. '</a>';
+			$url = 'https://commons.wikimedia.org/wiki/File:' . rawurlencode( $fullCommonsName );
+			$link = "<a href='$url'>" . htmlspecialchars( $fullCommonsName ) . '</a>';
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
 				'commonsName' => $commonsName,
@@ -285,9 +286,8 @@ class UploadController {
 
 		// Check again that the Commons file doesn't exist.
 		if ( $this->commonsClient->pageExist( 'File:' . $jobInfo['commonsName'] ) ) {
-			$link = '<a href="http://commons.wikimedia.org/wiki/File:' . rawurlencode( $jobInfo['commonsName'] ) . '">'
-				. htmlspecialchars( $jobInfo['commonsName'] )
-				. '</a>';
+			$url = 'http://commons.wikimedia.org/wiki/File:' . rawurlencode( $jobInfo['commonsName'] );
+			$link = '<a href="' . $url . '">' . htmlspecialchars( $jobInfo['commonsName'] ) . '</a>';
 			$jobInfo['error'] = $this->app['i18n']->message( 'already-on-commons', [ $link ] );
 			return $this->outputsFillTemplate( $jobInfo );
 		}
@@ -541,11 +541,17 @@ class UploadController {
 		$content .= '[[Category:Uploaded with IA Upload]]' . "\n";
 
 		$isCategorised = false;
-		if ( isset( $data['metadata']['date'][0] ) && $this->commonsClient->pageExist( 'Category:' . $data['metadata']['date'][0] . ' books' ) ) {
+		$bookCatExists = $this->commonsClient->pageExist(
+			'Category:' . $data['metadata']['date'][0] . ' books'
+		);
+		if ( isset( $data['metadata']['date'][0] ) && $bookCatExists ) {
 			$content .= '[[Category:' . $data['metadata']['date'][0] . ' books]]' . "\n";
 			$isCategorised = true;
 		}
-		if ( isset( $data['metadata']['creator'][0] ) && $this->commonsClient->pageExist( 'Category:' . $data['metadata']['creator'][0] ) ) {
+		$creatorCatExists = $this->commonsClient->pageExist(
+			'Category:' . $data['metadata']['creator'][0]
+		);
+		if ( isset( $data['metadata']['creator'][0] ) && $creatorCatExists ) {
 			$content .= '[[Category:' . $data['metadata']['creator'][0] . ']]' . "\n";
 			$isCategorised = true;
 		}

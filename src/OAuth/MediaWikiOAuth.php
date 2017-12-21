@@ -18,7 +18,8 @@ use Mediawiki\Api\MediawikiApi;
  *
  * @author Thomas Pellissier Tanon
  *
- * Code inspired from https://github.com/wikimedia/mediawiki-oauthclient-php/blob/master/src/Client.php
+ * Code inspired from wikimedia/mediawiki-oauthclient-php
+ * @see https://github.com/wikimedia/mediawiki-oauthclient-php/blob/master/src/Client.php
  */
 class MediaWikiOAuth {
 
@@ -36,7 +37,8 @@ class MediaWikiOAuth {
 	protected $userAgent = 'wikisource/ia-upload';
 
 	/**
-	 * @param string $baseUri The URI of the index.php file of the wiki like 'https://commons.wikimedia.org/w/index.php'
+	 * @param string $baseUri The URI of the index.php file of the wiki like
+	 * 'https://commons.wikimedia.org/w/index.php'
 	 * @param ConsumerToken $consumerToken The consumer token.
 	 */
 	public function __construct( $baseUri, ConsumerToken $consumerToken ) {
@@ -58,7 +60,9 @@ class MediaWikiOAuth {
 			'title' => 'Special:OAuth/initiate',
 			'oauth_callback' => 'oob'
 		] );
-		if ( !array_key_exists( 'oauth_callback_confirmed', $result ) || $result['oauth_callback_confirmed'] !== 'true' ) {
+		if ( !array_key_exists( 'oauth_callback_confirmed', $result )
+			|| $result['oauth_callback_confirmed'] !== 'true'
+		) {
 			throw new MediaWikiOAuthException( '', 'Callback was not confirmed' );
 		}
 		$requestToken = new RequestToken( $result['key'], $result['secret'] );
@@ -75,11 +79,12 @@ class MediaWikiOAuth {
 	/**
 	 * The final leg of the OAuth handshake.
 	 *
-	 * Exchange the request Token from initiate() and the verification code that the user submitted back to you
-	 * for an access token which you'll use for all API calls.
+	 * Exchange the request Token from initiate() and the verification code that the user submitted
+	 * back to you for an access token which you'll use for all API calls.
 	 *
 	 * @param RequestToken $requestToken Request token obtained from initiate
-	 * @param string $verifyCode Authorization code sent to the callback URL (oauth_verifier query parameter)
+	 * @param string $verifyCode Authorization code sent to the callback URL (the oauth_verifier
+	 * query parameter)
 	 *
 	 * @return AccessToken The access token
 	 * @throws MediaWikiOAuthException

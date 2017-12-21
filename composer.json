@@ -4,6 +4,9 @@
 	"license": "GPL-2.0+",
 	"homepage": "https://wikitech.wikimedia.org/wiki/Tool:IA_Upload",
 	"minimum-stability": "stable",
+	"config": {
+		"platform": { "php": "5.6" }
+	},
 	"require": {
 		"php": ">=5.5",
 		"ext-zip": "*",
