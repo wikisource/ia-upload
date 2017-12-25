@@ -51,5 +51,6 @@
 	"no-usable-files-found": "Ingen brukbare filer (DjVu, PDF eller JP2) ble funnet for det elementet.",
 	"successfully-uploaded": "$1 har blitt lastet opp til Commons!",
 	"recent-uploads": "Nylige opplastinger",
-	"recent-uploads-tooltip": "Vis nylige opplastinger med dette verktøyet"
+	"recent-uploads-tooltip": "Vis nylige opplastinger med dette verktøyet",
+	"watch-log": "Hold et øye med loggen, og <a href=\"https://phabricator.wikimedia.org/maniphest/task/create/?projects=ia-upload\">opprett en feilrapport</a> om noe går galt."
 }

@@ -55,5 +55,6 @@
 	"creator-template-missing": "У автора '$1' нет шаблона <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>creator</a>. Если Вы знаете его Wikidata ID, Вы можете<a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>создать шаблон сейчас</a>.",
 	"no-usable-files-found": "Для этого элемента не найдено подходящих файлов (DjVu, PDF или JP2).",
 	"successfully-uploaded": "$1 успешно загружен на Викисклад!",
-	"recent-uploads": "Недавние загрузки"
+	"recent-uploads": "Недавние загрузки",
+	"recent-uploads-tooltip": "Посмотреть последние загрузки, сделанные этим инструментом"
 }
