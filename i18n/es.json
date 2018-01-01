@@ -15,7 +15,7 @@
 	"logout": "Salir",
 	"login-notice": "Debes <a href='$1'>acceder</a> para subir libros a Wikimedia Commons",
 	"site-explanation": "Esta es la <a href='$1'>herramienta IA Upload</a>, por favor <a href='$2'>reporte cualquier problema</a>.",
-	"upload-file": "Subir un archivo",
+	"upload-file": "Cargar un archivo",
 	"form-label-ia-id": "Identificador del archivo en Internet Archive:",
 	"form-label-commons-name": "Nombre de archivo en Commons:",
 	"form-label-file-source": "Fuente del archivo DjVu:",

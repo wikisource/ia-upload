@@ -52,5 +52,7 @@
 	"successfully-uploaded": "$1 har blitt lastet opp til Commons!",
 	"recent-uploads": "Nylige opplastinger",
 	"recent-uploads-tooltip": "Vis nylige opplastinger med dette verktøyet",
-	"watch-log": "Hold et øye med loggen, og <a href=\"https://phabricator.wikimedia.org/maniphest/task/create/?projects=ia-upload\">opprett en feilrapport</a> om noe går galt."
+	"watch-log": "Hold et øye med loggen, og <a href=\"https://phabricator.wikimedia.org/maniphest/task/create/?projects=ia-upload\">opprett en feilrapport</a> om noe går galt.",
+	"zip-file-too-large": "Merk at Internet Archives zip-fil av originale skanninger <em>kan</em> være for store til at IA Upload kan prosessere dem (den er rundt $1 MB, og den foreslåtte maksimumsstørrelsen er $2 MB).",
+	"too-many-pages": "Merk at Internet Archives zip-fil av originale skanninger <em>kan</em> inneholde for mange sider til at IA Upload kan prossere dem (den inneholder $1, og det foreslåtte maksimumsantallet er $2)."
 }

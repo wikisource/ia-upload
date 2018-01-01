@@ -2,14 +2,15 @@
 	"@metadata": {
 		"authors": [
 			"Mido",
-			"محمد أحمد عبد الفتاح"
+			"محمد أحمد عبد الفتاح",
+			"أحمد"
 		]
 	},
-	"ia-upload": "رفع الملفات من أرشيف الإنترنت",
+	"ia-upload": "الرفع من أرشيف الإنترنت",
 	"site-title": "رفع كتب من أرشيف الإنترنت",
-	"debug-notice": "الموقع في وضع اكتشاف الأخطاء، وقد لا يعمل بشكل صحيح.",
-	"logged-in-as": "أنت مسجل الدخول بالحساب $1",
-	"logout": "خروج",
+	"debug-notice": "الموقع في وضع فحص الأعطال وقد لا يعمل بشكل صحيح.",
+	"logged-in-as": "أنت والج بالحساب $1",
+	"logout": "اخرج",
 	"login-notice": "يجب عليك <a href='$1'> تسجيل الدخول</a> لرفع الكتب إلى ويكيميديا كومنز",
 	"site-explanation": "هنا <a href='$1'>أداة رفع الملفات من أرشيف الإنترنت</a>, فضلا <a href='$2'>أبلغ عن أية مشاكل</a>.",
 	"upload-file": "ارفع ملفا",
@@ -42,12 +43,13 @@
 	"remove-first-page-help": "بعض المسوحات من جوجل تحتوي على ورقة غلاف مخالفة لرخصة الملفات على كومنز. للمزيد من المعلومات، أنظر <a href=\"https://en.wikisource.org/wiki/Help:Internet_Archive#Google_Books\">صفحة المساعدة على ويكي مصدر</a>.",
 	"authorize-first": "ينبغي عليك السماح لأداة رفع ملفات أرشيف الإنترنت قبل رفع الملف",
 	"upload-time-warning": "(تحذير: ربما يستغرق الرفع أكثر من دقيقة واحدة!)",
-	"set-all-fields": "فضلا املء جميع حقول الاستمارة",
+	"set-all-fields": "كل حقول الاستمارة مطلوب ملؤها",
 	"invalid-commons-name": "الاسم '$1' لا يصلح لويكيميديا كومنز",
 	"invalid-length": "'$1' طويل للغاية",
-	"no-found-on-ia": "'$1' ليس معرفا صحيحا لإرشيف الإنترنت",
-	"already-on-commons": "هناك بالفعل ملفا باسم '$1' على ويكيميديا كومنز",
+	"no-found-on-ia": "'$1' ليس مُعرِّفا صحيحا لأرشيف الإنترنت",
+	"already-on-commons": "يوجد بالفعل ملف باسم '$1' على ويكيميديا كومنز",
 	"creator-template-missing": "لا يملك المؤلف '$1' قالب <a href=\"https://commons.wikimedia.org/wiki/Commons:Creator\">منشئ</a>. إذا كنت تعلم معرفه على ويكي داتا، يمكنك <a href=\"https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php\">إنشاء القالب الآن</a>.",
+	"successfully-uploaded": "الملف $1 تم بنجاح رفعه إلى كُمُنز.",
 	"recent-uploads": "أحدث المرفوعات",
 	"recent-uploads-tooltip": "اعرض أحدث المرفعوعات باستخدام هذه الأداة"
 }
