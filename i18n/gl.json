@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Elisardojm",
-			"Banjo"
+			"Banjo",
+			"Athena in Wonderland"
 		]
 	},
 	"ia-upload": "Suba IA",
@@ -52,5 +53,8 @@
 	"no-usable-files-found": "Non se atoparon ficheiros útiles (DjVu, PDF, ou JP2) para ese elemento.",
 	"successfully-uploaded": "$1 cargouse con éxito en Commons!",
 	"recent-uploads": "Cargas recentes",
-	"recent-uploads-tooltip": "Ver cargas recentes desta ferramenta"
+	"recent-uploads-tooltip": "Ver cargas recentes desta ferramenta",
+	"watch-log": "Por favor, manteña o ollo no rexistro, e <a href='https://phabricator.wikimedia.org/maniphest/task/create/?projects=ia-upload'>crea unha incidencia</a> para calquera fallos.",
+	"zip-file-too-large": "Por favor, nótese que o ficheiro zip de Internet Archive das dixitalizacións orixinais <em>pode</em> ser demasiado longo para o IA Upload procesar (trátase de $1 MB, e o tamaño máximo suxerido é de $2 MB).",
+	"too-many-pages": "Por favor, nótese que o ficheiro zip de Internet Archive das dixitalizacións orixinais <em>pode</em> ter moitas páxinas para o IA Upload procesar (trátase de $1, e o número máximo suxerido é $2)."
 }

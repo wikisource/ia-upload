@@ -35,7 +35,7 @@
 	"file-source-jp2": "das digitalizações originais (JP2)",
 	"file-source-pdf": "do PDF (pode ser de qualidade inferior)",
 	"file-source-not-available": "(não está disponível para este elemento)",
-	"file-source-help": "Onde deve gerar o ficheiro DjVu?<br /> Note que para os formatos JP2 e PDF, <strong>as suas credencias de autenticação serão armazenadas</strong> no servidor do Tool Labs, até que seja concluída a conversão (que normalmente leva menos de uma hora). Se desejar, pode <a href='$1'>revogar o acesso desta ferramenta</a> a qualquer momento.",
+	"file-source-help": "Onde deve gerar o ficheiro DjVu?<br /> Note que para os formatos JP2 e PDF, <strong>as suas credenciais de autenticação serão armazenadas</strong> no servidor do Tool Labs, até que seja concluída a conversão (que normalmente leva menos de uma hora). Se desejar, pode <a href='$1'>revogar o acesso desta ferramenta</a> a qualquer momento.",
 	"remove-first-page": "Remover a primeira página?",
 	"remove-first-page-yes": "Sim, remover esta página do DjVu",
 	"remove-first-page-no": "Não, deixar",

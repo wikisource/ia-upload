@@ -13,6 +13,7 @@
 	"form-label-commons-name": "Numm vum Fichier op Commons:",
 	"form-label-file-source": "Quell-Fichier DjVu:",
 	"form-label-commons-description": "Commons-Beschreiwung:",
+	"user-contribs-link": "D'Fichieren kommen an <a href='$1'>d'Lëscht vun Äre KOntributiounen</a> op Commons.",
 	"table-header-ia-item": "IA-Element",
 	"table-header-commons-filename": "Numm vum Fichier op Commons",
 	"table-header-status": "Status",
