@@ -1,0 +1,41 @@
+{
+	"@metadata": {
+		"authors": [
+			"Chansey",
+			"Vito Genovese"
+		]
+	},
+	"ia-upload": "IA Upload",
+	"site-title": "İnternet Arşivinden kitap yükle",
+	"debug-notice": "Bu site hata ayıklama modundadır ve düzgün çalışmayabilir.",
+	"logged-in-as": "$1 olarak oturum açtınız",
+	"logout": "Çıkış yap",
+	"login-notice": "Wikimedia Commons’a kitap yüklemek için <a href='$1>oturum açmalısınız</a>",
+	"upload-file": "Bir dosya yükle",
+	"form-label-ia-id": "Dosyanın İnternet Arşivindeki kimliği:",
+	"form-label-commons-name": "Commons'taki dosya ismi:",
+	"form-label-file-source": "DjVu dosya kaynağı:",
+	"form-label-commons-description": "Commons açıklaması:",
+	"job-queue": "İş sırası",
+	"job-queue-empty": "İş sırası şu an için boştur.",
+	"table-header-ia-item": "IA Öğesi",
+	"table-header-commons-filename": "Commons dosya ismi",
+	"table-header-status": "Durum",
+	"table-header-log": "Günlük",
+	"table-header-download": "İndir",
+	"in-progress": "Devam ediyor",
+	"queued": "Sıraya alındı",
+	"possibly-failed": "Muhtemelen başarısız",
+	"file-source-djvu": "Mevcut DjVu kullan",
+	"file-source-jp2": "orjinal taramadan (JP2)",
+	"file-source-pdf": "PDF'den (daha düşük kalitede olabilir)",
+	"file-source-not-available": "(bu öğe için uygun değil)",
+	"remove-first-page": "İlk sayfa çıkartılsın mı?",
+	"remove-first-page-yes": "Evet, bu sayfa DjVu’dan çıkarılsın",
+	"remove-first-page-no": "Hayır, kalsın",
+	"set-all-fields": "Lütfen formdaki tüm alanları doldurun",
+	"invalid-commons-name": "'$1' Wikimedia Commons için geçerli bir dosya ismi değil",
+	"invalid-length": "'$1' çok uzun",
+	"recent-uploads": "Son yüklenenler",
+	"recent-uploads-tooltip": "Bu araçla yapılan son yüklemeler"
+}
