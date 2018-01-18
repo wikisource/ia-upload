@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Obsuser"
+			"Obsuser",
+			"Acamicamacaraca"
 		]
 	},
 	"ia-upload": "IA отпремање",
@@ -47,5 +48,6 @@
 	"invalid-length": "'$1' је предугачко",
 	"no-found-on-ia": "'$1' није валидан идентификатор Internet Archive-а",
 	"already-on-commons": "Датотека са именом '$1' већ постоји на Викимедијиној остави",
-	"creator-template-missing": "Аутор '$1' нема <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>направљен</a> шаблон. Ако знате ID на Википодацима, можете <a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>сада направити шаблон</a>."
+	"creator-template-missing": "Аутор '$1' нема <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>направљен</a> шаблон. Ако знате ID на Википодацима, можете <a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>сада направити шаблон</a>.",
+	"recent-uploads": "Скорашња отпремања"
 }
