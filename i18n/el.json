@@ -1,0 +1,30 @@
+{
+	"@metadata": {
+		"authors": [
+			"KATRINE1992",
+			"Nikosgranturismogt"
+		]
+	},
+	"ia-upload": "IA Upload",
+	"site-title": "Μεταφόρτωση βιβλίων από το Internet Archive",
+	"debug-notice": "Αυτή η ιστοσελίδα είναι σε λειτουργία αποσφαλμάτωσης, και ίσως να μην δουλεύει σωστά.",
+	"logged-in-as": "Έχετε συνδεθεί ως $1.",
+	"logout": "Αποσύνδεση",
+	"login-notice": "Πρέπει να <a href='$1'>συνδεθείτε</a> για να μεταφορτώσετε βιβλία στο Wikimedia Commons",
+	"upload-file": "Ανέβασμα αρχείου",
+	"get-metadata": "Λάβετε μεταδεδομένα",
+	"table-header-ia-item": "Αντικείμενο IA",
+	"table-header-status": "Κατάσταση",
+	"table-header-log": "Μητρώο",
+	"table-header-download": "Λήψη",
+	"in-progress": "Σε εξέλιξη",
+	"possibly-failed": "Πιθανώς απέτυχε",
+	"file-source-djvu": "Χρήση υπάρχοντων DjVu",
+	"file-source-jp2": "Από αρχικές σαρώσεις (JP2)",
+	"file-source-pdf": "από PDF (ίσως να είναι χαμηλότερης ποιότητας)",
+	"file-source-not-available": "(δεν είναι διαθέσιμο για αυτό το αντικείμενο)",
+	"remove-first-page": "Αφαίρεση πρώτης σελίδας;",
+	"successfully-uploaded": "Το $1 έχει αποσταλεί με επιτυχία στο Κοινά!",
+	"recent-uploads": "Πρόσφατες φορτώσεις",
+	"recent-uploads-tooltip": "Δέστε πρόσφατες φορτώσεις με αυτό το εργαλείο"
+}

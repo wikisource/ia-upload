@@ -1,0 +1,23 @@
+{
+	"@metadata": {
+		"authors": [
+			"Mikel Ibaiba",
+			"Subi"
+		]
+	},
+	"logout": "Saioa itxi",
+	"upload-file": "Fitxategia igo",
+	"form-label-commons-name": "Fitxategiaren izena Commonsen:",
+	"get-metadata": "Eskuratu metadatuak",
+	"table-header-status": "Egoera",
+	"table-header-download": "Jaitsi",
+	"in-progress": "Egiten",
+	"queued": "Ilaran",
+	"file-source-not-available": "(Ez dago eskuragarri item honetarako)",
+	"remove-first-page": "Ezabatu lehenengo orria?",
+	"remove-first-page-yes": "Bai, kendu orri hau DjVu-tik",
+	"remove-first-page-no": "Ez, utzi barruan",
+	"upload-time-warning": "(Abisua: igoerak minutu bat baino gehiago iraun dezake!)",
+	"invalid-length": "'$1' luzeegia da",
+	"recent-uploads": "Azken igoerak"
+}
