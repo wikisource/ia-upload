@@ -46,7 +46,7 @@
 	"set-all-fields": "Молимо да попуните сва поља обрасца",
 	"invalid-commons-name": "'$1' није валидно име датотеке за Викимедијину оставу",
 	"invalid-length": "'$1' је предугачко",
-	"no-found-on-ia": "'$1' није валидан идентификатор Internet Archive-а",
+	"no-found-on-ia": "„$1” није исправан идентификатор Internet Archive-а",
 	"already-on-commons": "Датотека са именом '$1' већ постоји на Викимедијиној остави",
 	"creator-template-missing": "Аутор '$1' нема <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>направљен</a> шаблон. Ако знате ID на Википодацима, можете <a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>сада направити шаблон</a>.",
 	"successfully-uploaded": "$1 је успешно отпремљена на Остави!",

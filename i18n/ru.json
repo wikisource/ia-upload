@@ -6,7 +6,8 @@
 			"Nitch",
 			"Okras",
 			"Redredsonia",
-			"Kareyac"
+			"Kareyac",
+			"Movses"
 		]
 	},
 	"ia-upload": "IA Upload",
@@ -56,5 +57,6 @@
 	"no-usable-files-found": "Для этого элемента не найдено подходящих файлов (DjVu, PDF или JP2).",
 	"successfully-uploaded": "$1 успешно загружен на Викисклад!",
 	"recent-uploads": "Недавние загрузки",
-	"recent-uploads-tooltip": "Посмотреть последние загрузки, сделанные этим инструментом"
+	"recent-uploads-tooltip": "Посмотреть последние загрузки, сделанные этим инструментом",
+	"watch-log": "Пожалуйста проверьте лог-файл, и, в случае найденной проблемы, создайте <a href='https://phabricator.wikimedia.org/maniphest/task/create/?projects=ia-upload'>тикет на её исправление</a>."
 }

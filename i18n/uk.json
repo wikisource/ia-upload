@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Piramidion",
-			"Avatar6"
+			"Avatar6",
+			"Movses"
 		]
 	},
 	"ia-upload": "IA Upload",
@@ -52,5 +53,8 @@
 	"no-usable-files-found": "Для цього предмета не знайдено файлів у підтримуваних форматах (DjVu, PDF, або JP2).",
 	"successfully-uploaded": "$1 завантажено у Вікісховище!",
 	"recent-uploads": "Нещодавні завантаження",
-	"recent-uploads-tooltip": "Переглянути цим інструментом нещодавні завантаження."
+	"recent-uploads-tooltip": "Переглянути цим інструментом нещодавні завантаження.",
+	"watch-log": "Будь ласка перевірте лог-файл, та, у випадку знайденої проблеми, створіть <a href='https://phabricator.wikimedia.org/maniphest/task/create/?projects=ia-upload'>тікет на її виправлення</a>.",
+	"zip-file-too-large": "Зверніть увагу, що zip-файл оригінальних сканів Internet Archive <em>може бути</em> надто великим для обробки програмою IA Upload (розмір складає $1 MB, тоді як максимально можливий розмір складає $2 MB).",
+	"too-many-pages": "Зверніть увагу, що zip-файл оригінальних сканів Internet Archive <em>може містити</em> забагато сторінок для обробки програмою IA Upload (зараз містить $1 сторінок, тоді як максимальна кількість складає $2 сторінок)."
 }
