@@ -1,0 +1,35 @@
+{
+	"@metadata": {
+		"authors": [
+			"Uziel302",
+			"YaronSh"
+		]
+	},
+	"logged-in-as": "נכנסת בשם $1",
+	"logout": "יציאה",
+	"login-notice": "עליך <a href='$1'>להיכנס</a> כדי להעלות ספרים לוויקישיתוף",
+	"upload-file": "העלאת קובץ",
+	"form-label-file-source": "מקור קובץ DjVu:",
+	"form-label-commons-description": "תיאור בוויקישיתוף:",
+	"job-queue": "תור משימות",
+	"job-queue-empty": "תור המשימות ריק כרגע.",
+	"jobs-will-be-removed": "המשימות תוסרנה מהרשימה הזו לאחר שהושלמו והועלו לוויקישיתוף.",
+	"table-header-commons-filename": "שם קובץ בוויקישיתוף",
+	"table-header-status": "מצב",
+	"table-header-log": "יומן",
+	"table-header-download": "הורדה",
+	"in-progress": "בתהליך",
+	"queued": "בתור",
+	"file-source-djvu": "שימוש ב־DjVu קיים",
+	"file-source-jp2": "מסריקות מקוריות (JP2)",
+	"file-source-pdf": "מ־PDF (כנראה מאיכות נמוכה)",
+	"file-source-not-available": "(לא זמין לפריט זה)",
+	"remove-first-page": "להסיר את העמוד הראשון?",
+	"remove-first-page-yes": "כן, להסיר את העמוד הזה DjVu",
+	"remove-first-page-no": "לא, להשאיר את זה",
+	"upload-time-warning": "(אזהרה: ההעלאה עשויה לקחת יותר מדקה!)",
+	"set-all-fields": "נא להגדיר את כל השדות בטופס",
+	"no-found-on-ia": "$1 אינו מזהה תקין של ארכיון האינטרנט",
+	"recent-uploads": "העלאות אחרונות",
+	"recent-uploads-tooltip": "הצגת ההעלאות האחרונות מהכלי הזה"
+}

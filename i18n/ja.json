@@ -53,6 +53,7 @@
 	"successfully-uploaded": "コモンズで $1 のアップロードを完了しました。",
 	"recent-uploads": "最近のアップロード",
 	"recent-uploads-tooltip": "このツールを使った最近のアップロードを閲覧",
+	"watch-log": "ログの変更に留意しエラーが見つかったら<a href='https://phabricator.wikimedia.org/maniphest/task/create/?projects=ia-upload'>チケットを作成してください</a>。",
 	"zip-file-too-large": "Internet Archive の元のスキャン画像の zip 形式圧縮ファイルはIA Upload が処理可能なサイズを上回る<em >可能性があります</em>。(推奨される上限サイズ$2 MBに対しおよそ$1 MB)。",
 	"too-many-pages": "Internet Archive の元のスキャン画像の zip 形式圧縮ファイルは IA Upload が処理可能なページ数を上回る<em >可能性があります</em>。(推奨される上限$2 に対しおよそ$1)。"
 }
