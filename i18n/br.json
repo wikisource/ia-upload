@@ -48,5 +48,10 @@
 	"invalid-length": "Re hir eo $1",
 	"no-found-on-ia": "N'eo ket '$1' un anaouder reizh evit Internet Archive",
 	"already-on-commons": "Bez' ez eus c'hoazh eus ur restr anvet '$1' war Wikimedia Commons",
-	"creator-template-missing": "N'eus ket a batrom <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>creator</a> gant an aozer. Ma anavezit e god anaout evit Wikidata e c'hallit <a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>krouiñ ar patrom diouzhtu</a>."
+	"creator-template-missing": "N'eus ket a batrom <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>creator</a> gant an aozer. Ma anavezit e god anaout evit Wikidata e c'hallit <a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>krouiñ ar patrom diouzhtu</a>.",
+	"no-usable-files-found": "N'eus bet kavet restr ebet (DjVu, PDF, or JP2) na c'haller implijout evit an elfenn-se.",
+	"successfully-uploaded": "$1 zo bet karget mat e Commons !",
+	"recent-uploads": "Pellgargadennnoù nevez",
+	"recent-uploads-tooltip": "Diskwelit ar pellgargadennoù nevez graet gant ar benveg-mañ",
+	"watch-log": "Taolit ur sell ouzh ar gazetenn, mar plij, ha <a href='https://phabricator.wikimedia.org/maniphest/task/create/?projects=ia-upload'> Krouiñ un ditour</a> evit an holl gudennoù."
 }
