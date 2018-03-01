@@ -1,0 +1,21 @@
+{
+	"@metadata": {
+		"authors": [
+			"StanProg",
+			"Vodnokon4e"
+		]
+	},
+	"logged-in-as": "Влезли сте като $1",
+	"logout": "Излизане",
+	"upload-file": "Качване на файл",
+	"form-label-commons-name": "Име на файла в Общомедия:",
+	"table-header-status": "Статут",
+	"table-header-log": "Дневник",
+	"table-header-download": "Изтегляне",
+	"in-progress": "В процес",
+	"file-source-pdf": "от PDF (може да е с по-ниско качество)",
+	"invalid-commons-name": "„$1“ не е валидно име на файл за Общомедия",
+	"invalid-length": "„$1“ е твърде дълго",
+	"already-on-commons": "В Общомедия вече съществува файл с име „$1“",
+	"recent-uploads": "Последни качвания"
+}
