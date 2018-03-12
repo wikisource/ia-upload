@@ -98,7 +98,8 @@ class Jp2DjvuMaker extends DjvuMaker {
 	 */
 	protected function convertJp2ToDjvu( $itemDir ) {
 		$this->log->info( "Processing JP2 files" );
-		$jp2Files = preg_grep( '/^.*\.jp2$/', scandir( $itemDir ) );
+		// Find only the JP2 files, and reset the array keys so we can correctly number the pages.
+		$jp2Files = array_values( preg_grep( '/^.*\.jp2$/', scandir( $itemDir ) ) );
 		if ( count( $jp2Files ) === 0 ) {
 			throw new Exception( "No JP2 file found in " . $itemDir );
 		}
