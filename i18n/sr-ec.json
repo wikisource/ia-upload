@@ -46,10 +46,14 @@
 	"set-all-fields": "Молимо да попуните сва поља обрасца",
 	"invalid-commons-name": "'$1' није валидно име датотеке за Викимедијину оставу",
 	"invalid-length": "'$1' је предугачко",
-	"no-found-on-ia": "„$1” није исправан идентификатор Internet Archive-а",
+	"no-found-on-ia": "'$1' није валидан идентификатор Internet Archive-а",
 	"already-on-commons": "Датотека са именом '$1' већ постоји на Викимедијиној остави",
 	"creator-template-missing": "Аутор '$1' нема <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>направљен</a> шаблон. Ако знате ID на Википодацима, можете <a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>сада направити шаблон</a>.",
+	"no-usable-files-found": "Ниједна употребљива датотека (DjVu, PDF или JP2) није пронађена за ту ставку.",
 	"successfully-uploaded": "$1 је успешно отпремљена на Остави!",
 	"recent-uploads": "Скорашња отпремања",
-	"recent-uploads-tooltip": "Скорашња отпремања помоћу ове алатке"
+	"recent-uploads-tooltip": "Скорашња отпремања помоћу ове алатке",
+	"watch-log": "Молимо да пратите дневник и <a href='https://phabricator.wikimedia.org/maniphest/task/create/?projects=ia-upload'>направите ставку</a> за било какве пропусте.",
+	"zip-file-too-large": "Молимо да узмете у обзир да zip датотека Internet Archive-а оригиналних скенова <em>може</em> да буде превелика за процесирање код IA отпремања (има око $1 MB, а максимална сугерисана величина је $2 MB).",
+	"too-many-pages": "Молимо да узмете у обзир да zip датотека Internet Archive-а оригиналних скенова <em>може</em> да садржи превише страница за процесирање код IA отпремања (има око $1, а максимални сугерисани број је $2)."
 }
