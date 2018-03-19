@@ -1,0 +1,24 @@
+{
+	"@metadata": {
+		"authors": [
+			"Bikarhêner"
+		]
+	},
+	"ia-upload": "IA Upload",
+	"site-title": "Ji Arşîva Înternetê kitêban bar bike",
+	"debug-notice": "Ev malper di moda \"sererastkirina xetayan\" de ye û dibe ku bi awayekî rast nexebite.",
+	"logged-in-as": "Te wek $1 têket",
+	"logout": "Derkeve",
+	"login-notice": "Ji bo ku tu kitêban li Wikimedia Commonsê bar bikî divê tu <a href='$1'>têkevî</a>",
+	"site-explanation": "Ev, <a href='$1'>amûra barkirinê yê IA Uploadê ye</a>, xêra xwe <a href='$2'>pirsgirêkan ji me re bidin zanîn</a>.",
+	"upload-file": "Dosyeyek bar bike",
+	"form-label-ia-id": "IDya dosyeyê ya li ser Arşîva Înternetê:",
+	"form-label-commons-name": "Navê dosyeyê ya ser Commonsê:",
+	"form-label-file-source": "Çavkaniya dosyeya DjVu'yê",
+	"form-label-commons-description": "Danasîna Commonsê:",
+	"ia-id-help": "ID, piştî 'details/' parçeyek URLyê ye, wekî nimûne: $1",
+	"table-header-download": "Daxe",
+	"in-progress": "Didome",
+	"queued": "Li bendê ye",
+	"possibly-failed": "Biserneketî tê xuyan"
+}
