@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Woraponboonkerd"
+			"Woraponboonkerd",
+			"Aefgh39622"
 		]
 	},
 	"ia-upload": "IA อัพโหลด",
@@ -16,6 +17,7 @@
 	"form-label-commons-name": "ชื่อไฟล์บนคอมมอนส์:",
 	"form-label-file-source": "แหล่งที่มาของไฟล์ DjVu:",
 	"form-label-commons-description": "คำอธิบายบนคอมมอนส์:",
+	"ia-id-help": "ID เป็นส่วนหนึ่งของ URL หลังจาก 'details/' ตัวอย่างเช่น: $1",
 	"commons-name-help": "ชื่อที่จะใช้กับไฟล์นี้เมื่อถูกอัพโหลดไปยังวิกิมีเดียคอมมอนส์แล้ว ถ้าชื่อไฟล์ซ้ำกับที่มีอยู่เดิม มันจะไม่ถูกอัพโหลดซ้ำอีกครั้ง และคุณจะได้รับการแจ้งเตือนเพื่อเปลี่ยนชื่อไฟล์ที่นี่",
 	"get-metadata": "รับข้อมูล metadata",
 	"job-queue": "คิวงาน",
@@ -26,8 +28,10 @@
 	"table-header-commons-filename": "ชื่อไฟล์บนคอมมอนส์",
 	"table-header-status": "สถานะ",
 	"table-header-log": "ปูมการใช้",
+	"table-header-download": "ดาวน์โหลด",
 	"in-progress": "กำลังดำเนินการ",
 	"queued": "นำเข้าคิวแล้ว",
+	"possibly-failed": "อาจจะล้มเหลว",
 	"file-source-djvu": "ใช้ DjVu เดิม",
 	"file-source-jp2": "จากตัวแสกนต้นฉบับ (JP2)",
 	"file-source-pdf": "จาก PDF (อาจจะเป็นตัวที่มีคุณภาพต่ำกว่า)",
@@ -36,6 +40,7 @@
 	"remove-first-page-yes": "ใช่ ลบหน้านี้จาก DjVu",
 	"remove-first-page-no": "ไม่ ปล่อยไว้อย่างเดิม",
 	"remove-first-page-help": "รูปที่สแกนจาก Google อาจประกอบไปด้วยหน้าปกที่มีลิขสิทธิ์ และไม่อนุญาตให้ใช้บนคอมมอนส์ สำหรับข้อมูลเพิ่มเติมกรุณาดูที่<a href='https://en.wikisource.org/wiki/Help:Internet_Archive#Google_Books'>หน้าความช่วยเหลือบนวิกิซอร์ซ</a>.",
+	"authorize-first": "คุณต้องตรวจสอบความถูกต้องของ ia-upload ก่อนอัปโหลดไฟล์",
 	"upload-time-warning": "(คำเตือน: การอัพโหลดอาจใช้เวลานานกว่าหนึ่งนาที!)",
 	"set-all-fields": "กรุณากำหนดค่าทุกอย่างในแบบฟอร์ม",
 	"invalid-commons-name": "'$1' ไม่ใช่ชื่อไฟล์ที่ถูกต้องสำหรับวิกิมีเดียคอมมอนส์",
