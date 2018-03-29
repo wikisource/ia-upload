@@ -18,6 +18,7 @@
 	"form-label-file-source": "DjVu 파일 소스:",
 	"form-label-commons-description": "커먼즈 설명:",
 	"ia-id-help": "ID는 URL의 'details/' 이후 부분입니다. 예시: $1",
+	"commons-name-help": "이 이름을 가진 파일이 이미 위키미디어 공용에 존재합니다. 파일이 이미 존재하는 경우, 재업로드되지 않으며 이곳에서 변경해야 합니다.",
 	"get-metadata": "메타데이터 가져오기",
 	"job-queue": "작업 대기열",
 	"job-queue-empty": "작업 대기열이 현재 비어 있습니다.",
