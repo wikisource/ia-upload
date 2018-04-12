@@ -36,6 +36,7 @@
 	"file-source-jp2": "จากตัวแสกนต้นฉบับ (JP2)",
 	"file-source-pdf": "จาก PDF (อาจจะเป็นตัวที่มีคุณภาพต่ำกว่า)",
 	"file-source-not-available": "(ไม่ปรากฎสำหรับสิ่งนี้)",
+	"file-source-help": "ไฟล์ DjVu ควรถูกสร้างขึ้นจากที่ใด?<br /> โปรดสังเกตว่าสำหรับไฟล์ชนิด JP2 และ PDF นั้น <strong>จะมีการเก็บข้อมูลประจำตัวสำหรับการยืนยันตัวตนของคุณเอาไว้</strong>บนเซิร์ฟเวอร์ Tool Labs จนกว่าจะเสร็จสิ้นการแปลง (โดยปกติจะใช้เวลาไม่ถึงหนึ่งชั่วโมง) คุณสามารถ<a href='$1'>เพิกถอนการเข้าถึงเครื่องมือนี้</a>ได้ทุกเมื่อ",
 	"remove-first-page": "ลบหน้าแรกหรือไม่?",
 	"remove-first-page-yes": "ใช่ ลบหน้านี้จาก DjVu",
 	"remove-first-page-no": "ไม่ ปล่อยไว้อย่างเดิม",
@@ -47,5 +48,12 @@
 	"invalid-length": "'$1' ยาวเกินไป",
 	"no-found-on-ia": "'$1' ไม่ใช่รหัส ID ของ Internet Archive ที่ถูกต้อง",
 	"already-on-commons": "ชื่อไฟล์ '$1' ซ้ำกับที่มีอยู่แล้วในวิกิมีเดียคอมมอนส์",
-	"creator-template-missing": "ผู้แต่ง '$1' ไม่มีแม่แบบของ<a href='https://commons.wikimedia.org/wiki/Commons:Creator'>ผู้สร้าง</a> ถ้าคุณทราบรหัส ID ของ Wikidata คุณสามารถ<a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>สร้างแม่แบบได้ตอนนี้</a>."
+	"creator-template-missing": "ผู้แต่ง '$1' ไม่มีแม่แบบของ<a href='https://commons.wikimedia.org/wiki/Commons:Creator'>ผู้สร้าง</a> ถ้าคุณทราบรหัส ID ของ Wikidata คุณสามารถ<a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>สร้างแม่แบบได้ตอนนี้</a>.",
+	"no-usable-files-found": "ไม่พบไฟล์ (DjVu, PDF, หรือ JP2) ที่ใช้ได้สำหรับรายการดังกล่าว",
+	"successfully-uploaded": "อัปโหลด $1 ไปยังคอมมอนส์เสร็จสมบูรณ์!",
+	"recent-uploads": "การอัปโหลดล่าสุด",
+	"recent-uploads-tooltip": "ดูการอัปโหลดล่าสุดโดยเครื่องมือนี้",
+	"watch-log": "กรุณาเฝ้าดูปูมการอัปโหลดและ<a href='https://phabricator.wikimedia.org/maniphest/task/create/?projects=ia-upload'>รายงานปัญหา</a>ถ้าเกิดความล้มเหลว",
+	"zip-file-too-large": "กรุณาสังเกตว่าไฟล์ zip ที่มีภาพที่สแกนดั้งเดิมของ Internet Archive <em>อาจ</em>ใหญ่เกินไปสำหรับ IA อัปโหลดที่จะประมวลผล (ประมาณ $1 MB, และขนาดสูงสุดที่แนะนำคือ $2 MB)",
+	"too-many-pages": "กรุณาสังเกตว่าไฟล์ zip ที่มีภาพที่สแกนดั้งเดิมของ Internet Archive <em>อาจ</em>มีจำนวนหน้ามากเกินไปสำหรับ IA อัปโหลดที่จะประมวลผล (ประมาณ $1, และจำนวนสูงสุดที่แนะนำคือ $2)"
 }
