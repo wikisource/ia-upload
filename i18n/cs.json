@@ -1,0 +1,41 @@
+{
+	"@metadata": {
+		"authors": [
+			"Patriccck"
+		]
+	},
+	"ia-upload": "IA Upload",
+	"site-title": "Nahrát knihy z Internetového archivu",
+	"debug-notice": "Tato stránka je v režimu ladění a pravděpodobně nefunguje správně.",
+	"logged-in-as": "Jste přihlášeni jako $1",
+	"logout": "Odhlásit se",
+	"login-notice": "Musíte <a href='$1'>se přihlásit<a href='$1'> pro nahrání knih do Wikimedia Commons",
+	"upload-file": "Nahrát soubor",
+	"form-label-ia-id": "ID souboru v Internetovém archivu:",
+	"form-label-commons-name": "Název souboru na Commons:",
+	"form-label-file-source": "DjVu zdroj souboru:",
+	"form-label-commons-description": "Popis na Commons:",
+	"get-metadata": "Získat metadata",
+	"job-queue": "Pracovní fronta",
+	"job-queue-empty": "Pracovní fronta je momentálně prázdná.",
+	"jobs-will-be-removed": "Úkoly budou z tohoto seznamu odstraněny, jakmile budou dokončeny a nahrány a Commons.",
+	"table-header-ia-item": "IA položka",
+	"table-header-commons-filename": "Jméno souboru na Commons",
+	"table-header-status": "Prestiž",
+	"table-header-log": "Protokol",
+	"table-header-download": "Stáhnout",
+	"in-progress": "Probíhá",
+	"queued": "Ve frontě",
+	"possibly-failed": "Možná selhalo",
+	"file-source-djvu": "Použijte stávající DjVu",
+	"file-source-jp2": "z původních skenů (JP2)",
+	"file-source-pdf": "z PDF (může mít nižší kvalitu)",
+	"file-source-not-available": "(není k dispozici pro tuto položku)",
+	"remove-first-page": "Odstranit první stránku?",
+	"remove-first-page-yes": "Ano, odebrat tuto stránku z DjVu",
+	"remove-first-page-no": "Ne",
+	"authorize-first": "Před nahráním souboru povolte nahrávání na i-upload",
+	"upload-time-warning": "(Upozornění: nahrávání může trvat déle než jednu minutu!)",
+	"set-all-fields": "Vyplňte prosím všechna pole formuláře",
+	"invalid-length": "'$1' je hodně dlouhé"
+}
