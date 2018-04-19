@@ -1,0 +1,28 @@
+{
+	"@metadata": {
+		"authors": [
+			"Ooswesthoesbes"
+		]
+	},
+	"ia-upload": "IA Upload",
+	"site-title": "Upload beuk vanaaf Internet Archive",
+	"debug-notice": "Dees site is in debug-modus en wirk mesjiens neet gans good.",
+	"logged-in-as": "Doe bös aangemeldj es $1",
+	"logout": "Melj aaf",
+	"login-notice": "Doe mós dich <a href='$1'>aanmelje</a> veur beuk op te laje nao Wikimedia Commons",
+	"site-explanation": "Dit is 't <a href='$1'>IA Upload-gereidsjap</a>, estebleef, <a href='$2'>melj wen perbleme zeen</a>.",
+	"upload-file": "Upload e bestandj",
+	"form-label-ia-id": "ID van 't bestandj op Internet Archive:",
+	"form-label-commons-name": "Bestandjsnaam op Commons:",
+	"form-label-file-source": "DjVu-bestandjsbrón:",
+	"form-label-commons-description": "Commons-besjrieving:",
+	"table-header-status": "Staot",
+	"table-header-log": "Logbook",
+	"table-header-download": "Download",
+	"in-progress": "In oetveuring",
+	"queued": "In wachrie",
+	"possibly-failed": "Meugelikerwies mislök",
+	"file-source-djvu": "Gebroek bestäönde DjVu",
+	"invalid-length": "'$1' is te lank",
+	"recent-uploads": "Recènte uploads"
+}
