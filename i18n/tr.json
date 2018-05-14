@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Chansey",
-			"Vito Genovese"
+			"Vito Genovese",
+			"Hedda"
 		]
 	},
 	"ia-upload": "IA Upload",
@@ -11,13 +12,19 @@
 	"logged-in-as": "$1 olarak oturum açtınız",
 	"logout": "Çıkış yap",
 	"login-notice": "Wikimedia Commons’a kitap yüklemek için <a href='$1>oturum açmalısınız</a>",
+	"site-explanation": "Bu, <a href='$1'>IA Yükleme aracıdır</a>; lütfen <a href='$2'>sorunları bildirin</a>.",
 	"upload-file": "Bir dosya yükle",
 	"form-label-ia-id": "Dosyanın İnternet Arşivindeki kimliği:",
 	"form-label-commons-name": "Commons'taki dosya ismi:",
 	"form-label-file-source": "DjVu dosya kaynağı:",
 	"form-label-commons-description": "Commons açıklaması:",
+	"ia-id-help": "ID, 'details/' sonrası URL'nin parçasıdır; örneğin: $1",
+	"commons-name-help": "Bu dosyaya Wikimedia Commons'a yüklendiğinde verilecek isim. Dosya zaten mevcutsa yeniden yüklenmeyecek ve sizden burada dosyanın adını değiştirmeniz istenecektir.",
+	"get-metadata": "Meta verileri al",
 	"job-queue": "İş sırası",
 	"job-queue-empty": "İş sırası şu an için boştur.",
+	"jobs-will-be-removed": "İşler tamamlandıktan ve Commons'a yüklendikten sonra bu listeden kaldırılacaktır.",
+	"user-contribs-link": "Dosyalar, Commons'taki <a href='$1'>katkılar listenizde</a> görünecektir.",
 	"table-header-ia-item": "IA Öğesi",
 	"table-header-commons-filename": "Commons dosya ismi",
 	"table-header-status": "Durum",
@@ -30,12 +37,24 @@
 	"file-source-jp2": "orjinal taramadan (JP2)",
 	"file-source-pdf": "PDF'den (daha düşük kalitede olabilir)",
 	"file-source-not-available": "(bu öğe için uygun değil)",
+	"file-source-help": "DjVu dosyası nerede oluşturulmalı?<br /> JP2 ve PDF için, <strong>kimlik doğrulama bilgilerinizin</strong>, dönüştürme işlemini tamamlamak için gerekli olduğu sürece (genellikle bir saatten az) Tool Labs sunucusunda saklanacağını unutmayın. a href='$1'>Bu aracın erişimini istediğiniz zaman iptal edebilirsiniz</a>.",
 	"remove-first-page": "İlk sayfa çıkartılsın mı?",
 	"remove-first-page-yes": "Evet, bu sayfa DjVu’dan çıkarılsın",
 	"remove-first-page-no": "Hayır, kalsın",
+	"remove-first-page-help": "Google'daki bazı taramalar, Commons'ta izin verilmeyen telif hakkı kapsamındaki bir kapak sayfası içerir. Daha fazla bilgi için lütfen <a href='https://en.wikisource.org/wiki/Help:Internet_Archive#Google_Books'>Vikikaynak'taki yardım sayfasına</a> bakınız.",
+	"authorize-first": "Dosyayı yüklemeden önce ia-upload'u yetkilendirmelisiniz",
+	"upload-time-warning": "(Uyarı: yükleme bir dakikadan fazla sürebilir!)",
 	"set-all-fields": "Lütfen formdaki tüm alanları doldurun",
 	"invalid-commons-name": "'$1' Wikimedia Commons için geçerli bir dosya ismi değil",
 	"invalid-length": "'$1' çok uzun",
+	"no-found-on-ia": "'$1' geçerli bir İnternet Arşivi tanımlayıcısı değil",
+	"already-on-commons": "Wikimedia Commons'ta '$1' adlı bir dosya zaten var",
+	"creator-template-missing": "'$1' adlı yazar a href='https://commons.wikimedia.org/wiki/Commons:Creator'>yaratıcı</a> bir şablona sahip değil. Vikiveri kimliğini biliyorsan <a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>şablonu şu an oluşturabilirsin</a>.",
+	"no-usable-files-found": "Bu öge için kullanılabilir dosyalar (DjVu, PDF veya JP2) bulunamadı.",
+	"successfully-uploaded": "$1, Commons'a başarıyla yüklendi!",
 	"recent-uploads": "Son yüklenenler",
-	"recent-uploads-tooltip": "Bu araçla yapılan son yüklemeler"
+	"recent-uploads-tooltip": "Bu araçla yapılan son yüklemeler",
+	"watch-log": "Lütfen günlüğe bir göz atın ve herhangi bir hata için <a href='https://phabricator.wikimedia.org/maniphest/task/create/?projects=ia-upload'>bir sorun oluşturun</a>.",
+	"zip-file-too-large": "İnternet Arşivi'nin orijinal taramaların zip dosyasının IA Upload'un işlenmesi için çok büyük <em>olabileceğini</em> lütfen unutmayın (yaklaşık $1 MB'tır ve önerilen maksimum boyut $2 MB'tır).",
+	"too-many-pages": "İnternet Arşivi'nin orijinal taramaların zip dosyasının IA Upload'un işlenmesi için çok büyük <em>olabileceğini</em> lütfen unutmayın ($1 içerir ve maksimum önerilen sayı $2)."
 }
