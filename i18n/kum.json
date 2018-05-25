@@ -1,0 +1,23 @@
+{
+	"@metadata": {
+		"authors": [
+			"ArslanX"
+		]
+	},
+	"ia-upload": "IA Upload",
+	"logged-in-as": "$1 йимик гиргенсен",
+	"logout": "Чыкъмакъ",
+	"upload-file": "Сапламны юклемек",
+	"job-queue": "Иш гезиги",
+	"table-header-status": "Турум",
+	"table-header-log": "Гюнделик",
+	"table-header-download": "Эндирмек",
+	"in-progress": "Барышда",
+	"queued": "Гезикде",
+	"file-source-djvu": "Бар DjVuʼну къолламакъ",
+	"remove-first-page": "Бу сагьифаны тайдырмакъмы?",
+	"remove-first-page-yes": "Дюр, бу сагьифаны DjVuʼден тайдырмакъ",
+	"remove-first-page-no": "Ёкъ, бар кюйде къоймакъ",
+	"invalid-length": "Бу '$1' бек узун",
+	"recent-uploads": "Гьалиги юклевлер"
+}
