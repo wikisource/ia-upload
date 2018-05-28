@@ -8,16 +8,21 @@
 	"logged-in-as": "$1 йимик гиргенсен",
 	"logout": "Чыкъмакъ",
 	"upload-file": "Сапламны юклемек",
+	"form-label-file-source": "DjVu эник сапламлар",
+	"get-metadata": "Метамаълуматланы алмакъ",
 	"job-queue": "Иш гезиги",
+	"job-queue-empty": "Буссагьат иш гезик бош.",
 	"table-header-status": "Турум",
 	"table-header-log": "Гюнделик",
 	"table-header-download": "Эндирмек",
 	"in-progress": "Барышда",
 	"queued": "Гезикде",
+	"possibly-failed": "Балики, бажарылмады",
 	"file-source-djvu": "Бар DjVuʼну къолламакъ",
 	"remove-first-page": "Бу сагьифаны тайдырмакъмы?",
 	"remove-first-page-yes": "Дюр, бу сагьифаны DjVuʼден тайдырмакъ",
 	"remove-first-page-no": "Ёкъ, бар кюйде къоймакъ",
 	"invalid-length": "Бу '$1' бек узун",
-	"recent-uploads": "Гьалиги юклевлер"
+	"recent-uploads": "Гьалиги юклевлер",
+	"recent-uploads-tooltip": "Бу къурал юклеген ахырынчы юклевлеге къарамакъ"
 }
