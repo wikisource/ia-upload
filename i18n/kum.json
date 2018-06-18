@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"ArslanX"
+			"ArslanX",
+			"Arsenekoumyk"
 		]
 	},
 	"ia-upload": "IA Upload",
@@ -22,7 +23,7 @@
 	"remove-first-page": "Бу сагьифаны тайдырмакъмы?",
 	"remove-first-page-yes": "Дюр, бу сагьифаны DjVuʼден тайдырмакъ",
 	"remove-first-page-no": "Ёкъ, бар кюйде къоймакъ",
-	"invalid-length": "Бу '$1' бек узун",
+	"invalid-length": "Бу '$1' оьтесиз узун",
 	"recent-uploads": "Гьалиги юклевлер",
 	"recent-uploads-tooltip": "Бу къурал юклеген ахырынчы юклевлеге къарамакъ"
 }
