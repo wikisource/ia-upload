@@ -3,7 +3,8 @@
 		"authors": [
 			"Mido",
 			"محمد أحمد عبد الفتاح",
-			"أحمد"
+			"أحمد",
+			"ديفيد"
 		]
 	},
 	"ia-upload": "الرفع من أرشيف الإنترنت",
@@ -32,6 +33,7 @@
 	"table-header-download": "تنزيل",
 	"in-progress": "جار العمل عليها",
 	"queued": "في الطابور",
+	"possibly-failed": "ربما فشلت",
 	"file-source-djvu": "استخدم ديجافو موجود",
 	"file-source-jp2": "من مسوحات أصلية (امتداد JP2)",
 	"file-source-pdf": "من PDF (ربما ذو جودة أقل)",
@@ -49,7 +51,11 @@
 	"no-found-on-ia": "'$1' ليس مُعرِّفا صحيحا لأرشيف الإنترنت",
 	"already-on-commons": "يوجد بالفعل ملف باسم '$1' على ويكيميديا كومنز",
 	"creator-template-missing": "لا يملك المؤلف '$1' قالب <a href=\"https://commons.wikimedia.org/wiki/Commons:Creator\">منشئ</a>. إذا كنت تعلم معرفه على ويكي داتا، يمكنك <a href=\"https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php\">إنشاء القالب الآن</a>.",
+	"no-usable-files-found": "لم يتم العثور على ملفات قابلة للاستخدام (DjVu أو PDF أو JP2) لهذا العنصر.",
 	"successfully-uploaded": "الملف $1 تم بنجاح رفعه إلى كُمُنز.",
 	"recent-uploads": "أحدث المرفوعات",
-	"recent-uploads-tooltip": "اعرض أحدث المرفعوعات باستخدام هذه الأداة"
+	"recent-uploads-tooltip": "اعرض أحدث المرفعوعات باستخدام هذه الأداة",
+	"watch-log": "الرجاء مراقبة السجل، و<a href='https://phabricator.wikimedia.org/maniphest/task/create/?projects=ia-upload'>إنشاء قضية</a> لأية إخفاقات.",
+	"zip-file-too-large": "تُرجَى ملاحظة أن ملف zip الخاص بأرشيف الإنترنت من المسح الضوئي الأصلي <em>قد</em> يكون كبيرا جدا لعملية رفع من أرشيف الإنترنت (حوالي $1 ميغابايت، والحد الأقصى المقترح هو $2 ميغابايت).",
+	"too-many-pages": "تُرجَى ملاحظة أن ملف zip الخاص بأرشيف الإنترنت من المسح الضوئي الأصلي <em>قد</em> يحتوي على عدد كبير جدا لعملية رفع من أرشيف الإنترنت (يحتوي على $1 ميغابايت، والحد الأقصى المقترح هو $2 ميغابايت)."
 }
