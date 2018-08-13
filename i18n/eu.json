@@ -2,13 +2,15 @@
 	"@metadata": {
 		"authors": [
 			"Mikel Ibaiba",
-			"Subi"
+			"Subi",
+			"EukeneFL"
 		]
 	},
 	"logout": "Saioa itxi",
 	"upload-file": "Fitxategia igo",
 	"form-label-commons-name": "Fitxategiaren izena Commonsen:",
 	"get-metadata": "Eskuratu metadatuak",
+	"table-header-commons-filename": "Aman komuneko fitxategi izenak",
 	"table-header-status": "Egoera",
 	"table-header-download": "Jaitsi",
 	"in-progress": "Egiten",
