@@ -1,0 +1,32 @@
+{
+	"@metadata": {
+		"authors": [
+			"Aue Nai"
+		]
+	},
+	"ia-upload": "ပတိုန် IA",
+	"site-title": "ပတိုန်လိက်အုပ်တအ်နူမကလိဂွံလာၚ်ဆက်စၠောံ",
+	"logout": "တိတ်",
+	"login-notice": "မၞးထေက်ကဵု <a href='$1'>လံက်အေန်</a>သ္ဂောံပတိုန်လိက်အုပ် သွက် Wikimedia Commons",
+	"site-explanation": "ညအ်ဂှ် <a href='$1'>Iကြိယာပတိုန်IA</a>, သ္ပဂုဏ်တုဲ <a href='$2'>ပတိုန်ထ္ၜးပရူပရာမွဲညိ</a>.",
+	"upload-file": "ပတိုန်ပၠောပ် ဝှာင်",
+	"form-label-ia-id": "ID ဝှၚ် သ္ဂောံကလိဂွံ လာၚ်ဆက်စၠောံ:",
+	"form-label-commons-name": "ယၟုကပေါတ်ပ္ဍဲ Commons:",
+	"form-label-file-source": "တမ်ရိုဟ်ကပေါတ်DjVu:",
+	"form-label-commons-description": "မပံက်ထ္ၜ: Commons:",
+	"ia-id-help": "ID ဏအ်ဂှ် မဒှ်အဝဲ URL ကြဴ'တၚ်နၚ်သောဲတအ်/',သွက်ဥပမာ:$1",
+	"table-header-ia-item": "ဗွဝ် IA",
+	"table-header-commons-filename": "ယၟုကပေါတ် Commons",
+	"table-header-status": "ကဆံၚ်",
+	"table-header-log": "လံက်",
+	"table-header-download": "တံင်လုပ်ကေတ်",
+	"in-progress": "ပ္ဍဲလၟေၚ်ကမၠောန်",
+	"queued": "ကွဟ်",
+	"file-source-pdf": "နူ PDF (ဍာ်ဒကေတ်ဍိန်လျမံၚ်လေဝ်ဒှ်မာန်)",
+	"file-source-not-available": "(ကလိဂွံကေတ်သွက်အရာဏအ်ဟွံမာန်)",
+	"remove-first-page": "ပဲါကၠောံမုက်လိက်ပထမဟာ?",
+	"remove-first-page-yes": "ယွံ, ပဲါကေတ်မုက်လိက်ဏအ်နူDjVu",
+	"remove-first-page-no": "ဟွံအှေ်, စွံထောံဍေံပ္ဍဲ",
+	"recent-uploads": "ပတိုန်မကဵုလၟုဟ်",
+	"recent-uploads-tooltip": "ရံၚ်ကေတ်မပတိုန်လဝ်လၟုဟ်နကဵုကြိယာဏအ်"
+}
