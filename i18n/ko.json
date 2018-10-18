@@ -53,5 +53,5 @@
 	"recent-uploads": "최근 업로드",
 	"recent-uploads-tooltip": "이 도구로 최근 업로드 보기",
 	"watch-log": "로그를 주시해 주시고, 실패하면 <a href='https://phabricator.wikimedia.org/maniphest/task/create/?projects=ia-upload'>이슈를\n 생성해 주세요</a>.",
-	"zip-file-too-large": "Internet Archive의 원본 스캔 zip 파일이 IA 업로드에서 처리하기 힘들 정도로 클 수 있습니다. (현재 용량은 $1 MB이며 권장 최대 용량은 $2 MB입니다.)"
+	"zip-file-too-large": "Internet Archive의 원본 스캔 zip 파일이 IA 업로드가 처리하기에 너무 클 수 있습니다. (현재 용량은 약 $1 MB이며 권장 최대 용량은 $2 MB입니다.)"
 }
