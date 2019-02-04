@@ -1,0 +1,23 @@
+{
+	"@metadata": {
+		"authors": [
+			"Mirzali",
+			"Orbot707"
+		]
+	},
+	"ia-upload": "IA Upload",
+	"site-title": "Arşivê interneti ra kıtaban bar ke",
+	"logout": "Bıveciye",
+	"upload-file": "Yew dosya bar ke",
+	"table-header-ia-item": "Maddeyê IA",
+	"table-header-commons-filename": "Nameyê dosyaya embari",
+	"table-header-status": "Weziyet",
+	"table-header-log": "Qeyd",
+	"table-header-download": "Barkerdış",
+	"in-progress": "Rameno",
+	"queued": "Gêriyayo rêze",
+	"set-all-fields": "Kerem ke, formi sero cayo pêroyın pırr ke",
+	"invalid-commons-name": "'$1' seba Embarê Wikimedya rê nameyê dosyayê do hewl niyo",
+	"invalid-length": "'$1' zehf dergo",
+	"recent-uploads": "Barkerdışê peyêni"
+}
