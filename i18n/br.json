@@ -53,5 +53,7 @@
 	"successfully-uploaded": "$1 zo bet karget mat e Commons !",
 	"recent-uploads": "Pellgargadennnoù nevez",
 	"recent-uploads-tooltip": "Diskwelit ar pellgargadennoù nevez graet gant ar benveg-mañ",
-	"watch-log": "Taolit ur sell ouzh ar gazetenn, mar plij, ha <a href='https://phabricator.wikimedia.org/maniphest/task/create/?projects=ia-upload'> Krouiñ un ditour</a> evit an holl gudennoù."
+	"watch-log": "Taolit ur sell ouzh ar gazetenn, mar plij, ha <a href='https://phabricator.wikimedia.org/maniphest/task/create/?projects=ia-upload'> Krouiñ un ditour</a> evit an holl gudennoù.",
+	"zip-file-too-large": "Dav eo deoc'h gouzout e <em><c'hall</em> ar restr zip eus Diellaouiñ ar Genrouedad evit an eiladennoù orin bezañ re vras evit bezañ pellgarget gant IA ($1 Mo zo ezhomm, ha$2 eo ar ment vrasañ aliet).",
+	"too-many-pages": "Dav eo deoc'h gouzout e <em><c'hall</em> ar restr zip eus Diellaouiñ ar Genrouedad evit an eiladennoù orin bezañ enni re a bajennoù evit bezañ pellgarget gant IA ($1 zo enni, ha $2 eo an niver brasañ aliet)."
 }
