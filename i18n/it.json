@@ -5,11 +5,13 @@
 			"Redredsonia",
 			"Samuele2002",
 			"Statix64",
-			"Greis"
+			"Greis",
+			"Albe Albe 460"
 		]
 	},
 	"ia-upload": "IA Upload",
 	"site-title": "Carica libri da Internet Archive",
+	"debug-notice": "Questo sito è in modalità di debug e potrebbe non funzionare correttamente.",
 	"logged-in-as": "Hai effettuato l'accesso come $1",
 	"logout": "Esci",
 	"login-notice": "Devi <a href='$1'>accedere</a> per caricare libri su Wikimedia Commons",
