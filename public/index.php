@@ -109,6 +109,6 @@ $app->get( 'logout', function ( Request $request ) use ( $oauthController ) {
 
 // Add tool labs' IPs as trusted.
 // See https://wikitech.wikimedia.org/wiki/Help:Tool_Labs/Web#Web_proxy_servers
-Request::setTrustedProxies( [ '10.68.21.49', '10.68.21.81' ] );
+Request::setTrustedProxies( [ '10.68.21.49', '10.68.21.81' ], Request::HEADER_X_FORWARDED_ALL );
 
 $app->run();
