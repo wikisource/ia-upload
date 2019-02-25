@@ -43,7 +43,7 @@
 	"remove-first-page": "إزالة الصفحة الأولى؟",
 	"remove-first-page-yes": "نعم، أزل هذه الصفحة من ملف الديجافو",
 	"remove-first-page-no": "لا، أتركها",
-	"remove-first-page-help": "بعض المسوحات من جوجل تحتوي على ورقة غلاف مخالفة لرخصة الملفات على كومنز. للمزيد من المعلومات، أنظر <a href=\"https://en.wikisource.org/wiki/Help:Internet_Archive#Google_Books\">صفحة المساعدة على ويكي مصدر</a>.",
+	"remove-first-page-help": "بعض المسوحات من جوجل تحتوي على ورقة غلاف مخالفة لرخصة الملفات على كومنز. للمزيد من المعلومات، انظر <a href=\"https://en.wikisource.org/wiki/Help:Internet_Archive#Google_Books\">صفحة المساعدة على ويكي مصدر</a>.",
 	"authorize-first": "ينبغي عليك السماح لأداة رفع ملفات أرشيف الإنترنت قبل رفع الملف",
 	"upload-time-warning": "(تحذير: ربما يستغرق الرفع أكثر من دقيقة واحدة!)",
 	"set-all-fields": "كل حقول الاستمارة مطلوب ملؤها",
