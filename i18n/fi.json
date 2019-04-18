@@ -17,6 +17,7 @@
 	"form-label-commons-name": "Tiedoston nimi Commonsissa:",
 	"form-label-file-source": "DjVu-tiedoston lähde:",
 	"form-label-commons-description": "Commons-kuvaus:",
+	"ia-id-help": "Tunniste on osa URL-osoitetta jälkeen 'details/', esimerkiksi: $1",
 	"commons-name-help": "Tiedostolle annettu nimi, kun se on ladattu Wikimedia Commonsiin. Jos tiedosto on jo olemassa, sitä ei uudelleenlähetetä ja sinua pyydetään muuttamaan se täällä.",
 	"get-metadata": "Hae metadata",
 	"job-queue": "Työjono",
