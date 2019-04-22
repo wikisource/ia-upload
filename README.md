@@ -12,7 +12,7 @@ and read the documentation at [wikitech.wikimedia.org/wiki/Tool:IA_Upload](https
 ## Prerequesites
 The actual format conversions are done by the following external tools, called from within IA Upload:
 
-1. [GraphicsMagick](http://www.graphicsmagick.org)
+1. [ImageMagick](https://www.imagemagick.org)
 2. [DjVuLibre](https://sourceforge.net/p/djvu/)
 
 ## Installation
