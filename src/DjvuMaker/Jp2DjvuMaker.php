@@ -119,7 +119,7 @@ class Jp2DjvuMaker extends DjvuMaker {
 			if ( !file_exists( $jpgFile ) ) {
 				$this->log->debug( "...to $jpgFile" );
 				$convertArgs = "-resize 1500x1500 \"$jp2File\" \"$jpgFile\"";
-				$this->runCommand( 'gm convert', $convertArgs );
+				$this->runCommand( 'convert', $convertArgs );
 			}
 
 			// Make DjVu file of this page. Use the item identifier as the filename instead of
