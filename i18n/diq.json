@@ -40,6 +40,7 @@
 	"remove-first-page": "Pera sıfteyın wa wedariyo?",
 	"remove-first-page-yes": "Eya, wa na pele DjVu ra wedariyo",
 	"remove-first-page-no": "Nê, wa bımano",
+	"remove-first-page-help": "Google dê tay skansi, Commons de mısade nêdeyen pela coveri muhteway heqa telifiye kenê. Zêde melumati rê bıewni rê <a href='https://en.wikisource.org/wiki/Help:Internet_Archive#Google_Books'>Wikiçıme dêe pela peşti</a>",
 	"authorize-first": "Verorê dosya barkerdışi ia-upload'i rê icazet bıdê",
 	"upload-time-warning": "(Teme: barkerdış yew deqe ra vêşi şeno bıramo!)",
 	"set-all-fields": "Kerem ke, formi sero cayo pêroyın pırr ke",
@@ -47,9 +48,12 @@
 	"invalid-length": "'$1' zehf dergo",
 	"no-found-on-ia": "'$1' ravêrde yew şınastoğê arşive interneti biyo.",
 	"already-on-commons": "Wikimedia Commons de xora nameyê '$1' iya yû dosya esta",
+	"creator-template-missing": "'$1' nameya nuştekar wayırê şablonê < a href='https://commons.wikimedia.org/wiki/Commons:Creator'>Vırazer </a> niyo. ID'a wikidatay cı zanê se  <a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>şabloni enewke şenê vırazê</a>.",
 	"no-usable-files-found": "Seba na obje karbiyaye  dosyalar (DjVu, PDF ya zi JP2) nêvineyay.",
 	"successfully-uploaded": "$1, barê Commons'i biya!",
 	"recent-uploads": "Barkerdışê peyêni",
 	"recent-uploads-tooltip": "Ena haceta kerdeye barkerdışê peyêni",
-	"watch-log": "Kerem ke çım berzê roceka u eke xeta estase <a href='https://phabricator.wikimedia.org/maniphest/task/create/?projects=ia-upload'>Yew persek vırazê </a>"
+	"watch-log": "Kerem ke çım berzê roceka u eke xeta estase <a href='https://phabricator.wikimedia.org/maniphest/task/create/?projects=ia-upload'>Yew persek vırazê </a>",
+	"zip-file-too-large": "Arşiva İnternet de scanê oricinali, dosyaya zip de IA Upload'i sero karniyayışi rê zaf gırde <em>bıyayışi </em> xo vira mekerê (Dosya nezdi  $1 MB'iya, weseynaye ebate ve maksimum $2 MB'a).",
+	"too-many-pages": "Arşiva İnternet de scanê oricinali, dosyaya zip de IA Upload'i sero karniyayışi rê zaf gırde <em>bıyayışi </em> xo vira mekerê (muhtewa  $1, weseynaye amar maksimum $2 a)."
 }
