@@ -1,0 +1,27 @@
+{
+	"@metadata": {
+		"authors": [
+			"Mirin"
+		]
+	},
+	"logged-in-as": "Vi ensalutis kiel $1",
+	"logout": "Elsaluti",
+	"upload-file": "Alŝuti dosieron",
+	"form-label-commons-name": "Nomo de dosiero ĉe Komunejo:",
+	"form-label-file-source": "Fonto de DjVu-dosiero:",
+	"form-label-commons-description": "Priskribo ĉe Komunejo:",
+	"get-metadata": "Akiri metadatenon",
+	"table-header-commons-filename": "nomo de dosiero ĉe Komunejo",
+	"table-header-status": "Stato",
+	"table-header-log": "Protokolo",
+	"table-header-download": "Elŝuti",
+	"possibly-failed": "Eble malsukcesa",
+	"file-source-pdf": "el PDF (eble de malbona kvalito)",
+	"remove-first-page": "Forigi unuan paĝon?",
+	"set-all-fields": "Bonvolu enigi en ĉiujn kampojn de la formularo",
+	"invalid-commons-name": "'$1' ne estas valida dosiernomo por Vikimedia Komunejo",
+	"invalid-length": "'$1' estas tro longa",
+	"no-found-on-ia": "'$1' ne estas valida identigilo ĉe la Interreta Arkivo",
+	"already-on-commons": "Dosiero kun nomo '$1' jam ekzistas ĉe Vikimedia Komunejo",
+	"recent-uploads": "Ĵusaj alŝutoj"
+}
