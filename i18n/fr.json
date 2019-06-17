@@ -52,7 +52,7 @@
 	"already-on-commons": "Un fichier nommé '$1' existe déjà sur Wikimedia Commons",
 	"creator-template-missing": "L'auteur '$1' n'a pas de modèle <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>createur</a>. Si vous connaissez son identifiant Wikidata,  vous pouvez <a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>créer le  modèle maintenant</a>.",
 	"no-usable-files-found": "Aucun fichier utilisable (DjVu, PDF, ou JP2) trouvé pour cet élément.",
-	"successfully-uploaded": "$1 a bien été téléchargé sur Communs !",
+	"successfully-uploaded": "$1 a bien été téléversé sur Commons !",
 	"recent-uploads": "Téléchargements récents",
 	"recent-uploads-tooltip": "Afficher les téléchargements récents faits via cet outil",
 	"watch-log": "Veuillez garder un œil sur le journal, et <a href='https://phabricator.wikimedia.org/maniphest/task/create/?projects=ia-upload'>créer un signalement</a> pour tout problème.",
