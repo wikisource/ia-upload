@@ -2,24 +2,31 @@
 	"@metadata": {
 		"authors": [
 			"Uziel302",
-			"YaronSh"
+			"YaronSh",
+			"Steeve815"
 		]
 	},
+	"debug-notice": "אתר זה במצב דיבאגינג, וייתכן שלא יפעל כראוי.",
 	"logged-in-as": "נכנסת בשם $1",
 	"logout": "יציאה",
 	"login-notice": "עליך <a href='$1'>להיכנס</a> כדי להעלות ספרים לוויקישיתוף",
 	"upload-file": "העלאת קובץ",
+	"form-label-ia-id": "מזהה הקובץ בארכיון האינטרנט:",
+	"form-label-commons-name": "שם הקובץ בוויקישיתוף:",
 	"form-label-file-source": "מקור קובץ DjVu:",
 	"form-label-commons-description": "תיאור בוויקישיתוף:",
+	"get-metadata": "קבלת מטא־נתונים",
 	"job-queue": "תור משימות",
 	"job-queue-empty": "תור המשימות ריק כרגע.",
 	"jobs-will-be-removed": "המשימות תוסרנה מהרשימה הזו לאחר שהושלמו והועלו לוויקישיתוף.",
+	"user-contribs-link": "הקבצים יופיעו ב<a href='$1'>רשימת התרומות שלך</a> בוויקישיתוף.",
 	"table-header-commons-filename": "שם קובץ בוויקישיתוף",
 	"table-header-status": "מצב",
 	"table-header-log": "יומן",
 	"table-header-download": "הורדה",
 	"in-progress": "בתהליך",
 	"queued": "בתור",
+	"possibly-failed": "ככל הנראה נכשל",
 	"file-source-djvu": "שימוש ב־DjVu קיים",
 	"file-source-jp2": "מסריקות מקוריות (JP2)",
 	"file-source-pdf": "מ־PDF (כנראה מאיכות נמוכה)",
@@ -29,7 +36,11 @@
 	"remove-first-page-no": "לא, להשאיר את זה",
 	"upload-time-warning": "(אזהרה: ההעלאה עשויה לקחת יותר מדקה!)",
 	"set-all-fields": "נא להגדיר את כל השדות בטופס",
+	"invalid-commons-name": "'$1' הוא לא שם קובץ תקין עבור ויקישיתוף",
+	"invalid-length": "'$1' ארוך מדי",
 	"no-found-on-ia": "$1 אינו מזהה תקין של ארכיון האינטרנט",
+	"already-on-commons": "שם הקובץ '$1' כבר זמין בוויקישיתוף",
+	"successfully-uploaded": "$1 הועלה בהצלחה לוויקישיתוף!",
 	"recent-uploads": "העלאות אחרונות",
 	"recent-uploads-tooltip": "הצגת ההעלאות האחרונות מהכלי הזה"
 }
