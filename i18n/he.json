@@ -3,10 +3,11 @@
 		"authors": [
 			"Uziel302",
 			"YaronSh",
-			"Steeve815"
+			"Steeve815",
+			"Strayblues"
 		]
 	},
-	"debug-notice": "אתר זה במצב דיבאגינג, וייתכן שלא יפעל כראוי.",
+	"debug-notice": "האתר במצב דיבאגינג, וייתכן שלא יפעל כראוי.",
 	"logged-in-as": "נכנסת בשם $1",
 	"logout": "יציאה",
 	"login-notice": "עליך <a href='$1'>להיכנס</a> כדי להעלות ספרים לוויקישיתוף",
