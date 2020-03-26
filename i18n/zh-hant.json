@@ -3,7 +3,8 @@
 		"authors": [
 			"Kly",
 			"烈羽",
-			"Liuxinyu970226"
+			"Liuxinyu970226",
+			"Winston Sung"
 		]
 	},
 	"ia-upload": "IA Upload",
@@ -28,7 +29,7 @@
 	"table-header-ia-item": "IA 項目",
 	"table-header-commons-filename": "共享資源檔案名稱",
 	"table-header-status": "狀態",
-	"table-header-log": "日誌",
+	"table-header-log": "紀錄",
 	"table-header-download": "下載",
 	"in-progress": "進行中",
 	"queued": "已佇列",
