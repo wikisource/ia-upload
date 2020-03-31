@@ -2,10 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"Woraponboonkerd",
-			"Aefgh39622"
+			"Aefgh39622",
+			"Geonuch"
 		]
 	},
-	"ia-upload": "IA อัพโหลด",
+	"ia-upload": "อัปโหลดไอเอ",
 	"site-title": "อัพโหลดหนังสือจาก Internet Archive",
 	"debug-notice": "เว็บไซต์นี้อยู่ในโหมด Debug และอาจจะทำงานไม่ถูกต้อง",
 	"logged-in-as": "คุณลงชื่อเข้าใช้แล้วในนาม $1",
