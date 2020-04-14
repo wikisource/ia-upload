@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Amire80",
 			"Steeve815",
 			"Strayblues",
 			"Uziel302",
@@ -19,7 +20,7 @@
 	"get-metadata": "קבלת מטא־נתונים",
 	"job-queue": "תור משימות",
 	"job-queue-empty": "תור המשימות ריק כרגע.",
-	"jobs-will-be-removed": "המשימות תוסרנה מהרשימה הזו לאחר שהושלמו והועלו לוויקישיתוף.",
+	"jobs-will-be-removed": "המשימות תוסרנה מהרשימה הזאת לאחר שהן מושלמות ומועלות לוויקישיתוף.",
 	"user-contribs-link": "הקבצים יופיעו ב<a href='$1'>רשימת התרומות שלך</a> בוויקישיתוף.",
 	"table-header-commons-filename": "שם קובץ בוויקישיתוף",
 	"table-header-status": "מצב",
