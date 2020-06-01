@@ -43,6 +43,7 @@
 	"invalid-length": "'$1' ארוך מדי",
 	"no-found-on-ia": "$1 אינו מזהה תקין של ארכיון האינטרנט",
 	"already-on-commons": "שם הקובץ '$1' כבר זמין בוויקישיתוף",
+	"no-usable-files-found": "לא נמצאו קבצים שימושיים (DjVu,‏ PDF או JP2) עבור הפריט הזה.",
 	"successfully-uploaded": "$1 הועלה בהצלחה לוויקישיתוף!",
 	"recent-uploads": "העלאות אחרונות",
 	"recent-uploads-tooltip": "הצגת ההעלאות האחרונות מהכלי הזה"
