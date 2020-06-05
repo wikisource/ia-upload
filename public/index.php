@@ -43,7 +43,7 @@ $app->register( new SessionServiceProvider(), [
 		// Cookie lifetime to match default $wgCookieExpiration.
 		'cookie_lifetime' => 30 * 24 * 60 * 60,
 		'name' => 'ia-upload-session',
-		'cookie_path' => $request->getBaseUrl(),
+		'cookie_path' => $request->getBaseUrl() . '/',
 		'cookie_httponly' => true,
 		'cookie_secure' => $request->getHost() !== 'localhost',
 	]
