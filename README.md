@@ -20,7 +20,7 @@ The actual format conversions are done by the following external tools, called f
 1. Clone from GitHub: `git clone https://github.com/wikisource/ia-upload` 
 2. Install dependencies: `composer install`
 3. Set up URL rewriting:
-   * For Apache use the following in `web/.htacess`:
+   * For Apache use the following in `public/.htacess`:
 
          RewriteEngine On
          RewriteCond %{REQUEST_FILENAME} !-f
