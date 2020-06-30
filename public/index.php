@@ -5,6 +5,7 @@ namespace IaUpload;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
+use Psr\Container\ContainerInterface;
 use DI\Container;
 use Slim\Factory\AppFactory;
 use Slim\Middleware\Session;
@@ -30,38 +31,39 @@ if ( $config === false ) {
 	exit( 1 );
 }
 
+$containerBuilder = new \DI\ContainerBuilder();
+$containerBuilder->addDefinitions([
+
+	'config' => $config,
+
+	'debug' => isset( $config['debug'] ) && $config['debug'],
+
+	'logger' => function( ContainerInterface $c ) {
+		return new Logger( 'ia-upload' );
+	},
+
+	// Internationalisation.
+	'i18n' => function( ContainerInterface $c  ) {
+		return new I18nContext( new JsonCache( __DIR__ . '/../i18n' ) );
+	},
+
+	'view' => function( ContainerInterface $c  ) {
+		$view = Twig::create(__DIR__ . '/../views');
+		$view->addExtension( new TwigExtension( $c->get( 'i18n' ) ) );
+		return $view;
+	},
+
+	// Session helper.
+	'session' => function( ContainerInterface $c  ) {
+		return new \SlimSession\Helper();
+	},
+
+]);
+$container = $containerBuilder->build();
+
 // Create app.
-$container = new Container();
 AppFactory::setContainer( $container );
 $app = AppFactory::create();
-
-// Config.
-$container->set( 'config', $config );
-
-// Debugging.
-$container->set( 'debug', isset( $config['debug'] ) && $config['debug'] );
-
-// Logging.
-$container->set( 'logger', function() {
-	return new Logger( 'ia-upload' );
-} );
-
-// Internationalisation.
-$container->set( 'i18n', function() {
-	return new I18nContext( new JsonCache( __DIR__ . '/../i18n' ) );
-} );
-
-// Views.
-$container->set( 'view', function() use ( $container ) {
-	$view = Twig::create(__DIR__ . '/../views');
-	$view->addExtension( new TwigExtension( $container->get( 'i18n' ) ) );
-	return $view;
-} );
-
-// Session helper.
-$container->set( 'session', function() {
-	return new \SlimSession\Helper();
-} );
 
 $app->addBodyParsingMiddleware();
 
@@ -69,7 +71,7 @@ $app->addBodyParsingMiddleware();
 $app->add( function ( Request $request, RequestHandler $handler ) {
 	if ( $request->getHeaderLine( 'X-Forwarded-Proto' ) == 'http' ) {
 		$uri = 'https://' . $request->getHost() . $request->getHeaderLine( 'X-Original-URI' );
-		$response = new Response();
+		$response = new \GuzzleHttp\Psr7\Response();
 		return $response
 			->withHeader( 'Location', $uri )
 			->withStatus( 302 );
@@ -101,10 +103,12 @@ $app->add( function ( Request $request, RequestHandler $handler) {
 // Twig view middleware.
 $app->add( TwigMiddleware::createFromContainer( $app ) );
 
-// Routes.
+// Convenience methods.
+
 function uploadController( Container $app ) {
 	return new UploadController( $app );
 }
+
 function oauthController( Container $app ) {
 	return new OAuthController( $app );
 }
@@ -117,7 +121,7 @@ $app->get( '/', function ( Request $request, Response $response ) {
 
 // @deprecated in favour of 'home'.
 $app->get( '/commons/init', function ( Request $request, Response $response ) use ( $app ) {
-	$homeUrl = $app->getRouteCollector()->getRouteParser()->urlFor( 'home', null, $request->getQueryParams() );
+	$homeUrl = $app->getRouteCollector()->getRouteParser()->urlFor( 'home', [], $request->getQueryParams() );
 	return $response
 		->withHeader( 'Location', $homeUrl )
 		->withStatus( 302 );
