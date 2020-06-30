@@ -35,8 +35,6 @@ class OAuthController {
 	 */
 	protected $oAuthClient;
 
-	const OAUTH_URL = 'https://commons.wikimedia.org/w/index.php';
-
 	/**
 	 * OAuthController constructor.
 	 * @param App $app The Slim application.
@@ -47,7 +45,7 @@ class OAuthController {
 		$this->c = $c;
 		$config = $c->get( 'config' );
 		$this->oAuthClient = new MediaWikiOAuth(
-			self::OAUTH_URL,
+			$config['wiki_url'],
 			new ConsumerToken( $config['consumerKey'], $config['consumerSecret'] )
 		);
 	}

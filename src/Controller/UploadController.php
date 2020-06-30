@@ -24,8 +24,6 @@ use Wikisource\IaUpload\OAuth\Token\ConsumerToken;
  */
 class UploadController {
 
-	const COMMONS_API_URI = 'https://commons.wikimedia.org/w/api.php';
-
 	/**
 	 * @var App
 	 */
@@ -111,7 +109,7 @@ class UploadController {
 		$session = $this->c->get( 'session' );
 		if ( $session->exists( 'access_token' ) ) {
 			$oAuth = new MediaWikiOAuth(
-				OAuthController::OAUTH_URL,
+				$this->config['wiki_url'],
 				new ConsumerToken( $this->config['consumerKey'], $this->config['consumerSecret'] )
 			);
 			return $oAuth->buildMediawikiClientFromToken( $session->get( 'access_token' ) );
