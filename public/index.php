@@ -93,11 +93,11 @@ $app->add( function ( Request $request, RequestHandler $handler) {
 	$session = new Session( [
 		'name' => 'ia-upload-session',
 		'lifetime' => '30 days', // matches default $wgCookieExpiration
-		//'path' => $request->getBaseUrl() . '/',
+		'path' => '/',
 		'httponly' => true,
 		'secure' => $request->getUri()->getHost() !== 'localhost',
 	] );
-	return $session($request, $handler);
+	return $session( $request, $handler );
 } );
 
 // Twig view middleware.
@@ -105,12 +105,14 @@ $app->add( TwigMiddleware::createFromContainer( $app ) );
 
 // Convenience methods.
 
-function uploadController( Container $app ) {
-	return new UploadController( $app );
+function uploadController() {
+	global $app, $container;
+	return new UploadController( $app, $container );
 }
 
-function oauthController( Container $app ) {
-	return new OAuthController( $app );
+function oauthController() {
+	global $app, $container;
+	return new OAuthController( $app, $container );
 }
 
 $iaIdPattern = '[a-zA-Z0-9\._-]*';

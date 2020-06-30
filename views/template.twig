@@ -26,6 +26,15 @@
 			font-family: monospace;
 			font-size: 13px;
 		}
+		.input-group {
+			width: 100%;
+		}
+		#commonsName {
+			width: calc(99% - 7em);
+		}
+		#format {
+			width: 7em;
+		}
 		#debug-notice { margin:0; border-radius:0; padding:0.4em; text-align:center }
 	</style>
 </head>
@@ -60,7 +69,7 @@
 			{% endif %}
 			{% if not user %}
 				<div class="alert alert-warning">
-					{{ 'login-notice'|message(url_for( 'oauth-init', {'referer': global.request.uri} ) )|raw }}
+					{{ 'login-notice'|message( full_url_for( 'oauth-init', [], {'referer': (get_uri().__toString())} ) )|raw }}
 				</div>
 			{% endif %}
 			{% if success %}

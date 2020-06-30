@@ -8,6 +8,7 @@ use Wikisource\IaUpload\OAuth\Token\RequestToken;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use DI\Container;
+use Slim\App;
 
 /**
  * Controller for OAuth login
@@ -20,9 +21,14 @@ use DI\Container;
 class OAuthController {
 
 	/**
-	 * @var Container
+	 * @var App
 	 */
 	protected $app;
+
+	/**
+	 * @var Container
+	 */
+	protected $c;
 
 	/**
 	 * @var MediaWikiOAuth
@@ -33,11 +39,13 @@ class OAuthController {
 
 	/**
 	 * OAuthController constructor.
-	 * @param Container $app The Slim application container.
+	 * @param App $app The Slim application.
+	 * @param Container $c The Slim application container.
 	 */
-	public function __construct( Container $app ) {
+	public function __construct( App $app, Container $c ) {
 		$this->app = $app;
-		$config = $app->get( 'config' );
+		$this->c = $c;
+		$config = $c->get( 'config' );
 		$this->oAuthClient = new MediaWikiOAuth(
 			self::OAUTH_URL,
 			new ConsumerToken( $config['consumerKey'], $config['consumerSecret'] )
@@ -50,7 +58,7 @@ class OAuthController {
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function init( Request $request, Response $response ) {
-		$session = $this->app->get( 'session' );
+		$session = $this->c->get( 'session' );
 		$query = $request->getQueryParams();
 		$session->set( 'referer', $query['referer'] ?? '' );
 		list( $redirectUri, $requestToken ) = $this->oAuthClient->initiate();
@@ -66,7 +74,7 @@ class OAuthController {
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function callback( Request $request, Response $response ) {
-		$session = $this->app->get( 'session' );
+		$session = $this->c->get( 'session' );
 		$reqestToken = $session->get( 'request_token' );
 		if ( !$reqestToken instanceof RequestToken ) {
 			return $response->withStatus( 403, 'Unable to load request token from session' );
@@ -75,8 +83,8 @@ class OAuthController {
 		$accessToken = $this->oAuthClient->complete( $reqestToken, $verifier );
 		$session->set( 'access_token', $accessToken );
 		$session->set( 'user', $this->oAuthClient->identify( $accessToken )->username );
-		$session->remove( 'request_token' );
-		$session->migrate();
+		$session->delete( 'request_token' );
+		$session->id(true); // regenerate session id
 		return $response
 			->withHeader( 'Location', $session->get( 'referer' ) )
 			->withStatus( 302 );
@@ -88,7 +96,7 @@ class OAuthController {
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function logout( Request $request, Response $response ) {
-		$this->app->get( 'session' )->invalidate();
+		$this->c->get( 'session' )->clear();
 		return $response
 			->withHeader( 'Location', $this->app->getRouteCollector()->getRouteParser()->urlFor( 'home' ) )
 			->withStatus( 302 );

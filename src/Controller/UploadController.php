@@ -7,6 +7,7 @@ use Mediawiki\Api\Guzzle\ClientFactory;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use DI\Container;
+use Slim\App;
 // use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Wikisource\IaUpload\ApiClient\CommonsClient;
 use Wikisource\IaUpload\ApiClient\IaClient;
@@ -26,9 +27,14 @@ class UploadController {
 	const COMMONS_API_URI = 'https://commons.wikimedia.org/w/api.php';
 
 	/**
-	 * @var Container
+	 * @var App
 	 */
 	protected $app;
+
+	/**
+	 * @var Container
+	 */
+	protected $c;
 
 	/**
 	 * @var I18nContext
@@ -87,20 +93,22 @@ class UploadController {
 	];
 
 	/**
-	 * CommonsController constructor.
-	 * @param Container $app The Slim application container.
+	 * UploadController constructor.
+	 * @param App $app The Slim application.
+	 * @param Container $c The Slim application container.
 	 */
-	public function __construct( Container $app ) {
+	public function __construct( App $app, Container $c ) {
 		$this->app = $app;
-		$this->config = $app->get( 'config' );
-		$this->i18n = $app->get( 'i18n' );
+		$this->c = $c;
+		$this->config = $c->get( 'config' );
+		$this->i18n = $c->get( 'i18n' );
 
 		$this->iaClient = new IaClient();
-		$this->commonsClient = new CommonsClient( $this->buildMediawikiClient(), $app->get( 'logger' ) );
+		$this->commonsClient = new CommonsClient( $this->buildMediawikiClient(), $c->get( 'logger' ) );
 	}
 
 	private function buildMediawikiClient() {
-		$session = $this->app->get( 'session' );
+		$session = $this->c->get( 'session' );
 		if ( $session->exists( 'access_token' ) ) {
 			$oAuth = new MediaWikiOAuth(
 				OAuthController::OAUTH_URL,
@@ -319,7 +327,7 @@ class UploadController {
 		if ( $jobInfo['fileSource'] === 'pdf' || $jobInfo['fileSource'] === 'jp2' ) {
 			// Create a private job file before writing contents to it,
 			// because it contains the access token.
-			$jobInfo['userAccessToken'] = $this->app->get( 'session' )->get( 'access_token' );
+			$jobInfo['userAccessToken'] = $this->c->get( 'session' )->get( 'access_token' );
 			$jobFile = $jobDirectory . '/job.json';
 			$oldUmask = umask( 0177 );
 			touch( $jobFile );
@@ -327,7 +335,7 @@ class UploadController {
 			chmod( $jobFile, 0600 );
 			file_put_contents( $jobFile, \GuzzleHttp\json_encode( $jobInfo ) );
 			return $response
-				->withHeader( 'Location', $this->getRouteCollector()->getRouteParser()->urlFor( 'home' ) )
+				->withHeader( 'Location', $this->app->getRouteCollector()->getRouteParser()->urlFor( 'home' ) )
 				->withStatus( 302 );
 		}
 
@@ -439,15 +447,15 @@ class UploadController {
 	 */
 	protected function outputsTemplate( $templateName, array $params, Response $response ) {
 		$defaultParams = [
-			'debug' => $this->app->get( 'debug' ),
+			'debug' => $this->c->get( 'debug' ),
 			'success' => '',
 			'warning' => '',
 			'error' => '',
-			'user' => $this->app->get( 'session' )->get( 'user' ),
+			'user' => $this->c->get( 'session' )->get( 'user' ),
 			'oauth_cid' => isset( $this->config[ 'consumerId' ] ) ? $this->config[ 'consumerId' ] : '',
 		];
 		$params = array_merge( $defaultParams, $params );
-		return $this->app->get( 'view' )->render( $response, $templateName, $params );
+		return $this->c->get( 'view' )->render( $response, $templateName, $params );
 	}
 
 	/**
