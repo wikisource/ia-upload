@@ -31,6 +31,11 @@ class UploadController {
 	protected $app;
 
 	/**
+	 * @var I18nContext
+	 */
+	protected $i18n;
+
+	/**
 	 * @var IaClient
 	 */
 	protected $iaClient;
@@ -88,6 +93,7 @@ class UploadController {
 	public function __construct( Container $app ) {
 		$this->app = $app;
 		$this->config = $app->get( 'config' );
+		$this->i18n = $app->get( 'i18n' );
 
 		$this->iaClient = new IaClient();
 		$this->commonsClient = new CommonsClient( $this->buildMediawikiClient(), $app->get( 'logger' ) );
@@ -166,7 +172,7 @@ class UploadController {
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
 				'commonsName' => $commonsName,
-				'error' => $this->app->get( 'i18n' )->message( 'set-all-fields' ),
+				'error' => $this->i18n->message( 'set-all-fields' ),
 			], $response );
 		}
 		// Ensure that file name is less than or equal to 240 bytes.
@@ -174,7 +180,7 @@ class UploadController {
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
 				'commonsName' => $commonsName,
-				'error' => $this->app->get( 'i18n' )->message( 'invalid-length', [ $commonsName ] ),
+				'error' => $this->i18n->message( 'invalid-length', [ $commonsName ] ),
 			], $response );
 		}
 		// Strip any trailing file extension.
@@ -186,7 +192,7 @@ class UploadController {
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
 				'commonsName' => $commonsName,
-				'error' => $this->app->get( 'i18n' )->message( 'invalid-commons-name', [ $commonsName ] ),
+				'error' => $this->i18n->message( 'invalid-commons-name', [ $commonsName ] ),
 			], $response );
 		}
 
@@ -199,7 +205,7 @@ class UploadController {
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
 				'commonsName' => $commonsName,
-				'error' => $this->app->get( 'i18n' )->message( 'no-found-on-ia', [ $link ] ),
+				'error' => $this->i18n->message( 'no-found-on-ia', [ $link ] ),
 			], $response );
 		}
 		$iaId = $iaData['metadata']['identifier'][0];
@@ -212,7 +218,7 @@ class UploadController {
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
 				'commonsName' => $commonsName,
-				'error' => $this->app->get( 'i18n' )->message( 'no-usable-files-found' ),
+				'error' => $this->i18n->message( 'no-usable-files-found' ),
 			], $response );
 		}
 
@@ -224,16 +230,16 @@ class UploadController {
 			$sizeInMb = round( $iaData['files'][$jp2Filename]['size'] / ( 1024 * 1024 ) );
 			if ( $sizeInMb > $maxSizeInMb ) {
 				$msgParams = [ $sizeInMb, $maxSizeInMb ];
-				$warning = $this->app->get( 'i18n' )->message( 'zip-file-too-large', $msgParams )
-					. ' ' . $this->app->get( 'i18n' )->message( 'watch-log' );
+				$warning = $this->i18n->message( 'zip-file-too-large', $msgParams )
+					. ' ' . $this->i18n->message( 'watch-log' );
 			}
 			// Make sure there aren't too many pages.
 			$maxPageCount = 900;
 			if ( isset( $iaData['metadata']['imagecount'][0] )
 				&& $iaData['metadata']['imagecount'][0] > $maxPageCount ) {
 				$msgParams = [ $iaData['metadata']['imagecount'][0], $maxPageCount ];
-				$warning = $this->app->get( 'i18n' )->message( 'too-many-pages', $msgParams )
-					. ' ' . $this->app->get( 'i18n' )->message( 'watch-log' );
+				$warning = $this->i18n->message( 'too-many-pages', $msgParams )
+					. ' ' . $this->i18n->message( 'watch-log' );
 			}
 		}
 
@@ -245,7 +251,7 @@ class UploadController {
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
 				'commonsName' => $commonsName,
-				'error' => $this->app->get( 'i18n' )->message( 'already-on-commons', [ $link ] ),
+				'error' => $this->i18n->message( 'already-on-commons', [ $link ] ),
 			], $response );
 		}
 
@@ -291,7 +297,7 @@ class UploadController {
 		if ( $this->commonsClient->pageExist( 'File:' . $jobInfo['commonsName'] ) ) {
 			$url = 'http://commons.wikimedia.org/wiki/File:' . rawurlencode( $jobInfo['commonsName'] );
 			$link = '<a href="' . $url . '">' . htmlspecialchars( $jobInfo['commonsName'] ) . '</a>';
-			$jobInfo['error'] = $this->app->get( 'i18n' )->message( 'already-on-commons', [ $link ] );
+			$jobInfo['error'] = $this->i18n->message( 'already-on-commons', [ $link ] );
 			return $this->outputsFillTemplate( $jobInfo, $response );
 		}
 
@@ -301,7 +307,7 @@ class UploadController {
 			$link = '<a href="http://archive.org/details/' . rawurlencode( $jobInfo['iaId'] ) . '">'
 				. htmlspecialchars( $jobInfo['iaId'] )
 				. '</a>';
-			$jobInfo['error'] = $this->app->get( 'i18n' )->message( 'no-found-on-ia', [ $link ] );
+			$jobInfo['error'] = $this->i18n->message( 'no-found-on-ia', [ $link ] );
 			return $this->outputsFillTemplate( $jobInfo, $response );
 		}
 		$jobInfo['iaId'] = $iaData['metadata']['identifier'][0];
@@ -357,7 +363,7 @@ class UploadController {
 			$url = 'http://commons.wikimedia.org/wiki/File:' . rawurlencode( $jobInfo['commonsName'] );
 			$msgParam = '<a href="' . $url . '">' . $jobInfo['commonsName'] . '</a>';
 			return $this->outputsInitTemplate( [
-				'success' => $this->app->get( 'i18n' )->message( 'successfully-uploaded', [ $msgParam ] ),
+				'success' => $this->i18n->message( 'successfully-uploaded', [ $msgParam ] ),
 			], $response );
 		}
 	}
@@ -591,7 +597,7 @@ class UploadController {
 		if ( $this->commonsClient->pageExist( "Creator:$creator" ) ) {
 			return "{{Creator:$creator}}";
 		} else {
-			$notes[] = $this->app->get( 'i18n' )->message( 'creator-template-missing', [ $creator ] );
+			$notes[] = $this->i18n->message( 'creator-template-missing', [ $creator ] );
 			return $creator;
 		}
 	}

@@ -21,7 +21,8 @@
 		"wikimedia/simplei18n": "^1.0",
 		"bryanjhv/slim-session": "~4.0",
 		"monolog/monolog": "^2.1.0",
-		"php-di/php-di": "^6.2"
+		"php-di/php-di": "^6.2",
+		"akrabat/ip-address-middleware": "^1.0"
 	},
 	"require-dev": {
 		"mediawiki/mediawiki-codesniffer": "^14.0"

@@ -77,19 +77,29 @@ $app->add( function ( Request $request, RequestHandler $handler ) {
 	return $handler->handle( $request );
 } );
 
-// Connect twig view middleware.
-$app->add( TwigMiddleware::createFromContainer( $app ) );
+// Add tool labs' IPs as trusted.
+// See https://wikitech.wikimedia.org/wiki/Help:Tool_Labs/Web#Web_proxy_servers
+$app->add( new \RKA\Middleware\IpAddress(
+	true,
+	[ '10.68.21.49', '10.68.21.81' ],
+	null,
+	[ 'X-Forwarded', 'X-Forwarded-For' ],
+) );
 
 // Sessions.
-//$request = Request::createFromGlobals();
-$app->add( new Session( [
-	'name' => 'ia-upload-session',
-	// Cookie lifetime to match default $wgCookieExpiration.
-	'lifetime' => '30 days',
-	//'path' => '', $request->getBaseUrl() . '/',
-	'httponly' => true,
-	//'secure' => '', // $request->getHost() !== 'localhost',
-] ) );
+$app->add( function ( Request $request, RequestHandler $handler) {
+	$session = new Session( [
+		'name' => 'ia-upload-session',
+		'lifetime' => '30 days', // matches default $wgCookieExpiration
+		//'path' => $request->getBaseUrl() . '/',
+		'httponly' => true,
+		'secure' => $request->getUri()->getHost() !== 'localhost',
+	] );
+	return $session($request, $handler);
+} );
+
+// Twig view middleware.
+$app->add( TwigMiddleware::createFromContainer( $app ) );
 
 // Routes.
 function uploadController( Container $app ) {
@@ -140,9 +150,5 @@ $app->get( '/oauth/callback', function ( Request $request, Response $response ) 
 $app->get( '/logout', function ( Request $request, Response $response ) {
 	return oauthController( $this )->logout( $request, $response );
 } )->setName( 'logout' );
-
-// Add tool labs' IPs as trusted.
-// See https://wikitech.wikimedia.org/wiki/Help:Tool_Labs/Web#Web_proxy_servers
-//Request::setTrustedProxies( [ '10.68.21.49', '10.68.21.81' ], Request::HEADER_X_FORWARDED_ALL );
 
 $app->run();
