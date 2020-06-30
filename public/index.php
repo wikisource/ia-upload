@@ -106,38 +106,38 @@ $app->get( '/', function ( Request $request, Response $response ) {
 } )->setName( 'home' );
 
 // @deprecated in favour of 'home'.
-$app->get( 'commons/init', function ( Request $request, Response $response ) use ( $app ) {
+$app->get( '/commons/init', function ( Request $request, Response $response ) use ( $app ) {
 	$homeUrl = $app->getRouteCollector()->getRouteParser()->urlFor( 'home', null, $request->getQueryParams() );
 	return $response
 		->withHeader( 'Location', $homeUrl )
 		->withStatus( 302 );
 } );
 
-$app->get( 'commons/fill', function ( Request $request, Response $response ) {
+$app->get( '/commons/fill', function ( Request $request, Response $response ) {
 	return uploadController( $this )->fill( $request, $response );
 } )->setName( 'commons-fill' );
 
-$app->post( 'commons/save', function ( Request $request, Response $response ) {
+$app->post( '/commons/save', function ( Request $request, Response $response ) {
 	return uploadController( $this )->save( $request, $response );
 } )->setName( 'commons-save' );
 
-$app->get( "log/{iaId:$iaIdPattern}", function ( Request $request, Response $response, $args ) {
+$app->get( "/log/{iaId:$iaIdPattern}", function ( Request $request, Response $response, $args ) {
 	return uploadController( $this )->logview( $request, $response, $args['iaId'] );
 } )->setName( 'log' );
 
-$app->get( "{iaId:$iaIdPattern}.djvu", function ( Request $request, Response $response, $args ) {
+$app->get( "/{iaId:$iaIdPattern}.djvu", function ( Request $request, Response $response, $args ) {
 	return uploadController( $this )->downloadDjvu( $request, $response, $args['iaId'] );
 } )->setName( 'djvu' );
 
-$app->get( 'oauth/init', function ( Request $request, Response $response ) {
+$app->get( '/oauth/init', function ( Request $request, Response $response ) {
 	return oauthController( $this )->init( $request, $response );
 } )->setName( 'oauth-init' );
 
-$app->get( 'oauth/callback', function ( Request $request, Response $response ) {
+$app->get( '/oauth/callback', function ( Request $request, Response $response ) {
 	return oauthController( $this )->callback( $request, $response );
 } )->setName( 'oauth-callback' );
 
-$app->get( 'logout', function ( Request $request, Response $response ) {
+$app->get( '/logout', function ( Request $request, Response $response ) {
 	return oauthController( $this )->logout( $request, $response );
 } )->setName( 'logout' );
 

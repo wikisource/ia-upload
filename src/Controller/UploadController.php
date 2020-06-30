@@ -160,7 +160,7 @@ class UploadController {
 		$query = $request->getQueryParams();
 		$iaId = $query['iaId'] ?? '';
 		$commonsName = $this->commonsClient->normalizePageTitle( $query['commonsName'] ?? '' );
-		$fileSource = $query['fileSource'] || 'djvu';
+		$fileSource = $query['fileSource'] ?? 'djvu';
 		// Validate inputs.
 		if ( $iaId === '' || $commonsName === '' ) {
 			return $this->outputsInitTemplate( [
@@ -279,8 +279,8 @@ class UploadController {
 			'iaId' => $data['iaId'],
 			'commonsName' => $this->commonsClient->normalizePageTitle( $data['commonsName'] ),
 			'description' => $data['description'],
-			'fileSource' => $data['fileSource'] || 'jp2',
-			'removeFirstPage' => ($data['removeFirstPage'] || 0) === 'yes',
+			'fileSource' => $data['fileSource'] ?? 'jp2',
+			'removeFirstPage' => ($data['removeFirstPage'] ?? 0) === 'yes',
 		];
 		if ( !$jobInfo['iaId'] || !$jobInfo['commonsName'] || !$jobInfo['description'] ) {
 			$jobInfo['error'] = 'You must set all the fields of the form';

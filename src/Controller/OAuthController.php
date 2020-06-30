@@ -37,7 +37,7 @@ class OAuthController {
 	 */
 	public function __construct( Container $app ) {
 		$this->app = $app;
-		$config = $app->get( 'config ');
+		$config = $app->get( 'config' );
 		$this->oAuthClient = new MediaWikiOAuth(
 			self::OAUTH_URL,
 			new ConsumerToken( $config['consumerKey'], $config['consumerSecret'] )
@@ -90,7 +90,7 @@ class OAuthController {
 	public function logout( Request $request, Response $response ) {
 		$this->app->get( 'session' )->invalidate();
 		return $response
-			->withHeader( 'Location', $this->app->getRouteCollector()->getRouteParser()->urlFor( 'home' ) );
+			->withHeader( 'Location', $this->app->getRouteCollector()->getRouteParser()->urlFor( 'home' ) )
 			->withStatus( 302 );
 	}
 }
