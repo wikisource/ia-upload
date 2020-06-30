@@ -47,10 +47,10 @@
 					</li>
 					{% if user %}
 					<li>{{ 'logged-in-as'|message(user) }}</li>
-					<li><a href="{{ url('logout') }}">{{ 'logout'|message }}</a></li>
+					<li><a href="{{ url_for('logout') }}">{{ 'logout'|message }}</a></li>
 					{% endif %}
 				</ul>
-				<h1><a href="{{ path( 'home' ) }}">{{ 'site-title'|message }}</a></h1>
+				<h1><a href="{{ url_for( 'home' ) }}">{{ 'site-title'|message }}</a></h1>
 			</div>
 			{% if error %}
 				<div class="alert alert-danger">{{ error|raw }}</div>
@@ -60,7 +60,7 @@
 			{% endif %}
 			{% if not user %}
 				<div class="alert alert-warning">
-					{{ 'login-notice'|message(path( 'oauth-init', {'referer': global.request.uri} ) )|raw }}
+					{{ 'login-notice'|message(url_for( 'oauth-init', {'referer': global.request.uri} ) )|raw }}
 				</div>
 			{% endif %}
 			{% if success %}

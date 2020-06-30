@@ -2,11 +2,15 @@
 
 namespace IaUpload;
 
-use Silex\Application;
-use Silex\Provider\MonologServiceProvider;
-use Silex\Provider\SessionServiceProvider;
-use Silex\Provider\TwigServiceProvider;
-use Symfony\Component\HttpFoundation\Request;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
+use DI\Container;
+use Slim\Factory\AppFactory;
+use Slim\Middleware\Session;
+use Slim\Views\Twig;
+use Slim\Views\TwigMiddleware;
+use Monolog\Logger;
 use Wikimedia\SimpleI18n\I18nContext;
 use Wikimedia\SimpleI18n\JsonCache;
 use Wikimedia\SimpleI18n\TwigExtension;
@@ -26,89 +30,119 @@ if ( $config === false ) {
 	exit( 1 );
 }
 
-$app = new Application();
+// Create app.
+$container = new Container();
+AppFactory::setContainer( $container );
+$app = AppFactory::create();
 
-// Ensure the tool is accessed over HTTPS.
-$app->before( function ( Request $request, Application $app ) {
-	if ( $request->headers->get( 'X-Forwarded-Proto' ) == 'http' ) {
-		$uri = 'https://' . $request->getHost() . $request->headers->get( 'X-Original-URI' );
-		return $app->redirect( $uri );
-	}
-}, Application::EARLY_EVENT );
+// Config.
+$container->set( 'config', $config );
 
-// Sessions.
-$request = Request::createFromGlobals();
-$app->register( new SessionServiceProvider(), [
-	'session.storage.options' => [
-		// Cookie lifetime to match default $wgCookieExpiration.
-		'cookie_lifetime' => 30 * 24 * 60 * 60,
-		'name' => 'ia-upload-session',
-		'cookie_path' => $request->getBaseUrl() . '/',
-		'cookie_httponly' => true,
-		'cookie_secure' => $request->getHost() !== 'localhost',
-	]
-] );
+// Debugging.
+$container->set( 'debug', isset( $config['debug'] ) && $config['debug'] );
 
-// Twig views.
-$app->register( new TwigServiceProvider(), [
-	'twig.path' => __DIR__ . '/../views',
-] );
-
-// Logging and debugging.
-$app->register( new MonologServiceProvider() );
-$app['debug'] = isset( $config['debug'] ) && $config['debug'];
+// Logging.
+$container->set( 'logger', function() {
+	return new Logger( 'ia-upload' );
+} );
 
 // Internationalisation.
-$app['i18n'] = new I18nContext( new JsonCache( __DIR__ . '/../i18n' ) );
-$app['twig']->addExtension( new TwigExtension( $app['i18n'] ) );
+$container->set( 'i18n', function() {
+	return new I18nContext( new JsonCache( __DIR__ . '/../i18n' ) );
+} );
+
+// Views.
+$container->set( 'view', function() use ( $container ) {
+	$view = Twig::create(__DIR__ . '/../views');
+	$view->addExtension( new TwigExtension( $container->get( 'i18n' ) ) );
+	return $view;
+} );
+
+// Session helper.
+$container->set( 'session', function() {
+	return new \SlimSession\Helper();
+} );
+
+$app->addBodyParsingMiddleware();
+
+// Ensure the tool is accessed over HTTPS.
+$app->add( function ( Request $request, RequestHandler $handler ) {
+	if ( $request->getHeaderLine( 'X-Forwarded-Proto' ) == 'http' ) {
+		$uri = 'https://' . $request->getHost() . $request->getHeaderLine( 'X-Original-URI' );
+		$response = new Response();
+		return $response
+			->withHeader( 'Location', $uri )
+			->withStatus( 302 );
+	}
+	return $handler->handle( $request );
+} );
+
+// Connect twig view middleware.
+$app->add( TwigMiddleware::createFromContainer( $app ) );
+
+// Sessions.
+//$request = Request::createFromGlobals();
+$app->add( new Session( [
+	'name' => 'ia-upload-session',
+	// Cookie lifetime to match default $wgCookieExpiration.
+	'lifetime' => '30 days',
+	//'path' => '', $request->getBaseUrl() . '/',
+	'httponly' => true,
+	//'secure' => '', // $request->getHost() !== 'localhost',
+] ) );
 
 // Routes.
-$uploadController = new UploadController( $app, $config );
-$oauthController = new OAuthController( $app, $config );
+function uploadController( Container $app ) {
+	return new UploadController( $app );
+}
+function oauthController( Container $app ) {
+	return new OAuthController( $app );
+}
 
 $iaIdPattern = '[a-zA-Z0-9\._-]*';
 
-$app->get( '/', function ( Request $request ) use( $uploadController ) {
-	return $uploadController->init( $request );
-} )->bind( 'home' );
+$app->get( '/', function ( Request $request, Response $response ) {
+	return uploadController( $this )->init( $request, $response );
+} )->setName( 'home' );
 
 // @deprecated in favour of 'home'.
-$app->get( 'commons/init', function ( Request $request ) use ( $app ) {
-	$queryString = $request->getQueryString() ? '?' . $request->getQueryString() : '';
-	$homeUrl = $app["url_generator"]->generate( 'home' ) . $queryString;
-	return $app->redirect( $homeUrl );
+$app->get( 'commons/init', function ( Request $request, Response $response ) use ( $app ) {
+	$homeUrl = $app->getRouteCollector()->getRouteParser()->urlFor( 'home', null, $request->getQueryParams() );
+	return $response
+		->withHeader( 'Location', $homeUrl )
+		->withStatus( 302 );
 } );
 
-$app->get( 'commons/fill', function ( Request $request ) use ( $uploadController ) {
-	return $uploadController->fill( $request );
-} )->bind( 'commons-fill' );
+$app->get( 'commons/fill', function ( Request $request, Response $response ) {
+	return uploadController( $this )->fill( $request, $response );
+} )->setName( 'commons-fill' );
 
-$app->post( 'commons/save', function ( Request $request ) use ( $uploadController ) {
-	return $uploadController->save( $request );
-} )->bind( 'commons-save' );
+$app->post( 'commons/save', function ( Request $request, Response $response ) {
+	return uploadController( $this )->save( $request, $response );
+} )->setName( 'commons-save' );
 
-$app->get( 'log/{iaId}', function ( Request $request, $iaId ) use ( $uploadController ) {
-	return $uploadController->logview( $request, $iaId );
-} )->assert( 'iaId', $iaIdPattern )->bind( 'log' );
+$app->get( "log/{iaId:$iaIdPattern}", function ( Request $request, Response $response, $args ) {
+	return uploadController( $this )->logview( $request, $response, $args['iaId'] );
+} )->setName( 'log' );
 
-$app->get( '{iaId}.djvu', function ( Request $request, $iaId ) use ( $uploadController ) {
-	return $uploadController->downloadDjvu( $request, $iaId );
-} )->assert( 'iaId', $iaIdPattern )->bind( 'djvu' );
+$app->get( "{iaId:$iaIdPattern}.djvu", function ( Request $request, Response $response, $args ) {
+	return uploadController( $this )->downloadDjvu( $request, $response, $args['iaId'] );
+} )->setName( 'djvu' );
 
-$app->get( 'oauth/init', function ( Request $request ) use ( $oauthController ) {
-	return $oauthController->init( $request );
-} )->bind( 'oauth-init' );
+$app->get( 'oauth/init', function ( Request $request, Response $response ) {
+	return oauthController( $this )->init( $request, $response );
+} )->setName( 'oauth-init' );
 
-$app->get( 'oauth/callback', function ( Request $request ) use ( $oauthController ) {
-	return $oauthController->callback( $request );
-} )->bind( 'oauth-callback' );
+$app->get( 'oauth/callback', function ( Request $request, Response $response ) {
+	return oauthController( $this )->callback( $request, $response );
+} )->setName( 'oauth-callback' );
 
-$app->get( 'logout', function ( Request $request ) use ( $oauthController ) {
-	return $oauthController->logout( $request );
-} )->bind( 'logout' );
+$app->get( 'logout', function ( Request $request, Response $response ) {
+	return oauthController( $this )->logout( $request, $response );
+} )->setName( 'logout' );
 
 // Add tool labs' IPs as trusted.
 // See https://wikitech.wikimedia.org/wiki/Help:Tool_Labs/Web#Web_proxy_servers
-Request::setTrustedProxies( [ '10.68.21.49', '10.68.21.81' ], Request::HEADER_X_FORWARDED_ALL );
+//Request::setTrustedProxies( [ '10.68.21.49', '10.68.21.81' ], Request::HEADER_X_FORWARDED_ALL );
 
 $app->run();

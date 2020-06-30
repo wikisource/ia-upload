@@ -1,6 +1,6 @@
 {% extends "template.twig" %}
 {% block body %}
-	<form method="GET" action="{{ path( 'commons-fill' ) }}" role="form" class="form-horizontal">
+	<form method="GET" action="{{ url_for( 'commons-fill' ) }}" role="form" class="form-horizontal">
 		<fieldset>
 			<legend>{{ 'upload-file'|message }}</legend>
 			<div class="form-group">
@@ -59,10 +59,10 @@
 					{% elseif job.locked %}{{ 'in-progress'|message }}
 					{% else %}{{ 'queued'|message }}{% endif %}
 				</td>
-				<td><a href="{{ url( 'log', {iaId: job.iaId} ) }}">View log</a></td>
+				<td><a href="{{ url_for( 'log', {iaId: job.iaId} ) }}">View log</a></td>
 				<td>
 					{% if job.hasDjvu %}
-						<a href="{{ url( 'djvu', {iaId: job.iaId} ) }}">Download DjVu</a>
+						<a href="{{ url_for( 'djvu', {iaId: job.iaId} ) }}">Download DjVu</a>
 					{% endif %}
 				</td>
 			</tr>
