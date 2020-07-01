@@ -15,7 +15,7 @@ use Psr\Log\LoggerInterface;
  * @file
  * @ingroup IaUpload
  *
- * @licence GNU GPL v2+
+ * @license GPL-2.0-or-later
  */
 class CommonsClient {
 
@@ -31,6 +31,7 @@ class CommonsClient {
 
 	/**
 	 * CommonsClient constructor.
+	 * @param string $base_url The wiki base URL with no trailing slash or path.
 	 * @param Client $oauthClient The Oauth client.
 	 * @param LoggerInterface $logger The logger.
 	 */

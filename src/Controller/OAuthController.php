@@ -2,13 +2,13 @@
 
 namespace Wikisource\IaUpload\Controller;
 
+use DI\Container;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\Routing\RouteParser;
 use Wikisource\IaUpload\OAuth\MediaWikiOAuth;
 use Wikisource\IaUpload\OAuth\Token\ConsumerToken;
 use Wikisource\IaUpload\OAuth\Token\RequestToken;
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
-use DI\Container;
-use Slim\Routing\RouteParser;
 
 /**
  * Controller for OAuth login
@@ -16,7 +16,7 @@ use Slim\Routing\RouteParser;
  * @file
  * @ingroup IaUpload
  *
- * @licence GNU GPL v2+
+ * @license GPL-2.0-or-later
  */
 class OAuthController {
 
@@ -53,7 +53,8 @@ class OAuthController {
 	/**
 	 * The first stage of the authentication process, which redirects the user to Commons.
 	 * @param Request $request The HTTP request.
-	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 * @param Response $response The HTTP response.
+	 * @return Response
 	 */
 	public function init( Request $request, Response $response ) {
 		$session = $this->c->get( 'session' );
@@ -69,7 +70,8 @@ class OAuthController {
 	/**
 	 * The action that the user is redirected to after authorizing at Commons.
 	 * @param Request $request The HTTP request.
-	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 * @param Response $response The HTTP response.
+	 * @return Response
 	 */
 	public function callback( Request $request, Response $response ) {
 		$session = $this->c->get( 'session' );
@@ -82,7 +84,8 @@ class OAuthController {
 		$session->set( 'access_token', $accessToken );
 		$session->set( 'user', $this->oAuthClient->identify( $accessToken )->username );
 		$session->delete( 'request_token' );
-		$session->id(true); // regenerate session id
+		// regenerate session id
+		$session->id( true );
 		return $response
 			->withHeader( 'Location', $session->get( 'referer' ) )
 			->withStatus( 302 );
@@ -91,7 +94,8 @@ class OAuthController {
 	/**
 	 * Log out the current user.
 	 * @param Request $request The HTTP request.
-	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 * @param Response $response The HTTP response.
+	 * @return Response
 	 */
 	public function logout( Request $request, Response $response ) {
 		$this->c->get( 'session' )->clear();

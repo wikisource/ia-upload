@@ -7,11 +7,11 @@ use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\Subscriber\Oauth\Oauth1;
+use Mediawiki\Api\MediawikiApi;
 use Wikisource\IaUpload\OAuth\Token\AccessToken;
 use Wikisource\IaUpload\OAuth\Token\ConsumerToken;
 use Wikisource\IaUpload\OAuth\Token\RequestToken;
 use Wikisource\IaUpload\OAuth\Token\Token;
-use Mediawiki\Api\MediawikiApi;
 
 /**
  * @since 0.1
@@ -139,7 +139,7 @@ class MediaWikiOAuth {
 		] );
 	}
 
-	private function doOAuthJsonRequest( Token $token = null, array $params ) {
+	private function doOAuthJsonRequest( ?Token $token = null, array $params ) {
 		$params['format'] = 'json';
 
 		$result = \GuzzleHttp\json_decode( $this->doOAuthRequest( $token, $params ), true );
@@ -151,13 +151,13 @@ class MediaWikiOAuth {
 		return $result;
 	}
 
-	private function doOAuthRequest( Token $token = null, array $params ) {
+	private function doOAuthRequest( ?Token $token = null, array $params ) {
 		return $this->buildClientFromToken( $token )->get( '', [
 			'query' => $params
 		] )->getBody();
 	}
 
-	private function buildClientFromToken( Token $token = null ) {
+	private function buildClientFromToken( ?Token $token = null ) {
 		$stack = HandlerStack::create();
 		$stack->push( $this->buildOAuth1MiddlewareFromToken( $token ) );
 		return new Client( [
@@ -168,7 +168,7 @@ class MediaWikiOAuth {
 		] );
 	}
 
-	private function buildOAuth1MiddlewareFromToken( Token $token = null ) {
+	private function buildOAuth1MiddlewareFromToken( ?Token $token = null ) {
 		$oAuthConfig = [
 			'consumer_key' => $this->consumerToken->getKey(),
 			'consumer_secret' => $this->consumerToken->getSecret(),
