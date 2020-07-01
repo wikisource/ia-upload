@@ -34,9 +34,9 @@ class CommonsClient {
 	 * @param Client $oauthClient The Oauth client.
 	 * @param LoggerInterface $logger The logger.
 	 */
-	public function __construct( Client $oauthClient, LoggerInterface $logger ) {
+	public function __construct( $base_url, Client $oauthClient, LoggerInterface $logger ) {
 		$this->client = $oauthClient;
-		$this->mediawikiApi = new MediawikiApi( 'https://commons.wikimedia.org/w/api.php', $oauthClient );
+		$this->mediawikiApi = new MediawikiApi( $base_url . '/w/api.php', $oauthClient );
 		$this->mediawikiApi->setLogger( $logger );
 	}
 

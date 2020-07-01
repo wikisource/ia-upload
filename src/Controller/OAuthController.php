@@ -45,7 +45,7 @@ class OAuthController {
 		$this->c = $c;
 		$config = $c->get( 'config' );
 		$this->oAuthClient = new MediaWikiOAuth(
-			$config['wiki_url'],
+			$config['wiki_base_url'],
 			new ConsumerToken( $config['consumerKey'], $config['consumerSecret'] )
 		);
 	}

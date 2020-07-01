@@ -37,12 +37,12 @@ class MediaWikiOAuth {
 	protected $userAgent = 'wikisource/ia-upload';
 
 	/**
-	 * @param string $baseUri The URI of the index.php file of the wiki like
-	 * 'https://commons.wikimedia.org/w/index.php'
+	 * @param string $baseUri The base URI of the wiki like
+	 * 'https://commons.wikimedia.org'
 	 * @param ConsumerToken $consumerToken The consumer token.
 	 */
 	public function __construct( $baseUri, ConsumerToken $consumerToken ) {
-		$this->baseUri = $baseUri;
+		$this->baseUri = $baseUri . '/w/index.php';
 		$this->consumerToken = $consumerToken;
 	}
 

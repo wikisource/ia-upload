@@ -102,18 +102,19 @@ class UploadController {
 		$this->i18n = $c->get( 'i18n' );
 
 		$this->iaClient = new IaClient();
-		$this->commonsClient = new CommonsClient( $this->buildMediawikiClient(), $c->get( 'logger' ) );
+		$this->commonsClient = new CommonsClient( $this->config['wiki_base_url'], $this->buildMediawikiClient(), $c->get( 'logger' ) );
 	}
 
 	private function buildMediawikiClient() {
 		$session = $this->c->get( 'session' );
 		if ( $session->exists( 'access_token' ) ) {
 			$oAuth = new MediaWikiOAuth(
-				$this->config['wiki_url'],
+				$this->config['wiki_base_url'],
 				new ConsumerToken( $this->config['consumerKey'], $this->config['consumerSecret'] )
 			);
 			return $oAuth->buildMediawikiClientFromToken( $session->get( 'access_token' ) );
 		} else {
+			error_log("here we are");
 			return ( new ClientFactory() )->getClient();
 		}
 	}

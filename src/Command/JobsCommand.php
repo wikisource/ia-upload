@@ -24,6 +24,14 @@ class JobsCommand extends Command {
 	/** @var string The full filesystem path to the 'jobqueue' directory, with no trailing slash. */
 	protected $jobqueueDir;
 
+	/** @var array Config data from config.ini. */
+	protected $config;
+
+	public function __construct( array $config ) {
+		parent::__construct();
+		$this->config = $config;
+	}
+
 	/**
 	 * Set name and job.
 	 */
@@ -61,7 +69,7 @@ class JobsCommand extends Command {
 
 			// Make sure we can upload, before doing anything else.
 			$mediawikiClient = $this->getMediawikiClient( $jobInfo->userAccessToken );
-			$commonsClient = new CommonsClient( $mediawikiClient, $log );
+			$commonsClient = new CommonsClient( $this->config['wiki_base_url'], $mediawikiClient, $log );
 			if ( !$commonsClient->canUpload() ) {
 				throw new Exception( "Unable to upload to Commons" );
 			}
@@ -134,11 +142,8 @@ class JobsCommand extends Command {
 	 * @return \GuzzleHttp\Client
 	 */
 	protected function getMediawikiClient( $accessTokenDetails ) {
-		// @TODO This shouldn't be here.
-		$configFile = dirname( $this->jobqueueDir ) . '/config.ini';
-		$config = parse_ini_file( $configFile );
-		$token = new ConsumerToken( $config['consumerKey'], $config['consumerSecret'] );
-		$oAuth = new MediaWikiOAuth( OAuthController::OAUTH_URL, $token );
+		$token = new ConsumerToken( $this->config['consumerKey'], $this->config['consumerSecret'] );
+		$oAuth = new MediaWikiOAuth( $this->config['wiki_base_url'], $token );
 		$accessToken = new AccessToken( $accessTokenDetails->key, $accessTokenDetails->secret );
 		$mediawikiClient = $oAuth->buildMediawikiClientFromToken( $accessToken );
 		return $mediawikiClient;
