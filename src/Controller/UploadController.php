@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use DI\Container;
 use Slim\App;
-// use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use GuzzleHttp\Psr7\LazyOpenStream;
 use Wikisource\IaUpload\ApiClient\CommonsClient;
 use Wikisource\IaUpload\ApiClient\IaClient;
 use Wikisource\IaUpload\OAuth\MediaWikiOAuth;
@@ -269,7 +269,7 @@ class UploadController {
 			'warning' => $warning,
 			'iaId' => $iaId,
 			'format' => $format,
-			'commonsName' => $fullCommonsName,
+			'commonsName' => $commonsName,
 			'djvuFilename' => $djvuFilename,
 			'pdfFilename' => $pdfFilename,
 			'jp2Filename' => $jp2Filename,
@@ -281,7 +281,7 @@ class UploadController {
 	}
 
 	/**
-	 * The save action either uploads the IA DjVu to Commons, or when conversion is required it
+	 * The save action either uploads the IA file to Commons, or when conversion is required it
 	 * puts the job data into the queue for subsequent processing by the CLI part of this tool.
 	 *
 	 * @param Request $request The HTTP request.
@@ -292,7 +292,8 @@ class UploadController {
 		// Get all form inputs.
 		$jobInfo = [
 			'iaId' => $data['iaId'],
-			'commonsName' => $this->commonsClient->normalizePageTitle( $data['commonsName'] ),
+			'format' => $data['format'],
+			'commonsName' => $this->commonsClient->normalizePageTitle( $data['commonsName'] . '.' . $data['format'] ),
 			'description' => $data['description'],
 			'fileSource' => $data['fileSource'] ?? 'jp2',
 			'removeFirstPage' => ($data['removeFirstPage'] ?? 0) === 'yes',
@@ -325,7 +326,7 @@ class UploadController {
 		$jobDirectory = $this->getJobDirectory( $jobInfo['iaId' ] );
 
 		// For PDF and JP2 conversion, add the job to the queue.
-		if ( $jobInfo['fileSource'] === 'pdf' || $jobInfo['fileSource'] === 'jp2' ) {
+		if ( $jobInfo['format'] === 'djvu' && ( $jobInfo['fileSource'] === 'pdf' || $jobInfo['fileSource'] === 'jp2' ) ) {
 			// Create a private job file before writing contents to it,
 			// because it contains the access token.
 			$jobInfo['userAccessToken'] = $this->c->get( 'session' )->get( 'access_token' );
@@ -338,26 +339,24 @@ class UploadController {
 			return $response
 				->withHeader( 'Location', $this->app->getRouteCollector()->getRouteParser()->urlFor( 'home' ) )
 				->withStatus( 302 );
-		}
-
-		// Use IA DjVu file (don't add it to the queue, as this shouldn't take too long).
-		if ( $jobInfo['fileSource'] === 'djvu' ) {
-			$djvuFilename = $this->getIaFileName( $iaData, 'djvu' );
-			$remoteDjVuFile = $jobInfo['iaId'] . $djvuFilename;
-			$localDjVuFile = $jobDirectory . '/' . $djvuFilename;
+		} else {
+			// Use IA file directly (don't add it to the queue, as this shouldn't take too long).
+			$filename = $this->getIaFileName( $iaData, $jobInfo['format'] );
+			$remoteFile = $jobInfo['iaId'] . $filename;
+			$localFile = $jobDirectory . '/' . $filename;
 			try {
-				$this->iaClient->downloadFile( $remoteDjVuFile, $localDjVuFile );
+				$this->iaClient->downloadFile( $remoteFile, $localFile );
 				if ( $jobInfo['removeFirstPage'] ) {
-					$this->iaClient->removeFirstPage( $localDjVuFile );
+					$this->iaClient->removeFirstPage( $localFile );
 				}
 				$this->commonsClient->upload(
 					$jobInfo['commonsName'],
-					$localDjVuFile,
+					$localFile,
 					$jobInfo['description'],
 					'Importation from Internet Archive via [[toollabs:ia-upload|IA-upload]]'
 				);
 			} catch ( Exception $e ) {
-				unlink( $localDjVuFile );
+				unlink( $localFile );
 				rmdir( $jobDirectory );
 				$jobInfo['error'] = "An error occurred: " . $e->getMessage();
 				return $this->outputsFillTemplate( $jobInfo, $response );
@@ -367,13 +366,13 @@ class UploadController {
 				$jobInfo['error'] = 'File failed to upload';
 				return $this->outputsFillTemplate( $jobInfo, $response );
 			}
-			unlink( $localDjVuFile );
+			unlink( $localFile );
 			rmdir( $jobDirectory );
 			$url = 'http://commons.wikimedia.org/wiki/File:' . rawurlencode( $jobInfo['commonsName'] );
 			$msgParam = '<a href="' . $url . '">' . $jobInfo['commonsName'] . '</a>';
 			return $this->outputsInitTemplate( [
-				'success' => $this->i18n->message( 'successfully-uploaded', [ $msgParam ] ),
-			], $response );
+					'success' => $this->i18n->message( 'successfully-uploaded', [ $msgParam ] ),
+				], $response );
 		}
 	}
 
@@ -401,7 +400,7 @@ class UploadController {
 		if ( !file_exists( $filename ) ) {
 			return new Response( 'File not found', 404 );
 		}
-		return new BinaryFileResponse( $filename );
+		return $response->withBody( new LazyOpenStream( $filename, 'r' ) );
 	}
 
 	/**
