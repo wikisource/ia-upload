@@ -18,8 +18,8 @@
 					<div class="input-group">
 						<input name="commonsName" id="commonsName" type="text" size="30" required="required" class="form-control choose-format" value="{{ commonsName|e }}" maxlength="240" />
 						<select name="format" id="format" class="form-control input-group-addon">
-							<option value="djvu">.djvu</option>
-							<option value="pdf" selected>.pdf</option>
+							<option value="pdf"{% if format == 'pdf' %} selected{% endif %}>.pdf</option>
+							<option value="djvu"{% if format == 'djvu' %} selected{% endif %}>.djvu</option>
 						</select>
 					</div>
 					<span class="help-block">{{ 'commons-name-help'|message }}</span>

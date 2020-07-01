@@ -114,7 +114,6 @@ class UploadController {
 			);
 			return $oAuth->buildMediawikiClientFromToken( $session->get( 'access_token' ) );
 		} else {
-			error_log("here we are");
 			return ( new ClientFactory() )->getClient();
 		}
 	}
@@ -179,6 +178,7 @@ class UploadController {
 		if ( $iaId === '' || $commonsName === '' ) {
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
+				'format' => $format,
 				'commonsName' => $commonsName,
 				'error' => $this->i18n->message( 'set-all-fields' ),
 			], $response );
@@ -187,18 +187,18 @@ class UploadController {
 		if ( strlen( $commonsName ) > 240 ) {
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
+				'format' => $format,
 				'commonsName' => $commonsName,
 				'error' => $this->i18n->message( 'invalid-length', [ $commonsName ] ),
 			], $response );
 		}
 		// Strip any trailing file extension.
-		if ( preg_match( '/^(.*)\.(pdf|djvu)$/', $commonsName, $m ) ) {
-			$commonsName = $m[1];
-		}
+		$commonsName = preg_replace( '/\.(pdf|djvu)$/i', '', $commonsName );
 		// Check that the filename is allowed on Commons.
 		if ( !$this->commonsClient->isPageTitleValid( $commonsName ) ) {
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
+				'format' => $format,
 				'commonsName' => $commonsName,
 				'error' => $this->i18n->message( 'invalid-commons-name', [ $commonsName ] ),
 			], $response );
@@ -212,6 +212,7 @@ class UploadController {
 				. '</a>';
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
+				'format' => $format,
 				'commonsName' => $commonsName,
 				'error' => $this->i18n->message( 'no-found-on-ia', [ $link ] ),
 			], $response );
@@ -225,6 +226,7 @@ class UploadController {
 		if ( ( $format === 'pdf' && !$pdfFilename ) || ! ( $djvuFilename || $pdfFilename || $jp2Filename ) ) {
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
+				'format' => $format,
 				'commonsName' => $commonsName,
 				'error' => $this->i18n->message( 'no-usable-files-found' ),
 			], $response );
@@ -258,6 +260,7 @@ class UploadController {
 			$link = "<a href='$url'>" . htmlspecialchars( $fullCommonsName ) . '</a>';
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
+				'format' => $format,
 				'commonsName' => $commonsName,
 				'error' => $this->i18n->message( 'already-on-commons', [ $link ] ),
 			], $response );
@@ -289,6 +292,8 @@ class UploadController {
 	 */
 	public function save( Request $request, Response $response ) {
 		$data = $request->getParsedBody();
+		// Strip any trailing file extension.
+		$data['commonsName'] = preg_replace( '/\.(pdf|djvu)$/i', '', $data['commonsName'] );
 		// Get all form inputs.
 		$jobInfo = [
 			'iaId' => $data['iaId'],
@@ -343,10 +348,10 @@ class UploadController {
 			// Use IA file directly (don't add it to the queue, as this shouldn't take too long).
 			$filename = $this->getIaFileName( $iaData, $jobInfo['format'] );
 			$remoteFile = $jobInfo['iaId'] . $filename;
-			$localFile = $jobDirectory . '/' . $filename;
+			$localFile = $jobDirectory . $filename;
 			try {
 				$this->iaClient->downloadFile( $remoteFile, $localFile );
-				if ( $jobInfo['removeFirstPage'] ) {
+				if ( $jobInfo['format'] === 'djvu' && $jobInfo['removeFirstPage'] ) {
 					$this->iaClient->removeFirstPage( $localFile );
 				}
 				$this->commonsClient->upload(
@@ -363,6 +368,8 @@ class UploadController {
 			}
 			// Confirm that it was uploaded.
 			if ( !$this->commonsClient->pageExist( 'File:' . $jobInfo['commonsName'] ) ) {
+				unlink( $localFile );
+				rmdir( $jobDirectory );
 				$jobInfo['error'] = 'File failed to upload';
 				return $this->outputsFillTemplate( $jobInfo, $response );
 			}
@@ -384,9 +391,14 @@ class UploadController {
 	 */
 	public function logview( Request $request, Response $response, $iaId ) {
 		// @todo Not duplicate the log name between here and JobsCommand.
+		$response = $response->withHeader( 'Content-Type', 'text/plain' );
 		$logFile = $this->getJobDirectory( $iaId ) . '/log.txt';
-		$log = ( file_exists( $logFile ) ) ? file_get_contents( $logFile ) : 'No log available.';
-		return new Response( $log, 200, [ 'Content-Type' => 'text/plain' ] );
+		if ( file_exists( $logFile ) ) {
+			return $response->withBody( new LazyOpenStream( $logFile, 'r' ) );
+		} else {
+			$response->getBody()->write( 'No log available.' );
+			return $response;
+		}
 	}
 
 	/**
@@ -398,7 +410,7 @@ class UploadController {
 	public function downloadDjvu( Request $request, Response $response, $iaId ) {
 		$filename = $this->getJobDirectory( $iaId ) . '/' . $iaId . '.djvu';
 		if ( !file_exists( $filename ) ) {
-			return new Response( 'File not found', 404 );
+			return $response->withStatus( 404, 'File not found' );
 		}
 		return $response->withBody( new LazyOpenStream( $filename, 'r' ) );
 	}
@@ -414,6 +426,7 @@ class UploadController {
 			'iaId' => '',
 			'commonsName' => '',
 			'jobs' => [],
+			'format' => 'pdf',
 		];
 		$params = array_merge( $defaultParams, $params );
 		return $this->outputsTemplate( 'commons/init.twig', $params, $response );
@@ -466,21 +479,28 @@ class UploadController {
 	 * @return string|bool The filename, or false if none could be found.
 	 */
 	protected function getIaFileName( $data, $fileType = 'djvu' ) {
-		// First check for djvu or pdf.
-		if ( $fileType === 'djvu' || $fileType === 'pdf' ) {
+		if ( $fileType === 'pdf' ) {
+			$pdfFormats = [ 'Text PDF', 'Additional Text PDF', 'Image Container PDF' ];
+			$largestPath = null;
+			$largestSize = 0;
 			foreach ( $data['files'] as $filePath => $fileInfo ) {
-				$djvu = ( $fileType === 'djvu' && $fileInfo['format'] === 'DjVu' );
-				$pdfFormats = [ 'Text PDF', 'Additional Text PDF', 'Image Container PDF' ];
-				$pdf = ( $fileType === 'pdf' && in_array( $fileInfo['format'], $pdfFormats ) );
-				if ( $djvu || $pdf ) {
+				if ( in_array( $fileInfo['format'], $pdfFormats ) && $fileInfo['size'] > $largestSize ) {
+					$largestPath = $filePath;
+					$largestSize = $fileInfo['size'];
+				}
+			}
+			if ( $largestPath ) {
+				return $largestPath;
+			}
+		} else if ( $fileType === 'djvu' ) {
+			foreach ( $data['files'] as $filePath => $fileInfo ) {
+				if ( $fileInfo['format'] === 'DjVu') {
 					return $filePath;
 				}
 			}
-		}
-
-		// Then jp2; we only consider to have a jp2 file if we've also got a  *_djvu.xml to go
-		// with it. Could perhaps instead check for $fileInfo['format'] === 'Abbyy GZ'?
-		if ( $fileType === 'jp2' ) {
+		} else if ( $fileType === 'jp2' ) {
+			// We only consider to have a jp2 file if we've also got a  *_djvu.xml to go
+			// with it. Could perhaps instead check for $fileInfo['format'] === 'Abbyy GZ'?
 			$filenames = array_keys( $data['files'] );
 			$jp2 = preg_grep( '/.*_jp2\.zip/', $filenames );
 			$xml = preg_grep( '/.*_djvu\.xml/', $filenames );
@@ -488,6 +508,7 @@ class UploadController {
 				return array_shift( $jp2 );
 			}
 		}
+
 		return false;
 	}
 
@@ -563,23 +584,23 @@ class UploadController {
 		$content .= '[[Category:Uploaded with IA Upload]]' . "\n";
 
 		$isCategorised = false;
-		$bookCatExists = $this->commonsClient->pageExist(
+		$bookCatExists = isset( $data['metadata']['date'][0] ) && $this->commonsClient->pageExist(
 			'Category:' . $data['metadata']['date'][0] . ' books'
 		);
-		if ( isset( $data['metadata']['date'][0] ) && $bookCatExists ) {
+		if ( $bookCatExists ) {
 			$content .= '[[Category:' . $data['metadata']['date'][0] . ' books]]' . "\n";
 			$isCategorised = true;
 		}
-		$creatorCatExists = $this->commonsClient->pageExist(
+		$creatorCatExists = isset( $data['metadata']['creator'][0] ) && $this->commonsClient->pageExist(
 			'Category:' . $data['metadata']['creator'][0]
 		);
-		if ( isset( $data['metadata']['creator'][0] ) && $creatorCatExists ) {
+		if ( $creatorCatExists ) {
 			$content .= '[[Category:' . $data['metadata']['creator'][0] . ']]' . "\n";
 			$isCategorised = true;
 		}
 		if ( isset( self::$languageCategories[$language] ) ) {
-			$format_cap = $format === 'pdf' ? 'PDF' : 'DjVu';
-			$content .= '[[Category:' . $format_cap . ' files in ' .  self::$languageCategories[$language] . ']]' . "\n";
+			$format_caps = $format === 'pdf' ? 'PDF' : 'DjVu';
+			$content .= '[[Category:' . $format_caps . ' files in ' .  self::$languageCategories[$language] . ']]' . "\n";
 			$isCategorised = true;
 		}
 		if ( !$isCategorised ) {
@@ -649,10 +670,8 @@ class UploadController {
 		}
 		$language = strtolower( $data['metadata']['language'][0] );
 
-		if ( strlen( $language ) == 2 ) {
+		if ( preg_match( '/^[a-z]{2,3}$/', $language ) ) {
 			return $language;
-		} elseif ( strlen( $language ) == 3 ) {
-			return $language[0] . $language[1];
 		} else {
 			$language = ucfirst( $language );
 			foreach ( self::$languageCategories as $id => $name ) {

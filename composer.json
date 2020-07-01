@@ -10,20 +10,20 @@
 	"require": {
 		"php": ">=7.2",
 		"ext-zip": "*",
+		"addwiki/mediawiki-api": "^0.7",
+		"akrabat/ip-address-middleware": "^1.0",
+		"bryanjhv/slim-session": "~4.0",
+		"firebase/php-jwt": "^5.0",
+		"guzzlehttp/oauth-subscriber": "~0.3",
 		"guzzlehttp/psr7": "^1.6",
 		"http-interop/http-factory-guzzle": "^1.0",
-		"guzzlehttp/oauth-subscriber": "~0.3",
+		"monolog/monolog": "^2.1.0",
+		"pastuhov/php-exec-command": "^1.1",
+		"php-di/php-di": "^6.2",
 		"slim/slim": "4.*",
 		"slim/twig-view": "^3.0",
-		"addwiki/mediawiki-api": "^0.7",
-		"firebase/php-jwt": "^5.0",
-		"pastuhov/php-exec-command": "^1.1",
-		"wikimedia/simplei18n": "^1.0",
-		"bryanjhv/slim-session": "~4.0",
-		"monolog/monolog": "^2.1.0",
-		"php-di/php-di": "^6.2",
-		"akrabat/ip-address-middleware": "^1.0",
-		"symfony/console": "^4.4"
+		"symfony/console": "^4.4",
+		"wikimedia/simplei18n": "^1.0"
 	},
 	"require-dev": {
 		"mediawiki/mediawiki-codesniffer": "^14.0"
