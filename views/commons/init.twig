@@ -57,7 +57,7 @@
 			<tbody>
 			<tr>
 				<td><a href="https://archive.org/details/{{ job.iaId }}">{{ job.iaId }}</a></td>
-				<td><a href="https://commons.wikimedia.org/wiki/File:{{ job.commonsName }}">{{ job.commonsName }}</a></td>
+				<td><a href="{{ wiki_base_url }}/wiki/File:{{ job.fullCommonsName }}">{{ job.fullCommonsName }}</a></td>
 				<td>
 					{% if job.failed %}{{ 'possibly-failed'|message }}
 					{% elseif job.locked %}{{ 'in-progress'|message }}

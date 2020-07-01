@@ -99,12 +99,12 @@ class JobsCommand extends Command {
 			}
 
 			// Upload to Commons.
-			$log->info( "Uploading to $localDjvu to Commons $jobInfo->commonsName" );
+			$log->info( "Uploading to $localDjvu to Commons $jobInfo->fullCommonsName" );
 			try {
 				$comment = 'Imported from Internet Archive by '
 					. 'the [[wikitech:Tool:IA Upload|IA Upload tool]] job queue';
 				$commonsClient->upload(
-					$jobInfo->commonsName,
+					$jobInfo->fullCommonsName,
 					$localDjvu,
 					$jobInfo->description,
 					$comment

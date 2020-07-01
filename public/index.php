@@ -116,7 +116,7 @@ function oauthController() {
 	return new OAuthController( $container, $routeParser );
 }
 
-$iaIdPattern = '[a-zA-Z0-9\._-]*';
+$iaIdPattern = '[a-zA-Z0-9\._-]+';
 
 $app->get( '/', function ( Request $request, Response $response ) {
 	return uploadController()->init( $request, $response );

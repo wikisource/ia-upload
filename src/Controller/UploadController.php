@@ -299,7 +299,8 @@ class UploadController {
 		$jobInfo = [
 			'iaId' => $data['iaId'],
 			'format' => $data['format'],
-			'commonsName' => $commonsName . '.' . $data['format'],
+			'commonsName' => $commonsName,
+			'fullCommonsName' => $commonsName . '.' . $data['format'],
 			'description' => $data['description'],
 			'fileSource' => $data['fileSource'] ?? 'jp2',
 			'removeFirstPage' => ($data['removeFirstPage'] ?? 0) === 'yes',
@@ -310,9 +311,9 @@ class UploadController {
 		}
 
 		// Check again that the Commons file doesn't exist.
-		if ( $this->commonsClient->pageExist( 'File:' . $jobInfo['commonsName'] ) ) {
-			$url = 'http://commons.wikimedia.org/wiki/File:' . rawurlencode( $jobInfo['commonsName'] );
-			$link = '<a href="' . $url . '">' . htmlspecialchars( $jobInfo['commonsName'] ) . '</a>';
+		if ( $this->commonsClient->pageExist( 'File:' . $jobInfo['fullCommonsName'] ) ) {
+			$url = 'http://commons.wikimedia.org/wiki/File:' . rawurlencode( $jobInfo['fullCommonsName'] );
+			$link = '<a href="' . $url . '">' . htmlspecialchars( $jobInfo['fullCommonsName'] ) . '</a>';
 			$jobInfo['error'] = $this->i18n->message( 'already-on-commons', [ $link ] );
 			return $this->outputsFillTemplate( $jobInfo, $response );
 		}
@@ -356,7 +357,7 @@ class UploadController {
 					$this->iaClient->removeFirstPage( $localFile );
 				}
 				$this->commonsClient->upload(
-					$jobInfo['commonsName'],
+					$jobInfo['fullCommonsName'],
 					$localFile,
 					$jobInfo['description'],
 					'Importation from Internet Archive via [[toollabs:ia-upload|IA-upload]]'
@@ -368,7 +369,7 @@ class UploadController {
 				return $this->outputsFillTemplate( $jobInfo, $response );
 			}
 			// Confirm that it was uploaded.
-			if ( !$this->commonsClient->pageExist( 'File:' . $jobInfo['commonsName'] ) ) {
+			if ( !$this->commonsClient->pageExist( 'File:' . $jobInfo['fullCommonsName'] ) ) {
 				unlink( $localFile );
 				rmdir( $jobDirectory );
 				$jobInfo['error'] = 'File failed to upload';
@@ -376,8 +377,8 @@ class UploadController {
 			}
 			unlink( $localFile );
 			rmdir( $jobDirectory );
-			$url = 'http://commons.wikimedia.org/wiki/File:' . rawurlencode( $jobInfo['commonsName'] );
-			$msgParam = '<a href="' . $url . '">' . $jobInfo['commonsName'] . '</a>';
+			$url = $this->config['wiki_base_url'] . '/wiki/File:' . rawurlencode( $jobInfo['fullCommonsName'] );
+			$msgParam = '<a href="' . $url . '">' . $jobInfo['fullCommonsName'] . '</a>';
 			return $this->outputsInitTemplate( [
 				'success' => $this->i18n->message( 'successfully-uploaded', [ $msgParam ] ),
 			], $response );
@@ -410,10 +411,13 @@ class UploadController {
 	 */
 	public function downloadDjvu( Request $request, Response $response, $iaId ) {
 		$filename = $this->getJobDirectory( $iaId ) . '/' . $iaId . '.djvu';
+		error_log( $filename );
 		if ( !file_exists( $filename ) ) {
 			return $response->withStatus( 404, 'File not found' );
 		}
-		return $response->withBody( new LazyOpenStream( $filename, 'r' ) );
+		return $response
+			->withHeader( 'Content-Type', 'image/vnd.djvu' )
+			->withBody( new LazyOpenStream( $filename, 'r' ) );
 	}
 
 	/**
@@ -428,6 +432,7 @@ class UploadController {
 			'commonsName' => '',
 			'jobs' => [],
 			'format' => 'pdf',
+			'wiki_base_url' => $this->config['wiki_base_url'],
 		];
 		$params = array_merge( $defaultParams, $params );
 		return $this->outputsTemplate( 'commons/init.twig', $params, $response );
