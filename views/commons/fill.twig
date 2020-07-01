@@ -18,6 +18,8 @@
 				</div>
 			</div>
 
+			{% if format == 'djvu' %}
+
 			<div class="form-group">
 				<label for="sourceFile" class="col-lg-2 control-label">{{ 'form-label-file-source'|message }}</label>
 				<div class="col-lg-10">
@@ -67,6 +69,8 @@
 					</div>
 				</div>
 			</div>
+
+			{% endif %}
 
 			<div class="form-group">
 				<label for="description" class="col-lg-2 control-label">{{ 'form-label-commons-description'|message }} </label>

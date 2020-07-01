@@ -173,6 +173,7 @@ class UploadController {
 		$query = $request->getQueryParams();
 		$iaId = $query['iaId'] ?? '';
 		$commonsName = $this->commonsClient->normalizePageTitle( $query['commonsName'] ?? '' );
+		$format = $query['format'] ?? 'pdf';
 		$fileSource = $query['fileSource'] ?? 'djvu';
 		// Validate inputs.
 		if ( $iaId === '' || $commonsName === '' ) {
@@ -221,7 +222,7 @@ class UploadController {
 		$djvuFilename = $this->getIaFileName( $iaData, 'djvu' );
 		$pdfFilename = $this->getIaFileName( $iaData, 'pdf' );
 		$jp2Filename = $this->getIaFileName( $iaData, 'jp2' );
-		if ( ! ( $djvuFilename || $pdfFilename || $jp2Filename ) ) {
+		if ( ( $format === 'pdf' && !$pdfFilename ) || ! ( $djvuFilename || $pdfFilename || $jp2Filename ) ) {
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
 				'commonsName' => $commonsName,
@@ -231,7 +232,7 @@ class UploadController {
 
 		// Size sanity checks.
 		$warning = '';
-		if ( $jp2Filename !== false ) {
+		if ( $format === 'djvu' && $jp2Filename !== false ) {
 			// Make sure the zip file isn't too large.
 			$maxSizeInMb = 600;
 			$sizeInMb = round( $iaData['files'][$jp2Filename]['size'] / ( 1024 * 1024 ) );
@@ -251,7 +252,7 @@ class UploadController {
 		}
 
 		// See if the file already exists on Commons.
-		$fullCommonsName = $commonsName . '.djvu';
+		$fullCommonsName = $commonsName . '.' . $format;
 		if ( $this->commonsClient->pageExist( 'File:' . $fullCommonsName ) ) {
 			$url = 'https://commons.wikimedia.org/wiki/File:' . rawurlencode( $fullCommonsName );
 			$link = "<a href='$url'>" . htmlspecialchars( $fullCommonsName ) . '</a>';
@@ -263,18 +264,19 @@ class UploadController {
 		}
 
 		// Output the page.
+		list( $description, $notes ) = $this->createPageContent( $iaData, $format );
 		$templateParams = [
 			'warning' => $warning,
 			'iaId' => $iaId,
+			'format' => $format,
 			'commonsName' => $fullCommonsName,
 			'djvuFilename' => $djvuFilename,
 			'pdfFilename' => $pdfFilename,
 			'jp2Filename' => $jp2Filename,
 			'fileSource' => $fileSource,
+			'description' => $description,
+			'notes' => $notes,
 		];
-		list( $description, $notes ) = $this->createPageContent( $iaData );
-		$templateParams['description'] = $description;
-		$templateParams['notes'] = $notes;
 		return $this->outputsFillTemplate( $templateParams, $response );
 	}
 
@@ -494,9 +496,10 @@ class UploadController {
 	 * Creates the content of the description page
 	 *
 	 * @param array $data The IA metadata.
+	 * @param string $format The commons file format (pdf or djvu).
 	 * @return array
 	 */
-	protected function createPageContent( $data ) {
+	protected function createPageContent( $data, $format ) {
 		$language = $this->parseLanguageParam( $data );
 		$notes = [];
 		$content = '== {{int:filedesc}} ==' . "\n";
@@ -554,7 +557,9 @@ class UploadController {
 		$content .= '| Wikisource   = s:' . $language . ':Index:{{PAGENAME}}' . "\n";
 		$content .= '| Homecat      = ' . "\n";
 		$content .= '| Wikidata     = ' . "\n";
-		$content .= '}}' . "\n" . '{{Djvu}}' . "\n\n";
+		$content .= '}}' . "\n";
+		$content .= $format === 'pdf' ? '{{PDF}}' : '{{Djvu}}';
+		$content .= "\n\n";
 		$content .= '== {{int:license-header}} ==' . "\n" . '{{PD-scan}}' . "\n\n";
 		$content .= '[[Category:Uploaded with IA Upload]]' . "\n";
 
@@ -574,7 +579,8 @@ class UploadController {
 			$isCategorised = true;
 		}
 		if ( isset( self::$languageCategories[$language] ) ) {
-			$content .= '[[Category:DjVu files in ' .  self::$languageCategories[$language] . ']]' . "\n";
+			$format_cap = $format === 'pdf' ? 'PDF' : 'DjVu';
+			$content .= '[[Category:' . $format_cap . ' files in ' .  self::$languageCategories[$language] . ']]' . "\n";
 			$isCategorised = true;
 		}
 		if ( !$isCategorised ) {
