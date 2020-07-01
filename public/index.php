@@ -6,7 +6,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 use Psr\Container\ContainerInterface;
-use DI\Container;
+use DI\ContainerBuilder;
 use Slim\Factory\AppFactory;
 use Slim\Middleware\Session;
 use Slim\Views\Twig;
@@ -31,7 +31,7 @@ if ( $config === false ) {
 	exit( 1 );
 }
 
-$containerBuilder = new \DI\ContainerBuilder();
+$containerBuilder = new ContainerBuilder();
 $containerBuilder->addDefinitions([
 
 	'config' => $config,
@@ -43,27 +43,28 @@ $containerBuilder->addDefinitions([
 	},
 
 	// Internationalisation.
-	'i18n' => function( ContainerInterface $c  ) {
+	'i18n' => function( ContainerInterface $c ) {
 		return new I18nContext( new JsonCache( __DIR__ . '/../i18n' ) );
 	},
 
-	'view' => function( ContainerInterface $c  ) {
+	'view' => function( ContainerInterface $c ) {
 		$view = Twig::create(__DIR__ . '/../views');
 		$view->addExtension( new TwigExtension( $c->get( 'i18n' ) ) );
 		return $view;
 	},
 
 	// Session helper.
-	'session' => function( ContainerInterface $c  ) {
+	'session' => function( ContainerInterface $c ) {
 		return new \SlimSession\Helper();
 	},
 
 ]);
-$container = $containerBuilder->build();
 
 // Create app.
+$container = $containerBuilder->build();
 AppFactory::setContainer( $container );
 $app = AppFactory::create();
+$routeParser = $app->getRouteCollector()->getRouteParser();
 
 $app->addBodyParsingMiddleware();
 
@@ -106,55 +107,55 @@ $app->add( TwigMiddleware::createFromContainer( $app ) );
 // Convenience methods.
 
 function uploadController() {
-	global $app, $container;
-	return new UploadController( $app, $container );
+	global $container, $routeParser;
+	return new UploadController( $container, $routeParser );
 }
 
 function oauthController() {
-	global $app, $container;
-	return new OAuthController( $app, $container );
+	global $container, $routeParser;
+	return new OAuthController( $container, $routeParser );
 }
 
 $iaIdPattern = '[a-zA-Z0-9\._-]*';
 
 $app->get( '/', function ( Request $request, Response $response ) {
-	return uploadController( $this )->init( $request, $response );
+	return uploadController()->init( $request, $response );
 } )->setName( 'home' );
 
 // @deprecated in favour of 'home'.
-$app->get( '/commons/init', function ( Request $request, Response $response ) use ( $app ) {
-	$homeUrl = $app->getRouteCollector()->getRouteParser()->urlFor( 'home', [], $request->getQueryParams() );
+$app->get( '/commons/init', function ( Request $request, Response $response ) use ( $routeParser ) {
+	$homeUrl = $routeParser->urlFor( 'home', [], $request->getQueryParams() );
 	return $response
 		->withHeader( 'Location', $homeUrl )
 		->withStatus( 302 );
 } );
 
 $app->get( '/commons/fill', function ( Request $request, Response $response ) {
-	return uploadController( $this )->fill( $request, $response );
+	return uploadController()->fill( $request, $response );
 } )->setName( 'commons-fill' );
 
 $app->post( '/commons/save', function ( Request $request, Response $response ) {
-	return uploadController( $this )->save( $request, $response );
+	return uploadController()->save( $request, $response );
 } )->setName( 'commons-save' );
 
 $app->get( "/log/{iaId:$iaIdPattern}", function ( Request $request, Response $response, $args ) {
-	return uploadController( $this )->logview( $request, $response, $args['iaId'] );
+	return uploadController()->logview( $request, $response, $args['iaId'] );
 } )->setName( 'log' );
 
 $app->get( "/{iaId:$iaIdPattern}.djvu", function ( Request $request, Response $response, $args ) {
-	return uploadController( $this )->downloadDjvu( $request, $response, $args['iaId'] );
+	return uploadController()->downloadDjvu( $request, $response, $args['iaId'] );
 } )->setName( 'djvu' );
 
 $app->get( '/oauth/init', function ( Request $request, Response $response ) {
-	return oauthController( $this )->init( $request, $response );
+	return oauthController()->init( $request, $response );
 } )->setName( 'oauth-init' );
 
 $app->get( '/oauth/callback', function ( Request $request, Response $response ) {
-	return oauthController( $this )->callback( $request, $response );
+	return oauthController()->callback( $request, $response );
 } )->setName( 'oauth-callback' );
 
 $app->get( '/logout', function ( Request $request, Response $response ) {
-	return oauthController( $this )->logout( $request, $response );
+	return oauthController()->logout( $request, $response );
 } )->setName( 'logout' );
 
 $app->run();

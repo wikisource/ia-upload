@@ -7,7 +7,7 @@ use Mediawiki\Api\Guzzle\ClientFactory;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use DI\Container;
-use Slim\App;
+use Slim\Routing\RouteParser;
 use GuzzleHttp\Psr7\LazyOpenStream;
 use Wikisource\IaUpload\ApiClient\CommonsClient;
 use Wikisource\IaUpload\ApiClient\IaClient;
@@ -25,14 +25,14 @@ use Wikisource\IaUpload\OAuth\Token\ConsumerToken;
 class UploadController {
 
 	/**
-	 * @var App
-	 */
-	protected $app;
-
-	/**
 	 * @var Container
 	 */
 	protected $c;
+
+	/**
+	 * @var RouteParser
+	 */
+	protected $routeParser;
 
 	/**
 	 * @var I18nContext
@@ -92,12 +92,12 @@ class UploadController {
 
 	/**
 	 * UploadController constructor.
-	 * @param App $app The Slim application.
-	 * @param Container $c The Slim application container.
+	 * @param Container $c The Slim application's container.
+	 * @param RouteParser $routeParser The Slim application's route parser.
 	 */
-	public function __construct( App $app, Container $c ) {
-		$this->app = $app;
+	public function __construct( Container $c, RouteParser $routeParser ) {
 		$this->c = $c;
+		$this->routeParser = $routeParser;
 		$this->config = $c->get( 'config' );
 		$this->i18n = $c->get( 'i18n' );
 
@@ -170,7 +170,7 @@ class UploadController {
 	public function fill( Request $request, Response $response ) {
 		// Get inputs.
 		$query = $request->getQueryParams();
-		$iaId = $query['iaId'] ?? '';
+		$iaId = trim( $query['iaId'] ?? '' );
 		$commonsName = $this->commonsClient->normalizePageTitle( $query['commonsName'] ?? '' );
 		$format = $query['format'] ?? 'pdf';
 		$fileSource = $query['fileSource'] ?? 'djvu';
@@ -292,13 +292,14 @@ class UploadController {
 	 */
 	public function save( Request $request, Response $response ) {
 		$data = $request->getParsedBody();
-		// Strip any trailing file extension.
-		$data['commonsName'] = preg_replace( '/\.(pdf|djvu)$/i', '', $data['commonsName'] );
+		// Normalize and strip any trailing file extension.
+		$commonsName = $this->commonsClient->normalizePageTitle( $data['commonsName'] );
+		$commonsName = preg_replace( '/\.(pdf|djvu)$/i', '', $commonsName );
 		// Get all form inputs.
 		$jobInfo = [
 			'iaId' => $data['iaId'],
 			'format' => $data['format'],
-			'commonsName' => $this->commonsClient->normalizePageTitle( $data['commonsName'] . '.' . $data['format'] ),
+			'commonsName' => $commonsName . '.' . $data['format'],
 			'description' => $data['description'],
 			'fileSource' => $data['fileSource'] ?? 'jp2',
 			'removeFirstPage' => ($data['removeFirstPage'] ?? 0) === 'yes',
@@ -330,7 +331,7 @@ class UploadController {
 		// Create a local working directory.
 		$jobDirectory = $this->getJobDirectory( $jobInfo['iaId' ] );
 
-		// For PDF and JP2 conversion, add the job to the queue.
+		// For PDF and JP2 conversion to DjVu, add the job to the queue.
 		if ( $jobInfo['format'] === 'djvu' && ( $jobInfo['fileSource'] === 'pdf' || $jobInfo['fileSource'] === 'jp2' ) ) {
 			// Create a private job file before writing contents to it,
 			// because it contains the access token.
@@ -342,7 +343,7 @@ class UploadController {
 			chmod( $jobFile, 0600 );
 			file_put_contents( $jobFile, \GuzzleHttp\json_encode( $jobInfo ) );
 			return $response
-				->withHeader( 'Location', $this->app->getRouteCollector()->getRouteParser()->urlFor( 'home' ) )
+				->withHeader( 'Location', $this->routeParser->urlFor( 'home' ) )
 				->withStatus( 302 );
 		} else {
 			// Use IA file directly (don't add it to the queue, as this shouldn't take too long).
@@ -378,8 +379,8 @@ class UploadController {
 			$url = 'http://commons.wikimedia.org/wiki/File:' . rawurlencode( $jobInfo['commonsName'] );
 			$msgParam = '<a href="' . $url . '">' . $jobInfo['commonsName'] . '</a>';
 			return $this->outputsInitTemplate( [
-					'success' => $this->i18n->message( 'successfully-uploaded', [ $msgParam ] ),
-				], $response );
+				'success' => $this->i18n->message( 'successfully-uploaded', [ $msgParam ] ),
+			], $response );
 		}
 	}
 

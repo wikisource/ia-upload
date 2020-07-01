@@ -8,7 +8,7 @@ use Wikisource\IaUpload\OAuth\Token\RequestToken;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use DI\Container;
-use Slim\App;
+use Slim\Routing\RouteParser;
 
 /**
  * Controller for OAuth login
@@ -21,14 +21,14 @@ use Slim\App;
 class OAuthController {
 
 	/**
-	 * @var App
-	 */
-	protected $app;
-
-	/**
 	 * @var Container
 	 */
 	protected $c;
+
+	/**
+	 * @var RouteParser
+	 */
+	protected $routeParser;
 
 	/**
 	 * @var MediaWikiOAuth
@@ -37,12 +37,12 @@ class OAuthController {
 
 	/**
 	 * OAuthController constructor.
-	 * @param App $app The Slim application.
-	 * @param Container $c The Slim application container.
+	 * @param Container $c The Slim application's container.
+	 * @param RouteParser $routeParser The Slim application's route parser.
 	 */
-	public function __construct( App $app, Container $c ) {
-		$this->app = $app;
+	public function __construct( Container $c, RouteParser $routeParser ) {
 		$this->c = $c;
+		$this->routeParser = $routeParser;
 		$config = $c->get( 'config' );
 		$this->oAuthClient = new MediaWikiOAuth(
 			$config['wiki_base_url'],
@@ -96,7 +96,7 @@ class OAuthController {
 	public function logout( Request $request, Response $response ) {
 		$this->c->get( 'session' )->clear();
 		return $response
-			->withHeader( 'Location', $this->app->getRouteCollector()->getRouteParser()->urlFor( 'home' ) )
+			->withHeader( 'Location', $this->routeParser->urlFor( 'home' ) )
 			->withStatus( 302 );
 	}
 }
