@@ -411,7 +411,6 @@ class UploadController {
 	 */
 	public function downloadDjvu( Request $request, Response $response, $iaId ) {
 		$filename = $this->getJobDirectory( $iaId ) . '/' . $iaId . '.djvu';
-		error_log( $filename );
 		if ( !file_exists( $filename ) ) {
 			return $response->withStatus( 404, 'File not found' );
 		}
