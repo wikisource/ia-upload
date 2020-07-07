@@ -2,13 +2,13 @@
 
 namespace Wikisource\IaUpload\Controller;
 
-use DI\Container;
 use Exception;
-use GuzzleHttp\Psr7\LazyOpenStream;
 use Mediawiki\Api\Guzzle\ClientFactory;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use DI\Container;
 use Slim\Routing\RouteParser;
+use GuzzleHttp\Psr7\LazyOpenStream;
 use Wikisource\IaUpload\ApiClient\CommonsClient;
 use Wikisource\IaUpload\ApiClient\IaClient;
 use Wikisource\IaUpload\OAuth\MediaWikiOAuth;
@@ -20,7 +20,7 @@ use Wikisource\IaUpload\OAuth\Token\ConsumerToken;
  * @file
  * @ingroup IaUpload
  *
- * @license GPL-2.0-or-later
+ * @licence GNU GPL v2+
  */
 class UploadController {
 
@@ -102,11 +102,7 @@ class UploadController {
 		$this->i18n = $c->get( 'i18n' );
 
 		$this->iaClient = new IaClient();
-		$this->commonsClient = new CommonsClient(
-			$this->config['wiki_base_url'],
-			$this->buildMediawikiClient(),
-			$c->get( 'logger' )
-		);
+		$this->commonsClient = new CommonsClient( $this->config['wiki_base_url'], $this->buildMediawikiClient(), $c->get( 'logger' ) );
 	}
 
 	private function buildMediawikiClient() {
@@ -124,11 +120,11 @@ class UploadController {
 
 	/**
 	 * Get the full directory name of the working directory for the given job.
-	 * @param ?string $iaId The IA item ID.
+	 * @param string $iaId The IA item ID.
 	 * @return string The full filesystem path to the directory (as returned by realpath()).
 	 * @throws Exception If the directory can't be created or is not writable.
 	 */
-	protected function getJobDirectory( ?string $iaId = null ) {
+	protected function getJobDirectory( $iaId = null ) {
 		$jobDirectoryName = __DIR__ . '/../../jobqueue/' . $iaId;
 		if ( !is_dir( $jobDirectoryName ) ) {
 			mkdir( $jobDirectoryName, 0755, true );
@@ -143,7 +139,6 @@ class UploadController {
 	/**
 	 * The first action presented to the user.
 	 * @param Request $request The HTTP request.
-	 * @param Response $response The HTTP response.
 	 * @return Response
 	 */
 	public function init( Request $request, Response $response ) {
@@ -170,7 +165,6 @@ class UploadController {
 	/**
 	 * The second step, in which users fill in the Commons template etc.
 	 * @param Request $request The HTTP request.
-	 * @param Response $response The HTTP response.
 	 * @return Response
 	 */
 	public function fill( Request $request, Response $response ) {
@@ -229,7 +223,7 @@ class UploadController {
 		$djvuFilename = $this->getIaFileName( $iaData, 'djvu' );
 		$pdfFilename = $this->getIaFileName( $iaData, 'pdf' );
 		$jp2Filename = $this->getIaFileName( $iaData, 'jp2' );
-		if ( ( $format === 'pdf' && !$pdfFilename ) || !( $djvuFilename || $pdfFilename || $jp2Filename ) ) {
+		if ( ( $format === 'pdf' && !$pdfFilename ) || ! ( $djvuFilename || $pdfFilename || $jp2Filename ) ) {
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
 				'format' => $format,
@@ -294,7 +288,6 @@ class UploadController {
 	 * puts the job data into the queue for subsequent processing by the CLI part of this tool.
 	 *
 	 * @param Request $request The HTTP request.
-	 * @param Response $response The HTTP response.
 	 * @return Response
 	 */
 	public function save( Request $request, Response $response ) {
@@ -310,7 +303,7 @@ class UploadController {
 			'fullCommonsName' => $commonsName . '.' . $data['format'],
 			'description' => $data['description'],
 			'fileSource' => $data['fileSource'] ?? 'jp2',
-			'removeFirstPage' => ( $data['removeFirstPage'] ?? 0 ) === 'yes',
+			'removeFirstPage' => ($data['removeFirstPage'] ?? 0) === 'yes',
 		];
 		if ( !$jobInfo['iaId'] || !$jobInfo['commonsName'] || !$jobInfo['description'] ) {
 			$jobInfo['error'] = 'You must set all the fields of the form';
@@ -395,7 +388,6 @@ class UploadController {
 	/**
 	 * Display the log of a given job.
 	 * @param Request $request The HTTP request.
-	 * @param Response $response The HTTP response.
 	 * @param string $iaId The IA ID.
 	 * @return Response
 	 */
@@ -414,7 +406,6 @@ class UploadController {
 	/**
 	 * Download a single DjVu file if possible.
 	 * @param Request $request The HTTP request.
-	 * @param Response $response The HTTP response.
 	 * @param string $iaId The IA ID.
 	 * @return Response
 	 */
@@ -432,7 +423,6 @@ class UploadController {
 	 * Outputs a template as response
 	 *
 	 * @param array $params Parameters to pass to the template
-	 * @param Response $response The HTTP response.
 	 * @return Response
 	 */
 	protected function outputsInitTemplate( array $params, Response $response ) {
@@ -451,7 +441,6 @@ class UploadController {
 	 * Outputs a template as response
 	 *
 	 * @param array $params Parameters to pass to the template
-	 * @param Response $response The HTTP response.
 	 * @return Response
 	 */
 	protected function outputsFillTemplate( array $params, Response $response ) {
@@ -472,7 +461,6 @@ class UploadController {
 	 *
 	 * @param string $templateName The template filename.
 	 * @param array $params Parameters to pass to the template
-	 * @param Response $response The HTTP response.
 	 * @return Response
 	 */
 	protected function outputsTemplate( $templateName, array $params, Response $response ) {
@@ -509,13 +497,13 @@ class UploadController {
 			if ( $largestPath ) {
 				return $largestPath;
 			}
-		} elseif ( $fileType === 'djvu' ) {
+		} else if ( $fileType === 'djvu' ) {
 			foreach ( $data['files'] as $filePath => $fileInfo ) {
-				if ( $fileInfo['format'] === 'DjVu' ) {
+				if ( $fileInfo['format'] === 'DjVu') {
 					return $filePath;
 				}
 			}
-		} elseif ( $fileType === 'jp2' ) {
+		} else if ( $fileType === 'jp2' ) {
 			// We only consider to have a jp2 file if we've also got a  *_djvu.xml to go
 			// with it. Could perhaps instead check for $fileInfo['format'] === 'Abbyy GZ'?
 			$filenames = array_keys( $data['files'] );
@@ -617,7 +605,7 @@ class UploadController {
 		}
 		if ( isset( self::$languageCategories[$language] ) ) {
 			$format_caps = $format === 'pdf' ? 'PDF' : 'DjVu';
-			$content .= '[[Category:' . $format_caps . ' files in ' . self::$languageCategories[$language] . ']]' . "\n";
+			$content .= '[[Category:' . $format_caps . ' files in ' .  self::$languageCategories[$language] . ']]' . "\n";
 			$isCategorised = true;
 		}
 		if ( !$isCategorised ) {
@@ -642,7 +630,7 @@ class UploadController {
 			$creatorParts = array_map( 'trim', explode( ',', $creator ) );
 			// Exclude any parts that are dates (numbers and hyphens).
 			$authorParts = preg_grep( '/^[0-9-]*$/', $creatorParts, PREG_GREP_INVERT );
-			$creator = implode( ' ',  array_reverse( $authorParts ) );
+			$creator = join( ' ',  array_reverse( $authorParts ) );
 		}
 		if ( $this->commonsClient->pageExist( "Creator:$creator" ) ) {
 			return "{{Creator:$creator}}";

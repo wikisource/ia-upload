@@ -26,7 +26,7 @@
 		"wikimedia/simplei18n": "^1.0"
 	},
 	"require-dev": {
-		"mediawiki/mediawiki-codesniffer": "^31.0"
+		"mediawiki/mediawiki-codesniffer": "^14.0"
 	},
 	"autoload": {
 		"psr-4": {

@@ -13,6 +13,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Wikisource\IaUpload\ApiClient\CommonsClient;
 use Wikisource\IaUpload\ApiClient\IaClient;
+use Wikisource\IaUpload\Controller\OAuthController;
 use Wikisource\IaUpload\DjvuMaker\DjvuMaker;
 use Wikisource\IaUpload\OAuth\MediaWikiOAuth;
 use Wikisource\IaUpload\OAuth\Token\AccessToken;
@@ -26,10 +27,6 @@ class JobsCommand extends Command {
 	/** @var array Config data from config.ini. */
 	protected $config;
 
-	/**
-	 * JobsCommand constructor.
-	 * @param array $config The Slim application's config.
-	 */
 	public function __construct( array $config ) {
 		parent::__construct();
 		$this->config = $config;

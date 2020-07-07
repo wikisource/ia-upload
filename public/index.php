@@ -2,16 +2,16 @@
 
 namespace IaUpload;
 
-use DI\ContainerBuilder;
-use Monolog\Logger;
-use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
+use Psr\Container\ContainerInterface;
+use DI\ContainerBuilder;
 use Slim\Factory\AppFactory;
 use Slim\Middleware\Session;
 use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
+use Monolog\Logger;
 use Wikimedia\SimpleI18n\I18nContext;
 use Wikimedia\SimpleI18n\JsonCache;
 use Wikimedia\SimpleI18n\TwigExtension;
@@ -32,33 +32,33 @@ if ( $config === false ) {
 }
 
 $containerBuilder = new ContainerBuilder();
-$containerBuilder->addDefinitions( [
+$containerBuilder->addDefinitions([
 
 	'config' => $config,
 
 	'debug' => isset( $config['debug'] ) && $config['debug'],
 
-	'logger' => function ( ContainerInterface $c ) {
+	'logger' => function( ContainerInterface $c ) {
 		return new Logger( 'ia-upload' );
 	},
 
 	// Internationalisation.
-	'i18n' => function ( ContainerInterface $c ) {
+	'i18n' => function( ContainerInterface $c ) {
 		return new I18nContext( new JsonCache( __DIR__ . '/../i18n' ) );
 	},
 
-	'view' => function ( ContainerInterface $c ) {
-		$view = Twig::create( __DIR__ . '/../views' );
+	'view' => function( ContainerInterface $c ) {
+		$view = Twig::create(__DIR__ . '/../views');
 		$view->addExtension( new TwigExtension( $c->get( 'i18n' ) ) );
 		return $view;
 	},
 
 	// Session helper.
-	'session' => function ( ContainerInterface $c ) {
+	'session' => function( ContainerInterface $c ) {
 		return new \SlimSession\Helper();
 	},
 
-] );
+]);
 
 // Create app.
 $container = $containerBuilder->build();
@@ -90,11 +90,10 @@ $app->add( new \RKA\Middleware\IpAddress(
 ) );
 
 // Sessions.
-$app->add( function ( Request $request, RequestHandler $handler ) {
+$app->add( function ( Request $request, RequestHandler $handler) {
 	$session = new Session( [
 		'name' => 'ia-upload-session',
-		// matches default $wgCookieExpiration
-		'lifetime' => '30 days',
+		'lifetime' => '30 days', // matches default $wgCookieExpiration
 		'path' => '/',
 		'httponly' => true,
 		'secure' => $request->getUri()->getHost() !== 'localhost',
@@ -113,19 +112,11 @@ if ( $container->get( 'debug' ) ) {
 	$app->addErrorMiddleware( true, true, true );
 }
 
-/**
- * Convenience method for UploadController.
- * @return UploadController
- */
 function uploadController() {
 	global $container, $routeParser;
 	return new UploadController( $container, $routeParser );
 }
 
-/**
- * Convenience method for OAuthController.
- * @return OAuthController
- */
 function oauthController() {
 	global $container, $routeParser;
 	return new OAuthController( $container, $routeParser );

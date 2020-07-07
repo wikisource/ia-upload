@@ -13,7 +13,7 @@ use Psr\Http\Message\StreamInterface;
  * @file
  * @ingroup IaUpload
  *
- * @license GPL-2.0-or-later
+ * @licence GNU GPL v2+
  */
 class IaClient {
 
