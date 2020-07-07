@@ -86,7 +86,7 @@ $app->add( new \RKA\Middleware\IpAddress(
 	true,
 	[ '10.68.21.49', '10.68.21.81' ],
 	null,
-	[ 'X-Forwarded', 'X-Forwarded-For' ],
+	[ 'X-Forwarded', 'X-Forwarded-For' ]
 ) );
 
 // Sessions.
