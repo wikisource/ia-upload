@@ -105,6 +105,14 @@ $app->add( function ( Request $request, RequestHandler $handler ) {
 // Twig view middleware.
 $app->add( TwigMiddleware::createFromContainer( $app ) );
 
+// Routing middleware.
+$app->addRoutingMiddleware();
+
+// Error middleware.
+if ( $container->get( 'debug' ) ) {
+	$app->addErrorMiddleware( true, true, true );
+}
+
 /**
  * Convenience method for UploadController.
  * @return UploadController
