@@ -1,12 +1,11 @@
 Internet Archive Upload Tool
 ============================
 
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Tpt/ia-upload/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Tpt/ia-upload/?branch=master)
-[![Build Status](https://travis-ci.org/wikisource/ia-upload.svg?branch=master)](https://travis-ci.org/wikisource/ia-upload)
-[![Dependency Status](https://www.versioneye.com/user/projects/58a64b614ca76f004ed471fa/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/58a64b614ca76f004ed471fa)
+![CI](https://github.com/wikisource/ia-upload/workflows/CI/badge.svg)
 
 A small tool to import DjVu files from Internet Archive to Wikimedia Commons.
-See it in operation at [tools.wmflabs.org/ia-upload/](https://tools.wmflabs.org/ia-upload/)
+See it in operation at [ia-upload.toolforge.org](https://ia-upload.toolforge.org/)
+(or the test site at [ia-upload-test.toolforge.org](https://ia-upload-test.toolforge.org/))
 and read the documentation at [wikitech.wikimedia.org/wiki/Tool:IA_Upload](https://wikitech.wikimedia.org/wiki/Tool:IA_Upload).
 
 ## Prerequesites
@@ -28,7 +27,7 @@ The actual format conversions are done by the following external tools, called f
 
    * For Lighttpd, use:
 
-         url.rewrite-if-not-file += ( "(.*)" => "index.php/$0" )
+         url.rewrite-if-not-file += ( "/(.*)" => "/index.php$0" )
 
 4. Register an oAuth consumer on [Meta](https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration)
    with a callback to e.g. `http://localhost/ia-upload/public/oauth/callback` (i.e. ending in `oauth/callback`)
