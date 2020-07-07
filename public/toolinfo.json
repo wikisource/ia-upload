@@ -2,7 +2,7 @@
 	"name" : "ia-upload",
 	"title" : "IA Upload",
 	"description" : "A tool to upload Internet Archive files to Wikimedia Commons",
-	"url" : "https://tools.wmflabs.org/ia-upload/",
+	"url" : "https://ia-upload.toolforge.org/",
 	"keywords" : "Wikisource, Internet Archive, DjVu, PDF, conversion, upload",
 	"author" : "Tpt, Sam Wilson",
 	"repository" : "https://github.com/wikisource/ia-upload.git"
