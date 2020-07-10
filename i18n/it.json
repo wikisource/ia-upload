@@ -44,6 +44,7 @@
 	"invalid-length": "'$1' è troppo lungo",
 	"no-found-on-ia": "'$1' non è un identificatore Internet Archive valido",
 	"already-on-commons": "Esiste già un file con nome '$1' su Wikimedia Commons",
+	"creator-template-missing": "L'autore '$1' non ha un template <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>creatore</a>.",
 	"successfully-uploaded": "$1 è stato caricato correttamente su Commons!",
 	"recent-uploads": "Ultimi caricamenti"
 }

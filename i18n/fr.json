@@ -52,7 +52,7 @@
 	"invalid-length": "« $1 » est trop long",
 	"no-found-on-ia": "« $1 » n’est pas un identifiant valide d’Internet Archive",
 	"already-on-commons": "Un fichier nommé « $1 » existe déjà sur Wikimedia Commons",
-	"creator-template-missing": "L’auteur « $1 » n’a pas de modèle <a href=\"https://commons.wikimedia.org/wiki/Commons:Creator\">createur</a>. Si vous connaissez son identifiant Wikidata,  vous pouvez <a href=\"https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php\">créer le  modèle maintenant</a>.",
+	"creator-template-missing": "L’auteur « $1 » n’a pas de modèle <a href=\"https://commons.wikimedia.org/wiki/Commons:Creator\">créateur</a>.",
 	"no-usable-files-found": "Aucun fichier utilisable (DjVu, PDF ou JP2) trouvé pour cet élément.",
 	"successfully-uploaded": "$1 a bien été téléversé sur Commons !",
 	"recent-uploads": "Téléversements récents",
