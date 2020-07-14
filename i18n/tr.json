@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Ahmetlii",
 			"BaRaN6161 TURK",
 			"Chansey",
 			"Hedda",
@@ -50,7 +51,7 @@
 	"invalid-length": "'$1' çok uzun",
 	"no-found-on-ia": "'$1' geçerli bir İnternet Arşivi tanımlayıcısı değil",
 	"already-on-commons": "Wikimedia Commons'ta '$1' adlı bir dosya zaten var",
-	"creator-template-missing": "Yazarın '$1' bir <a href='https://commons.wikimedia.org/wiki/Commons:Creator/tr'>yaratıcısı</a> şablonu yok. Vikiveri kimliklerini biliyorsanız, <a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'> şablonu şimdi oluşturabilirsiniz </a>.",
+	"creator-template-missing": "Yazarın '$1' bir <a href='https://commons.wikimedia.org/wiki/Commons:Creator/tr'>oluşturucu</a> şablonu yok.",
 	"no-usable-files-found": "Bu öğe için kullanılabilir dosya (DjVu, PDF veya JP2) bulunamadı.",
 	"successfully-uploaded": "Commons'a $1 başarıyla yüklendi!",
 	"recent-uploads": "Son yüklenenler",
