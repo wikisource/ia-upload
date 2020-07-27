@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Omotecho",
-			"Otokoume"
+			"Otokoume",
+			"Tmv"
 		]
 	},
 	"ia-upload": "IA Upload",
@@ -48,7 +49,7 @@
 	"invalid-length": "「$1」は長すぎます",
 	"no-found-on-ia": "「$1」は、有効なインターネットアーカイブ識別子ではありません",
 	"already-on-commons": "「$1」というファイル名は、すでにウィキメディア・コモンズに存在します",
-	"creator-template-missing": "制作者「$1」には<a href='https://commons.wikimedia.org/wiki/Commons:Creator'>制作者</a>テンプレートがありません。もし Wikidata ID \nがわかる場合は<a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php' >ここでテンプレートを作成できます</a>。",
+	"creator-template-missing": "制作者「$1」には<a href='https://commons.wikimedia.org/wiki/Commons:Creator'>制作者</a>テンプレートがありません。",
 	"no-usable-files-found": "その項目に対する利用可能なファイルが見つかりません (形式は DjVu、PDF、JP2)。",
 	"successfully-uploaded": "コモンズで $1 のアップロードを完了しました。",
 	"recent-uploads": "最近のアップロード",
