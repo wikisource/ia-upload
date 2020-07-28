@@ -102,7 +102,11 @@ class UploadController {
 		$this->i18n = $c->get( 'i18n' );
 
 		$this->iaClient = new IaClient();
-		$this->commonsClient = new CommonsClient( $this->config['wiki_base_url'], $this->buildMediawikiClient(), $c->get( 'logger' ) );
+		$this->commonsClient = new CommonsClient(
+			$this->config['wiki_base_url'],
+			$this->buildMediawikiClient(),
+			$c->get( 'logger' )
+		);
 	}
 
 	private function buildMediawikiClient() {
@@ -139,6 +143,7 @@ class UploadController {
 	/**
 	 * The first action presented to the user.
 	 * @param Request $request The HTTP request.
+	 * @param Response $response The HTTP response.
 	 * @return Response
 	 */
 	public function init( Request $request, Response $response ) {
@@ -165,6 +170,7 @@ class UploadController {
 	/**
 	 * The second step, in which users fill in the Commons template etc.
 	 * @param Request $request The HTTP request.
+	 * @param Response $response The HTTP response.
 	 * @return Response
 	 */
 	public function fill( Request $request, Response $response ) {
@@ -223,7 +229,7 @@ class UploadController {
 		$djvuFilename = $this->getIaFileName( $iaData, 'djvu' );
 		$pdfFilename = $this->getIaFileName( $iaData, 'pdf' );
 		$jp2Filename = $this->getIaFileName( $iaData, 'jp2' );
-		if ( ( $format === 'pdf' && !$pdfFilename ) || ! ( $djvuFilename || $pdfFilename || $jp2Filename ) ) {
+		if ( ( $format === 'pdf' && !$pdfFilename ) || !( $djvuFilename || $pdfFilename || $jp2Filename ) ) {
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
 				'format' => $format,
@@ -288,6 +294,7 @@ class UploadController {
 	 * puts the job data into the queue for subsequent processing by the CLI part of this tool.
 	 *
 	 * @param Request $request The HTTP request.
+	 * @param Response $response The HTTP response.
 	 * @return Response
 	 */
 	public function save( Request $request, Response $response ) {
@@ -303,7 +310,7 @@ class UploadController {
 			'fullCommonsName' => $commonsName . '.' . $data['format'],
 			'description' => $data['description'],
 			'fileSource' => $data['fileSource'] ?? 'jp2',
-			'removeFirstPage' => ($data['removeFirstPage'] ?? 0) === 'yes',
+			'removeFirstPage' => ( $data['removeFirstPage'] ?? 0 ) === 'yes',
 		];
 		if ( !$jobInfo['iaId'] || !$jobInfo['commonsName'] || !$jobInfo['description'] ) {
 			$jobInfo['error'] = 'You must set all the fields of the form';
@@ -388,6 +395,7 @@ class UploadController {
 	/**
 	 * Display the log of a given job.
 	 * @param Request $request The HTTP request.
+	 * @param Response $response The HTTP response.
 	 * @param string $iaId The IA ID.
 	 * @return Response
 	 */
@@ -406,6 +414,7 @@ class UploadController {
 	/**
 	 * Download a single DjVu file if possible.
 	 * @param Request $request The HTTP request.
+	 * @param Response $response The HTTP response.
 	 * @param string $iaId The IA ID.
 	 * @return Response
 	 */
@@ -423,6 +432,7 @@ class UploadController {
 	 * Outputs a template as response
 	 *
 	 * @param array $params Parameters to pass to the template
+	 * @param Response $response The HTTP response.
 	 * @return Response
 	 */
 	protected function outputsInitTemplate( array $params, Response $response ) {
@@ -441,6 +451,7 @@ class UploadController {
 	 * Outputs a template as response
 	 *
 	 * @param array $params Parameters to pass to the template
+	 * @param Response $response The HTTP response.
 	 * @return Response
 	 */
 	protected function outputsFillTemplate( array $params, Response $response ) {
@@ -461,6 +472,7 @@ class UploadController {
 	 *
 	 * @param string $templateName The template filename.
 	 * @param array $params Parameters to pass to the template
+	 * @param Response $response The HTTP response.
 	 * @return Response
 	 */
 	protected function outputsTemplate( $templateName, array $params, Response $response ) {
@@ -497,13 +509,13 @@ class UploadController {
 			if ( $largestPath ) {
 				return $largestPath;
 			}
-		} else if ( $fileType === 'djvu' ) {
+		} elseif ( $fileType === 'djvu' ) {
 			foreach ( $data['files'] as $filePath => $fileInfo ) {
-				if ( $fileInfo['format'] === 'DjVu') {
+				if ( $fileInfo['format'] === 'DjVu' ) {
 					return $filePath;
 				}
 			}
-		} else if ( $fileType === 'jp2' ) {
+		} elseif ( $fileType === 'jp2' ) {
 			// We only consider to have a jp2 file if we've also got a  *_djvu.xml to go
 			// with it. Could perhaps instead check for $fileInfo['format'] === 'Abbyy GZ'?
 			$filenames = array_keys( $data['files'] );
@@ -605,7 +617,7 @@ class UploadController {
 		}
 		if ( isset( self::$languageCategories[$language] ) ) {
 			$format_caps = $format === 'pdf' ? 'PDF' : 'DjVu';
-			$content .= '[[Category:' . $format_caps . ' files in ' .  self::$languageCategories[$language] . ']]' . "\n";
+			$content .= '[[Category:' . $format_caps . ' files in ' . self::$languageCategories[$language] . ']]' . "\n";
 			$isCategorised = true;
 		}
 		if ( !$isCategorised ) {
