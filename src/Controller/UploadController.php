@@ -502,16 +502,10 @@ class UploadController {
 	protected function getIaFileName( $data, $fileType = 'djvu' ) {
 		if ( $fileType === 'pdf' ) {
 			$pdfFormats = [ 'Text PDF', 'Additional Text PDF', 'Image Container PDF' ];
-			$largestPath = null;
-			$largestSize = 0;
 			foreach ( $data['files'] as $filePath => $fileInfo ) {
-				if ( in_array( $fileInfo['format'], $pdfFormats ) && $fileInfo['size'] > $largestSize ) {
-					$largestPath = $filePath;
-					$largestSize = $fileInfo['size'];
+				if ( in_array( $fileInfo['format'], $pdfFormats ) ) {
+					return $filePath;
 				}
-			}
-			if ( $largestPath ) {
-				return $largestPath;
 			}
 		} elseif ( $fileType === 'djvu' ) {
 			foreach ( $data['files'] as $filePath => $fileInfo ) {
