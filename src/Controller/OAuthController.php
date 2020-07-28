@@ -80,9 +80,12 @@ class OAuthController {
 			return $response->withStatus( 403, 'Unable to load request token from session' );
 		}
 		$verifier = $request->getQueryParams()['oauth_verifier'];
-		$accessToken = $this->oAuthClient->complete( $reqestToken, $verifier );
+		$accessToken = [
+			'value' => $this->oAuthClient->complete( $reqestToken, $verifier ),
+			'version' => $this->c->get( 'config' )['consumerKey']
+		];
 		$session->set( 'access_token', $accessToken );
-		$session->set( 'user', $this->oAuthClient->identify( $accessToken )->username );
+		$session->set( 'user', $this->oAuthClient->identify( $accessToken['value'] )->username );
 		$session->delete( 'request_token' );
 		// regenerate session id
 		$session->id( true );

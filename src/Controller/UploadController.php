@@ -112,14 +112,19 @@ class UploadController {
 	private function buildMediawikiClient() {
 		$session = $this->c->get( 'session' );
 		if ( $session->exists( 'access_token' ) ) {
-			$oAuth = new MediaWikiOAuth(
-				$this->config['wiki_base_url'],
-				new ConsumerToken( $this->config['consumerKey'], $this->config['consumerSecret'] )
-			);
-			return $oAuth->buildMediawikiClientFromToken( $session->get( 'access_token' ) );
-		} else {
-			return ( new ClientFactory() )->getClient();
+			$accessToken = $session->get( 'access_token' );
+			if ( is_array( $accessToken ) && $accessToken['version'] === $this->config['consumerKey'] ) {
+				$oAuth = new MediaWikiOAuth(
+					$this->config['wiki_base_url'],
+					new ConsumerToken( $this->config['consumerKey'], $this->config['consumerSecret'] )
+				);
+				return $oAuth->buildMediawikiClientFromToken( $accessToken['value'] );
+			} else {
+				$session->clear();
+			}
 		}
+
+		return ( new ClientFactory() )->getClient();
 	}
 
 	/**
@@ -345,7 +350,7 @@ class UploadController {
 			&& ( $jobInfo['fileSource'] === 'pdf' || $jobInfo['fileSource'] === 'jp2' ) ) {
 			// Create a private job file before writing contents to it,
 			// because it contains the access token.
-			$jobInfo['userAccessToken'] = $this->c->get( 'session' )->get( 'access_token' );
+			$jobInfo['userAccessToken'] = $this->c->get( 'session' )->get( 'access_token' )['value'];
 			$jobFile = $jobDirectory . '/job.json';
 			$oldUmask = umask( 0177 );
 			touch( $jobFile );
