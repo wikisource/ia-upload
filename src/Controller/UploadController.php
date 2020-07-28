@@ -229,7 +229,8 @@ class UploadController {
 		$djvuFilename = $this->getIaFileName( $iaData, 'djvu' );
 		$pdfFilename = $this->getIaFileName( $iaData, 'pdf' );
 		$jp2Filename = $this->getIaFileName( $iaData, 'jp2' );
-		if ( ( $format === 'pdf' && !$pdfFilename ) || !( $djvuFilename || $pdfFilename || $jp2Filename ) ) {
+		if ( ( $format === 'pdf' && !$pdfFilename )
+			|| !( $djvuFilename || $pdfFilename || $jp2Filename ) ) {
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
 				'format' => $format,
@@ -340,7 +341,8 @@ class UploadController {
 		$jobDirectory = $this->getJobDirectory( $jobInfo['iaId' ] );
 
 		// For PDF and JP2 conversion to DjVu, add the job to the queue.
-		if ( $jobInfo['format'] === 'djvu' && ( $jobInfo['fileSource'] === 'pdf' || $jobInfo['fileSource'] === 'jp2' ) ) {
+		if ( $jobInfo['format'] === 'djvu'
+			&& ( $jobInfo['fileSource'] === 'pdf' || $jobInfo['fileSource'] === 'jp2' ) ) {
 			// Create a private job file before writing contents to it,
 			// because it contains the access token.
 			$jobInfo['userAccessToken'] = $this->c->get( 'session' )->get( 'access_token' );
@@ -384,7 +386,9 @@ class UploadController {
 			}
 			unlink( $localFile );
 			rmdir( $jobDirectory );
-			$url = $this->config['wiki_base_url'] . '/wiki/File:' . rawurlencode( $jobInfo['fullCommonsName'] );
+			$url = $this->config['wiki_base_url']
+				. '/wiki/File:'
+				. rawurlencode( $jobInfo['fullCommonsName'] );
 			$msgParam = '<a href="' . $url . '">' . $jobInfo['fullCommonsName'] . '</a>';
 			return $this->outputsInitTemplate( [
 				'success' => $this->i18n->message( 'successfully-uploaded', [ $msgParam ] ),
@@ -617,7 +621,12 @@ class UploadController {
 		}
 		if ( isset( self::$languageCategories[$language] ) ) {
 			$format_caps = $format === 'pdf' ? 'PDF' : 'DjVu';
-			$content .= '[[Category:' . $format_caps . ' files in ' . self::$languageCategories[$language] . ']]' . "\n";
+			$content .= '[[Category:'
+				. $format_caps
+				. ' files in '
+				. self::$languageCategories[$language]
+				. ']]'
+				. "\n";
 			$isCategorised = true;
 		}
 		if ( !$isCategorised ) {
