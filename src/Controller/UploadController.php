@@ -265,11 +265,24 @@ class UploadController {
 			}
 		}
 
-		// See if the file already exists on Commons.
+		// See if the filename already exists on Commons.
 		$fullCommonsName = $commonsName . '.' . $format;
 		if ( $this->commonsClient->pageExist( 'File:' . $fullCommonsName ) ) {
-			$url = 'https://commons.wikimedia.org/wiki/File:' . rawurlencode( $fullCommonsName );
+			$url = $this->config['wiki_base_url'] . '/wiki/File:' . rawurlencode( $fullCommonsName );
 			$link = "<a href='$url'>" . htmlspecialchars( $fullCommonsName ) . '</a>';
+			return $this->outputsInitTemplate( [
+				'iaId' => $iaId,
+				'format' => $format,
+				'commonsName' => $commonsName,
+				'error' => $this->i18n->message( 'already-on-commons', [ $link ] ),
+			], $response );
+		}
+
+		// See if a page for the IA item exists on Commons under a different name.
+		$existingPage = $this->commonsClient->pageForIAItem( $iaId );
+		if ( $existingPage ) {
+			$url = $this->config['wiki_base_url'] . '/wiki/' . rawurlencode( $existingPage );
+			$link = "<a href='$url'>" . htmlspecialchars( $iaId ) . '</a>';
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
 				'format' => $format,

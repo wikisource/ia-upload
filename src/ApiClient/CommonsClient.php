@@ -68,6 +68,23 @@ class CommonsClient {
 	}
 
 	/**
+	 * Returns page corresponding to IA item (if any)
+	 *
+	 * @param string $identifier The IA identifier.
+	 * @return string
+	 */
+	public function pageForIAItem( $identifier ) {
+		$result = $this->mediawikiApi->getRequest( new SimpleRequest( 'query', [
+			'list' => 'iwbacklinks',
+			'iwblprefix' => 'iarchive',
+			'iwbltitle' => $identifier
+		] ) );
+		return empty( $result['query']['iwbacklinks'] )
+			? ""
+			: $result['query']['iwbacklinks'][0]['title'];
+	}
+
+	/**
 	 * Returns the edit token for the current user
 	 *
 	 * @param string $fileName the name of the file to upload
