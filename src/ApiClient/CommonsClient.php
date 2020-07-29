@@ -31,12 +31,13 @@ class CommonsClient {
 
 	/**
 	 * CommonsClient constructor.
+	 * @param string $base_url The wiki base URL with no trailing slash or path.
 	 * @param Client $oauthClient The Oauth client.
 	 * @param LoggerInterface $logger The logger.
 	 */
-	public function __construct( Client $oauthClient, LoggerInterface $logger ) {
+	public function __construct( $base_url, Client $oauthClient, LoggerInterface $logger ) {
 		$this->client = $oauthClient;
-		$this->mediawikiApi = new MediawikiApi( 'https://commons.wikimedia.org/w/api.php', $oauthClient );
+		$this->mediawikiApi = new MediawikiApi( $base_url . '/w/api.php', $oauthClient );
 		$this->mediawikiApi->setLogger( $logger );
 	}
 
@@ -64,6 +65,23 @@ class CommonsClient {
 			'prop' => 'info'
 		] ) );
 		return !isset( $result['query']['pages'][-1] );
+	}
+
+	/**
+	 * Returns page corresponding to IA item (if any)
+	 *
+	 * @param string $identifier The IA identifier.
+	 * @return string
+	 */
+	public function pageForIAItem( $identifier ) {
+		$result = $this->mediawikiApi->getRequest( new SimpleRequest( 'query', [
+			'list' => 'iwbacklinks',
+			'iwblprefix' => 'iarchive',
+			'iwbltitle' => $identifier
+		] ) );
+		return empty( $result['query']['iwbacklinks'] )
+			? ""
+			: $result['query']['iwbacklinks'][0]['title'];
 	}
 
 	/**

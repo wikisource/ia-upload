@@ -5,8 +5,10 @@ namespace Wikisource\IaUpload\Controller;
 use Wikisource\IaUpload\OAuth\MediaWikiOAuth;
 use Wikisource\IaUpload\OAuth\Token\ConsumerToken;
 use Wikisource\IaUpload\OAuth\Token\RequestToken;
-use Silex\Application;
-use Symfony\Component\HttpFoundation\Request;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use DI\Container;
+use Slim\Routing\RouteParser;
 
 /**
  * Controller for OAuth login
@@ -19,26 +21,31 @@ use Symfony\Component\HttpFoundation\Request;
 class OAuthController {
 
 	/**
-	 * @var Application
+	 * @var Container
 	 */
-	protected $app;
+	protected $c;
+
+	/**
+	 * @var RouteParser
+	 */
+	protected $routeParser;
 
 	/**
 	 * @var MediaWikiOAuth
 	 */
 	protected $oAuthClient;
 
-	const OAUTH_URL = 'https://commons.wikimedia.org/w/index.php';
-
 	/**
 	 * OAuthController constructor.
-	 * @param Application $app The Silex application.
-	 * @param array $config The application configuration.
+	 * @param Container $c The Slim application's container.
+	 * @param RouteParser $routeParser The Slim application's route parser.
 	 */
-	public function __construct( Application $app, array $config ) {
-		$this->app = $app;
+	public function __construct( Container $c, RouteParser $routeParser ) {
+		$this->c = $c;
+		$this->routeParser = $routeParser;
+		$config = $c->get( 'config' );
 		$this->oAuthClient = new MediaWikiOAuth(
-			self::OAUTH_URL,
+			$config['wiki_base_url'],
 			new ConsumerToken( $config['consumerKey'], $config['consumerSecret'] )
 		);
 	}
@@ -46,41 +53,57 @@ class OAuthController {
 	/**
 	 * The first stage of the authentication process, which redirects the user to Commons.
 	 * @param Request $request The HTTP request.
-	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 * @param Response $response The HTTP response.
+	 * @return Response
 	 */
-	public function init( Request $request ) {
-		$this->app['session']->set( 'referer', $request->get( 'referer', '' ) );
+	public function init( Request $request, Response $response ) {
+		$session = $this->c->get( 'session' );
+		$query = $request->getQueryParams();
+		$session->set( 'referer', $query['referer'] ?? '' );
 		list( $redirectUri, $requestToken ) = $this->oAuthClient->initiate();
-		$this->app['session']->set( 'request_token', $requestToken );
-		return $this->app->redirect( $redirectUri );
+		$session->set( 'request_token', $requestToken );
+		return $response
+			->withHeader( 'Location', $redirectUri )
+			->withStatus( 302 );
 	}
 
 	/**
 	 * The action that the user is redirected to after authorizing at Commons.
 	 * @param Request $request The HTTP request.
-	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 * @param Response $response The HTTP response.
+	 * @return Response
 	 */
-	public function callback( Request $request ) {
-		$reqestToken = $this->app['session']->get( 'request_token' );
+	public function callback( Request $request, Response $response ) {
+		$session = $this->c->get( 'session' );
+		$reqestToken = $session->get( 'request_token' );
 		if ( !$reqestToken instanceof RequestToken ) {
-			$this->app->abort( 403, 'Unable to load request token from session' );
+			return $response->withStatus( 403, 'Unable to load request token from session' );
 		}
-		$verifier = $request->get( 'oauth_verifier' );
-		$accessToken = $this->oAuthClient->complete( $reqestToken, $verifier );
-		$this->app['session']->set( 'access_token', $accessToken );
-		$this->app['session']->set( 'user', $this->oAuthClient->identify( $accessToken )->username );
-		$this->app['session']->remove( 'request_token' );
-		$this->app['session']->migrate();
-		return $this->app->redirect( $this->app['session']->get( 'referer' ) );
+		$verifier = $request->getQueryParams()['oauth_verifier'];
+		$accessToken = [
+			'value' => $this->oAuthClient->complete( $reqestToken, $verifier ),
+			'version' => $this->c->get( 'config' )['consumerKey']
+		];
+		$session->set( 'access_token', $accessToken );
+		$session->set( 'user', $this->oAuthClient->identify( $accessToken['value'] )->username );
+		$session->delete( 'request_token' );
+		// regenerate session id
+		$session->id( true );
+		return $response
+			->withHeader( 'Location', $session->get( 'referer' ) )
+			->withStatus( 302 );
 	}
 
 	/**
 	 * Log out the current user.
 	 * @param Request $request The HTTP request.
-	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 * @param Response $response The HTTP response.
+	 * @return Response
 	 */
-	public function logout( Request $request ) {
-		$this->app['session']->invalidate();
-		return $this->app->redirect( $this->app['url_generator']->generate( 'home' ) );
+	public function logout( Request $request, Response $response ) {
+		$this->c->get( 'session' )->clear();
+		return $response
+			->withHeader( 'Location', $this->routeParser->urlFor( 'home' ) )
+			->withStatus( 302 );
 	}
 }

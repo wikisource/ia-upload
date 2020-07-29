@@ -6,8 +6,15 @@ require __DIR__ . '/../vendor/autoload.php';
 use Wikisource\IaUpload\Command\JobsCommand;
 use Symfony\Component\Console\Application;
 
+$configFile = __DIR__ . '/../config.ini';
+$config = parse_ini_file( $configFile );
+if ( $config === false ) {
+    echo "Unable to parse config file at $configFile";
+    exit( 1 );
+}
+
 setlocale( LC_ALL, 'en_US.UTF-8' );
 
 $application = new Application();
-$application->add( new JobsCommand() );
+$application->add( new JobsCommand( $config ) );
 $application->run();

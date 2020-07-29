@@ -1,6 +1,6 @@
 {% extends "template.twig" %}
 {% block body %}
-	<form method="GET" action="{{ path( 'commons-fill' ) }}" role="form" class="form-horizontal">
+	<form method="GET" action="{{ url_for( 'commons-fill' ) }}" role="form" class="form-horizontal">
 		<fieldset>
 			<legend>{{ 'upload-file'|message }}</legend>
 			<div class="form-group">
@@ -15,9 +15,13 @@
 			<div class="form-group">
 				<label for="commonsName" class="col-lg-3 control-label">{{ 'form-label-commons-name'|message }}</label>
 				<div class="controls col-lg-9">
-					<span class="input-group"><input name="commonsName" id="commonsName" type="text" size="30" required="required" class="form-control" value="{{ commonsName|e }}" maxlength="240" />
-						<span class="input-group-addon">.djvu</span>
-					</span>
+					<div class="input-group">
+						<input name="commonsName" id="commonsName" type="text" size="30" required="required" class="form-control choose-format" value="{{ commonsName|e }}" maxlength="240" />
+						<select name="format" id="format" class="form-control input-group-addon">
+							<option value="pdf"{% if format == 'pdf' %} selected{% endif %}>.pdf</option>
+							<option value="djvu"{% if format == 'djvu' %} selected{% endif %}>.djvu</option>
+						</select>
+					</div>
 					<span class="help-block">{{ 'commons-name-help'|message }}</span>
 				</div>
 			</div>
@@ -53,16 +57,16 @@
 			<tbody>
 			<tr>
 				<td><a href="https://archive.org/details/{{ job.iaId }}">{{ job.iaId }}</a></td>
-				<td><a href="https://commons.wikimedia.org/wiki/File:{{ job.commonsName }}">{{ job.commonsName }}</a></td>
+				<td><a href="{{ wiki_base_url }}/wiki/File:{{ job.fullCommonsName }}">{{ job.fullCommonsName }}</a></td>
 				<td>
 					{% if job.failed %}{{ 'possibly-failed'|message }}
 					{% elseif job.locked %}{{ 'in-progress'|message }}
 					{% else %}{{ 'queued'|message }}{% endif %}
 				</td>
-				<td><a href="{{ url( 'log', {iaId: job.iaId} ) }}">View log</a></td>
+				<td><a href="{{ url_for( 'log', {iaId: job.iaId} ) }}">View log</a></td>
 				<td>
 					{% if job.hasDjvu %}
-						<a href="{{ url( 'djvu', {iaId: job.iaId} ) }}">Download DjVu</a>
+						<a href="{{ url_for( 'djvu', {iaId: job.iaId} ) }}">Download DjVu</a>
 					{% endif %}
 				</td>
 			</tr>

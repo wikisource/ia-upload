@@ -1,6 +1,6 @@
 {% extends "template.twig" %}
 {% block body %}
-	<form method="POST" action="{{ path( 'commons-save' ) }}" role="form" class="form-horizontal">
+	<form method="POST" action="{{ url_for( 'commons-save' ) }}" role="form" class="form-horizontal">
 		<fieldset>
 			<legend>{{ 'upload-file'|message }}</legend>
 
@@ -14,9 +14,14 @@
 			<div class="form-group">
 				<label for="commonsName" class="col-lg-2 control-label">{{ 'form-label-commons-name'|message }}</label>
 				<div class="col-lg-10">
-					<input name="commonsName" id="commonsName" type="text" size="30" required="required" class="form-control" value="{{ commonsName|e }}" />
+					<span class="input-group">
+						<input name="commonsName" id="commonsName" type="text" size="30" required="required" readonly="readonly" class="form-control" value="{{ commonsName|e }}" />
+						<span class="input-group-addon">.{{ format }}</span>
+					</span>
 				</div>
 			</div>
+
+			{% if format == 'djvu' %}
 
 			<div class="form-group">
 				<label for="sourceFile" class="col-lg-2 control-label">{{ 'form-label-file-source'|message }}</label>
@@ -68,6 +73,8 @@
 				</div>
 			</div>
 
+			{% endif %}
+
 			<div class="form-group">
 				<label for="description" class="col-lg-2 control-label">{{ 'form-label-commons-description'|message }} </label>
 				<div class="col-lg-10">
@@ -84,6 +91,7 @@
 
 			<div class="form-group">
 				<div class="col-lg-offset-2 col-lg-10">
+					<input type="hidden" name="format" value="{{ format }}" />
 					<input class="btn btn-primary" type="submit" value="Upload" {% if not  user %}disabled title="{{ 'authorize-first'|message }}"{%  endif %} />
 					<span class="help-block">{{ 'upload-time-warning'|message }}</span>
 				</div>

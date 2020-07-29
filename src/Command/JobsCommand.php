@@ -13,7 +13,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Wikisource\IaUpload\ApiClient\CommonsClient;
 use Wikisource\IaUpload\ApiClient\IaClient;
-use Wikisource\IaUpload\Controller\OAuthController;
 use Wikisource\IaUpload\DjvuMaker\DjvuMaker;
 use Wikisource\IaUpload\OAuth\MediaWikiOAuth;
 use Wikisource\IaUpload\OAuth\Token\AccessToken;
@@ -23,6 +22,18 @@ class JobsCommand extends Command {
 
 	/** @var string The full filesystem path to the 'jobqueue' directory, with no trailing slash. */
 	protected $jobqueueDir;
+
+	/** @var array Config data from config.ini. */
+	protected $config;
+
+	/**
+	 * JobsCommand constructor.
+	 * @param array $config The Slim application's config.
+	 */
+	public function __construct( array $config ) {
+		parent::__construct();
+		$this->config = $config;
+	}
 
 	/**
 	 * Set name and job.
@@ -61,7 +72,7 @@ class JobsCommand extends Command {
 
 			// Make sure we can upload, before doing anything else.
 			$mediawikiClient = $this->getMediawikiClient( $jobInfo->userAccessToken );
-			$commonsClient = new CommonsClient( $mediawikiClient, $log );
+			$commonsClient = new CommonsClient( $this->config['wiki_base_url'], $mediawikiClient, $log );
 			if ( !$commonsClient->canUpload() ) {
 				throw new Exception( "Unable to upload to Commons" );
 			}
@@ -91,12 +102,12 @@ class JobsCommand extends Command {
 			}
 
 			// Upload to Commons.
-			$log->info( "Uploading to $localDjvu to Commons $jobInfo->commonsName" );
+			$log->info( "Uploading to $localDjvu to Commons $jobInfo->fullCommonsName" );
 			try {
 				$comment = 'Imported from Internet Archive by '
 					. 'the [[wikitech:Tool:IA Upload|IA Upload tool]] job queue';
 				$commonsClient->upload(
-					$jobInfo->commonsName,
+					$jobInfo->fullCommonsName,
 					$localDjvu,
 					$jobInfo->description,
 					$comment
@@ -134,11 +145,8 @@ class JobsCommand extends Command {
 	 * @return \GuzzleHttp\Client
 	 */
 	protected function getMediawikiClient( $accessTokenDetails ) {
-		// @TODO This shouldn't be here.
-		$configFile = dirname( $this->jobqueueDir ) . '/config.ini';
-		$config = parse_ini_file( $configFile );
-		$token = new ConsumerToken( $config['consumerKey'], $config['consumerSecret'] );
-		$oAuth = new MediaWikiOAuth( OAuthController::OAUTH_URL, $token );
+		$token = new ConsumerToken( $this->config['consumerKey'], $this->config['consumerSecret'] );
+		$oAuth = new MediaWikiOAuth( $this->config['wiki_base_url'], $token );
 		$accessToken = new AccessToken( $accessTokenDetails->key, $accessTokenDetails->secret );
 		$mediawikiClient = $oAuth->buildMediawikiClientFromToken( $accessToken );
 		return $mediawikiClient;

@@ -26,6 +26,15 @@
 			font-family: monospace;
 			font-size: 13px;
 		}
+		.input-group {
+			width: 100%;
+		}
+		#commonsName.choose-format {
+			width: calc(99% - 7em);
+		}
+		#format {
+			width: 7em;
+		}
 		#debug-notice { margin:0; border-radius:0; padding:0.4em; text-align:center }
 	</style>
 </head>
@@ -47,10 +56,10 @@
 					</li>
 					{% if user %}
 					<li>{{ 'logged-in-as'|message(user) }}</li>
-					<li><a href="{{ url('logout') }}">{{ 'logout'|message }}</a></li>
+					<li><a href="{{ url_for('logout') }}">{{ 'logout'|message }}</a></li>
 					{% endif %}
 				</ul>
-				<h1><a href="{{ path( 'home' ) }}">{{ 'site-title'|message }}</a></h1>
+				<h1><a href="{{ url_for( 'home' ) }}">{{ 'site-title'|message }}</a></h1>
 			</div>
 			{% if error %}
 				<div class="alert alert-danger">{{ error|raw }}</div>
@@ -60,7 +69,7 @@
 			{% endif %}
 			{% if not user %}
 				<div class="alert alert-warning">
-					{{ 'login-notice'|message(path( 'oauth-init', {'referer': global.request.uri} ) )|raw }}
+					{{ 'login-notice'|message( full_url_for( 'oauth-init', [], {'referer': (get_uri().__toString())} ) )|raw }}
 				</div>
 			{% endif %}
 			{% if success %}

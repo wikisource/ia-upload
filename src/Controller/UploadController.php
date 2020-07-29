@@ -4,10 +4,11 @@ namespace Wikisource\IaUpload\Controller;
 
 use Exception;
 use Mediawiki\Api\Guzzle\ClientFactory;
-use Silex\Application;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use DI\Container;
+use Slim\Routing\RouteParser;
+use GuzzleHttp\Psr7\LazyOpenStream;
 use Wikisource\IaUpload\ApiClient\CommonsClient;
 use Wikisource\IaUpload\ApiClient\IaClient;
 use Wikisource\IaUpload\OAuth\MediaWikiOAuth;
@@ -23,12 +24,20 @@ use Wikisource\IaUpload\OAuth\Token\ConsumerToken;
  */
 class UploadController {
 
-	const COMMONS_API_URI = 'https://commons.wikimedia.org/w/api.php';
+	/**
+	 * @var Container
+	 */
+	protected $c;
 
 	/**
-	 * @var Application
+	 * @var RouteParser
 	 */
-	protected $app;
+	protected $routeParser;
+
+	/**
+	 * @var I18nContext
+	 */
+	protected $i18n;
 
 	/**
 	 * @var IaClient
@@ -82,28 +91,40 @@ class UploadController {
 	];
 
 	/**
-	 * CommonsController constructor.
-	 * @param Application $app The Silex application
-	 * @param array $config App configuration.
+	 * UploadController constructor.
+	 * @param Container $c The Slim application's container.
+	 * @param RouteParser $routeParser The Slim application's route parser.
 	 */
-	public function __construct( Application $app, array $config ) {
-		$this->app = $app;
-		$this->config = $config;
+	public function __construct( Container $c, RouteParser $routeParser ) {
+		$this->c = $c;
+		$this->routeParser = $routeParser;
+		$this->config = $c->get( 'config' );
+		$this->i18n = $c->get( 'i18n' );
 
 		$this->iaClient = new IaClient();
-		$this->commonsClient = new CommonsClient( $this->buildMediawikiClient(), $app['logger'] );
+		$this->commonsClient = new CommonsClient(
+			$this->config['wiki_base_url'],
+			$this->buildMediawikiClient(),
+			$c->get( 'logger' )
+		);
 	}
 
 	private function buildMediawikiClient() {
-		if ( $this->app['session']->has( 'access_token' ) ) {
-			$oAuth = new MediaWikiOAuth(
-				OAuthController::OAUTH_URL,
-				new ConsumerToken( $this->config['consumerKey'], $this->config['consumerSecret'] )
-			);
-			return $oAuth->buildMediawikiClientFromToken( $this->app['session']->get( 'access_token' ) );
-		} else {
-			return ( new ClientFactory() )->getClient();
+		$session = $this->c->get( 'session' );
+		if ( $session->exists( 'access_token' ) ) {
+			$accessToken = $session->get( 'access_token' );
+			if ( is_array( $accessToken ) && $accessToken['version'] === $this->config['consumerKey'] ) {
+				$oAuth = new MediaWikiOAuth(
+					$this->config['wiki_base_url'],
+					new ConsumerToken( $this->config['consumerKey'], $this->config['consumerSecret'] )
+				);
+				return $oAuth->buildMediawikiClientFromToken( $accessToken['value'] );
+			} else {
+				$session->clear();
+			}
 		}
+
+		return ( new ClientFactory() )->getClient();
 	}
 
 	/**
@@ -127,9 +148,10 @@ class UploadController {
 	/**
 	 * The first action presented to the user.
 	 * @param Request $request The HTTP request.
+	 * @param Response $response The HTTP response.
 	 * @return Response
 	 */
-	public function init( Request $request ) {
+	public function init( Request $request, Response $response ) {
 		$jobs = [];
 		foreach ( glob( $this->getJobDirectory() . '/*/job.json' ) as $jobFile ) {
 			$jobInfo = \GuzzleHttp\json_decode( file_get_contents( $jobFile ) );
@@ -142,50 +164,55 @@ class UploadController {
 			$jobInfo->hasDjvu = file_exists( $djvuFilename );
 			$jobs[] = $jobInfo;
 		}
+		$query = $request->getQueryParams();
 		return $this->outputsInitTemplate( [
-			'iaId' => $request->get( 'iaId', '' ),
-			'commonsName' => $request->get( 'commonsName', '' ),
+			'iaId' => $query['iaId'] ?? '',
+			'commonsName' => $query['commonsName'] ?? '',
 			'jobs' => $jobs,
-		] );
+		], $response );
 	}
 
 	/**
 	 * The second step, in which users fill in the Commons template etc.
 	 * @param Request $request The HTTP request.
+	 * @param Response $response The HTTP response.
 	 * @return Response
 	 */
-	public function fill( Request $request ) {
+	public function fill( Request $request, Response $response ) {
 		// Get inputs.
-		$iaId = $request->get( 'iaId', '' );
-		$commonsName = $this->commonsClient->normalizePageTitle( $request->get( 'commonsName', '' ) );
-		$fileSource = $request->get( 'fileSource', 'djvu' );
+		$query = $request->getQueryParams();
+		$iaId = trim( $query['iaId'] ?? '' );
+		$commonsName = $this->commonsClient->normalizePageTitle( $query['commonsName'] ?? '' );
+		$format = $query['format'] ?? 'pdf';
+		$fileSource = $query['fileSource'] ?? 'djvu';
 		// Validate inputs.
 		if ( $iaId === '' || $commonsName === '' ) {
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
+				'format' => $format,
 				'commonsName' => $commonsName,
-				'error' => $this->app['i18n']->message( 'set-all-fields' ),
-			] );
+				'error' => $this->i18n->message( 'set-all-fields' ),
+			], $response );
 		}
 		// Ensure that file name is less than or equal to 240 bytes.
 		if ( strlen( $commonsName ) > 240 ) {
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
+				'format' => $format,
 				'commonsName' => $commonsName,
-				'error' => $this->app['i18n']->message( 'invalid-length', [ $commonsName ] ),
-			] );
+				'error' => $this->i18n->message( 'invalid-length', [ $commonsName ] ),
+			], $response );
 		}
 		// Strip any trailing file extension.
-		if ( preg_match( '/^(.*)\.(pdf|djvu)$/', $commonsName, $m ) ) {
-			$commonsName = $m[1];
-		}
+		$commonsName = preg_replace( '/\.(pdf|djvu)$/i', '', $commonsName );
 		// Check that the filename is allowed on Commons.
 		if ( !$this->commonsClient->isPageTitleValid( $commonsName ) ) {
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
+				'format' => $format,
 				'commonsName' => $commonsName,
-				'error' => $this->app['i18n']->message( 'invalid-commons-name', [ $commonsName ] ),
-			] );
+				'error' => $this->i18n->message( 'invalid-commons-name', [ $commonsName ] ),
+			], $response );
 		}
 
 		// Try to get IA details.
@@ -196,9 +223,10 @@ class UploadController {
 				. '</a>';
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
+				'format' => $format,
 				'commonsName' => $commonsName,
-				'error' => $this->app['i18n']->message( 'no-found-on-ia', [ $link ] ),
-			] );
+				'error' => $this->i18n->message( 'no-found-on-ia', [ $link ] ),
+			], $response );
 		}
 		$iaId = $iaData['metadata']['identifier'][0];
 
@@ -206,90 +234,114 @@ class UploadController {
 		$djvuFilename = $this->getIaFileName( $iaData, 'djvu' );
 		$pdfFilename = $this->getIaFileName( $iaData, 'pdf' );
 		$jp2Filename = $this->getIaFileName( $iaData, 'jp2' );
-		if ( ! ( $djvuFilename || $pdfFilename || $jp2Filename ) ) {
+		if ( ( $format === 'pdf' && !$pdfFilename )
+			|| !( $djvuFilename || $pdfFilename || $jp2Filename ) ) {
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
+				'format' => $format,
 				'commonsName' => $commonsName,
-				'error' => $this->app['i18n']->message( 'no-usable-files-found' ),
-			] );
+				'error' => $this->i18n->message( 'no-usable-files-found' ),
+			], $response );
 		}
 
 		// Size sanity checks.
 		$warning = '';
-		if ( $jp2Filename !== false ) {
+		if ( $format === 'djvu' && $jp2Filename !== false ) {
 			// Make sure the zip file isn't too large.
 			$maxSizeInMb = 600;
 			$sizeInMb = round( $iaData['files'][$jp2Filename]['size'] / ( 1024 * 1024 ) );
 			if ( $sizeInMb > $maxSizeInMb ) {
 				$msgParams = [ $sizeInMb, $maxSizeInMb ];
-				$warning = $this->app['i18n']->message( 'zip-file-too-large', $msgParams )
-					. ' ' . $this->app['i18n']->message( 'watch-log' );
+				$warning = $this->i18n->message( 'zip-file-too-large', $msgParams )
+					. ' ' . $this->i18n->message( 'watch-log' );
 			}
 			// Make sure there aren't too many pages.
 			$maxPageCount = 900;
 			if ( isset( $iaData['metadata']['imagecount'][0] )
 				&& $iaData['metadata']['imagecount'][0] > $maxPageCount ) {
 				$msgParams = [ $iaData['metadata']['imagecount'][0], $maxPageCount ];
-				$warning = $this->app['i18n']->message( 'too-many-pages', $msgParams )
-					. ' ' . $this->app['i18n']->message( 'watch-log' );
+				$warning = $this->i18n->message( 'too-many-pages', $msgParams )
+					. ' ' . $this->i18n->message( 'watch-log' );
 			}
 		}
 
-		// See if the file already exists on Commons.
-		$fullCommonsName = $commonsName . '.djvu';
+		// See if the filename already exists on Commons.
+		$fullCommonsName = $commonsName . '.' . $format;
 		if ( $this->commonsClient->pageExist( 'File:' . $fullCommonsName ) ) {
-			$url = 'https://commons.wikimedia.org/wiki/File:' . rawurlencode( $fullCommonsName );
+			$url = $this->config['wiki_base_url'] . '/wiki/File:' . rawurlencode( $fullCommonsName );
 			$link = "<a href='$url'>" . htmlspecialchars( $fullCommonsName ) . '</a>';
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
+				'format' => $format,
 				'commonsName' => $commonsName,
-				'error' => $this->app['i18n']->message( 'already-on-commons', [ $link ] ),
-			] );
+				'error' => $this->i18n->message( 'already-on-commons', [ $link ] ),
+			], $response );
+		}
+
+		// See if a page for the IA item exists on Commons under a different name.
+		$existingPage = $this->commonsClient->pageForIAItem( $iaId );
+		if ( $existingPage ) {
+			$url = $this->config['wiki_base_url'] . '/wiki/' . rawurlencode( $existingPage );
+			$link = "<a href='$url'>" . htmlspecialchars( $iaId ) . '</a>';
+			return $this->outputsInitTemplate( [
+				'iaId' => $iaId,
+				'format' => $format,
+				'commonsName' => $commonsName,
+				'error' => $this->i18n->message( 'already-on-commons', [ $link ] ),
+			], $response );
 		}
 
 		// Output the page.
+		list( $description, $notes ) = $this->createPageContent( $iaData, $format );
 		$templateParams = [
 			'warning' => $warning,
 			'iaId' => $iaId,
-			'commonsName' => $fullCommonsName,
+			'format' => $format,
+			'commonsName' => $commonsName,
 			'djvuFilename' => $djvuFilename,
 			'pdfFilename' => $pdfFilename,
 			'jp2Filename' => $jp2Filename,
 			'fileSource' => $fileSource,
+			'description' => $description,
+			'notes' => $notes,
 		];
-		list( $description, $notes ) = $this->createPageContent( $iaData );
-		$templateParams['description'] = $description;
-		$templateParams['notes'] = $notes;
-		return $this->outputsFillTemplate( $templateParams );
+		return $this->outputsFillTemplate( $templateParams, $response );
 	}
 
 	/**
-	 * The save action either uploads the IA DjVu to Commons, or when conversion is required it
+	 * The save action either uploads the IA file to Commons, or when conversion is required it
 	 * puts the job data into the queue for subsequent processing by the CLI part of this tool.
 	 *
 	 * @param Request $request The HTTP request.
+	 * @param Response $response The HTTP response.
 	 * @return Response
 	 */
-	public function save( Request $request ) {
+	public function save( Request $request, Response $response ) {
+		$data = $request->getParsedBody();
+		// Normalize and strip any trailing file extension.
+		$commonsName = $this->commonsClient->normalizePageTitle( $data['commonsName'] );
+		$commonsName = preg_replace( '/\.(pdf|djvu)$/i', '', $commonsName );
 		// Get all form inputs.
 		$jobInfo = [
-			'iaId' => $request->get( 'iaId' ),
-			'commonsName' => $this->commonsClient->normalizePageTitle( $request->get( 'commonsName' ) ),
-			'description' => $request->get( 'description' ),
-			'fileSource' => $request->get( 'fileSource', 'jp2' ),
-			'removeFirstPage' => $request->get( 'removeFirstPage', 0 ) === 'yes',
+			'iaId' => $data['iaId'],
+			'format' => $data['format'],
+			'commonsName' => $commonsName,
+			'fullCommonsName' => $commonsName . '.' . $data['format'],
+			'description' => $data['description'],
+			'fileSource' => $data['fileSource'] ?? 'jp2',
+			'removeFirstPage' => ( $data['removeFirstPage'] ?? 0 ) === 'yes',
 		];
 		if ( !$jobInfo['iaId'] || !$jobInfo['commonsName'] || !$jobInfo['description'] ) {
 			$jobInfo['error'] = 'You must set all the fields of the form';
-			return $this->outputsFillTemplate( $jobInfo );
+			return $this->outputsFillTemplate( $jobInfo, $response );
 		}
 
 		// Check again that the Commons file doesn't exist.
-		if ( $this->commonsClient->pageExist( 'File:' . $jobInfo['commonsName'] ) ) {
-			$url = 'http://commons.wikimedia.org/wiki/File:' . rawurlencode( $jobInfo['commonsName'] );
-			$link = '<a href="' . $url . '">' . htmlspecialchars( $jobInfo['commonsName'] ) . '</a>';
-			$jobInfo['error'] = $this->app['i18n']->message( 'already-on-commons', [ $link ] );
-			return $this->outputsFillTemplate( $jobInfo );
+		if ( $this->commonsClient->pageExist( 'File:' . $jobInfo['fullCommonsName'] ) ) {
+			$url = 'http://commons.wikimedia.org/wiki/File:' . rawurlencode( $jobInfo['fullCommonsName'] );
+			$link = '<a href="' . $url . '">' . htmlspecialchars( $jobInfo['fullCommonsName'] ) . '</a>';
+			$jobInfo['error'] = $this->i18n->message( 'already-on-commons', [ $link ] );
+			return $this->outputsFillTemplate( $jobInfo, $response );
 		}
 
 		// Check again that the IA item does exist.
@@ -298,115 +350,133 @@ class UploadController {
 			$link = '<a href="http://archive.org/details/' . rawurlencode( $jobInfo['iaId'] ) . '">'
 				. htmlspecialchars( $jobInfo['iaId'] )
 				. '</a>';
-			$jobInfo['error'] = $this->app['i18n']->message( 'no-found-on-ia', [ $link ] );
-			return $this->outputsFillTemplate( $jobInfo );
+			$jobInfo['error'] = $this->i18n->message( 'no-found-on-ia', [ $link ] );
+			return $this->outputsFillTemplate( $jobInfo, $response );
 		}
 		$jobInfo['iaId'] = $iaData['metadata']['identifier'][0];
 
 		// Create a local working directory.
 		$jobDirectory = $this->getJobDirectory( $jobInfo['iaId' ] );
 
-		// For PDF and JP2 conversion, add the job to the queue.
-		if ( $jobInfo['fileSource'] === 'pdf' || $jobInfo['fileSource'] === 'jp2' ) {
+		// For PDF and JP2 conversion to DjVu, add the job to the queue.
+		if ( $jobInfo['format'] === 'djvu'
+			&& ( $jobInfo['fileSource'] === 'pdf' || $jobInfo['fileSource'] === 'jp2' ) ) {
 			// Create a private job file before writing contents to it,
 			// because it contains the access token.
-			$jobInfo['userAccessToken'] = $this->app['session']->get( 'access_token' );
+			$jobInfo['userAccessToken'] = $this->c->get( 'session' )->get( 'access_token' )['value'];
 			$jobFile = $jobDirectory . '/job.json';
 			$oldUmask = umask( 0177 );
 			touch( $jobFile );
 			umask( $oldUmask );
 			chmod( $jobFile, 0600 );
 			file_put_contents( $jobFile, \GuzzleHttp\json_encode( $jobInfo ) );
-			return $this->app->redirect( $this->app["url_generator"]->generate( 'home' ) );
-		}
-
-		// Use IA DjVu file (don't add it to the queue, as this shouldn't take too long).
-		if ( $jobInfo['fileSource'] === 'djvu' ) {
-			$djvuFilename = $this->getIaFileName( $iaData, 'djvu' );
-			$remoteDjVuFile = $jobInfo['iaId'] . $djvuFilename;
-			$localDjVuFile = $jobDirectory . '/' . $djvuFilename;
+			return $response
+				->withHeader( 'Location', $this->routeParser->urlFor( 'home' ) )
+				->withStatus( 302 );
+		} else {
+			// Use IA file directly (don't add it to the queue, as this shouldn't take too long).
+			$filename = $this->getIaFileName( $iaData, $jobInfo['format'] );
+			$remoteFile = $jobInfo['iaId'] . $filename;
+			$localFile = $jobDirectory . $filename;
 			try {
-				$this->iaClient->downloadFile( $remoteDjVuFile, $localDjVuFile );
-				if ( $jobInfo['removeFirstPage'] ) {
-					$this->iaClient->removeFirstPage( $localDjVuFile );
+				$this->iaClient->downloadFile( $remoteFile, $localFile );
+				if ( $jobInfo['format'] === 'djvu' && $jobInfo['removeFirstPage'] ) {
+					$this->iaClient->removeFirstPage( $localFile );
 				}
 				$this->commonsClient->upload(
-					$jobInfo['commonsName'],
-					$localDjVuFile,
+					$jobInfo['fullCommonsName'],
+					$localFile,
 					$jobInfo['description'],
 					'Importation from Internet Archive via [[toollabs:ia-upload|IA-upload]]'
 				);
 			} catch ( Exception $e ) {
-				unlink( $localDjVuFile );
+				unlink( $localFile );
 				rmdir( $jobDirectory );
 				$jobInfo['error'] = "An error occurred: " . $e->getMessage();
-				return $this->outputsFillTemplate( $jobInfo );
+				return $this->outputsFillTemplate( $jobInfo, $response );
 			}
 			// Confirm that it was uploaded.
-			if ( !$this->commonsClient->pageExist( 'File:' . $jobInfo['commonsName'] ) ) {
+			if ( !$this->commonsClient->pageExist( 'File:' . $jobInfo['fullCommonsName'] ) ) {
+				unlink( $localFile );
+				rmdir( $jobDirectory );
 				$jobInfo['error'] = 'File failed to upload';
-				return $this->outputsFillTemplate( $jobInfo );
+				return $this->outputsFillTemplate( $jobInfo, $response );
 			}
-			unlink( $localDjVuFile );
+			unlink( $localFile );
 			rmdir( $jobDirectory );
-			$url = 'http://commons.wikimedia.org/wiki/File:' . rawurlencode( $jobInfo['commonsName'] );
-			$msgParam = '<a href="' . $url . '">' . $jobInfo['commonsName'] . '</a>';
+			$url = $this->config['wiki_base_url']
+				. '/wiki/File:'
+				. rawurlencode( $jobInfo['fullCommonsName'] );
+			$msgParam = '<a href="' . $url . '">' . $jobInfo['fullCommonsName'] . '</a>';
 			return $this->outputsInitTemplate( [
-				'success' => $this->app['i18n']->message( 'successfully-uploaded', [ $msgParam ] ),
-			] );
+				'success' => $this->i18n->message( 'successfully-uploaded', [ $msgParam ] ),
+			], $response );
 		}
 	}
 
 	/**
 	 * Display the log of a given job.
 	 * @param Request $request The HTTP request.
+	 * @param Response $response The HTTP response.
 	 * @param string $iaId The IA ID.
 	 * @return Response
 	 */
-	public function logview( Request $request, $iaId ) {
+	public function logview( Request $request, Response $response, $iaId ) {
 		// @todo Not duplicate the log name between here and JobsCommand.
+		$response = $response->withHeader( 'Content-Type', 'text/plain' );
 		$logFile = $this->getJobDirectory( $iaId ) . '/log.txt';
-		$log = ( file_exists( $logFile ) ) ? file_get_contents( $logFile ) : 'No log available.';
-		return new Response( $log, 200, [ 'Content-Type' => 'text/plain' ] );
+		if ( file_exists( $logFile ) ) {
+			return $response->withBody( new LazyOpenStream( $logFile, 'r' ) );
+		} else {
+			$response->getBody()->write( 'No log available.' );
+			return $response;
+		}
 	}
 
 	/**
 	 * Download a single DjVu file if possible.
 	 * @param Request $request The HTTP request.
+	 * @param Response $response The HTTP response.
 	 * @param string $iaId The IA ID.
 	 * @return Response
 	 */
-	public function downloadDjvu( Request $request, $iaId ) {
+	public function downloadDjvu( Request $request, Response $response, $iaId ) {
 		$filename = $this->getJobDirectory( $iaId ) . '/' . $iaId . '.djvu';
 		if ( !file_exists( $filename ) ) {
-			return new Response( 'File not found', 404 );
+			return $response->withStatus( 404, 'File not found' );
 		}
-		return new BinaryFileResponse( $filename );
+		return $response
+			->withHeader( 'Content-Type', 'image/vnd.djvu' )
+			->withBody( new LazyOpenStream( $filename, 'r' ) );
 	}
 
 	/**
 	 * Outputs a template as response
 	 *
 	 * @param array $params Parameters to pass to the template
+	 * @param Response $response The HTTP response.
 	 * @return Response
 	 */
-	protected function outputsInitTemplate( array $params ) {
+	protected function outputsInitTemplate( array $params, Response $response ) {
 		$defaultParams = [
 			'iaId' => '',
 			'commonsName' => '',
 			'jobs' => [],
+			'format' => 'pdf',
+			'wiki_base_url' => $this->config['wiki_base_url'],
 		];
 		$params = array_merge( $defaultParams, $params );
-		return $this->outputsTemplate( 'commons/init.twig', $params );
+		return $this->outputsTemplate( 'commons/init.twig', $params, $response );
 	}
 
 	/**
 	 * Outputs a template as response
 	 *
 	 * @param array $params Parameters to pass to the template
+	 * @param Response $response The HTTP response.
 	 * @return Response
 	 */
-	protected function outputsFillTemplate( array $params ) {
+	protected function outputsFillTemplate( array $params, Response $response ) {
 		$defaultParams = [
 			'iaId' => '',
 			'commonsName' => '',
@@ -416,7 +486,7 @@ class UploadController {
 
 		];
 		$params = array_merge( $defaultParams, $params );
-		return $this->outputsTemplate( 'commons/fill.twig', $params );
+		return $this->outputsTemplate( 'commons/fill.twig', $params, $response );
 	}
 
 	/**
@@ -424,19 +494,20 @@ class UploadController {
 	 *
 	 * @param string $templateName The template filename.
 	 * @param array $params Parameters to pass to the template
+	 * @param Response $response The HTTP response.
 	 * @return Response
 	 */
-	protected function outputsTemplate( $templateName, array $params ) {
+	protected function outputsTemplate( $templateName, array $params, Response $response ) {
 		$defaultParams = [
-			'debug' => $this->app['debug'],
+			'debug' => $this->c->get( 'debug' ),
 			'success' => '',
 			'warning' => '',
 			'error' => '',
-			'user' => $this->app['session']->get( 'user' ),
+			'user' => $this->c->get( 'session' )->get( 'user' ),
 			'oauth_cid' => isset( $this->config[ 'consumerId' ] ) ? $this->config[ 'consumerId' ] : '',
 		];
 		$params = array_merge( $defaultParams, $params );
-		return $this->app['twig']->render( $templateName, $params );
+		return $this->c->get( 'view' )->render( $response, $templateName, $params );
 	}
 
 	/**
@@ -447,21 +518,22 @@ class UploadController {
 	 * @return string|bool The filename, or false if none could be found.
 	 */
 	protected function getIaFileName( $data, $fileType = 'djvu' ) {
-		// First check for djvu or pdf.
-		if ( $fileType === 'djvu' || $fileType === 'pdf' ) {
+		if ( $fileType === 'pdf' ) {
+			$pdfFormats = [ 'Text PDF', 'Additional Text PDF', 'Image Container PDF' ];
 			foreach ( $data['files'] as $filePath => $fileInfo ) {
-				$djvu = ( $fileType === 'djvu' && $fileInfo['format'] === 'DjVu' );
-				$pdfFormats = [ 'Text PDF', 'Additional Text PDF', 'Image Container PDF' ];
-				$pdf = ( $fileType === 'pdf' && in_array( $fileInfo['format'], $pdfFormats ) );
-				if ( $djvu || $pdf ) {
+				if ( in_array( $fileInfo['format'], $pdfFormats ) ) {
 					return $filePath;
 				}
 			}
-		}
-
-		// Then jp2; we only consider to have a jp2 file if we've also got a  *_djvu.xml to go
-		// with it. Could perhaps instead check for $fileInfo['format'] === 'Abbyy GZ'?
-		if ( $fileType === 'jp2' ) {
+		} elseif ( $fileType === 'djvu' ) {
+			foreach ( $data['files'] as $filePath => $fileInfo ) {
+				if ( $fileInfo['format'] === 'DjVu' ) {
+					return $filePath;
+				}
+			}
+		} elseif ( $fileType === 'jp2' ) {
+			// We only consider to have a jp2 file if we've also got a  *_djvu.xml to go
+			// with it. Could perhaps instead check for $fileInfo['format'] === 'Abbyy GZ'?
 			$filenames = array_keys( $data['files'] );
 			$jp2 = preg_grep( '/.*_jp2\.zip/', $filenames );
 			$xml = preg_grep( '/.*_djvu\.xml/', $filenames );
@@ -469,6 +541,7 @@ class UploadController {
 				return array_shift( $jp2 );
 			}
 		}
+
 		return false;
 	}
 
@@ -476,9 +549,10 @@ class UploadController {
 	 * Creates the content of the description page
 	 *
 	 * @param array $data The IA metadata.
+	 * @param string $format The commons file format (pdf or djvu).
 	 * @return array
 	 */
-	protected function createPageContent( $data ) {
+	protected function createPageContent( $data, $format ) {
 		$language = $this->parseLanguageParam( $data );
 		$notes = [];
 		$content = '== {{int:filedesc}} ==' . "\n";
@@ -536,27 +610,35 @@ class UploadController {
 		$content .= '| Wikisource   = s:' . $language . ':Index:{{PAGENAME}}' . "\n";
 		$content .= '| Homecat      = ' . "\n";
 		$content .= '| Wikidata     = ' . "\n";
-		$content .= '}}' . "\n" . '{{Djvu}}' . "\n\n";
+		$content .= '}}' . "\n";
+		$content .= $format === 'pdf' ? '{{PDF}}' : '{{Djvu}}';
+		$content .= "\n\n";
 		$content .= '== {{int:license-header}} ==' . "\n" . '{{PD-scan}}' . "\n\n";
 		$content .= '[[Category:Uploaded with IA Upload]]' . "\n";
 
 		$isCategorised = false;
-		$bookCatExists = $this->commonsClient->pageExist(
+		$bookCatExists = isset( $data['metadata']['date'][0] ) && $this->commonsClient->pageExist(
 			'Category:' . $data['metadata']['date'][0] . ' books'
 		);
-		if ( isset( $data['metadata']['date'][0] ) && $bookCatExists ) {
+		if ( $bookCatExists ) {
 			$content .= '[[Category:' . $data['metadata']['date'][0] . ' books]]' . "\n";
 			$isCategorised = true;
 		}
-		$creatorCatExists = $this->commonsClient->pageExist(
+		$creatorCatExists = isset( $data['metadata']['creator'][0] ) && $this->commonsClient->pageExist(
 			'Category:' . $data['metadata']['creator'][0]
 		);
-		if ( isset( $data['metadata']['creator'][0] ) && $creatorCatExists ) {
+		if ( $creatorCatExists ) {
 			$content .= '[[Category:' . $data['metadata']['creator'][0] . ']]' . "\n";
 			$isCategorised = true;
 		}
 		if ( isset( self::$languageCategories[$language] ) ) {
-			$content .= '[[Category:DjVu files in ' .  self::$languageCategories[$language] . ']]' . "\n";
+			$format_caps = $format === 'pdf' ? 'PDF' : 'DjVu';
+			$content .= '[[Category:'
+				. $format_caps
+				. ' files in '
+				. self::$languageCategories[$language]
+				. ']]'
+				. "\n";
 			$isCategorised = true;
 		}
 		if ( !$isCategorised ) {
@@ -586,7 +668,7 @@ class UploadController {
 		if ( $this->commonsClient->pageExist( "Creator:$creator" ) ) {
 			return "{{Creator:$creator}}";
 		} else {
-			$notes[] = $this->app['i18n']->message( 'creator-template-missing', [ $creator ] );
+			$notes[] = $this->i18n->message( 'creator-template-missing', [ $creator ] );
 			return $creator;
 		}
 	}
@@ -626,10 +708,8 @@ class UploadController {
 		}
 		$language = strtolower( $data['metadata']['language'][0] );
 
-		if ( strlen( $language ) == 2 ) {
+		if ( preg_match( '/^[a-z]{2,3}$/', $language ) ) {
 			return $language;
-		} elseif ( strlen( $language ) == 3 ) {
-			return $language[0] . $language[1];
 		} else {
 			$language = ucfirst( $language );
 			foreach ( self::$languageCategories as $id => $name ) {

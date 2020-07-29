@@ -2,11 +2,16 @@
 
 namespace IaUpload;
 
-use Silex\Application;
-use Silex\Provider\MonologServiceProvider;
-use Silex\Provider\SessionServiceProvider;
-use Silex\Provider\TwigServiceProvider;
-use Symfony\Component\HttpFoundation\Request;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
+use Psr\Container\ContainerInterface;
+use DI\ContainerBuilder;
+use Slim\Factory\AppFactory;
+use Slim\Middleware\Session;
+use Slim\Views\Twig;
+use Slim\Views\TwigMiddleware;
+use Monolog\Logger;
 use Wikimedia\SimpleI18n\I18nContext;
 use Wikimedia\SimpleI18n\JsonCache;
 use Wikimedia\SimpleI18n\TwigExtension;
@@ -26,89 +31,146 @@ if ( $config === false ) {
 	exit( 1 );
 }
 
-$app = new Application();
+$containerBuilder = new ContainerBuilder();
+$containerBuilder->addDefinitions( [
+
+	'config' => $config,
+
+	'debug' => isset( $config['debug'] ) && $config['debug'],
+
+	'logger' => function ( ContainerInterface $c ) {
+		return new Logger( 'ia-upload' );
+	},
+
+	// Internationalisation.
+	'i18n' => function ( ContainerInterface $c ) {
+		return new I18nContext( new JsonCache( __DIR__ . '/../i18n' ) );
+	},
+
+	'view' => function ( ContainerInterface $c ) {
+		$view = Twig::create( __DIR__ . '/../views' );
+		$view->addExtension( new TwigExtension( $c->get( 'i18n' ) ) );
+		return $view;
+	},
+
+	// Session helper.
+	'session' => function ( ContainerInterface $c ) {
+		return new \SlimSession\Helper();
+	},
+
+] );
+
+// Create app.
+$container = $containerBuilder->build();
+AppFactory::setContainer( $container );
+$app = AppFactory::create();
+$routeParser = $app->getRouteCollector()->getRouteParser();
+
+$app->addBodyParsingMiddleware();
 
 // Ensure the tool is accessed over HTTPS.
-$app->before( function ( Request $request, Application $app ) {
-	if ( $request->headers->get( 'X-Forwarded-Proto' ) == 'http' ) {
-		$uri = 'https://' . $request->getHost() . $request->headers->get( 'X-Original-URI' );
-		return $app->redirect( $uri );
+$app->add( function ( Request $request, RequestHandler $handler ) {
+	if ( $request->getHeaderLine( 'X-Forwarded-Proto' ) == 'http' ) {
+		$uri = 'https://' . $request->getHost() . $request->getHeaderLine( 'X-Original-URI' );
+		$response = new \GuzzleHttp\Psr7\Response();
+		return $response
+			->withHeader( 'Location', $uri )
+			->withStatus( 302 );
 	}
-}, Application::EARLY_EVENT );
-
-// Sessions.
-$request = Request::createFromGlobals();
-$app->register( new SessionServiceProvider(), [
-	'session.storage.options' => [
-		// Cookie lifetime to match default $wgCookieExpiration.
-		'cookie_lifetime' => 30 * 24 * 60 * 60,
-		'name' => 'ia-upload-session',
-		'cookie_path' => $request->getBaseUrl() . '/',
-		'cookie_httponly' => true,
-		'cookie_secure' => $request->getHost() !== 'localhost',
-	]
-] );
-
-// Twig views.
-$app->register( new TwigServiceProvider(), [
-	'twig.path' => __DIR__ . '/../views',
-] );
-
-// Logging and debugging.
-$app->register( new MonologServiceProvider() );
-$app['debug'] = isset( $config['debug'] ) && $config['debug'];
-
-// Internationalisation.
-$app['i18n'] = new I18nContext( new JsonCache( __DIR__ . '/../i18n' ) );
-$app['twig']->addExtension( new TwigExtension( $app['i18n'] ) );
-
-// Routes.
-$uploadController = new UploadController( $app, $config );
-$oauthController = new OAuthController( $app, $config );
-
-$iaIdPattern = '[a-zA-Z0-9\._-]*';
-
-$app->get( '/', function ( Request $request ) use( $uploadController ) {
-	return $uploadController->init( $request );
-} )->bind( 'home' );
-
-// @deprecated in favour of 'home'.
-$app->get( 'commons/init', function ( Request $request ) use ( $app ) {
-	$queryString = $request->getQueryString() ? '?' . $request->getQueryString() : '';
-	$homeUrl = $app["url_generator"]->generate( 'home' ) . $queryString;
-	return $app->redirect( $homeUrl );
+	return $handler->handle( $request );
 } );
-
-$app->get( 'commons/fill', function ( Request $request ) use ( $uploadController ) {
-	return $uploadController->fill( $request );
-} )->bind( 'commons-fill' );
-
-$app->post( 'commons/save', function ( Request $request ) use ( $uploadController ) {
-	return $uploadController->save( $request );
-} )->bind( 'commons-save' );
-
-$app->get( 'log/{iaId}', function ( Request $request, $iaId ) use ( $uploadController ) {
-	return $uploadController->logview( $request, $iaId );
-} )->assert( 'iaId', $iaIdPattern )->bind( 'log' );
-
-$app->get( '{iaId}.djvu', function ( Request $request, $iaId ) use ( $uploadController ) {
-	return $uploadController->downloadDjvu( $request, $iaId );
-} )->assert( 'iaId', $iaIdPattern )->bind( 'djvu' );
-
-$app->get( 'oauth/init', function ( Request $request ) use ( $oauthController ) {
-	return $oauthController->init( $request );
-} )->bind( 'oauth-init' );
-
-$app->get( 'oauth/callback', function ( Request $request ) use ( $oauthController ) {
-	return $oauthController->callback( $request );
-} )->bind( 'oauth-callback' );
-
-$app->get( 'logout', function ( Request $request ) use ( $oauthController ) {
-	return $oauthController->logout( $request );
-} )->bind( 'logout' );
 
 // Add tool labs' IPs as trusted.
 // See https://wikitech.wikimedia.org/wiki/Help:Tool_Labs/Web#Web_proxy_servers
-Request::setTrustedProxies( [ '10.68.21.49', '10.68.21.81' ], Request::HEADER_X_FORWARDED_ALL );
+$app->add( new \RKA\Middleware\IpAddress(
+	true,
+	[ '10.68.21.49', '10.68.21.81' ],
+	null,
+	[ 'X-Forwarded', 'X-Forwarded-For' ]
+) );
+
+// Sessions.
+$app->add( function ( Request $request, RequestHandler $handler ) {
+	$session = new Session( [
+		'name' => 'ia-upload-session',
+		// matches default $wgCookieExpiration
+		'lifetime' => '30 days',
+		'path' => '/',
+		'httponly' => true,
+		'secure' => $request->getUri()->getHost() !== 'localhost',
+	] );
+	return $session( $request, $handler );
+} );
+
+// Twig view middleware.
+$app->add( TwigMiddleware::createFromContainer( $app ) );
+
+// Routing middleware.
+$app->addRoutingMiddleware();
+
+// Error middleware.
+if ( $container->get( 'debug' ) ) {
+	$app->addErrorMiddleware( true, true, true );
+}
+
+/**
+ * Convenience method for UploadController.
+ * @return UploadController
+ */
+function uploadController() {
+	global $container, $routeParser;
+	return new UploadController( $container, $routeParser );
+}
+
+/**
+ * Convenience method for OAuthController.
+ * @return OAuthController
+ */
+function oauthController() {
+	global $container, $routeParser;
+	return new OAuthController( $container, $routeParser );
+}
+
+$iaIdPattern = '[a-zA-Z0-9\._-]+';
+
+$app->get( '/', function ( Request $request, Response $response ) {
+	return uploadController()->init( $request, $response );
+} )->setName( 'home' );
+
+// @deprecated in favour of 'home'.
+$app->get( '/commons/init', function ( Request $request, Response $response ) use ( $routeParser ) {
+	$homeUrl = $routeParser->urlFor( 'home', [], $request->getQueryParams() );
+	return $response
+		->withHeader( 'Location', $homeUrl )
+		->withStatus( 302 );
+} );
+
+$app->get( '/commons/fill', function ( Request $request, Response $response ) {
+	return uploadController()->fill( $request, $response );
+} )->setName( 'commons-fill' );
+
+$app->post( '/commons/save', function ( Request $request, Response $response ) {
+	return uploadController()->save( $request, $response );
+} )->setName( 'commons-save' );
+
+$app->get( "/log/{iaId:$iaIdPattern}", function ( Request $request, Response $response, $args ) {
+	return uploadController()->logview( $request, $response, $args['iaId'] );
+} )->setName( 'log' );
+
+$app->get( "/{iaId:$iaIdPattern}.djvu", function ( Request $request, Response $response, $args ) {
+	return uploadController()->downloadDjvu( $request, $response, $args['iaId'] );
+} )->setName( 'djvu' );
+
+$app->get( '/oauth/init', function ( Request $request, Response $response ) {
+	return oauthController()->init( $request, $response );
+} )->setName( 'oauth-init' );
+
+$app->get( '/oauth/callback', function ( Request $request, Response $response ) {
+	return oauthController()->callback( $request, $response );
+} )->setName( 'oauth-callback' );
+
+$app->get( '/logout', function ( Request $request, Response $response ) {
+	return oauthController()->logout( $request, $response );
+} )->setName( 'logout' );
 
 $app->run();
