@@ -11,7 +11,6 @@
 		"php": ">=7.2",
 		"ext-zip": "*",
 		"addwiki/mediawiki-api": "^0.7",
-		"akrabat/ip-address-middleware": "^1.0",
 		"bryanjhv/slim-session": "~4.0",
 		"firebase/php-jwt": "^5.0",
 		"guzzlehttp/oauth-subscriber": "~0.3",
