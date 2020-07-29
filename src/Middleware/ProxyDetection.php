@@ -79,7 +79,7 @@ class ProxyDetection implements MiddlewareInterface {
 			}
 
 			if ( !in_array( $ipAddress, $this->trustedProxies ) ) {
-				return $request;
+				return $handler->handle( $request );
 			}
 		}
 
