@@ -17,6 +17,7 @@ use Wikimedia\SimpleI18n\JsonCache;
 use Wikimedia\SimpleI18n\TwigExtension;
 use Wikisource\IaUpload\Controller\OAuthController;
 use Wikisource\IaUpload\Controller\UploadController;
+use Wikisource\IaUpload\Middleware\ProxyDetection;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -68,27 +69,6 @@ $routeParser = $app->getRouteCollector()->getRouteParser();
 
 $app->addBodyParsingMiddleware();
 
-// Ensure the tool is accessed over HTTPS.
-$app->add( function ( Request $request, RequestHandler $handler ) {
-	if ( $request->getHeaderLine( 'X-Forwarded-Proto' ) == 'http' ) {
-		$uri = 'https://' . $request->getHost() . $request->getHeaderLine( 'X-Original-URI' );
-		$response = new \GuzzleHttp\Psr7\Response();
-		return $response
-			->withHeader( 'Location', $uri )
-			->withStatus( 302 );
-	}
-	return $handler->handle( $request );
-} );
-
-// Add tool labs' IPs as trusted.
-// See https://wikitech.wikimedia.org/wiki/Help:Tool_Labs/Web#Web_proxy_servers
-$app->add( new \RKA\Middleware\IpAddress(
-	true,
-	[ '10.68.21.49', '10.68.21.81' ],
-	null,
-	[ 'X-Forwarded', 'X-Forwarded-For' ]
-) );
-
 // Sessions.
 $app->add( function ( Request $request, RequestHandler $handler ) {
 	$session = new Session( [
@@ -104,6 +84,20 @@ $app->add( function ( Request $request, RequestHandler $handler ) {
 
 // Twig view middleware.
 $app->add( TwigMiddleware::createFromContainer( $app ) );
+
+// Ensure the tool is accessed over HTTPS.
+$app->add( function ( Request $request, RequestHandler $handler ) {
+	if ( $request->getHeaderLine( 'X-Forwarded-Proto' ) == 'http' ) {
+		$response = new \GuzzleHttp\Psr7\Response();
+		return $response
+			->withHeader( 'Location', strval( $request->getUri()->withScheme( 'https' ) ) )
+			->withStatus( 302 );
+	}
+	return $handler->handle( $request );
+} );
+
+// Correct for proxies in URI detection.
+$app->add( new ProxyDetection() );
 
 // Routing middleware.
 $app->addRoutingMiddleware();
