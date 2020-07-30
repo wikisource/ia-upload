@@ -69,16 +69,6 @@ class ProxyDetection implements MiddlewareInterface {
 		ServerRequestInterface $request,
 		RequestHandlerInterface $handler
 	): ResponseInterface {
-		return $handler->handle( $this->getUpdatedRequest( $request ) );
-	}
-
-	/**
-	 * Return the request with updated URI.
-	 *
-	 * @param ServerRequestInterface $request PSR7 request
-	 * @return ServerRequestInterface
-	 */
-	protected function getUpdatedRequest( ServerRequestInterface $request ) {
 		if ( !empty( $this->trustedProxies ) ) {
 			// get IP address from REMOTE_ADDR
 			$ipAddress = null;
@@ -89,7 +79,7 @@ class ProxyDetection implements MiddlewareInterface {
 			}
 
 			if ( !in_array( $ipAddress, $this->trustedProxies ) ) {
-				return $request;
+				return $handler->handle( $request );
 			}
 		}
 
@@ -99,7 +89,9 @@ class ProxyDetection implements MiddlewareInterface {
 		$uri = $this->processPortHeader( $request, $uri );
 		$uri = $this->processHostHeader( $request, $uri );
 
-		return $request->withUri( $uri );
+		$request = $request->withUri( $uri );
+
+		return $handler->handle( $request );
 	}
 
 	/**

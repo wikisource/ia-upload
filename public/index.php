@@ -85,17 +85,6 @@ $app->add( function ( Request $request, RequestHandler $handler ) {
 // Twig view middleware.
 $app->add( TwigMiddleware::createFromContainer( $app ) );
 
-// Ensure the tool is accessed over HTTPS.
-$app->add( function ( Request $request, RequestHandler $handler ) {
-	if ( $request->getHeaderLine( 'X-Forwarded-Proto' ) == 'http' ) {
-		$response = new \GuzzleHttp\Psr7\Response();
-		return $response
-			->withHeader( 'Location', strval( $request->getUri()->withScheme( 'https' ) ) )
-			->withStatus( 302 );
-	}
-	return $handler->handle( $request );
-} );
-
 // Correct for proxies in URI detection.
 $app->add( new ProxyDetection() );
 
