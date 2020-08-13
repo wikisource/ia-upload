@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Sabelöga",
 			"WikiPhoenix"
 		]
 	},
@@ -30,7 +31,7 @@
 	"table-header-download": "Ladda ned",
 	"in-progress": "Pågående",
 	"queued": "Kölagd",
-	"possibly-failed": "Misslyckades troligen",
+	"possibly-failed": "Misslyckades kanske",
 	"file-source-djvu": "Använd befintlig DjVu",
 	"file-source-jp2": "från ursprungliga inskanningar (JP2)",
 	"file-source-pdf": "från PDF (kan ha lägre kvalitet)",
@@ -47,7 +48,7 @@
 	"invalid-length": "\"$1\" är för lång",
 	"no-found-on-ia": "\"$1\" är inte en giltig identifierare för Internet Archive",
 	"already-on-commons": "En fil med namnet \"$1\" finns redan på Wikimedia Commons",
-	"creator-template-missing": "Författaren \"$1\" har inte en <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>skaparmall</a>. Om du känner till tillhörande Wikidata-ID kan du <a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>skapa mallen nu</a>.",
+	"creator-template-missing": "Författaren \"$1\" har inte en <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>skaparmall</a>.",
 	"no-usable-files-found": "Inga användbara filer (DjVu, PDF eller JP2) hittades för föremålet.",
 	"successfully-uploaded": "$1 har laddats upp till Commons!",
 	"recent-uploads": "Senaste uppladdningar",
