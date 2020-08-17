@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Mirin"
+			"Mirin",
+			"Nintendofan885"
 		]
 	},
 	"ia-upload": "IA-Alŝutilo",
@@ -47,7 +48,7 @@
 	"invalid-length": "'$1' estas tro longa",
 	"no-found-on-ia": "'$1' ne estas valida identigilo ĉe la Interreta Arkivo",
 	"already-on-commons": "Dosiero kun nomo '$1' jam ekzistas ĉe Vikimedia Komunejo",
-	"creator-template-missing": "La aŭtoro '$1' ne havas la ŝablonon <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>Creator</a>. Se vi konas la Vikidatuman identigilon de la aŭtoro, vi povas <a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>krei la ŝablonon nun</a>.",
+	"creator-template-missing": "La aŭtoro '$1' ne havas la ŝablonon <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>Creator</a>. Se vi konas la Vikidatuman identigilon de la aŭtoro, vi povas <a href='https://wikidata-todo.toolforge.org/creator_from_wikidata.php'>krei la ŝablonon nun</a>.",
 	"no-usable-files-found": "Neniu uzebla dosiero (DjVu, PDF, aŭ JP2) troviĝis pri tiu ero.",
 	"successfully-uploaded": "Sukcese alŝutis la dosieron $1 al Komunejo!",
 	"recent-uploads": "Ĵusaj alŝutoj",

@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"1917 Ekim Devrimi",
 			"Mirzali",
 			"Orbot707"
 		]
@@ -48,7 +49,7 @@
 	"invalid-length": "'$1' zehf dergo",
 	"no-found-on-ia": "'$1' ravêrde yew şınastoğê arşive interneti biyo.",
 	"already-on-commons": "Wikimedia Commons de xora nameyê '$1' iya yû dosya esta",
-	"creator-template-missing": "'$1' nameya nuştekar wayırê şablonê < a href='https://commons.wikimedia.org/wiki/Commons:Creator'>Vırazer </a> niyo. ID'a wikidatay cı zanê se  <a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>şabloni enewke şenê vırazê</a>.",
+	"creator-template-missing": "Jew şablonê '$1' <a href='https://commons.wikimedia.org/wiki/Commons:Creator/tr'>oluşturucu</a> nuştekari çıniyo.",
 	"no-usable-files-found": "Seba na obje karbiyaye  dosyalar (DjVu, PDF ya zi JP2) nêvineyay.",
 	"successfully-uploaded": "$1, barê Commons'i biya!",
 	"recent-uploads": "Barkerdışê peyêni",

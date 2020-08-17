@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Nintendofan885",
 			"Srdjan m",
 			"Srđan"
 		]
@@ -46,5 +47,5 @@
 	"invalid-length": "'$1' je predugo",
 	"no-found-on-ia": "'$1' ne predstavlja ispravan ID na Internet Archiveu",
 	"already-on-commons": "Datoteka s imenom '$1' već postoji na Wikimedia Commonsu",
-	"creator-template-missing": "Autor '$1' nema šablon <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>stvaraoca</a>. Ako im znate ID na Wikipodacima, možete <a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>sada napraviti šablon</a>."
+	"creator-template-missing": "Autor '$1' nema šablon <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>stvaraoca</a>. Ako im znate ID na Wikipodacima, možete <a href='https://wikidata-todo.toolforge.org/creator_from_wikidata.php'>sada napraviti šablon</a>."
 }

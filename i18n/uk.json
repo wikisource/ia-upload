@@ -3,6 +3,7 @@
 		"authors": [
 			"Avatar6",
 			"Movses",
+			"Nintendofan885",
 			"Piramidion"
 		]
 	},
@@ -49,7 +50,7 @@
 	"invalid-length": "Довжина '$1' надто велика",
 	"no-found-on-ia": "'$1' не є валідним ідентифікатором Інтернет-архіву",
 	"already-on-commons": "Файл із назвою '$1' вже існує на Вікісховищі",
-	"creator-template-missing": "Автор '$1' не має шаблону <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>творця</a>. Якщо Вам відомий ідентифікатор автора на Вікіданих, можете <a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>створити такий шаблон прямо зараз</a>.",
+	"creator-template-missing": "Автор '$1' не має шаблону <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>творця</a>. Якщо Вам відомий ідентифікатор автора на Вікіданих, можете <a href='https://wikidata-todo.toolforge.org/creator_from_wikidata.php'>створити такий шаблон прямо зараз</a>.",
 	"no-usable-files-found": "Для цього предмета не знайдено файлів у підтримуваних форматах (DjVu, PDF, або JP2).",
 	"successfully-uploaded": "$1 завантажено у Вікісховище!",
 	"recent-uploads": "Нещодавні завантаження",

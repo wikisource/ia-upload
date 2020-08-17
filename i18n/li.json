@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Nintendofan885",
 			"Ooswesthoesbes"
 		]
 	},
@@ -47,7 +48,7 @@
 	"invalid-length": "'$1' is te lank",
 	"no-found-on-ia": "'$1' is geine geljigen identificator veur Internet Arsjief",
 	"already-on-commons": "E bestandj mit de naam '$1' besteit al op Wikimedia Commons",
-	"creator-template-missing": "De sjriever '$1' haet gei <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>sjrieverssjabloon</a>. Es se dem zie Wikidatanómmer kins, kans se <a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>det sjabloon noe aanmake</a>.",
+	"creator-template-missing": "De sjriever '$1' haet gei <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>sjrieverssjabloon</a>. Es se dem zie Wikidatanómmer kins, kans se <a href='https://wikidata-todo.toolforge.org/creator_from_wikidata.php'>det sjabloon noe aanmake</a>.",
 	"no-usable-files-found": "Gein broekbaar bestenj (DjVu, PDF en JP2) zint gevónje veur dit werk.",
 	"successfully-uploaded": "$1 is succesvol upgeload op Commons!",
 	"recent-uploads": "Recènte uploads",

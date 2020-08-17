@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Joedalton"
+			"Joedalton",
+			"Nintendofan885"
 		]
 	},
 	"ia-upload": "IA-overførsel",
@@ -47,7 +48,7 @@
 	"invalid-length": "»$1« er for langt",
 	"no-found-on-ia": "»$1« er ikke en gyldig Internet Archive-identifikation",
 	"already-on-commons": "En fil navngivet »$1« findes allerede på Wikimedia Commons",
-	"creator-template-missing": "Forfatteren »$1« har ikke en <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>forfatterskabelon</a>. Hvis du kender deres Wikidata-id, så kan <a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>oprette skabelonen nu</a>.",
+	"creator-template-missing": "Forfatteren »$1« har ikke en <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>forfatterskabelon</a>. Hvis du kender deres Wikidata-id, så kan <a href='https://wikidata-todo.toolforge.org/creator_from_wikidata.php'>oprette skabelonen nu</a>.",
 	"no-usable-files-found": "Ingen brugbare filer (DjVu, PDF eller JP2) blev fundet for det element.",
 	"successfully-uploaded": "$1 er overført til Commons!",
 	"recent-uploads": "Seneste overførsler",

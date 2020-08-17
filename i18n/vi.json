@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Leducthn"
+			"Leducthn",
+			"Minh Nguyen"
 		]
 	},
 	"ia-upload": "Tải lên IA",
@@ -18,12 +19,13 @@
 	"form-label-commons-description": "Mô tả trên Commons:",
 	"ia-id-help": "Mã (ID) là phần nằm sau 'details/' trong URL, ví dụ: $1",
 	"commons-name-help": "Tên của tập tin này khi tải lên Wikipedia Commons. Nếu tập tin đã tồn tại thì sẽ không được tải lên lại và bạn sẽ được nhắc nhở thay đổi tại đây.",
-	"get-metadata": "Lấy thông tin metadata",
+	"get-metadata": "Lấy siêu dữ liệu",
 	"job-queue": "Việc đang chờ",
 	"job-queue-empty": "Hàng chờ hiện trống.",
 	"jobs-will-be-removed": "Việc sẽ bị xoá khỏi danh sách này sau khi đã hoàn tất và tập tin đã tải lên Commons.",
 	"table-header-commons-filename": "Tên tập tin Commons",
 	"table-header-status": "Trạng thái",
+	"table-header-log": "Nhật trình",
 	"table-header-download": "Tải về",
 	"in-progress": "Đang tiến hành",
 	"queued": "Đang chờ",

@@ -48,7 +48,7 @@
 	"invalid-length": "'$1' é demasiado longo",
 	"no-found-on-ia": "'$1' não é um identificador válido do Internet Archive",
 	"already-on-commons": "Já existe um ficheiro com o nome '$1' na wiki Wikimedia Commons",
-	"creator-template-missing": "O autor '$1' não tem uma predefinição de <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>criador</a>. Se conhece o seu identificador no Wikidata, pode <a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>criar a predefinição agora</a>.",
+	"creator-template-missing": "O autor '$1' não tem uma predefinição de <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>criador</a>.",
 	"no-usable-files-found": "Não foram encontrados ficheiros utilizáveis (DjVu, PDF, ou JP2) para este elemento.",
 	"successfully-uploaded": "$1 foi carregado com sucesso na wiki Commons!",
 	"recent-uploads": "Últimos envios",

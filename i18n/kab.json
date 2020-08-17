@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Belkacem77",
+			"Nintendofan885",
 			"Sayem AtVkm"
 		]
 	},
@@ -48,5 +49,5 @@
 	"invalid-length": "'$1' ɣezzif atas",
 	"no-found-on-ia": "'$1' mačči d asulay ameɣtu n n uɣbaṛ Internet",
 	"already-on-commons": "Isem n ufaylu '$1' yella yakkan di Wikimedia Commons",
-	"creator-template-missing": "Ameskar  '$1' ur ɣur-s ara taneɣruft <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>amernay</a>. Ma yella tesneḍ asulay-is ID Wikidata, tzemreḍ <a href='https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php'>ad ternuḍ taneɣruft tura</a>."
+	"creator-template-missing": "Ameskar  '$1' ur ɣur-s ara taneɣruft <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>amernay</a>. Ma yella tesneḍ asulay-is ID Wikidata, tzemreḍ <a href='https://wikidata-todo.toolforge.org/creator_from_wikidata.php'>ad ternuḍ taneɣruft tura</a>."
 }
