@@ -10,6 +10,7 @@
 	"require": {
 		"php": ">=7.2",
 		"ext-zip": "*",
+		"ext-intl": "*",
 		"addwiki/mediawiki-api": "^0.7",
 		"bryanjhv/slim-session": "~4.0",
 		"firebase/php-jwt": "^5.0",

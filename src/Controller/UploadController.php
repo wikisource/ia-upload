@@ -3,6 +3,7 @@
 namespace Wikisource\IaUpload\Controller;
 
 use Exception;
+use Locale;
 use Mediawiki\Api\Guzzle\ClientFactory;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -709,7 +710,7 @@ class UploadController {
 		$language = strtolower( $data['metadata']['language'][0] );
 
 		if ( preg_match( '/^[a-z]{2,3}$/', $language ) ) {
-			return $language;
+			return Locale::canonicalize( $language );
 		} else {
 			$language = ucfirst( $language );
 			foreach ( self::$languageCategories as $id => $name ) {
