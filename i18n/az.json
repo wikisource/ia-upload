@@ -1,0 +1,25 @@
+{
+	"@metadata": {
+		"authors": [
+			"Neriman2003",
+			"Şeyx Şamil"
+		]
+	},
+	"ia-upload": "IA yüklə",
+	"site-title": "İnternet Arxivindən kitab yükləyin",
+	"debug-notice": "Bu sayt xəta düzəltmə rejimindədir və düzgün işləməyəcəkdir.",
+	"logged-in-as": "Siz $1 olaraq daxil oldunuz",
+	"logout": "Sistemdən çıx",
+	"login-notice": "Kitabı Vikianbara yükləmək üçün <a href='$1'> sistemə daxil olmalısınız",
+	"site-explanation": "Bu <a href='$1'> IA Yükləmə aləti </a> -dır, xahiş edirik <a href='$2'> bütün problemləri bildirin </a>.",
+	"upload-file": "Fayl yüklə",
+	"form-label-ia-id": "İnternet arxivindəki faylın İD-i",
+	"form-label-commons-name": "Commons-dakı faylın adı",
+	"form-label-file-source": "DjVU fayl mənbəyi",
+	"form-label-commons-description": "Commons təsviri:",
+	"remove-first-page": "İlk səhifəni çıxar?",
+	"remove-first-page-yes": "Bəli, bu səhifəni DjVu-dan çıxar",
+	"remove-first-page-no": "Yox, qalsın",
+	"invalid-length": "'$1' çox uzundur",
+	"recent-uploads": "Son yükləmələr"
+}
