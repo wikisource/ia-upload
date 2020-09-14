@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Hhaboh162002",
 			"Meno25",
 			"Mido",
 			"Nintendofan885",
@@ -52,7 +53,7 @@
 	"invalid-length": "'$1' طويل للغاية",
 	"no-found-on-ia": "'$1' ليس مُعرِّفا صحيحا لأرشيف الإنترنت",
 	"already-on-commons": "يوجد بالفعل ملف باسم '$1' على ويكيميديا كومنز",
-	"creator-template-missing": "لا يملك المؤلف '$1' قالب <a href=\"https://commons.wikimedia.org/wiki/Commons:Creator\">منشئ</a>. إذا كنت تعلم معرفه على ويكي داتا، يمكنك <a href=\"https://wikidata-todo.toolforge.org/creator_from_wikidata.php\">إنشاء القالب الآن</a>.",
+	"creator-template-missing": "لا يملك المؤلف '$1' قالب <a href=\"https://commons.wikimedia.org/wiki/Commons:Creator\">منشئ</a>.",
 	"no-usable-files-found": "لم يتم العثور على ملفات قابلة للاستخدام (DjVu أو PDF أو JP2) لهذا العنصر.",
 	"successfully-uploaded": "الملف $1 تم بنجاح رفعه إلى كُمُنز.",
 	"recent-uploads": "أحدث المرفوعات",
