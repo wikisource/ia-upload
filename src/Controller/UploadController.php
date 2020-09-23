@@ -520,7 +520,12 @@ class UploadController {
 	 */
 	protected function getIaFileName( $data, $fileType = 'djvu' ) {
 		if ( $fileType === 'pdf' ) {
-			$pdfFormats = [ 'Text PDF', 'Additional Text PDF', 'Image Container PDF' ];
+			$pdfFormats = [
+				'Text PDF',
+				'Additional Text PDF',
+				'Image Container PDF',
+				'Standard LuraTech PDF'
+			];
 			foreach ( $data['files'] as $filePath => $fileInfo ) {
 				if ( in_array( $fileInfo['format'], $pdfFormats ) ) {
 					return $filePath;

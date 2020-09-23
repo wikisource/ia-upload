@@ -1,7 +1,7 @@
 {
 	"name": "wikisource/ia-upload",
 	"description": "Tool to upload DjVu files from the Internet Archive files to Wikimedia Commons",
-	"license": "GPL-2.0+",
+	"license": "GPL-2.0-or-later",
 	"homepage": "https://wikitech.wikimedia.org/wiki/Tool:IA_Upload",
 	"minimum-stability": "stable",
 	"config": {
@@ -35,6 +35,7 @@
 	},
 	"scripts": {
 		"test": [
+			"composer validate",
 			"phpcs"
 		],
 		"configini": [
