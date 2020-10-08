@@ -18,6 +18,7 @@
 	"form-label-commons-name": "שם הקובץ בוויקישיתוף:",
 	"form-label-file-source": "מקור קובץ DjVu:",
 	"form-label-commons-description": "תיאור בוויקישיתוף:",
+	"ia-id-help": "המזהה הוא חלק מהכתובת אחרי ‚details/‎’, למשל:",
 	"get-metadata": "קבלת מטא־נתונים",
 	"job-queue": "תור משימות",
 	"job-queue-empty": "תור המשימות ריק כרגע.",
