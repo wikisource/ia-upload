@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Liuxinyu970226",
+			"MuratTheTurkish",
 			"Nike"
 		]
 	},
@@ -47,7 +48,7 @@
 	"invalid-commons-name": "Message displayed when the provided Commons filename is not valid; $1 is a full HTML link",
 	"no-found-on-ia": "Message displayed when the provided IA identifier does not exist; $1 is a full HTML link",
 	"already-on-commons": "Message displayed when the provided Commons filename already exists; $1 is a full HTML link",
-	"creator-template-missing": "{{doc-singularthey}}",
+	"creator-template-missing": "",
 	"no-usable-files-found": "Error message explaining that none of the required file formats were found on Internet Archive",
 	"successfully-uploaded": "Message shown after a DjVu file has been transferred successfully to Commons; $1 is a full HTML link",
 	"recent-uploads": "Text for a link to RecentChanges at Wikimedia Commons",
