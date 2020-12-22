@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"ArenaL5",
 			"Athena in Wonderland",
 			"Banjo",
 			"Elisardojm",
@@ -50,7 +51,7 @@
 	"invalid-length": "\"$1\" é demasiado longo",
 	"no-found-on-ia": "'$1' non é un identificador de Internet Archive válido",
 	"already-on-commons": "Un ficheiro chamado '$1' xa existe en Wikimedia Commons",
-	"creator-template-missing": "O autor '$1' non ten un modelo <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>creador</a>. Se coñece o seu identificador en Wikidata, pode <a href='https://wikidata-todo.toolforge.org/creator_from_wikidata.php'>crear o modelo agora</a>.",
+	"creator-template-missing": "O autor '$1' non ten un modelo <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>creador</a>.",
 	"no-usable-files-found": "Non se atoparon ficheiros útiles (DjVu, PDF, ou JP2) para ese elemento.",
 	"successfully-uploaded": "$1 cargouse con éxito en Commons!",
 	"recent-uploads": "Cargas recentes",
