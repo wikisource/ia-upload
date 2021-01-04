@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Belkacem77",
+			"Bilalbill",
 			"Nintendofan885",
 			"Sayem AtVkm"
 		]
@@ -40,7 +41,7 @@
 	"file-source-help": "Seg wanida i yessefk ad d-sirweɣ afaylu DjVu ?<br /> Ẓer d akken i JP2 d PDF, <strong>talɣut-ik n usesteb ad tettwasekles</strong> ɣef uqeddac n Tool Labs ddeqs n wakud ilaqen arama yettwaselket (di tanumi, ddaw n 30 n tisdatin). Tzemreḍ <a href='$1'>ad tekkseḍ anekcum n ufecku-agi</a> melmi tebɣiḍ.",
 	"remove-first-page": "Kkes asebter-agi?",
 	"remove-first-page-yes": "Ih, kkes asebter-agi DjVu",
-	"remove-first-page-no": "Ala, eǧǧ-it",
+	"remove-first-page-no": "Uhu, eǧǧ-it",
 	"remove-first-page-help": "Kra n inefraḍen n Google gebren asebter n tduli yettwaḥerzen s izerfan, ayen ur yettwasirgen ara di Commons. Ugar n isallen, Wali <a href='https://en.wikisource.org/wiki/Help:Internet_Archive#Google_Books'>asebter n tallelt di Wikisource</a>.",
 	"authorize-first": "Yessefk ad tsirgeḍ asali IA send asali n ufaylu",
 	"upload-time-warning": "(Ɣuṛ-k: asali yezmer ad yawi ugar n tesdat!)",
