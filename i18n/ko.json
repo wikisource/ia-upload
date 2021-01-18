@@ -3,7 +3,8 @@
 		"authors": [
 			"Nintendofan885",
 			"Revi",
-			"Ykhwong"
+			"Ykhwong",
+			"그냥기여자"
 		]
 	},
 	"ia-upload": "IA 업로드",
@@ -37,6 +38,7 @@
 	"file-source-jp2": "원본 스캔(JP2)에서",
 	"file-source-pdf": "PDF에서 (품질이 더 낮을 수 있음)",
 	"file-source-not-available": "(이 항목에 대해 사용할 수 없음)",
+	"file-source-help": "DjVu 파일은 어디에서 생성해야 할까요? <br /> JP2 및 PDF의 경우 변환을 마치는 데 걸리는 시간 동안 <strong>당신의 인증 정보가 Tool Labs 서버에 저장됩니다</strong> (일반적으로 1시간 미만).  언제든지 <a href='$1'>이 도구의 접근 권한을 취소</a>할 수 있습니다.",
 	"remove-first-page": "첫 페이지를 제거하겠습니까?",
 	"remove-first-page-yes": "예, DjVu에서 이 페이지를 제거합니다",
 	"remove-first-page-no": "아니오, 그대로 둡니다",
@@ -48,11 +50,12 @@
 	"invalid-length": "'$1'이(가) 너무 깁니다",
 	"no-found-on-ia": "'$1'은(는) 유효한 인터넷 아카이브 식별자가 아닙니다",
 	"already-on-commons": "이름이 '$1'인 파일이 위키미디어 공용에 이미 존재합니다",
-	"creator-template-missing": "'$1' 저자는 <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>창작자</a> 틀을 가지고 있지 않습니다. 위키데이터 항목 값을 안다면, <a href='https://wikidata-todo.toolforge.org/creator_from_wikidata.php'>틀을 바로 만들 수 있습니다</a>.",
+	"creator-template-missing": "'$1' 저자는 <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>창작자</a> 템플릿을 가지고 있지 않습니다.",
 	"no-usable-files-found": "해당 항목에서 사용할 수 있는 파일 (DjVu, PDf 또는 JP2) 을 찾을 수 없었습니다.",
 	"successfully-uploaded": "$1이(가) 성공적으로 공용에 업로드되었습니다!",
 	"recent-uploads": "최근 업로드",
 	"recent-uploads-tooltip": "이 도구로 최근 업로드 보기",
 	"watch-log": "로그를 주시해 주시고, 실패하면 <a href='https://phabricator.wikimedia.org/maniphest/task/create/?projects=ia-upload'>이슈를\n 생성해 주세요</a>.",
-	"zip-file-too-large": "Internet Archive의 원본 스캔 zip 파일이 IA 업로드가 처리하기에 너무 클 수 있습니다. (현재 용량은 약 $1 MB이며 권장 최대 용량은 $2 MB입니다.)"
+	"zip-file-too-large": "Internet Archive의 원본 스캔 zip 파일이 IA 업로드가 처리하기에 너무 클 수 있습니다. (현재 용량은 약 $1 MB이며 권장 최대 용량은 $2 MB입니다.)",
+	"too-many-pages": "Internet Archive의 원본 스캔 zip 파일이 IA 업로드가 처리하기에 너무 클 <em>수 있음을</em> 알아두십시오. (현재 용량은 약 $1 MB이며 권장 최대 용량은 $2 MB입니다.)"
 }
