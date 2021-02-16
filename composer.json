@@ -5,7 +5,7 @@
 	"homepage": "https://wikitech.wikimedia.org/wiki/Tool:IA_Upload",
 	"minimum-stability": "stable",
 	"config": {
-		"platform": { "php": "7.2" }
+		"platform": { "php": "7.3" }
 	},
 	"require": {
 		"php": ">=7.2",
@@ -21,12 +21,16 @@
 		"pastuhov/php-exec-command": "^1.1",
 		"php-di/php-di": "^6.2",
 		"slim/slim": "4.*",
+		"twig/twig": "^2.0",
 		"slim/twig-view": "^3.0",
-		"symfony/console": "^4.4",
+		"symfony/console": "^5.0",
 		"wikimedia/simplei18n": "^1.0"
 	},
 	"require-dev": {
-		"mediawiki/mediawiki-codesniffer": "^14.0"
+		"mediawiki/mediawiki-codesniffer": "^35.0",
+		"mediawiki/minus-x": "1.1.0",
+		"php-parallel-lint/php-console-highlighter": "0.5.0",
+		"php-parallel-lint/php-parallel-lint": "1.2.0"
 	},
 	"autoload": {
 		"psr-4": {
@@ -36,7 +40,9 @@
 	"scripts": {
 		"test": [
 			"composer validate",
-			"phpcs"
+			"parallel-lint . --exclude vendor --exclude node_modules",
+			"phpcs -p -s",
+			"minus-x check ."
 		],
 		"configini": [
 			"php -r \"file_exists('config.ini') || copy('config_example.ini', 'config.ini');\""

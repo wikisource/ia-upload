@@ -134,10 +134,10 @@ class Jp2DjvuMaker extends DjvuMaker {
 		$this->pageCount = count( $djvuFiles );
 
 		// Merge all DjVu files into one.
-		$singleDjvuFile = $this->jobDir().'/'.$this->itemId.'.djvu';
+		$singleDjvuFile = $this->jobDir() . '/' . $this->itemId . '.djvu';
 		if ( !file_exists( $singleDjvuFile ) ) {
 			$this->log->info( "Merging all DjVu files to $singleDjvuFile" );
-			$djvuFileList = '"' . join( '" "', $djvuFiles ) . '"';
+			$djvuFileList = '"' . implode( '" "', $djvuFiles ) . '"';
 			$this->runCommand( "djvm", "-c \"$singleDjvuFile\" " . $djvuFileList );
 		}
 		return $singleDjvuFile;
@@ -174,7 +174,7 @@ class Jp2DjvuMaker extends DjvuMaker {
 		}
 		$pageNum = 0;
 		foreach ( $xml->BODY->OBJECT as $object ) {
-			$object['data'] = 'file://localhost'.$djvuFile;
+			$object['data'] = 'file://localhost' . $djvuFile;
 			// The first PARAM is always 'PAGE'.
 			$object->PARAM[0]['value'] = $this->itemId . '_p' . $pageNum . '.djvu';
 			$pageNum++;
@@ -185,7 +185,7 @@ class Jp2DjvuMaker extends DjvuMaker {
 		// Modify the DjVu file with the contents of the XML file. (The target DjVu file is the file
 		// referenced by the OBJECT element of the XML file).
 		$this->log->info( "Merging modified XML into full DjVu file" );
-		$this->runCommand( 'djvuxmlparser', '"'. $newDjvuXmlFile . '"' );
+		$this->runCommand( 'djvuxmlparser', '"' . $newDjvuXmlFile . '"' );
 	}
 
 	/**

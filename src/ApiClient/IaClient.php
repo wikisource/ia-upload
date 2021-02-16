@@ -13,7 +13,7 @@ use Psr\Http\Message\StreamInterface;
  * @file
  * @ingroup IaUpload
  *
- * @licence GNU GPL v2+
+ * @license GPL-2.0-or-later
  */
 class IaClient {
 
@@ -63,6 +63,10 @@ class IaClient {
 		);
 	}
 
+	/**
+	 * @param StreamInterface $stream
+	 * @param string $fileName
+	 */
 	private function streamToFile( StreamInterface $stream, $fileName ) {
 		$file = fopen( $fileName, 'w' );
 		while ( !$stream->eof() ) {

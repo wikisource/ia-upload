@@ -46,6 +46,7 @@
 	"upload-time-warning": "A warning near the final submit button informing the user that the upload may take a while",
 	"set-all-fields": "Message displayed when (somehow) a user has submitted the form without all fields being filled in",
 	"invalid-commons-name": "Message displayed when the provided Commons filename is not valid; $1 is a full HTML link",
+	"invalid-length": "Message displayed when the provided Commons filename is is too long.\n\nParameter:\n* $1 - The provided filename.",
 	"no-found-on-ia": "Message displayed when the provided IA identifier does not exist; $1 is a full HTML link",
 	"already-on-commons": "Message displayed when the provided Commons filename already exists; $1 is a full HTML link",
 	"creator-template-missing": "",
