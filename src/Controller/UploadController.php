@@ -2,14 +2,14 @@
 
 namespace Wikisource\IaUpload\Controller;
 
+use DI\Container;
 use Exception;
+use GuzzleHttp\Psr7\LazyOpenStream;
 use Locale;
 use Mediawiki\Api\Guzzle\ClientFactory;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use DI\Container;
 use Slim\Routing\RouteParser;
-use GuzzleHttp\Psr7\LazyOpenStream;
 use Wikisource\IaUpload\ApiClient\CommonsClient;
 use Wikisource\IaUpload\ApiClient\IaClient;
 use Wikisource\IaUpload\OAuth\MediaWikiOAuth;
@@ -21,7 +21,7 @@ use Wikisource\IaUpload\OAuth\Token\ConsumerToken;
  * @file
  * @ingroup IaUpload
  *
- * @licence GNU GPL v2+
+ * @license GPL-2.0-or-later
  */
 class UploadController {
 
@@ -55,6 +55,7 @@ class UploadController {
 	 */
 	protected $config;
 
+	/** @var string[] */
 	private static $languageCategories = [
 		'ar' => 'Arabic',
 		'hy' => 'Armenian',
@@ -130,7 +131,7 @@ class UploadController {
 
 	/**
 	 * Get the full directory name of the working directory for the given job.
-	 * @param string $iaId The IA item ID.
+	 * @param string|null $iaId The IA item ID.
 	 * @return string The full filesystem path to the directory (as returned by realpath()).
 	 * @throws Exception If the directory can't be created or is not writable.
 	 */
@@ -669,7 +670,7 @@ class UploadController {
 			$creatorParts = array_map( 'trim', explode( ',', $creator ) );
 			// Exclude any parts that are dates (numbers and hyphens).
 			$authorParts = preg_grep( '/^[0-9-]*$/', $creatorParts, PREG_GREP_INVERT );
-			$creator = join( ' ',  array_reverse( $authorParts ) );
+			$creator = implode( ' ',  array_reverse( $authorParts ) );
 		}
 		if ( $this->commonsClient->pageExist( "Creator:$creator" ) ) {
 			return "{{Creator:$creator}}";

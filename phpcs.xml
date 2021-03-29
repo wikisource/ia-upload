@@ -1,11 +1,8 @@
 <?xml version="1.0"?>
 <ruleset name="ia-upload">
-	<rule ref="vendor/mediawiki/mediawiki-codesniffer/MediaWiki" />
-	<rule ref="MediaWiki.NamingConventions.PrefixedGlobalFunctions.wfPrefix">
-		<severity>0</severity>
-	</rule>
-	<rule ref="MediaWiki.NamingConventions.ValidGlobalName.wgPrefix">
-		<severity>0</severity>
+	<rule ref="vendor/mediawiki/mediawiki-codesniffer/MediaWiki">
+		<exclude name="MediaWiki.NamingConventions.ValidGlobalName.allowedPrefix" />
+		<exclude name="MediaWiki.Usage.ForbiddenFunctions.exec" />
 	</rule>
 	<file>.</file>
 	<exclude-pattern>vendor/</exclude-pattern>

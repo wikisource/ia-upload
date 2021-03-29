@@ -7,11 +7,13 @@ use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\Subscriber\Oauth\Oauth1;
+use Mediawiki\Api\MediawikiApi;
+use Psr\Http\Message\StreamInterface;
+use stdClass;
 use Wikisource\IaUpload\OAuth\Token\AccessToken;
 use Wikisource\IaUpload\OAuth\Token\ConsumerToken;
 use Wikisource\IaUpload\OAuth\Token\RequestToken;
 use Wikisource\IaUpload\OAuth\Token\Token;
-use Mediawiki\Api\MediawikiApi;
 
 /**
  * @since 0.1
@@ -105,7 +107,7 @@ class MediaWikiOAuth {
 	 * know their username, groups, rights, etc in MediaWiki.
 	 *
 	 * @param AccessToken $accessToken Access token from complete()
-	 * @return object containing attributes of the user
+	 * @return stdClass containing attributes of the user
 	 */
 	public function identify( AccessToken $accessToken ) {
 		$result = $this->doOAuthRequest( $accessToken, [
@@ -139,7 +141,13 @@ class MediaWikiOAuth {
 		] );
 	}
 
-	private function doOAuthJsonRequest( Token $token = null, array $params ) {
+	/**
+	 * @param Token|null $token
+	 * @param array $params
+	 * @return array
+	 * @throws MediaWikiOAuthException
+	 */
+	private function doOAuthJsonRequest( ?Token $token = null, array $params ) {
 		$params['format'] = 'json';
 
 		$result = \GuzzleHttp\json_decode( $this->doOAuthRequest( $token, $params ), true );
@@ -151,12 +159,21 @@ class MediaWikiOAuth {
 		return $result;
 	}
 
-	private function doOAuthRequest( Token $token = null, array $params ) {
+	/**
+	 * @param Token|null $token
+	 * @param array $params
+	 * @return StreamInterface
+	 */
+	private function doOAuthRequest( ?Token $token = null, array $params ) {
 		return $this->buildClientFromToken( $token )->get( '', [
 			'query' => $params
 		] )->getBody();
 	}
 
+	/**
+	 * @param Token|null $token
+	 * @return Client
+	 */
 	private function buildClientFromToken( Token $token = null ) {
 		$stack = HandlerStack::create();
 		$stack->push( $this->buildOAuth1MiddlewareFromToken( $token ) );
@@ -168,6 +185,10 @@ class MediaWikiOAuth {
 		] );
 	}
 
+	/**
+	 * @param Token|null $token
+	 * @return Oauth1
+	 */
 	private function buildOAuth1MiddlewareFromToken( Token $token = null ) {
 		$oAuthConfig = [
 			'consumer_key' => $this->consumerToken->getKey(),

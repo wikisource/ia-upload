@@ -2,13 +2,13 @@
 
 namespace Wikisource\IaUpload\Controller;
 
+use DI\Container;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\Routing\RouteParser;
 use Wikisource\IaUpload\OAuth\MediaWikiOAuth;
 use Wikisource\IaUpload\OAuth\Token\ConsumerToken;
 use Wikisource\IaUpload\OAuth\Token\RequestToken;
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
-use DI\Container;
-use Slim\Routing\RouteParser;
 
 /**
  * Controller for OAuth login
@@ -16,7 +16,7 @@ use Slim\Routing\RouteParser;
  * @file
  * @ingroup IaUpload
  *
- * @licence GNU GPL v2+
+ * @license GPL-2.0-or-later
  */
 class OAuthController {
 

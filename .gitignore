@@ -1,7 +1,8 @@
 config.ini
-temp/*
-vendor/*
-.idea/*
+temp/
+vendor/
+node_modules/
+.idea/
 public/.htaccess
 /jobqueue
 
