@@ -11,7 +11,7 @@
 		"php": ">=7.2",
 		"ext-zip": "*",
 		"ext-intl": "*",
-		"addwiki/mediawiki-api": "^0.7",
+		"addwiki/mediawiki-api": "^2.8",
 		"bryanjhv/slim-session": "~4.0",
 		"firebase/php-jwt": "^5.0",
 		"guzzlehttp/oauth-subscriber": "~0.3",
@@ -30,7 +30,8 @@
 		"mediawiki/mediawiki-codesniffer": "^35.0",
 		"mediawiki/minus-x": "1.1.0",
 		"php-parallel-lint/php-console-highlighter": "0.5.0",
-		"php-parallel-lint/php-parallel-lint": "1.2.0"
+		"php-parallel-lint/php-parallel-lint": "1.2.0",
+		"symfony/var-dumper": "^5.2"
 	},
 	"autoload": {
 		"psr-4": {
