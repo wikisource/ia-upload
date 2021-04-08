@@ -21,10 +21,10 @@
 		"pastuhov/php-exec-command": "^1.1",
 		"php-di/php-di": "^6.2",
 		"slim/slim": "4.*",
-		"twig/twig": "^2.0",
+		"twig/twig": "^3.0",
 		"slim/twig-view": "^3.0",
 		"symfony/console": "^5.0",
-		"wikimedia/simplei18n": "^1.0"
+		"krinkle/intuition": "^2.2"
 	},
 	"require-dev": {
 		"mediawiki/mediawiki-codesniffer": "^35.0",
