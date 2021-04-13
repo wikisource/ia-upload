@@ -4,9 +4,7 @@ namespace Wikisource\IaUpload\ApiClient;
 
 use GuzzleHttp\Client;
 use Mediawiki\Api\MediawikiApi;
-use Mediawiki\Api\MediawikiFactory;
 use Mediawiki\Api\SimpleRequest;
-use Mediawiki\Api\UsageException;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -18,6 +16,9 @@ use Psr\Log\LoggerInterface;
  * @license GPL-2.0-or-later
  */
 class CommonsClient {
+
+	/** @var string */
+	private $baseUrl;
 
 	/**
 	 * @var Client
@@ -31,14 +32,26 @@ class CommonsClient {
 
 	/**
 	 * CommonsClient constructor.
-	 * @param string $base_url The wiki base URL with no trailing slash or path.
+	 * @param string $baseUrl The wiki base URL with no trailing slash or path.
 	 * @param Client $oauthClient The Oauth client.
 	 * @param LoggerInterface $logger The logger.
 	 */
-	public function __construct( $base_url, Client $oauthClient, LoggerInterface $logger ) {
+	public function __construct( string $baseUrl, Client $oauthClient, LoggerInterface $logger ) {
+		$this->baseUrl = rtrim( $baseUrl, '/' );
 		$this->client = $oauthClient;
-		$this->mediawikiApi = new MediawikiApi( $base_url . '/w/api.php', $oauthClient );
+		$this->mediawikiApi = new MediawikiApi( $this->baseUrl . '/w/api.php', $oauthClient );
 		$this->mediawikiApi->setLogger( $logger );
+	}
+
+	/**
+	 * Get an HTML anchor element linking to the given page on Wikimedia Commons.
+	 *
+	 * @param string $pageName
+	 * @return string
+	 */
+	public function getHtmlLink( string $pageName ): string {
+		$url = $this->baseUrl . '/wiki/' . rawurlencode( $pageName );
+		return '<a href="' . $url . '">' . htmlspecialchars( $pageName ) . '</a>';
 	}
 
 	/**
@@ -85,20 +98,17 @@ class CommonsClient {
 	}
 
 	/**
-	 * Returns the edit token for the current user
+	 * Upload a file to Commons.
 	 *
 	 * @param string $fileName the name of the file to upload
 	 * @param string $filePath the path to the file
 	 * @param string $text the content of the description page
 	 * @param string $comment an edit comment
 	 * @return array
-	 * @throws UsageException If there's an API error.
 	 */
-	public function upload( $fileName, $filePath, $text, $comment ) {
-		$factory = new MediawikiFactory( $this->mediawikiApi );
-		$fileUploader = $factory->newFileUploader();
-		$fileUploader->setChunkSize( 90 * 1024 * 1024 );
-		$fileUploader->upload( $fileName, $filePath, $text, $comment );
+	public function upload( string $fileName, string $filePath, string $text, string $comment ) {
+		$fileUploader = new CommonsFileUploader( $this->mediawikiApi );
+		return $fileUploader->uploadWithResult( $fileName, $filePath, $text, $comment );
 	}
 
 	/**

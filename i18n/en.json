@@ -43,6 +43,8 @@
 	"invalid-length": "'$1' is too long",
 	"no-found-on-ia": "'$1' is not a valid Internet Archive identifier",
 	"already-on-commons": "A file named '$1' already exists on Wikimedia Commons",
+	"duplicate-on-commons": "Unable to upload, because a exact duplicate file already exists on Wikimedia Commons: $1",
+	"ia-identifier-exists": "An existing file is already linked to the IA identifier '$1': $2. Please only upload a new file if you're sure that it's required. A different format of the same IA item is OK.",
 	"creator-template-missing": "The author '$1' doesn’t have a <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>creator</a> template.",
 	"no-usable-files-found": "No usable files (DjVu, PDF, or JP2) were found for that item.",
 	"successfully-uploaded": "$1 has been successfully uploaded to Commons!",

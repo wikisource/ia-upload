@@ -10,6 +10,7 @@ use Mediawiki\Api\Guzzle\ClientFactory;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Routing\RouteParser;
+use Wikimedia\SimpleI18n\I18nContext;
 use Wikisource\IaUpload\ApiClient\CommonsClient;
 use Wikisource\IaUpload\ApiClient\IaClient;
 use Wikisource\IaUpload\OAuth\MediaWikiOAuth;
@@ -270,8 +271,7 @@ class UploadController {
 		// See if the filename already exists on Commons.
 		$fullCommonsName = $commonsName . '.' . $format;
 		if ( $this->commonsClient->pageExist( 'File:' . $fullCommonsName ) ) {
-			$url = $this->config['wiki_base_url'] . '/wiki/File:' . rawurlencode( $fullCommonsName );
-			$link = "<a href='$url'>" . htmlspecialchars( $fullCommonsName ) . '</a>';
+			$link = $this->commonsClient->getHtmlLink( 'File:' . $fullCommonsName );
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
 				'format' => $format,
@@ -283,14 +283,8 @@ class UploadController {
 		// See if a page for the IA item exists on Commons under a different name.
 		$existingPage = $this->commonsClient->pageForIAItem( $iaId );
 		if ( $existingPage ) {
-			$url = $this->config['wiki_base_url'] . '/wiki/' . rawurlencode( $existingPage );
-			$link = "<a href='$url'>" . htmlspecialchars( $iaId ) . '</a>';
-			return $this->outputsInitTemplate( [
-				'iaId' => $iaId,
-				'format' => $format,
-				'commonsName' => $commonsName,
-				'error' => $this->i18n->message( 'already-on-commons', [ $link ] ),
-			], $response );
+			$linkExisting = $this->commonsClient->getHtmlLink( $existingPage );
+			$warning = $this->i18n->message( 'ia-identifier-exists', [ $iaId, $linkExisting ] );
 		}
 
 		// Output the page.
@@ -340,8 +334,7 @@ class UploadController {
 
 		// Check again that the Commons file doesn't exist.
 		if ( $this->commonsClient->pageExist( 'File:' . $jobInfo['fullCommonsName'] ) ) {
-			$url = 'http://commons.wikimedia.org/wiki/File:' . rawurlencode( $jobInfo['fullCommonsName'] );
-			$link = '<a href="' . $url . '">' . htmlspecialchars( $jobInfo['fullCommonsName'] ) . '</a>';
+			$link = $this->commonsClient->getHtmlLink( 'File:' . $jobInfo['fullCommonsName'] );
 			$jobInfo['error'] = $this->i18n->message( 'already-on-commons', [ $link ] );
 			return $this->outputsFillTemplate( $jobInfo, $response );
 		}
@@ -385,12 +378,18 @@ class UploadController {
 				if ( $jobInfo['format'] === 'djvu' && $jobInfo['removeFirstPage'] ) {
 					$this->iaClient->removeFirstPage( $localFile );
 				}
-				$this->commonsClient->upload(
+				$result = $this->commonsClient->upload(
 					$jobInfo['fullCommonsName'],
 					$localFile,
 					$jobInfo['description'],
 					'Importation from Internet Archive via [[toollabs:ia-upload|IA-upload]]'
 				);
+				if ( isset( $result['upload']['warnings']['duplicate'][0] ) ) {
+					$dupeFile = $result['upload']['warnings']['duplicate'][0];
+					$dupeLink = $this->commonsClient->getHtmlLink( 'File:' . $dupeFile );
+					$jobInfo['error'] = $this->i18n->message( 'duplicate-on-commons', [ $dupeLink ] );
+					return $this->outputsFillTemplate( $jobInfo, $response );
+				}
 			} catch ( Exception $e ) {
 				unlink( $localFile );
 				rmdir( $jobDirectory );
@@ -406,12 +405,9 @@ class UploadController {
 			}
 			unlink( $localFile );
 			rmdir( $jobDirectory );
-			$url = $this->config['wiki_base_url']
-				. '/wiki/File:'
-				. rawurlencode( $jobInfo['fullCommonsName'] );
-			$msgParam = '<a href="' . $url . '">' . $jobInfo['fullCommonsName'] . '</a>';
+			$fileLink = $this->commonsClient->getHtmlLink( "File:$jobInfo" );
 			return $this->outputsInitTemplate( [
-				'success' => $this->i18n->message( 'successfully-uploaded', [ $msgParam ] ),
+				'success' => $this->i18n->message( 'successfully-uploaded', [ $fileLink ] ),
 			], $response );
 		}
 	}
