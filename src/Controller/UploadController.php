@@ -549,6 +549,27 @@ class UploadController {
 	}
 
 	/**
+	 * Find the first external ID in the metadata with the given prefix.
+	 * @param array $data The IA metadata
+	 * @param string $prefix The external ID prefix
+	 * @return string The external ID (without prefix), or '' if not found
+	 */
+	private function getExternalIdentifier( array $data, string $prefix ): string {
+		$extId = '';
+
+		if ( isset( $data['metadata']['external-identifier'][0] ) ) {
+
+			foreach ( $data['metadata']['external-identifier'] as $extVal ) {
+				if ( str_starts_with( $extVal, $prefix ) ) {
+					$extId = substr( $extVal, strlen( $prefix ) );
+				}
+			}
+		}
+
+		return $extId;
+	}
+
+	/**
 	 * Creates the content of the description page
 	 *
 	 * @param array $data The IA metadata.
@@ -609,6 +630,7 @@ class UploadController {
 		$content .= '| Image        = {{PAGENAME}}' . "\n";
 		$content .= '| Image page   = ' . "\n";
 		$content .= '| Permission   = ' . "\n";
+		$content .= '| OCLC         = ' . $this->getExternalIdentifier( $data, 'urn:oclc:record:' ) . "\n";
 		$content .= '| Other versions = ' . "\n";
 		$content .= '| Wikisource   = s:' . $language . ':Index:{{PAGENAME}}' . "\n";
 		$content .= '| Homecat      = ' . "\n";
