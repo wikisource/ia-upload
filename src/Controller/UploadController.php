@@ -503,6 +503,7 @@ class UploadController {
 			'error' => '',
 			'user' => $this->c->get( 'session' )->get( 'user' ),
 			'oauth_cid' => isset( $this->config[ 'consumerId' ] ) ? $this->config[ 'consumerId' ] : '',
+			'base_url' => $this->config['wiki_base_url'],
 		];
 		$params = array_merge( $defaultParams, $params );
 		return $this->c->get( 'view' )->render( $response, $templateName, $params );
