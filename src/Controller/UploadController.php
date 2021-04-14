@@ -186,7 +186,7 @@ class UploadController {
 		$query = $request->getQueryParams();
 		$iaId = trim( $query['iaId'] ?? '' );
 		$commonsName = $this->commonsClient->normalizePageTitle( $query['commonsName'] ?? '' );
-		$format = $query['format'] ?? 'pdf';
+		$format = $query['format'] ?? 'djvu';
 		$fileSource = $query['fileSource'] ?? 'djvu';
 		// Validate inputs.
 		if ( $iaId === '' || $commonsName === '' ) {
@@ -460,7 +460,7 @@ class UploadController {
 			'iaId' => '',
 			'commonsName' => '',
 			'jobs' => [],
-			'format' => 'pdf',
+			'format' => 'djvu',
 			'wiki_base_url' => $this->config['wiki_base_url'],
 		];
 		$params = array_merge( $defaultParams, $params );
