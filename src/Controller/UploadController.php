@@ -405,7 +405,7 @@ class UploadController {
 			}
 			unlink( $localFile );
 			rmdir( $jobDirectory );
-			$fileLink = $this->commonsClient->getHtmlLink( "File:$jobInfo" );
+			$fileLink = $this->commonsClient->getHtmlLink( 'File:' . $jobInfo['fullCommonsName'] );
 			return $this->outputsInitTemplate( [
 				'success' => $this->i18n->message( 'successfully-uploaded', [ $fileLink ] ),
 			], $response );
