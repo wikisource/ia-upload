@@ -176,6 +176,27 @@ class UploadController {
 	}
 
 	/**
+	 * Try to extract an IA ID from a string that might be a URL or ID
+	 * @param string $urlOrId IA item URL or ID
+	 * @return string the IA ID if we can figure one out
+	 */
+	private function extractIaId( string $urlOrId ): string {
+		$urlOrId = trim( $urlOrId );
+
+		if ( strpos( $urlOrId, 'http' ) === 0 ) {
+			$path = parse_url( $urlOrId,  PHP_URL_PATH );
+
+			if ( !empty( $path ) ) {
+				$pathParts = explode( '/', $path );
+				if ( count( $pathParts ) > 2 ) {
+					$urlOrId = $pathParts[2];
+				}
+			}
+		}
+		return $urlOrId;
+	}
+
+	/**
 	 * The second step, in which users fill in the Commons template etc.
 	 * @param Request $request The HTTP request.
 	 * @param Response $response The HTTP response.
@@ -184,7 +205,7 @@ class UploadController {
 	public function fill( Request $request, Response $response ) {
 		// Get inputs.
 		$query = $request->getQueryParams();
-		$iaId = trim( $query['iaId'] ?? '' );
+		$iaId = $this->extractIaId( $query['iaId'] ?? '' );
 		$commonsName = $this->commonsClient->normalizePageTitle( $query['commonsName'] ?? '' );
 		$format = $query['format'] ?? 'djvu';
 		$fileSource = $query['fileSource'] ?? 'djvu';
