@@ -48,6 +48,8 @@
 	"invalid-length": "'$1' je príliš dlhé",
 	"no-found-on-ia": "'$1' nie je platný identifikátor internetového archívu",
 	"already-on-commons": "Súbor s názvom '$1' už na Wikimedia Commons existuje",
+	"duplicate-on-commons": "Nemožno nahrať, pretože na Wikimédia Commons existuje totožný duplikát súboru: $1",
+	"ia-identifier-exists": "Existujúci súbor je už napojený na IA identifikátor \"$1\":$2. Prosím nahrávajte nové súbory len ak ste si istý/á, že je to potrebné. Iný typ súbore pre tú istú položku IA je OK.",
 	"creator-template-missing": "Autor '$1' nemá šablónu <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>tvorcu</a>.",
 	"no-usable-files-found": "Pre túto položku neboli nájdené použiteľné súbory (DjVu, PDF, alebo JP2).",
 	"successfully-uploaded": "Súbor $1 bol úspešne nahraný do Commons!",
