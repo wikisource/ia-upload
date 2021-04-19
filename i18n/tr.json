@@ -5,6 +5,7 @@
 			"BaRaN6161 TURK",
 			"Chansey",
 			"Hedda",
+			"Joseph",
 			"Vito Genovese"
 		]
 	},
@@ -51,6 +52,8 @@
 	"invalid-length": "'$1' çok uzun",
 	"no-found-on-ia": "'$1' geçerli bir İnternet Arşivi tanımlayıcısı değil",
 	"already-on-commons": "Wikimedia Commons'ta '$1' adlı bir dosya zaten var",
+	"duplicate-on-commons": "Yüklenemiyor, çünkü tamamen aynı bir dosya zaten Wikimedia Commons'da mevcut: $1",
+	"ia-identifier-exists": "Mevcut bir dosya zaten '$1' IA tanımlayıcısına bağlanmış: $2. Lütfen sadece gerekli olduğuna eminseniz yeni bir dosya yükleyin. Aynı IA ögesinin farklı bir biçimi de uygundur.",
 	"creator-template-missing": "Yazarın '$1' bir <a href='https://commons.wikimedia.org/wiki/Commons:Creator/tr'>oluşturucu</a> şablonu yok.",
 	"no-usable-files-found": "Bu öğe için kullanılabilir dosya (DjVu, PDF veya JP2) bulunamadı.",
 	"successfully-uploaded": "Commons'a $1 başarıyla yüklendi!",
