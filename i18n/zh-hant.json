@@ -52,6 +52,8 @@
 	"invalid-length": "「$1」太長",
 	"no-found-on-ia": "「$1」不是一個有效的網際網路檔案館識別",
 	"already-on-commons": "維基共享資源上已存在名為「$1」的檔案",
+	"duplicate-on-commons": "無法上傳，因為維基共享資源上已存在完全相同的重複檔案：$1",
+	"ia-identifier-exists": "現有檔案已連結到 IA 識別碼'$1'：$2。如果您確定需要，僅上傳新檔案即可。若是其他格式的相同 IA 項目也接受。",
 	"creator-template-missing": "作者\"$1\"沒有<a href='https://commons.wikimedia.org/wiki/Commons:Creator'>創建者</a>模板。",
 	"no-usable-files-found": "沒有找到適用於項目的可用檔案（DjVu、PDF、或 JP2）。",
 	"successfully-uploaded": "$1 已成功上傳到共享資源！",
