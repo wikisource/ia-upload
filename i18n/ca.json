@@ -3,7 +3,8 @@
 		"authors": [
 			"Fitoschido",
 			"Mguix",
-			"Toniher"
+			"Toniher",
+			"Xavier Dengra"
 		]
 	},
 	"ia-upload": "Carregar IA",
@@ -49,6 +50,8 @@
 	"invalid-length": "«$1» és massa llarg",
 	"no-found-on-ia": "«$1» no és un identificador vàlid de l’Internet Archive",
 	"already-on-commons": "Ja existeix un fitxer amb el nom «$1» a Wikimedia Commons",
+	"duplicate-on-commons": "Càrrega denegada, puix que ja existeix un altre fitxer idèntic a aquest a Wikimedia Commons: $1",
+	"ia-identifier-exists": "Ja existeix un fitxer enllaçat a l'identificador IA «$1»: $2. Si us plau, carregueu només un fitxer nou si teniu la certesa que és imprescindible. Un altre format del mateix element IA sí que és raonable.",
 	"creator-template-missing": "L'autor « $1 » no té cap plantilla <a href=\"https://commons.wikimedia.org/wiki/Commons:Creator\">creador</a>.",
 	"no-usable-files-found": "No s'ha trobat cap arxiu utilitzable (en DjVu, PDF o JP2) per a aquest element.",
 	"successfully-uploaded": "$1 es va carregar correctament en Commons.",

@@ -49,6 +49,7 @@
 	"invalid-length": "„$1“ ist zu lang",
 	"no-found-on-ia": "„$1“ ist keine gültige Kennung für das Internet Archive",
 	"already-on-commons": "Eine Datei namens „$1“ ist bereits auf Wikimedia Commons vorhanden",
+	"duplicate-on-commons": "Die Datei konnte nicht hochgeladen werden, da bereits folgendes Duplikat auf Wikimedia Commons existiert:$1",
 	"creator-template-missing": "Der Autor „$1“ hat keine <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>Urheber</a>-Vorlage.",
 	"no-usable-files-found": "Für dieses Objekt wurden keine verwendbaren Dateien (DjVu, PDF oder JP2) gefunden.",
 	"successfully-uploaded": "$1 wurde erfolgreich auf Commons hochgeladen!",
