@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Patriccck",
-			"Patrik L."
+			"Patrik L.",
+			"Want"
 		]
 	},
 	"ia-upload": "IA Upload",
@@ -38,5 +39,6 @@
 	"authorize-first": "Před nahráním souboru povolte nahrávání na i-upload",
 	"upload-time-warning": "(Upozornění: nahrávání může trvat déle než jednu minutu!)",
 	"set-all-fields": "Vyplňte prosím všechna pole formuláře",
-	"invalid-length": "'$1' je hodně dlouhé"
+	"invalid-length": "'$1' je hodně dlouhé",
+	"duplicate-on-commons": "Nelze provést natažení souboru, jelikož na Wikimedia Commons již existuje duplicitní soubor: $1"
 }
