@@ -31,13 +31,14 @@ if ( $config === false ) {
 	echo "Unable to parse config file at $configFile";
 	exit( 1 );
 }
+$debug = isset( $config['debug'] ) && $config['debug'];
 
 $containerBuilder = new ContainerBuilder();
 $containerBuilder->addDefinitions( [
 
 	'config' => $config,
 
-	'debug' => isset( $config['debug'] ) && $config['debug'],
+	'debug' => $debug,
 
 	'logger' => function ( ContainerInterface $c ) {
 		return new Logger( 'ia-upload' );
@@ -92,9 +93,7 @@ $app->add( new ProxyDetection() );
 $app->addRoutingMiddleware();
 
 // Error middleware.
-if ( $container->get( 'debug' ) ) {
-	$app->addErrorMiddleware( true, true, true );
-}
+$app->addErrorMiddleware( $debug, $debug, $debug );
 
 /**
  * Convenience method for UploadController.
