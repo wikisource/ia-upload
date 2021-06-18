@@ -6,9 +6,6 @@ use Exception;
 use Monolog\Handler\ErrorLogHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Wikisource\IaUpload\ApiClient\CommonsClient;
@@ -18,22 +15,7 @@ use Wikisource\IaUpload\OAuth\MediaWikiOAuth;
 use Wikisource\IaUpload\OAuth\Token\AccessToken;
 use Wikisource\IaUpload\OAuth\Token\ConsumerToken;
 
-class JobsCommand extends Command {
-
-	/** @var string The full filesystem path to the 'jobqueue' directory, with no trailing slash. */
-	protected $jobqueueDir;
-
-	/** @var array Config data from config.ini. */
-	protected $config;
-
-	/**
-	 * JobsCommand constructor.
-	 * @param array $config The Slim application's config.
-	 */
-	public function __construct( array $config ) {
-		parent::__construct();
-		$this->config = $config;
-	}
+class JobsCommand extends CommandBase {
 
 	/**
 	 * Set name and job.
@@ -49,9 +31,7 @@ class JobsCommand extends Command {
 	 * @throws Exception If unable to load the required DjVuMaker class.
 	 */
 	protected function execute( InputInterface $input, OutputInterface $output ) {
-		$this->jobqueueDir = __DIR__ . '/../../jobqueue';
-		$jobs = glob( $this->jobqueueDir . '/*/job.json' );
-		foreach ( $jobs as $jobFile ) {
+		foreach ( $this->getJobs() as $jobFile ) {
 			// Make sure we can write to the job directory.
 			$jobDir = dirname( $jobFile );
 			if ( !is_writable( $jobDir ) ) {
@@ -119,25 +99,6 @@ class JobsCommand extends Command {
 			$this->deleteDirectory( $jobDir );
 		}
 		return 0;
-	}
-
-	/**
-	 * Delete a directory tree, to any depth.
-	 * @param string $dir The directory to delete.
-	 */
-	protected function deleteDirectory( $dir ) {
-		$files = new RecursiveIteratorIterator(
-			new RecursiveDirectoryIterator( $dir, RecursiveDirectoryIterator::SKIP_DOTS ),
-			RecursiveIteratorIterator::CHILD_FIRST
-		);
-		foreach ( $files as $file ) {
-			if ( $file->isDir() ) {
-				rmdir( $file->getRealPath() );
-			} else {
-				unlink( $file->getRealPath() );
-			}
-		}
-		rmdir( $dir );
 	}
 
 	/**
