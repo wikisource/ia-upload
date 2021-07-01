@@ -51,6 +51,7 @@
 	"invalid-length": "'$1' ארוך מדי",
 	"no-found-on-ia": "$1 אינו מזהה תקין של ארכיון האינטרנט",
 	"already-on-commons": "שם הקובץ '$1' כבר זמין בוויקישיתוף",
+	"duplicate-on-commons": "לא ניתן להעלות, כיוון שכפיל מדויק של הקובץ כבר קיים בוויקישיתוף: $1",
 	"creator-template-missing": "ליוצר ‚$1’ אין תבנית <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>יוצר</a>.",
 	"no-usable-files-found": "לא נמצאו קבצים שימושיים (DjVu,‏ PDF או JP2) עבור הפריט הזה.",
 	"successfully-uploaded": "$1 הועלה בהצלחה לוויקישיתוף!",
