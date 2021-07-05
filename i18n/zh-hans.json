@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"GuoPC",
 			"Liuxinyu970226",
 			"沈澄心"
 		]
@@ -48,6 +49,8 @@
 	"invalid-length": "“$1”太长",
 	"no-found-on-ia": "“$1”不是一个有效的互联网档案馆标识符",
 	"already-on-commons": "维基共享资源上已存在名叫“$1”的文件",
+	"duplicate-on-commons": "无法上传，因为维基共享资源上已存在完全相同的文件：$1",
+	"ia-identifier-exists": "现有文件已链接到IA标识符“$1”：$2。如果您确定需要，请仅上传新文件。同一IA项目的不同格式也可接受。",
 	"creator-template-missing": "作者“$1”没有<a href='https://commons.wikimedia.org/wiki/Commons:Creator'>creator</a>模板。",
 	"no-usable-files-found": "在项目中未找到可用文件（DjVu、PDF或JP2）。",
 	"successfully-uploaded": "$1已成功上传到共享资源！",
