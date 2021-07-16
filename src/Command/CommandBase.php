@@ -25,7 +25,7 @@ abstract class CommandBase extends Command {
 	 * @return string
 	 */
 	protected function getJobs(): array {
-		return glob( dirname( __DIR__, 3 ) . '/jobqueue/*/job.json' );
+		return glob( dirname( __DIR__, 2 ) . '/jobqueue/*/job.json' );
 	}
 
 	/**
