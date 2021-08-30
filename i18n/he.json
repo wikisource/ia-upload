@@ -52,6 +52,7 @@
 	"no-found-on-ia": "$1 אינו מזהה תקין של ארכיון האינטרנט",
 	"already-on-commons": "שם הקובץ '$1' כבר זמין בוויקישיתוף",
 	"duplicate-on-commons": "לא ניתן להעלות, כיוון שכפיל מדויק של הקובץ כבר קיים בוויקישיתוף: $1",
+	"ia-identifier-exists": "קובץ קיים כבר מקושר למזהה בארכיון האינטרנט ‚$1’: $2. נא להעלות קובץ חדש רק אם הוא נחוץ בוודאות. תצורה שונה של אותו פריט בארכיון האינטרנט זה בסדר.",
 	"creator-template-missing": "ליוצר ‚$1’ אין תבנית <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>יוצר</a>.",
 	"no-usable-files-found": "לא נמצאו קבצים שימושיים (DjVu,‏ PDF או JP2) עבור הפריט הזה.",
 	"successfully-uploaded": "$1 הועלה בהצלחה לוויקישיתוף!",
