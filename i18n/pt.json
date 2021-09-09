@@ -48,6 +48,8 @@
 	"invalid-length": "'$1' é demasiado longo",
 	"no-found-on-ia": "'$1' não é um identificador válido do Internet Archive",
 	"already-on-commons": "Já existe um ficheiro com o nome '$1' na wiki Wikimedia Commons",
+	"duplicate-on-commons": "Não foi possível fazer o carregamento porque já existe uma cópia exata do ficheiro na wiki Wikimedia Commons: $1",
+	"ia-identifier-exists": "Já existe um ficheiro ligado ao identificador IA '$1': $2. Só carregue um ficheiro novo se tem a certeza de que ele é necessário. É aceitável carregar o mesmo elemento IA mas com um formato diferente.",
 	"creator-template-missing": "O autor '$1' não tem uma predefinição de <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>criador</a>.",
 	"no-usable-files-found": "Não foram encontrados ficheiros utilizáveis (DjVu, PDF, ou JP2) para este elemento.",
 	"successfully-uploaded": "$1 foi carregado com sucesso na wiki Commons!",
