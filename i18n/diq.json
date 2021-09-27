@@ -49,6 +49,8 @@
 	"invalid-length": "'$1' zehf dergo",
 	"no-found-on-ia": "'$1' ravêrde yew şınastoğê arşive interneti biyo.",
 	"already-on-commons": "Wikimedia Commons de xora nameyê '$1' iya yû dosya esta",
+	"duplicate-on-commons": "Bar nêbena, çıke dosyaya zey naye Embarê Wikimedya de xora esta: $1",
+	"ia-identifier-exists": "Yew dosyaya ke esta, xora be nasnameyê '$1' IA ra gırêdayiya.  \nKeremê xo ra, eke tenya pê gumanê xo ana, yew pela newiye bar ke. Unsurê IA ra formato de ciya zi beno.",
 	"creator-template-missing": "Jew şablonê '$1' <a href='https://commons.wikimedia.org/wiki/Commons:Creator/tr'>oluşturucu</a> nuştekari çıniyo.",
 	"no-usable-files-found": "Seba na obje karbiyaye  dosyalar (DjVu, PDF ya zi JP2) nêvineyay.",
 	"successfully-uploaded": "$1, barê Commons'i biya!",
