@@ -1,9 +1,15 @@
 {
-	"name" : "ia-upload",
-	"title" : "IA Upload",
-	"description" : "A tool to upload Internet Archive files to Wikimedia Commons",
-	"url" : "https://ia-upload.toolforge.org/",
+	"name": "ia-upload",
+	"title": "IA Upload",
+	"description": "A tool to upload Internet Archive files to Wikimedia Commons",
+	"url": "https://ia-upload.wmcloud.org/",
+	"tool_type": "web app",
+	"for_wikis": [ "*.wikisource.org", "commons.wikimedia.org" ],
 	"keywords" : "Wikisource, Internet Archive, DjVu, PDF, conversion, upload",
-	"author" : "Tpt, Sam Wilson",
-	"repository" : "https://github.com/wikisource/ia-upload.git"
+	"author": "Tpt, Sam Wilson",
+	"bugtracker_url": "https://phabricator.wikimedia.org/tag/ia_upload/",
+	"translate_url": "https://translatewiki.net/wiki/Translating:IA_Upload",
+	"repository": "https://github.com/wikisource/ia-upload.git",
+	"license": "GPL-2.0-or-later",
+	"technology_used": [ "PHP" ]
 }
