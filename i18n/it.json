@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Ajeje Brazorf",
 			"Albe Albe 460",
 			"Beta16",
 			"Greis",
@@ -25,12 +26,14 @@
 	"job-queue-empty": "La coda di lavoro è attualmente vuota.",
 	"jobs-will-be-removed": "I job saranno rimossi da questo elenco una volta completati e caricati su Commons.",
 	"user-contribs-link": "I file verranno visualizzati nell'<a href='$1'>elenco dei tuoi contributi</a> su Commons.",
+	"table-header-ia-item": "Elemento IA",
 	"table-header-commons-filename": "Nome file Commons",
 	"table-header-status": "Stato",
 	"table-header-log": "Registro",
 	"table-header-download": "Scarica",
 	"in-progress": "In corso",
 	"queued": "In coda",
+	"possibly-failed": "Possibilmente non riuscito",
 	"file-source-djvu": "Usa DjVu esistente",
 	"file-source-jp2": "da scansioni originali (JP2)",
 	"file-source-pdf": "da PDF (può essere di qualità inferiore)",
