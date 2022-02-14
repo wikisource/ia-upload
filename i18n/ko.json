@@ -50,6 +50,8 @@
 	"invalid-length": "'$1'이(가) 너무 깁니다",
 	"no-found-on-ia": "'$1'은(는) 유효한 인터넷 아카이브 식별자가 아닙니다",
 	"already-on-commons": "이름이 '$1'인 파일이 위키미디어 공용에 이미 존재합니다",
+	"duplicate-on-commons": "정확히 중복되는 파일이 이미 위키미디어 공용에 있으므로 업로드할 수 없습니다: $1",
+	"ia-identifier-exists": "기존 파일이 이미 IA 식별자 '$1': $2에 연결되어 있습니다. 반드시 필요한 경우에만 새 파일을 업로드하십시오. 동일한 IA 항목의 다른 형식이면 괜찮습니다.",
 	"creator-template-missing": "'$1' 저자는 <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>창작자</a> 템플릿을 가지고 있지 않습니다.",
 	"no-usable-files-found": "해당 항목에서 사용할 수 있는 파일 (DjVu, PDf 또는 JP2) 을 찾을 수 없었습니다.",
 	"successfully-uploaded": "$1이(가) 성공적으로 공용에 업로드되었습니다!",
