@@ -38,14 +38,14 @@
 	"queued": "En file d’attente",
 	"possibly-failed": "Échec possible",
 	"file-source-djvu": "Utiliser DjVu existant",
-	"file-source-jp2": "depuis des fac-similés originaux (JP2)",
+	"file-source-jp2": "depuis des facsimilés originaux (JP2)",
 	"file-source-pdf": "depuis un PDF (peut être de qualité inférieure)",
 	"file-source-not-available": "(non disponible pour cet élément)",
 	"file-source-help": "Depuis quel site devrait être généré le fichier DjVu ?<br /> Notez que pour JP2 et PDF, <strong>vos informations d’authentification seront enregistrées</strong> sur le serveur de Tool Labs aussi longtemps que nécessaire pour achever la conversion (en général moins d’une heure). Vous pouvez <a href=\"$1\">révoquer l’accès de cet outil</a> à tout moment.",
 	"remove-first-page": "Supprimer la première page ?",
 	"remove-first-page-yes": "Oui, supprimer cette page de DjVu",
 	"remove-first-page-no": "Non, la laisser",
-	"remove-first-page-help": "Certains fac-similés de Google contiennent une page de couverture protégée par des droits, ce qui n’est pas autorisé sur Commons. Pour plus d’information, veuillez voir la <a href=\"https://en.wikisource.org/wiki/Help:Internet_Archive#Google_Books\">page d’aide sur Wikisource</a>.",
+	"remove-first-page-help": "Certains facsimilés de Google contiennent une page de couverture protégée par des droits, ce qui n’est pas autorisé sur Commons. Pour plus d’information, veuillez voir la <a href=\"https://en.wikisource.org/wiki/Help:Internet_Archive#Google_Books\">page d’aide sur Wikisource</a>.",
 	"authorize-first": "Vous devez autoriser le téléversement depuis l’IA avant de téléverser le fichier",
 	"upload-time-warning": "(Attention : le téléversement peut prendre plus d’une minute !)",
 	"set-all-fields": "Veuillez renseigner tous les champs du formulaire",
@@ -61,6 +61,6 @@
 	"recent-uploads": "Téléversements récents",
 	"recent-uploads-tooltip": "Afficher les téléversements récents réalisés avec cet outil",
 	"watch-log": "Veuillez garder un œil sur le journal et <a href=\"https://phabricator.wikimedia.org/maniphest/task/create/?projects=ia-upload\">créer un signalement</a> pour tout problème.",
-	"zip-file-too-large": "Veuillez noter que le fichier ZIP des fac-similés originaux venant d’Internet Archive <em>peut</em> être trop volumineux pour que l’outil réalise le téléversement (il fait environ $1 Mio et la taille maximale suggérée est $2 Mio).",
-	"too-many-pages": "Veuillez noter que le fichier zip des fac-similés originaux venant d’Internet Archive <em>peut</em> contenir trop de pages pour que l’outil réalise le téléversement (il en contient $1 et le nombre maximal suggéré est $2)."
+	"zip-file-too-large": "Veuillez noter que le fichier ZIP des facsimilés originaux venant d’Internet Archive <em>peut</em> être trop volumineux pour que l’outil réalise le téléversement (il fait environ $1 Mio et la taille maximale suggérée est $2 Mio).",
+	"too-many-pages": "Veuillez noter que le fichier zip des facsimilés originaux venant d’Internet Archive <em>peut</em> contenir trop de pages pour que l’outil réalise le téléversement (il en contient $1 et le nombre maximal suggéré est $2)."
 }
