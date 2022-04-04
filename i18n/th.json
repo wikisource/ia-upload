@@ -3,6 +3,7 @@
 		"authors": [
 			"Aefgh39622",
 			"Geonuch",
+			"Just Sayori",
 			"Nintendofan885",
 			"Patsagorn Y.",
 			"Woraponboonkerd"
@@ -51,6 +52,7 @@
 	"invalid-length": "'$1' ยาวเกินไป",
 	"no-found-on-ia": "'$1' ไม่ใช่รหัส ID ของ Internet Archive ที่ถูกต้อง",
 	"already-on-commons": "ชื่อไฟล์ '$1' ซ้ำกับที่มีอยู่แล้วในวิกิมีเดียคอมมอนส์",
+	"duplicate-on-commons": "ไม่สามารถอัพโหลดได้ เนื่องจากมีไฟล์ที่ตรงกันอยู่บนวิกิมีเดียคอมมอนส์: $1",
 	"creator-template-missing": "ผุ้สร้างสรรค์ \"$1\" ยังไม่มีแม่แบบ <a href=\"https://commons.wikimedia.org/wiki/Commons:Creator\">creator</a>",
 	"no-usable-files-found": "ไม่พบไฟล์ (DjVu, PDF, หรือ JP2) ที่ใช้ได้สำหรับรายการดังกล่าว",
 	"successfully-uploaded": "อัปโหลด $1 ไปยังคอมมอนส์เสร็จสมบูรณ์!",
