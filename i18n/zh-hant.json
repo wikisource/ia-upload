@@ -23,7 +23,7 @@
 	"form-label-commons-description": "共享資源描述：",
 	"ia-id-help": "ID 是 URL 位址裡在「details/」之後的部份，例如像：$1",
 	"commons-name-help": "在上傳至維基共享資源時請為檔案提供名稱。若檔案已存在它將不會被重新上傳，而您會被告知於此變更它。",
-	"get-metadata": "獲取元數據",
+	"get-metadata": "取得元資料",
 	"job-queue": "工作佇列",
 	"job-queue-empty": "工作佇列目前為空。",
 	"jobs-will-be-removed": "在完成上傳至共享資源後工作將會至此列表裡移除。",
