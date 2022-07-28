@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Athena in Wonderland",
+			"Duke of Wikipädia",
 			"Eduardo Addad de Oliveira",
 			"Eduardoaddad"
 		]
@@ -49,6 +50,8 @@
 	"invalid-length": "'$1' é demasiado longo",
 	"no-found-on-ia": "'$1' não é um identificador válido do Internet Archive",
 	"already-on-commons": "Um arquivo designado por '$1' já existe no Wikimedia Commons",
+	"duplicate-on-commons": "Não foi possível fazer o carregamento porque já existe uma cópia exata do arquivo na Wikimedia Commons: $1",
+	"ia-identifier-exists": "Um arquivo existente já está vinculado ao identificador IA '$1': $2. Carregue um novo arquivo apenas se tiver certeza de que é necessário. Um formato diferente do mesmo item IA está OK.",
 	"creator-template-missing": "O autor '$1' não tem uma predefinição de <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>criador</a>",
 	"no-usable-files-found": "Não foram encontrados arquivos utilizáveis (DjVu, PDF, ou JP2) para este item.",
 	"successfully-uploaded": "$1 foi enviado com sucesso no Commons!",
