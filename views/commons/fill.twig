@@ -15,9 +15,10 @@
 				<label for="commonsName" class="col-lg-2 control-label">{{ 'form-label-commons-name'|message }}</label>
 				<div class="col-lg-10">
 					<span class="input-group">
-						<input name="commonsName" id="commonsName" type="text" size="30" required="required" readonly="readonly" class="form-control" value="{{ commonsName|e }}" />
+						<input name="commonsName" id="commonsName" type="text" size="30" required="required" class="form-control" value="{{ commonsName|e }}" />
 						<span class="input-group-addon">.{{ format }}</span>
 					</span>
+					<span class="help-block">{{ 'commons-name-help'|message }}</span>
 				</div>
 			</div>
 

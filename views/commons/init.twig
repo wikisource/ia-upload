@@ -13,19 +13,6 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="commonsName" class="col-lg-3 control-label">{{ 'form-label-commons-name'|message }}</label>
-				<div class="controls col-lg-9">
-					<div class="input-group">
-						<input name="commonsName" id="commonsName" type="text" size="30" required="required" class="form-control choose-format" value="{{ commonsName|e }}" maxlength="240" />
-						<select name="format" id="format" class="form-control input-group-addon">
-							<option value="pdf"{% if format == 'pdf' %} selected{% endif %}>.pdf</option>
-							<option value="djvu"{% if format == 'djvu' %} selected{% endif %}>.djvu</option>
-						</select>
-					</div>
-					<span class="help-block">{{ 'commons-name-help'|message }}</span>
-				</div>
-			</div>
-			<div class="form-group">
 				<div class="col-lg-offset-3 col-lg-9">
 					<input class="btn btn-primary" type="submit" value="{{ 'get-metadata'|message }}" />
 				</div>

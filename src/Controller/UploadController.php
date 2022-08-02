@@ -15,6 +15,7 @@ use Wikisource\IaUpload\ApiClient\CommonsClient;
 use Wikisource\IaUpload\ApiClient\IaClient;
 use Wikisource\IaUpload\OAuth\MediaWikiOAuth;
 use Wikisource\IaUpload\OAuth\Token\ConsumerToken;
+use Wikisource\IaUpload\Utils\IaMetadataUtils;
 
 /**
  * Controller for the commons upload process
@@ -170,7 +171,6 @@ class UploadController {
 		$query = $request->getQueryParams();
 		return $this->outputsInitTemplate( [
 			'iaId' => $query['iaId'] ?? '',
-			'commonsName' => $query['commonsName'] ?? '',
 			'jobs' => $jobs,
 		], $response );
 	}
@@ -210,11 +210,10 @@ class UploadController {
 		$format = $query['format'] ?? 'djvu';
 		$fileSource = $query['fileSource'] ?? 'djvu';
 		// Validate inputs.
-		if ( $iaId === '' || $commonsName === '' ) {
+		if ( $iaId === '' ) {
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
 				'format' => $format,
-				'commonsName' => $commonsName,
 				'error' => $this->i18n->message( 'set-all-fields' ),
 			], $response );
 		}
@@ -223,7 +222,6 @@ class UploadController {
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
 				'format' => $format,
-				'commonsName' => $commonsName,
 				'error' => $this->i18n->message( 'invalid-length', [ $commonsName ] ),
 			], $response );
 		}
@@ -234,7 +232,6 @@ class UploadController {
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
 				'format' => $format,
-				'commonsName' => $commonsName,
 				'error' => $this->i18n->message( 'invalid-commons-name', [ $commonsName ] ),
 			], $response );
 		}
@@ -248,11 +245,14 @@ class UploadController {
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
 				'format' => $format,
-				'commonsName' => $commonsName,
 				'error' => $this->i18n->message( 'no-found-on-ia', [ $link ] ),
 			], $response );
 		}
 		$iaId = $iaData['metadata']['identifier'][0];
+
+		if ( $commonsName == '' ) {
+			$commonsName = IaMetadataUtils::getCommonsNameFromIaData( $iaData, ' - ' );
+		}
 
 		// Make sure at least one of the required input formats is available.
 		$djvuFilename = $this->getIaFileName( $iaData, 'djvu' );
@@ -263,7 +263,6 @@ class UploadController {
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
 				'format' => $format,
-				'commonsName' => $commonsName,
 				'error' => $this->i18n->message( 'no-usable-files-found' ),
 			], $response );
 		}
@@ -296,7 +295,6 @@ class UploadController {
 			return $this->outputsInitTemplate( [
 				'iaId' => $iaId,
 				'format' => $format,
-				'commonsName' => $commonsName,
 				'error' => $this->i18n->message( 'already-on-commons', [ $link ] ),
 			], $response );
 		}
@@ -479,7 +477,6 @@ class UploadController {
 	protected function outputsInitTemplate( array $params, Response $response ) {
 		$defaultParams = [
 			'iaId' => '',
-			'commonsName' => '',
 			'jobs' => [],
 			'format' => 'djvu',
 			'wiki_base_url' => $this->config['wiki_base_url'],
