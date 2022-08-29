@@ -3,6 +3,7 @@
 		"authors": [
 			"Fulup",
 			"Gwenn-Ael",
+			"Huñvreüs",
 			"Nintendofan885"
 		]
 	},
@@ -19,11 +20,11 @@
 	"form-label-file-source": "Mammenn ar restr DjVu :",
 	"form-label-commons-description": "Deskrivadur Commons :",
 	"ia-id-help": "Setu ID al lodenn eus an URL zo goude 'munudoù/', da skouer : $1",
-	"commons-name-help": "An anv da reiñ d'ar restr-mañ pa vo enporzhiet war Wikimedia Commons. Ma'z eus eus ar restr c'hoazh ne vo ket adenporzhiet hag e vo goulennet diganeoc'h cheñch anezhañ amañ.",
+	"commons-name-help": "An anv da reiñ d'ar restr-mañ pa vo pellgaset war Wikimedia Commons. Ma'z eus eus ar restr c'hoazh ne vo ket adpellgaset hag e vo goulennet diganeoc'h cheñch anezhañ amañ.",
 	"get-metadata": "Gwelet ar metaroadennoù",
 	"job-queue": "Lost gortoz an trevell",
 	"job-queue-empty": "Goullo eo al lost gortoz evit poent",
-	"jobs-will-be-removed": "Lamet e vo an trevelloù a-ziwar ar roll-mañ pa vint bet kaset da benn hag enporzhiet war Commons.",
+	"jobs-will-be-removed": "Lamet e vo an trevelloù a-ziwar ar roll-mañ pa vint bet kaset da benn ha pellgaset war Commons.",
 	"user-contribs-link": "Dont a raio ar restroù war wel en <a href='$1'>ho roll degasadennoù</a> war Commons.",
 	"table-header-ia-item": "Elfenn IA",
 	"table-header-commons-filename": "Anv restr Commons",
