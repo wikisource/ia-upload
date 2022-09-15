@@ -1,0 +1,30 @@
+{
+	"@metadata": {
+		"authors": [
+			"Cwtiyar",
+			"Halbast"
+		]
+	},
+	"ia-upload": "ئای ئەی ئەپڵۆود",
+	"site-title": "کتێب لە ئەرشیفی ئینتەرنێتەوە بار بکە",
+	"debug-notice": "ئەم ماڵپەڕە لە دۆخی ھەڵەدۆزیندایە، و لەوانەیە بە تەواوی کار نەکات.",
+	"logged-in-as": "تۆ بە $1 لە ژوورەوەیت",
+	"logout": "چوونە دەرەوە",
+	"login-notice": "بۆ بارکردنی کتێب، پێویستە <a href='$1'>لە ژوورەوە بیت</a> to upload",
+	"site-explanation": "ئەمە <a href='$1'>ئامرازی ئای ئەی ئەپڵۆود</a>ە، تکایە <a href='$2'>ھەر کێشەیەکی ھەبوو سکاڵای بکە</a>.",
+	"upload-file": "پەڕگەیەک بار بکە",
+	"form-label-commons-name": "ناوی پەڕگە لە کۆمنز:",
+	"form-label-file-source": "سەرچاوەی پەڕگەی DjVu:",
+	"form-label-commons-description": "وەسفی کۆمنز:",
+	"table-header-status": "ڕەوش",
+	"table-header-log": "لۆگ",
+	"table-header-download": "داگرتن",
+	"in-progress": "لەژێر کاردا",
+	"remove-first-page-no": "نا، لێی گەڕێ",
+	"invalid-commons-name": "'$1' ناوی پەڕگەیەکی دروست نییە بۆ ویکیمیدیا کۆمنز",
+	"invalid-length": "'$1' زۆر درێژە",
+	"already-on-commons": "پەڕگەیەک بە ناوی '$1' بوونی ھەیە لە ویکیمیدیا کۆمنز",
+	"successfully-uploaded": "$1 بە سەرکەوتوویی لە کۆمنز بارکرا!",
+	"recent-uploads": "دوواین بارکراوەکان",
+	"recent-uploads-tooltip": "دوایین بارکردنەکان ببینە کە لەلایەن ئەم ئامرازەوە ئەنجام دراون"
+}
