@@ -29,7 +29,7 @@
 	"table-header-log": "Dnevnik",
 	"table-header-download": "Prenos",
 	"in-progress": "V teku",
-	"queued": "Na čakanju",
+	"queued": "V čakalni vrsti",
 	"possibly-failed": "Morda ni uspelo",
 	"file-source-djvu": "Uporabi obstoječi DjVu",
 	"file-source-jp2": "iz izvornih skeniranj (JP2)",
