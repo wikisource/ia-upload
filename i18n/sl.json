@@ -52,7 +52,7 @@
 	"creator-template-missing": "Avtor »$1« nima predloge za <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>ustvarjalca</a>.",
 	"no-usable-files-found": "Za ta predmet ni najdenih uporabnih datotek (DjVu, PDF ali JP2).",
 	"successfully-uploaded": "Datoteka $1 je bila uspešno naložena v Zbirko!",
-	"recent-uploads": "Nedavna nalaganja",
+	"recent-uploads": "Nedavne naložitve",
 	"recent-uploads-tooltip": "Ogled nedavnih nalaganj s tem orodjem",
 	"watch-log": "Bodite pozorni na dnevnik in v primeru kakršne&nbsp;koli napake <a href='https://phabricator.wikimedia.org/maniphest/task/create/?projects=ia-upload'>ustvarite poročilo</a>.",
 	"zip-file-too-large": "Upoštevajte, da so <em>lahko</em> zazipana datoteka ali prvotna skeniranja prevelika za obdelavo z orodjem IA Upload (približna velikost datoteke: $1 MB; največja predlagana velikost: $2 MB).",
