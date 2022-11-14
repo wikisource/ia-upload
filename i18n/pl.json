@@ -2,9 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"Chrumps",
-			"Krottyianock"
+			"Krottyianock",
+			"Пан Хаунд"
 		]
 	},
+	"site-title": "Prześlij książki z Archiwum Internetowego",
 	"logged-in-as": "Jesteś zalogowany jako $1",
 	"logout": "Wyloguj",
 	"upload-file": "Prześlij plik",
@@ -23,5 +25,7 @@
 	"remove-first-page-no": "Nie, pozostawić ją",
 	"upload-time-warning": "(Uwaga: przesyłanie może trwać ponad jedną minutę!)",
 	"set-all-fields": "Wypełnij wszystkie pola formularza",
+	"invalid-length": "'$1' jest za długi",
+	"no-found-on-ia": "'$1' nie jest prawidłowym identyfikatorem Archiwum Internetowego",
 	"creator-template-missing": "Autor $1 nie posiada uprawnień redaktora szablonów. Jeśli znasz jego numer w Wikidanych, możesz [https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php utworzyć szablon teraz]."
 }
