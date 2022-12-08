@@ -3,7 +3,8 @@
 		"authors": [
 			"EukeneFL",
 			"Mikel Ibaiba",
-			"Subi"
+			"Subi",
+			"Xabier Armendaritz"
 		]
 	},
 	"logout": "Saioa itxi",
@@ -12,7 +13,7 @@
 	"get-metadata": "Eskuratu metadatuak",
 	"table-header-commons-filename": "Aman komuneko fitxategi izenak",
 	"table-header-status": "Egoera",
-	"table-header-download": "Jaitsi",
+	"table-header-download": "Deskargatu",
 	"in-progress": "Egiten",
 	"queued": "Ilaran",
 	"file-source-not-available": "(Ez dago eskuragarri item honetarako)",

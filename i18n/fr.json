@@ -18,7 +18,7 @@
 	"login-notice": "Vous devez <a href=\"$1\">vous connecter</a> pour téléverser des livres dans Wikimedia Commons",
 	"site-explanation": "Ceci est <a href=\"$1\">l’outil de téléversement d’Internet Archive</a>, veuillez <a href=\"$2\">signaler tout problème</a>.",
 	"upload-file": "Importer un fichier",
-	"form-label-ia-id": "ID du fichier sur Internet Archive :",
+	"form-label-ia-id": "Identifiant du fichier sur Internet Archive :",
 	"form-label-commons-name": "Nom du fichier sur Commons :",
 	"form-label-file-source": "Fichier source DjVu :",
 	"form-label-commons-description": "Description sur Commons :",

@@ -10,7 +10,7 @@
 	"logged-in-as": "Prijavljeni ste kot $1",
 	"logout": "Odjava",
 	"login-notice": "Za nalaganje knjig v Wikimedijino zbirko se morate <a href='$1'>prijaviti</a>",
-	"site-explanation": "To je <a href='$1'>Orodje za nalaganje IA</a>. Morabitne težave nam <a href='$2'>sporočite</a>.",
+	"site-explanation": "To je <a href='$1'>Orodje za nalaganje IA</a>. Morebitne težave nam <a href='$2'>sporočite</a>.",
 	"upload-file": "Naloži datoteko",
 	"form-label-ia-id": "ID datoteke v Internet Archive:",
 	"form-label-commons-name": "Ime datoteke v Zbirki:",
