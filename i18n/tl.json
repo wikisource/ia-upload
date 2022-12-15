@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"GinawaSaHapon"
+			"GinawaSaHapon",
+			"Jojit fb"
 		]
 	},
 	"ia-upload": "IA Upload",
@@ -14,7 +15,7 @@
 	"upload-file": "Mag-upload ng file",
 	"form-label-ia-id": "ID ng file sa Internet Archive:",
 	"form-label-commons-name": "Pangalan ng file sa Commons:",
-	"form-label-file-source": "Source ng file na DjVu:",
+	"form-label-file-source": "Pinagmulan ng file na DjVu:",
 	"form-label-commons-description": "Paglalarawan sa Commons:",
 	"ia-id-help": "Bahagi ng URL ang ID na makikita pagkatapos ng 'details/', halimbawa: $1",
 	"commons-name-help": "Ang pangalang ibibigay sa file na ito kapag nai-upload na ito sa Wikimedia Commons. Kung meron na'ng ganitong file, hindi na muli itong ia-upload at ipo-prompt ka na baguhin ito rito.",

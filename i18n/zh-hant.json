@@ -6,6 +6,7 @@
 			"Nintendofan885",
 			"Winston Sung",
 			"Xiplus",
+			"捍粵者",
 			"烈羽"
 		]
 	},
@@ -33,7 +34,7 @@
 	"table-header-status": "狀態",
 	"table-header-log": "日誌",
 	"table-header-download": "下載",
-	"in-progress": "進行中",
+	"in-progress": "處理中",
 	"queued": "已佇列",
 	"possibly-failed": "可能失敗",
 	"file-source-djvu": "使用現有的 DjVu",
