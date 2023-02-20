@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Dutchy45",
-			"Mainframe98"
+			"Mainframe98",
+			"McDutchie"
 		]
 	},
 	"debug-notice": "Deze site is in debug-modus en functioneert mogelijk niet correct.",
@@ -10,10 +11,10 @@
 	"logout": "Afmelden",
 	"upload-file": "Bestand uploaden",
 	"form-label-commons-name": "Bestandsnaam op Commons:",
-	"form-label-commons-description": "Commons beschrijving:",
+	"form-label-commons-description": "Commons-beschrijving:",
 	"job-queue": "Taakwachtrij",
 	"job-queue-empty": "De taakwachtrij is momenteel leeg.",
-	"table-header-commons-filename": "Commons bestandsnaam",
+	"table-header-commons-filename": "Commons-bestandsnaam",
 	"table-header-status": "Status",
 	"table-header-log": "Logboek",
 	"in-progress": "Wordt uitgevoerd",
@@ -24,5 +25,5 @@
 	"file-source-not-available": "(niet beschikbaar voor dit item)",
 	"upload-time-warning": "(Waarschuwing: het uploaden kan meer dan een minuut duren!)",
 	"already-on-commons": "Een bestand met de naam '$1' bestaat reeds op Wikimedia Commons",
-	"creator-template-missing": "De auteur '$1' heeft geen <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>creator</a> sjabloon."
+	"creator-template-missing": "De auteur '$1' heeft geen <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>creator</a>-sjabloon."
 }
