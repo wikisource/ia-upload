@@ -39,7 +39,7 @@
 	"remove-first-page": "Odstranim prvo stran?",
 	"remove-first-page-yes": "Da, to stran odstrani iz DjVu-ja",
 	"remove-first-page-no": "Ne, pusti jo",
-	"remove-first-page-help": "Nekatera skeniranja iz Googla vsebujejo avtorsko zavarovano naslovnico, ki v Zbirki ni dovoljena. Za več informacij glejte <a href='https://en.wikisource.org/wiki/Help:Internet_Archive#Google_Books'>stran s pomočjo v Wikiviru</a>.",
+	"remove-first-page-help": "Nekatera skeniranja iz Googla vsebujejo avtorsko varovano naslovnico, ki v Zbirki ni dovoljena. Za več informacij glejte <a href='https://en.wikisource.org/wiki/Help:Internet_Archive#Google_Books'>stran pomoči v Wikiviru</a>.",
 	"authorize-first": "IA-nalaganje morate pred nalaganjem datoteke odobriti",
 	"upload-time-warning": "(Opozorilo: Nalaganje lahko traja dlje kot eno minuto!)",
 	"set-all-fields": "Nastavi vsa polja obrazca",
