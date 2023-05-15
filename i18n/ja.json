@@ -3,6 +3,7 @@
 		"authors": [
 			"Omotecho",
 			"Otokoume",
+			"Shirayuki",
 			"Tmv"
 		]
 	},
@@ -37,7 +38,7 @@
 	"file-source-jp2": "オリジナルのスキャンを使用 (JP2)",
 	"file-source-pdf": "PDF を使用 (画質が低下する可能性あり)",
 	"file-source-not-available": "(この項目には利用できません)",
-	"file-source-help": "DjVu ファイルはどこから取り込みますか？<br /> ご注意: JP2 とPDF 形式の場合、変換処理が終了するまで (一般に1時間以内) Tool Labs サーバ上に<strong>ユーザーの認証証明書を保存され消去されません</strong>。いつでも<a href='$1'>このツールのアクセスを\n無効にできます</a>。",
+	"file-source-help": "DjVu ファイルはどこから取り込みますか？<br /> ご注意: JP2 とPDF 形式の場合、変換処理が終了するまで (一般に1時間以内) Tool Labs サーバ上に<strong>利用者の認証証明書を保存され消去されません</strong>。いつでも<a href='$1'>このツールのアクセスを無効にできます</a>。",
 	"remove-first-page": "先頭ページを削除しますか？",
 	"remove-first-page-yes": "はい、このページを DjVu から削除",
 	"remove-first-page-no": "いいえ、変更しません",
