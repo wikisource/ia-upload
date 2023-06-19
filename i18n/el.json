@@ -4,11 +4,12 @@
 			"KATRINE1992",
 			"NikosLikomitros",
 			"Nikosgranturismogt",
-			"Nintendofan885"
+			"Nintendofan885",
+			"Spyridon Eftychios Kokotos"
 		]
 	},
-	"ia-upload": "IA Upload",
-	"site-title": "Μεταφόρτωση βιβλίων από το Internet Archive",
+	"ia-upload": "IA Μεταφόρτωση",
+	"site-title": "Ανεβάστε βιβλία από το Internet Archive",
 	"debug-notice": "Αυτή η ιστοσελίδα είναι σε λειτουργία αποσφαλμάτωσης, και ίσως να μην δουλεύει σωστά.",
 	"logged-in-as": "Έχετε συνδεθεί ως $1.",
 	"logout": "Αποσύνδεση",
@@ -50,7 +51,9 @@
 	"invalid-length": "το '$1' είναι πολύ μακρύ",
 	"no-found-on-ia": "το '$1' δεν είναι έγκυρο αναγνωριστικό του Internet Archive",
 	"already-on-commons": "Ένα αρχείο με το όνομα '$1' υπάρχει ήδη στο Wikimedia Commons",
-	"creator-template-missing": "Ο συγγραφέας '$1' δεν έχει ένα πρότυπο <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>δημιουργού</a>. Εάν ξέρετε το αναγνωριστικό του στο Wikidata, μπορείτε <a href='https://wikidata-todo.toolforge.org/creator_from_wikidata.php'>να δημιουργήσετε το πρότυπο τώρα</a>.",
+	"duplicate-on-commons": "Δεν είναι δυνατή η μεταφόρτωση, επειδή υπάρχει ήδη ένα ακριβές διπλότυπο αρχείο στα Wikimedia Commons: $1",
+	"ia-identifier-exists": "Ένα υπάρχον αρχείο είναι ήδη συνδεδεμένο με το αναγνωριστικό IA \" $1 \": $2 . Παρακαλώ, ανεβάστε ένα νέο αρχείο μόνο εάν είστε βέβαιοι ότι απαιτείται. Μια διαφορετική μορφή του ίδιου στοιχείου IA είναι εντάξει.",
+	"creator-template-missing": "Ο συγγραφέας '$1' δεν έχει ένα πρότυπο <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>creator</a>",
 	"no-usable-files-found": "Δεν βρέθηκαν χρησιμοποιήσιμα αρχεία (DjVu, PDF, ή JP2) για αυτό το αντικείμενο.",
 	"successfully-uploaded": "Το $1 έχει αποσταλεί με επιτυχία στο Κοινά!",
 	"recent-uploads": "Πρόσφατες φορτώσεις",
