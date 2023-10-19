@@ -3,6 +3,7 @@
 		"authors": [
 			"Acamicamacaraca",
 			"BadDog",
+			"Milicevic01",
 			"Obsuser"
 		]
 	},
@@ -49,6 +50,8 @@
 	"invalid-length": "'$1' је предугачко",
 	"no-found-on-ia": "'$1' није валидан идентификатор Internet Archive-а",
 	"already-on-commons": "Датотека са именом '$1' већ постоји на Викимедијиној остави",
+	"duplicate-on-commons": "Отпремање није могуће, већ постоји идентична датотеке на Викимедијиној остави: $1",
+	"ia-identifier-exists": "Постојећа датотека је већ повезана са IA идентификатором „$1”: $2. Отпремите нову датотеку само уколико сте сигурни да је то потребно. Другачији формат за исту IA ставку је у реду.",
 	"creator-template-missing": "Аутор $1 нема шаблон <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>творца</a>.",
 	"no-usable-files-found": "Ниједна употребљива датотека (DjVu, PDF или JP2) није пронађена за ту ставку.",
 	"successfully-uploaded": "$1 је успешно отпремљена на Остави!",
