@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Jon Harald Søby",
 			"Liuxinyu970226",
 			"MuratTheTurkish",
 			"Nike"
@@ -51,7 +52,7 @@
 	"already-on-commons": "Message displayed when the provided Commons filename already exists; $1 is a full HTML link",
 	"duplicate-on-commons": "Error message displayed when the file being uploaded already exists on Commons.\n\nParameter:\n* $1 - An HTML link to the file on Commons.",
 	"ia-identifier-exists": "Warning message displayed when the IA ID is already referenced by a file on Commons.\n\nParameters:\n* $1 - The IA identifier.\n* $2 - An HTML link to the file on Commons.",
-	"creator-template-missing": "",
+	"creator-template-missing": "{{doc-singularthey}}",
 	"no-usable-files-found": "Error message explaining that none of the required file formats were found on Internet Archive",
 	"successfully-uploaded": "Message shown after a DjVu file has been transferred successfully to Commons; $1 is a full HTML link",
 	"recent-uploads": "Text for a link to RecentChanges at Wikimedia Commons",
