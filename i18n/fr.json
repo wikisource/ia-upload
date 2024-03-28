@@ -54,7 +54,7 @@
 	"no-found-on-ia": "« $1 » n’est pas un identifiant valide d’Internet Archive.",
 	"already-on-commons": "Un fichier nommé « $1 » existe déjà sur Wikimedia Commons.",
 	"duplicate-on-commons": "Impossible d’effectuer le téléversement parce qu’une copie exacte du fichier existe déjà sur Wikimedia Commons : $1",
-	"ia-identifier-exists": "Un fichier existant est déjà lié à l’identifiant d’IA « $1 » : $2. Veuillez ne télécharger un nouveau fichier que si vous êtes sûr{{GENDER:||e}} que c’est nécessaire. Un format différent du même élément d’IA est accepté.",
+	"ia-identifier-exists": "Un fichier existant est déjà lié à l’identifiant d’IA « $1 » : $2. Veuillez ne téléverser un nouveau fichier que si vous êtes sûr{{GENDER:||e}} que c’est nécessaire. Un format différent du même élément d’IA est accepté.",
 	"creator-template-missing": "L’auteur « $1 » n’a aucun modèle <a href=\"https://commons.wikimedia.org/wiki/Commons:Creator\">Créateur</a>.",
 	"no-usable-files-found": "Aucun fichier utilisable (DjVu, PDF ou JP2) trouvé pour cet élément.",
 	"successfully-uploaded": "$1 a bien été téléversé dans Commons !",
