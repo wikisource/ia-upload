@@ -697,7 +697,7 @@ class UploadController {
 	/**
 	 * Get the wikitext for the Author parameter.
 	 * @param mixed[] $data The IA metadata.
-	 * @param string[] &$notes The notes array to add warnings to.
+	 * @param string[] $notes The notes array to add warnings to.
 	 * @return string
 	 */
 	protected function parseAuthorParam( $data, &$notes ) {
