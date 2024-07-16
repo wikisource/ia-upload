@@ -1,4 +1,8 @@
 <?php
+/**
+ * This file was copied and modified from the GPL licensed Wikimedia Simplei18n:
+ * https://github.com/wikimedia/simplei18n/blob/f1a39234bba74685070733d44bfc658407dd8245/src/TwigExtension.php
+ */
 
 namespace Wikisource\IaUpload\Middleware;
 
@@ -6,8 +10,6 @@ use Krinkle\Intuition\Intuition;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
-/**
- */
 class TwigMessageExtension extends AbstractExtension {
 
 	/**
