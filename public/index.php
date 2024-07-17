@@ -3,6 +3,7 @@
 namespace IaUpload;
 
 use DI\ContainerBuilder;
+use Krinkle\Intuition\Intuition;
 use Monolog\Logger;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -12,12 +13,10 @@ use Slim\Factory\AppFactory;
 use Slim\Middleware\Session;
 use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
-use Wikimedia\SimpleI18n\I18nContext;
-use Wikimedia\SimpleI18n\JsonCache;
-use Wikimedia\SimpleI18n\TwigExtension;
 use Wikisource\IaUpload\Controller\OAuthController;
 use Wikisource\IaUpload\Controller\UploadController;
 use Wikisource\IaUpload\Middleware\ProxyDetection;
+use Wikisource\IaUpload\Middleware\TwigMessageExtension;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -46,12 +45,14 @@ $containerBuilder->addDefinitions( [
 
 	// Internationalisation.
 	'i18n' => function ( ContainerInterface $c ) {
-		return new I18nContext( new JsonCache( __DIR__ . '/../i18n' ) );
+		$intuition = new Intuition( 'ia-upload' );
+		$intuition->registerDomain( 'ia-upload', __DIR__ . '/../i18n' );
+		return $intuition;
 	},
 
 	'view' => function ( ContainerInterface $c ) {
 		$view = Twig::create( __DIR__ . '/../views' );
-		$view->addExtension( new TwigExtension( $c->get( 'i18n' ) ) );
+		$view->addExtension( new TwigMessageExtension( $c->get( 'i18n' ) ) );
 		return $view;
 	},
 
