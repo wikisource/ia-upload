@@ -53,6 +53,6 @@ class TwigMessageExtension extends AbstractExtension {
 			// Unwrap args array
 			$params = $params[0];
 		}
-		return $this->intuition->msg( $key, $params );
+		return $this->intuition->msg( $key, [ 'variables' => $params ] );
 	}
 }
