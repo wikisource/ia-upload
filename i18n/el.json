@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Jimkats",
 			"KATRINE1992",
 			"McDutchie",
 			"NikosLikomitros",
@@ -56,9 +57,9 @@
 	"ia-identifier-exists": "Ένα υπάρχον αρχείο είναι ήδη συνδεδεμένο με το αναγνωριστικό IA \" $1 \": $2 . Παρακαλώ, ανεβάστε ένα νέο αρχείο μόνο εάν είστε βέβαιοι ότι απαιτείται. Μια διαφορετική μορφή του ίδιου στοιχείου IA είναι εντάξει.",
 	"creator-template-missing": "Ο συγγραφέας '$1' δεν έχει ένα πρότυπο <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>creator</a>",
 	"no-usable-files-found": "Δεν βρέθηκαν χρησιμοποιήσιμα αρχεία (DjVu, PDF, ή JP2) για αυτό το αντικείμενο.",
-	"successfully-uploaded": "Το $1 έχει αποσταλεί με επιτυχία στο Κοινά!",
-	"recent-uploads": "Πρόσφατες φορτώσεις",
-	"recent-uploads-tooltip": "Δέστε πρόσφατες φορτώσεις με αυτό το εργαλείο",
+	"successfully-uploaded": "Το $1 έχει ανέβει με επιτυχία στο Commons!",
+	"recent-uploads": "Πρόσφατες μεταφορτώσεις",
+	"recent-uploads-tooltip": "Δείτε πρόσφατες μεταφορτώσεις από αυτό το εργαλείο",
 	"watch-log": "Παρακαλώ κοιτάξτε το μητρώο, και <a href='https://phabricator.wikimedia.org/maniphest/task/create/?projects=ia-upload'>δημιουργήστε ένα ζήτημα</a> για οποιαδήποτε αποτυχία.",
 	"zip-file-too-large": "Παρακαλώ σημειώστε ότι το συμπιεσμένο αρχείο αρχικών σαρώσεων του Internet Archive <em>μπορεί</em> να είναι πολύ μεγάλο για το IA Upload να το επεξεργαστεί (είναι περίπου $1 MB, και το μέγιστο προτεινόμενο όριο είναι τα $2 MB).",
 	"too-many-pages": "Παρακαλώ σημειώστε ότι το συμπιεσμένο αρχείο αρχικών σαρώσεων του Internet Archive <em>μπορεί</em> να περιέχει πάρα πολλές σελίδες ώστε το IA Upload να το επεξεργαστεί (είναι περίπου $1, και το μέγιστο προτεινόμενο όριο είναι το $2)."
