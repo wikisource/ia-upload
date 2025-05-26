@@ -20,7 +20,7 @@
 	"form-label-file-source": "DjVu ファイルの出典:",
 	"form-label-commons-description": "コモンズでの説明:",
 	"ia-id-help": "ID は「details/」より後の URL の一部です。次のようになります: $1",
-	"commons-name-help": "ウィキメディア・コモンズにアップロードしたときのファイル名。すでに同名のファイルが存在する場合はアップロードせず、ここで変更するようにメッセージを表示します。",
+	"commons-name-help": "ウィキメディア・コモンズにアップロードしたときのファイル名。既に同名のファイルが存在する場合はアップロードせず、ここで変更するようにメッセージを表示します。",
 	"get-metadata": "メタデータを取得",
 	"job-queue": "ジョブキュー",
 	"job-queue-empty": "ジョブキューは空です。",
