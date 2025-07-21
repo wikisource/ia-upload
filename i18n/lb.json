@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Robby",
-			"Soued031"
+			"Soued031",
+			"Volvox"
 		]
 	},
 	"ia-upload": "IA Upload",
@@ -26,7 +27,7 @@
 	"file-source-not-available": "(net disponibel fir dëst Element)",
 	"remove-first-page": "Éischt Säit ewechhuelen?",
 	"remove-first-page-yes": "Jo, dës Säit vun DjVu erofhuelen",
-	"remove-first-page-no": "Neen, draloossen",
+	"remove-first-page-no": "Nee, draloossen",
 	"upload-time-warning": "(Ppgepasst: d'Eropluede ka méi laang wéi eng Minutt daueren)",
 	"set-all-fields": "Fëllt wgl. all Felder vum Formulaire aus",
 	"invalid-commons-name": "'$1' ass kee valabelen Numm fir e Fichier op Wikimedia Commons",
