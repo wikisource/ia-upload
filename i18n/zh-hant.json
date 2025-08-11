@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Kly",
+			"Lakejason0",
 			"Liuxinyu970226",
 			"Nintendofan885",
 			"Winston Sung",
@@ -25,9 +26,9 @@
 	"ia-id-help": "ID 是 URL 位址裡在「details/」之後的部份，例如像：$1",
 	"commons-name-help": "在上傳至維基共享資源時請為檔案提供名稱。若檔案已存在它將不會被重新上傳，而您會被告知於此變更它。",
 	"get-metadata": "取得元資料",
-	"job-queue": "工作佇列",
-	"job-queue-empty": "工作佇列目前為空。",
-	"jobs-will-be-removed": "在完成上傳至共享資源後工作將會至此列表裡移除。",
+	"job-queue": "作業佇列",
+	"job-queue-empty": "作業佇列目前為空。",
+	"jobs-will-be-removed": "在完成上傳至共享資源後，作業將會自此清單中移除。",
 	"user-contribs-link": "檔案將會出現在共享資源中<a href='$1'>您的貢獻列表</a>裡。",
 	"table-header-ia-item": "IA 項目",
 	"table-header-commons-filename": "共享資源檔案名稱",

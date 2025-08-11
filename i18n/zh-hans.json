@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"GuoPC",
+			"Lakejason0",
 			"Liuxinyu970226",
 			"沈澄心"
 		]
@@ -21,9 +22,9 @@
 	"ia-id-help": "ID是在URL中，“details/”之后的部分，例如：$1",
 	"commons-name-help": "当上传到维基共享资源时，为该文件提供的文件名。如果文件已存在，它将不会重新上传，并将提示您在此更改它。",
 	"get-metadata": "获取元数据",
-	"job-queue": "工作队列",
-	"job-queue-empty": "工作队列当前为空。",
-	"jobs-will-be-removed": "一旦工作完成，上传到共享资源后，将从该列表中移除工作。",
+	"job-queue": "作业队列",
+	"job-queue-empty": "作业队列当前为空。",
+	"jobs-will-be-removed": "在完成上传到共享资源后，作业将从该列表中移除。",
 	"user-contribs-link": "文件将出现在共享资源上<a href='$1'>您的贡献列表</a>中。",
 	"table-header-ia-item": "IA项目",
 	"table-header-commons-filename": "共享资源文件名",
