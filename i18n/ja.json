@@ -50,6 +50,8 @@
 	"invalid-length": "「$1」は長すぎます",
 	"no-found-on-ia": "「$1」は、有効なインターネットアーカイブ識別子ではありません",
 	"already-on-commons": "「$1」というファイル名は、既にウィキメディア・コモンズに存在します",
+	"duplicate-on-commons": "ウィキメディア コモンズに全く同じファイルが既に存在するため、アップロードできません：$1",
+	"ia-identifier-exists": "IA識別子〔$1〕には既に既存のファイルがリンク済みです：$2。新しいファイルは、必要だという確信がある場合のみアップロードしてください。同一のIAアイテムで形式が異なるものはアップロード可能です。",
 	"creator-template-missing": "制作者「$1」には<a href='https://commons.wikimedia.org/wiki/Commons:Creator'>制作者</a>テンプレートがありません。",
 	"no-usable-files-found": "その項目に対する利用可能なファイルが見つかりません (形式は DjVu、PDF、JP2)。",
 	"successfully-uploaded": "コモンズで $1 のアップロードを完了しました。",

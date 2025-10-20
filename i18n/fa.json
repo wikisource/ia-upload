@@ -3,6 +3,7 @@
 		"authors": [
 			"Darafsh",
 			"FarsiNevis",
+			"LordProfo",
 			"Ommmmid",
 			"Sunfyre"
 		]
@@ -39,7 +40,7 @@
 	"file-source-pdf": "از فایل پی‌دی‌اف (ممکن است کیفیت پایین‌تری داشته باشد)",
 	"file-source-not-available": "(برای این آیتم در دسترس نیست)",
 	"file-source-help": "از کجا باید فایل DjVu ساخته شود؟<br /> توجه داشته باشید که برای فرمت‌های JP2 و PDF، <strong>اطلاعات احراز هویت شما روی سرور ابزار Labs ذخیره می‌شود</strong> تا زمانی که تبدیل کامل شود (معمولاً کمتر از یک ساعت). شما می‌توانید <a href='$1'>دسترسی این ابزار را هر زمان لغو کنید</a>.",
-	"remove-first-page": "صفحهٔ اول حذف شود؟",
+	"remove-first-page": "صفحهٔ نخست حذف شود؟",
 	"remove-first-page-yes": "بله، این صفحه از DjVu حذف شود",
 	"remove-first-page-no": "خیر، آن را نگه دار",
 	"remove-first-page-help": "برخی اسکن‌ها از گوگل شامل صفحهٔ جلد دارای حق کپی‌رایت هستند که اجازهٔ بارگذاری آن‌ها در ویکی‌انبار وجود ندارد. برای اطلاعات بیشتر لطفاً به <a href='https://en.wikisource.org/wiki/Help:Internet_Archive#Google_Books'>صفحهٔ راهنما در ویکی‌نبشتهٔ انگلیسی</a> مراجعه کنید.",
