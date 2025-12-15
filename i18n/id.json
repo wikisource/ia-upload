@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Akmaie Ajam",
-			"Hidayatsrf"
+			"Hidayatsrf",
+			"Penyuwangi"
 		]
 	},
 	"ia-upload": "IA Upload",
@@ -36,7 +37,7 @@
 	"file-source-jp2": "dari pemindaian asli (JP2)",
 	"file-source-pdf": "dari PDF (mungkin dengan kualitas yang lebih rendah)",
 	"file-source-not-available": "(tidak ada untuk item ini)",
-	"file-source-help": "Dari mana berkas DjVu dibuat?<br />Catatan: untuk JP2 dan PDF, <strong>kredensial autentikasi Anda akan disimpan</strong> di server Tool Labs selama penyelesaian konversi (biasanya kurang dari satu jam). Anda bisa <a href='$1'>menarik akses alat ini</a> kapanpun.\nWhere should the DjVu file be generated from?<br /> Note that for JP2 and PDF, <strong>your authentication credentials will be stored</strong> on the Tool Labs server for as long as it takes to complete the conversion (usually less than an hour). You can <a href='$1'>revoke this tool's access</a> at any time.",
+	"file-source-help": "Dari mana berkas DjVu dibuat?<br />Catatan: untuk JP2 dan PDF, <strong>kredensial autentikasi Anda akan disimpan</strong> di server Tool Labs selama penyelesaian konversi (biasanya kurang dari satu jam). Anda bisa <a href='$1'>menarik akses alat ini</a> kapanpun.",
 	"remove-first-page": "Hapus halaman pertama?",
 	"remove-first-page-yes": "Ya, hapus halaman ini dari DjVu",
 	"remove-first-page-no": "Tidak, biarkan halaman",
