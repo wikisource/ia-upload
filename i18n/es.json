@@ -8,7 +8,8 @@
 			"Macofe",
 			"McDutchie",
 			"Nintendofan885",
-			"RicardoSGZ"
+			"RicardoSGZ",
+			"Tecbs"
 		]
 	},
 	"ia-upload": "Carga IA",
@@ -59,7 +60,7 @@
 	"creator-template-missing": "El autor '$1' no tiene una plantilla de <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>creador</a>.",
 	"no-usable-files-found": "No se encontró ningún archivo utilizable (en DjVu, PDF o JP2) para ese elemento.",
 	"successfully-uploaded": "$1 se cargó correctamente en Commons.",
-	"recent-uploads": "Cargas recientes",
+	"recent-uploads": "Subidas recientes",
 	"recent-uploads-tooltip": "Ver cargas recientes hechas con esta herramienta",
 	"watch-log": "Estate atento al registro y <a href='https://phabricator.wikimedia.org/maniphest/task/create/?projects=ia-upload'></a>crea una tarea</a> en caso de cualquier fallo.",
 	"zip-file-too-large": "Por favor ten en cuenta que el archivo zip de los escaneos originales de Internet Archive <em>puede</em> ser demasiado grande para que IA Upload lo procese (es de aproximadamente $1 MB y el tamaño máximo sugerido es de $2 MB).",
