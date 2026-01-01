@@ -3,6 +3,7 @@
 		"authors": [
 			"Chrumps",
 			"Krottyianock",
+			"Woytecr",
 			"Пан Хаунд"
 		]
 	},
@@ -27,5 +28,5 @@
 	"set-all-fields": "Wypełnij wszystkie pola formularza",
 	"invalid-length": "'$1' jest za długi",
 	"no-found-on-ia": "'$1' nie jest prawidłowym identyfikatorem Archiwum Internetowego",
-	"creator-template-missing": "Autor $1 nie posiada uprawnień redaktora szablonów. Jeśli znasz jego numer w Wikidanych, możesz [https://tools.wmflabs.org/wikidata-todo/creator_from_wikidata.php utworzyć szablon teraz]."
+	"creator-template-missing": "Autor(ka) \"$1\" nie ma odpowiadającego tej osobie szablonu <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>twórcy</a>."
 }
