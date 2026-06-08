@@ -54,7 +54,7 @@
 	"ia-identifier-exists": "Een bestaand bestand is al gekoppeld aan de IA-identifier '$1': $2. Upload alleen een nieuw bestand als u zeker weet dat dit nodig is. Een ander formaat van hetzelfde IA-item is toegestaan.",
 	"creator-template-missing": "De auteur '$1' heeft geen <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>creator</a>-sjabloon.",
 	"no-usable-files-found": "Er zijn geen bruikbare bestanden gevonden voor dat item (DjVu, PDF of JP2).",
-	"successfully-uploaded": "$1 is succesvol geüpload naar Commons!",
+	"successfully-uploaded": "$1 is geüpload naar Commons!",
 	"recent-uploads": "Recente uploads",
 	"recent-uploads-tooltip": "Recente uploads met dit hulpmiddel bekijken",
 	"watch-log": "Houd het logboek in de gaten en <a href='https://phabricator.wikimedia.org/maniphest/task/create/?projects=ia-upload'>meld een probleem</a> bij eventuele fouten.",
