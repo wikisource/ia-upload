@@ -34,8 +34,8 @@
 	"in-progress": "Wordt uitgevoerd",
 	"queued": "In wachtrij",
 	"possibly-failed": "Mogelijk mislukt",
-	"file-source-djvu": "Gebruik bestaande DjVu",
-	"file-source-jp2": "van de originele scans (JP2)",
+	"file-source-djvu": "Bestaande DjVu gebruiken",
+	"file-source-jp2": "van de oorspronkelijke scans (JP2)",
 	"file-source-pdf": "van PDF (kan van een lagere kwaliteit zijn)",
 	"file-source-not-available": "(niet beschikbaar voor dit item)",
 	"file-source-help": "Waar moet het DjVu-bestand vandaan worden gegenereerd?<br /> Houd er rekening mee dat voor JP2 en PDF <strong>uw authenticatiegegevens op de Tool Labs-server worden opgeslagen</strong> zolang het duurt om de conversie te voltooien. Dit is meestal minder dan een uur. U kunt <a href='$1'>de toegang tot dit hulpmiddel op elk moment intrekken</a>.",
@@ -49,7 +49,7 @@
 	"invalid-commons-name": "'$1' is geen geldige bestandsnaam voor Wikimedia Commons",
 	"invalid-length": "'$1' is te lang",
 	"no-found-on-ia": "'$1' is geen geldige Internet Archive-identificatie",
-	"already-on-commons": "Een bestand met de naam '$1' bestaat reeds op Wikimedia Commons",
+	"already-on-commons": "Een bestand met de naam '$1' bestaat al op Wikimedia Commons",
 	"duplicate-on-commons": "Kan niet uploaden, omdat er al een exact duplicaatbestand bestaat op Wikimedia Commons: $1",
 	"ia-identifier-exists": "Een bestaand bestand is al gekoppeld aan de IA-identifier '$1': $2. Upload alleen een nieuw bestand als u zeker weet dat dit nodig is. Een ander formaat van hetzelfde IA-item is toegestaan.",
 	"creator-template-missing": "De auteur '$1' heeft geen <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>creator</a>-sjabloon.",
@@ -58,6 +58,6 @@
 	"recent-uploads": "Recente uploads",
 	"recent-uploads-tooltip": "Recente uploads met dit hulpmiddel bekijken",
 	"watch-log": "Houd het logboek in de gaten en <a href='https://phabricator.wikimedia.org/maniphest/task/create/?projects=ia-upload'>meld een probleem</a> bij eventuele fouten.",
-	"zip-file-too-large": "Houd er rekening mee dat het zip-bestand met originele scans van het Internet Archive <em>mogelijk</em> te groot is om door IA Upload te worden verwerkt. Het is ongeveer $1 MB, en de maximale geadviseerde grootte is $2 MB.",
-	"too-many-pages": "Houd er rekening mee dat het zip-bestand met originele scans van het Internet Archive <em>mogelijk</em> te veel pagina's bevat die IA Upload niet kan verwerken. Het bevat $1 pagina's en het maximale aan te raden aantal is $2."
+	"zip-file-too-large": "Houd er rekening mee dat het zip-bestand met oorspronkelijke scans van het Internet Archive <em>mogelijk</em> te groot is om door IA Upload te worden verwerkt. Het is ongeveer $1 MB, en de maximale geadviseerde grootte is $2 MB.",
+	"too-many-pages": "Houd er rekening mee dat het zip-bestand met oorspronkelijke scans van het Internet Archive <em>mogelijk</em> te veel pagina's bevat die IA Upload niet kan verwerken. Het bevat $1 pagina's en het maximale aan te raden aantal is $2."
 }
