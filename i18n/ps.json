@@ -1,0 +1,26 @@
+{
+	"@metadata": {
+		"authors": [
+			"Ahmed-Najib-Biabani-Ibrahimkhel",
+			"شاه زمان پټان"
+		]
+	},
+	"ia-upload": "اينټرنېټ خونديځ راپورته‌کول",
+	"site-title": "له  اينټرنېټ خونديځ نه کتابونه راپورته‌کول",
+	"logged-in-as": "تاسو د $1 په توگه ننوتلي ياست",
+	"logout": "وتل",
+	"upload-file": "دوتنه راپورته‌کول",
+	"table-header-commons-filename": "ټولگړې دوتنې‌نوم",
+	"table-header-status": "دريځ",
+	"table-header-log": "يادښت",
+	"table-header-download": "راکښته‌کول",
+	"in-progress": "د پرمختگ بهير کې",
+	"queued": "کتار شوی",
+	"file-source-not-available": "(دې توکي لپاره شتون نه‌لري)",
+	"remove-first-page": "له دې مخ يې لرې کړي؟",
+	"remove-first-page-yes": "هو، دا مخ له DjVu لرې کړئ",
+	"remove-first-page-no": "نه، پرېږده یې",
+	"upload-time-warning": "(گواښنه: راپورته‌کول ښايي له يوې دقيقې زيات وخت ونيسي!)",
+	"set-all-fields": "مهرباني وکړئ د فورمې ټولې برخې وټاکئ",
+	"recent-uploads": "تازه پورته کېدنې"
+}
