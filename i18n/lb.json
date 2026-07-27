@@ -32,6 +32,7 @@
 	"set-all-fields": "Fëllt wgl. all Felder vum Formulaire aus",
 	"invalid-commons-name": "'$1' ass kee valabelen Numm fir e Fichier op Wikimedia Commons",
 	"invalid-length": "'$1' ass ze laang",
+	"no-found-on-ia": "„$1“ ass kee gültegen Internet-Archive-Identifiant",
 	"already-on-commons": "Et gëtt schonn e Fichier mam Numm '$1' op Wikimedia Commons",
 	"successfully-uploaded": "$1 gouf op Commons eropgelueden!",
 	"recent-uploads": "Rezent eropgeluede Fichieren"
