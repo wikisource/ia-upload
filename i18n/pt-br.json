@@ -4,12 +4,13 @@
 			"Athena in Wonderland",
 			"Duke of Wikipädia",
 			"Eduardo Addad de Oliveira",
-			"Eduardoaddad"
+			"Eduardoaddad",
+			"Trooper57"
 		]
 	},
 	"ia-upload": "IA Upload",
-	"site-title": "Carregar livros do Arquivo da Internet",
-	"debug-notice": "Este sítio está no modo de depuração, e pode não funcionar corretamente.",
+	"site-title": "Carregar livros do Internet Archive",
+	"debug-notice": "Este site está no modo de depuração, e pode não funcionar corretamente.",
 	"logged-in-as": "Você está logado como $1",
 	"logout": "Sair",
 	"login-notice": "Deve <a href='$1'>iniciar sessão</a> para poder enviar os livros ao Wikimedia Commons",
