@@ -4,6 +4,7 @@
 			"Atvalerie",
 			"Chrumps",
 			"Krottyianock",
+			"PanWor",
 			"Woytecr",
 			"Пан Хаунд"
 		]
@@ -11,7 +12,7 @@
 	"ia-upload": "IA Upload",
 	"site-title": "Prześlij książki z Internet Archive",
 	"debug-notice": "Ta strona jest w trybie debugowania i może działać nieprawidłowo.",
-	"logged-in-as": "Jesteś zalogowany jako $1",
+	"logged-in-as": "Zalogowano się jako $1",
 	"logout": "Wyloguj",
 	"login-notice": "Musisz <a href='$1'>zalogować się</a> aby przesyłać książki do Wikimedia Commons",
 	"site-explanation": "To jest <a href='$1'>narzędzie IA Upload</a>, proszę <a href='$2'>zgłaszać wszelkie problemy</a>.",
