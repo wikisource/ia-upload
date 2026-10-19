@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Saraiki"
+			"Saraiki",
+			"Tauqeerkhansurani"
 		]
 	},
 	"ia-upload": "آئی اے اپ لوڈ",
@@ -9,13 +10,20 @@
 	"debug-notice": "ایہ سائٹ ڈی بغ موڈ وچ ہے تے بھانوٰیں ٹھیک کم نی کریندی پئی،",
 	"logged-in-as": "تساں $1 بݨ تے لاگ ان ہو",
 	"logout": "لاگ آؤٹ",
+	"login-notice": "Wikimedia Commons تے کتاباں اپ لوڈ کرݨ کیتے تساں <a href='$1'>لاگ اِن</a> کرو۔",
+	"site-explanation": "ایہ <a href='$1'>IA Upload اوزار</a> ہے، براہ کرم <a href='$2'>کئیں وی مسئلے دی اطلاع ݙیو</a>۔",
 	"upload-file": "فائل اپ لوڈ کرو",
 	"form-label-ia-id": "انٹرنیٹ آرکائیو تے فائل دی آئی ڈی:",
 	"form-label-commons-name": "کامنز وچ فائل دا ناں:",
+	"form-label-file-source": "DjVu فائل دا ذریعہ:",
 	"form-label-commons-description": "کامنز دی تفصیل",
+	"ia-id-help": "ID یو آر ایل دا او حصہ ہے جیہڑا 'details/' دے بعد ہے، مثال دے طور تے: $1",
+	"commons-name-help": "او ناں جیہڑا ایں فائل کوں Wikimedia Commons تے اپ لوڈ کریندے ویلھے ݙتا ویسی۔ جے فائل پہلے توں موجود ہے، تاں اوہ ٻیا اپ لوڈ نی تھیسی اتے ایتھاں اوہندا ناں بدلݨ کیتے اکھا ویسی۔",
 	"get-metadata": "میٹا ڈیٹا گھنو",
 	"job-queue": "کماں دی قطار",
 	"job-queue-empty": "کم دی قطار ہݨ خالی ہے۔",
+	"jobs-will-be-removed": "جڈاں کم مکمل ہو کے Commons تے اپ لوڈ تھی ویسن، تاں ایں فہرست توں ہٹا ݙتے ویسن۔",
+	"user-contribs-link": "فائلاں Commons تے <a href='$1'>تساں دی شراکتاں دی فہرست</a> وچ نظر اوسن۔",
 	"table-header-ia-item": "آئی اے آئٹم",
 	"table-header-commons-filename": "کامنز فائل دا ناں",
 	"table-header-status": "حالت",
@@ -23,11 +31,31 @@
 	"table-header-download": "ڈاؤن لوڈ",
 	"in-progress": "تھیندا پئے",
 	"queued": "قطار وچ ہے",
+	"possibly-failed": "شاید ناکام تھیا",
+	"file-source-djvu": "موجودہ DjVu ورتو",
+	"file-source-jp2": "اصل سکیناں توں (JP2)",
+	"file-source-pdf": "PDF توں (شاید گھٹ معیار دی)",
 	"file-source-not-available": "(ایں آئٹم کیتے دستیاب کائنی)",
+	"file-source-help": "DjVu فائل کتھوں تیار کیتی ونڄے؟<br /> نوٹ کرو جو JP2 اتے PDF کیتے، <strong>تساں دی تصدیقی معلومات</strong> Tool Labs سرور تے اتنے ویلھے تائیں محفوظ رہسن جتنے وچ تبدیلی مکمل تھیوے (عام طور تے ہک گھنٹے توں گھٹ)۔ تساں کئیں وی ویلھے <a href='$1'>ایں اوزار دی رسائی واپس گھن سڳدے ہو</a>۔",
 	"remove-first-page": "پہلا ورقہ مٹاواں؟",
+	"remove-first-page-yes": "ہا، ایں صفحے کوں DjVu توں ہٹا ݙیو",
 	"remove-first-page-no": "کو، ایں کوں اتھ چھوڑو",
+	"remove-first-page-help": "Google توں کجھ سکیناں وچ حقوق محفوظ والا سرورق ہوندا ہے جیہڑا Commons تے جائز کائنی۔ مزید معلومات کیتے براہ کرم <a href='https://en.wikisource.org/wiki/Help:Internet_Archive#Google_Books'>Wikisource تے امدادی صفحہ</a> ݙیکھو۔",
+	"authorize-first": "فائل اپ لوڈ کرݨ توں پہلے تساں ia-upload کوں اختیار ݙیو۔",
+	"upload-time-warning": "(خبردار: اپ لوڈ وچ ہک منٹ توں ودھ ویلا لڳ سڳدا ہے!)",
 	"set-all-fields": "ایں فارم دے سارے خانے بھرو، مہربانی ہوسی",
+	"invalid-commons-name": "$1 Wikimedia Commons کیتے کوئی جائز فائل ناں کائنی",
 	"invalid-length": "$1 ٻہوں لمبا ہے",
+	"no-found-on-ia": "$1 کوئی جائز Internet Archive شناخت کنندہ کائنی",
+	"already-on-commons": "'$1' ناں دی فائل پہلے توں Wikimedia Commons تے موجود ہے",
+	"duplicate-on-commons": "اپ لوڈ نی تھیا، کیوں جو Wikimedia Commons تے بالکل ہک جیہی فائل پہلے توں موجود ہے: $1",
+	"ia-identifier-exists": "IA شناخت کنندہ '$1' نال پہلے توں ہک فائل منسلک ہے: $2۔ نویں فائل صرف ایں صورت وچ اپ لوڈ کرو جے تساں کوں یقین ہے جو ایندی لوڑ ہے۔ ہک ای IA شے دا مختلف فارمیٹ ٹھیک ہے۔",
+	"creator-template-missing": "مصنف '$1' کول <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>creator</a> ٹیمپلیٹ کائنی۔",
+	"no-usable-files-found": "ایں شے کیتے کوئی قابلِ استعمال فائلاں (DjVu, PDF, یا JP2) نی ملیاں۔",
+	"successfully-uploaded": "$1 کامیابی نال Commons تے اپ لوڈ تھی ڳیا ہے!",
 	"recent-uploads": "حالیہ اپ لوڈ",
-	"recent-uploads-tooltip": "ایں اوزار نال حالیہ اپ لوڈ ݙیکھو"
+	"recent-uploads-tooltip": "ایں اوزار نال حالیہ اپ لوڈ ݙیکھو",
+	"watch-log": "براہ کرم لاگ تے نظر رکھو، اتے کہیں وی ناکامی کیتے <a href='https://phabricator.wikimedia.org/maniphest/task/create/?projects=ia-upload'>ہک مسئلہ درج کرو</a>۔",
+	"zip-file-too-large": "براہ کرم نوٹ کرو جو Internet Archive دی اصل سکیناں والی زپ فائل <em>شاید</em> IA Upload کیتے پروسیس کرݨ توں ٻہوں وݙی ہووے (ایہ تقریباً $1 MB دی ہے، اتے ودھ توں ودھ تجویز کردہ حجم $2 MB ہے)۔",
+	"too-many-pages": "براہ کرم نوٹ کرو جو Internet Archive دی اصل سکیناں والی زپ فائل وچ <em>شاید</em> IA Upload کیتے پروسیس کرݨ توں ٻہوں ودھ صفحے ہوون (ایندے وچ $1 ہن، اتے ودھ توں ودھ تجویز کردہ تعداد $2 ہے)۔"
 }
