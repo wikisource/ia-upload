@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Nintendofan885",
+			"Panasko",
 			"Srdjan m",
 			"Srđan"
 		]
@@ -29,8 +30,10 @@
 	"table-header-commons-filename": "Ime na Commonsu",
 	"table-header-status": "Status",
 	"table-header-log": "Zapisnik",
+	"table-header-download": "Preuzmi",
 	"in-progress": "U toku",
 	"queued": "Na čekanju",
+	"possibly-failed": "Moguće neuspješno",
 	"file-source-djvu": "Koristi postojeći DjVu",
 	"file-source-jp2": "iz originalnih skenova (JP2)",
 	"file-source-pdf": "iz PDF-a (može biti lošije kvalitete)",
@@ -47,5 +50,14 @@
 	"invalid-length": "'$1' je predugo",
 	"no-found-on-ia": "'$1' ne predstavlja ispravan ID na Internet Archiveu",
 	"already-on-commons": "Datoteka s imenom '$1' već postoji na Wikimedia Commonsu",
-	"creator-template-missing": "Autor '$1' nema šablon <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>stvaraoca</a>. Ako im znate ID na Wikipodacima, možete <a href='https://wikidata-todo.toolforge.org/creator_from_wikidata.php'>sada napraviti šablon</a>."
+	"duplicate-on-commons": "Nije moguće izvršiti upload jer na Wikimedia Commonsu već postoji identičan duplikat datoteke: $1",
+	"ia-identifier-exists": "Postojeća datoteka je već povezana sa IA identifikatorom '$1': $2. Molimo vas da novu datoteku otpremite samo ako ste sigurni da je to potrebno. Drugačiji format iste IA stavke je prihvatljiv.",
+	"creator-template-missing": "Autor '$1' nema šablon <a href='https://commons.wikimedia.org/wiki/Commons:Creator'>stvaraoca</a>.",
+	"no-usable-files-found": "Nisu pronađene upotrebljive datoteke (DjVu, PDF ili JP2) za tu stavku.",
+	"successfully-uploaded": "$1 je uspješno prenesen na Commons!",
+	"recent-uploads": "Nedavni uploadi",
+	"recent-uploads-tooltip": "Pogledajte nedavne uploade sa ovim alatom",
+	"watch-log": "Molimo vas da pratite zapis (log) i <a href='https://phabricator.wikimedia.org/maniphest/task/create/?projects=ia-upload'>prijavite problem</a> u slučaju bilo kakvih neuspjeha.",
+	"zip-file-too-large": "Imajte na umu da zip datoteka Internet arhivea originalnih skeniranih datoteka <em>može</em> biti prevelika za obradu od strane IA Upload-a (veličina je oko $1 MB, a maksimalna preporučena veličina je $2 MB).",
+	"too-many-pages": "Imajte na umu da zip datoteka s izvornim skenovima sa stranice Internet Archive <em>može</em> sadržavati previše stranica da bi ih alat IA Upload mogao obraditi (sadrži $1 MB, a maksimalna preporučena veličina je $2 MB)."
 }
