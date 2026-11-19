@@ -4,6 +4,7 @@
 			"Aftabuzzaman",
 			"Bodhisattwa",
 			"ZI Jony",
+			"আজিজ",
 			"আফতাবুজ্জামান"
 		]
 	},
@@ -28,7 +29,7 @@
 	"user-contribs-link": "ফাইলগুলি কমন্সে <a href='$1'>আপনার অবদানের তালিকায়</a> দেখাবে।",
 	"table-header-ia-item": "IA আইটেম",
 	"table-header-commons-filename": "কমন্সে ফাইলের নাম",
-	"table-header-status": "অবস্থা",
+	"table-header-status": "স্থিতি",
 	"table-header-log": "লগ",
 	"table-header-download": "ডাউনলোড করুন",
 	"in-progress": "চলমান",
